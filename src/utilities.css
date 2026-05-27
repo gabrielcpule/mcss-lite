@@ -1,0 +1,41 @@
+/* ============================================================
+   MCSS-Lite: Utility Layer
+   Single-purpose overrides. Use sparingly.
+   ============================================================ */
+
+@layer utility {
+  .u-text-center { text-align: center !important; }
+  .u-text-left   { text-align: left !important; }
+  .u-text-right  { text-align: right !important; }
+
+  .u-hidden       { display: none !important; }
+  .u-visible      { visibility: visible !important; }
+  .u-invisible    { visibility: hidden !important; }
+
+  .u-margin-0     { margin: 0 !important; }
+  .u-padding-0    { padding: 0 !important; }
+
+  .u-font-normal   { font-weight: var(--font-weight-normal) !important; }
+  .u-font-medium   { font-weight: var(--font-weight-medium) !important; }
+  .u-font-semibold { font-weight: var(--font-weight-semibold) !important; }
+  .u-font-bold     { font-weight: var(--font-weight-bold) !important; }
+  .u-font-mono     { font-family: var(--font-family-mono) !important; }
+
+  .u-truncate {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .u-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}

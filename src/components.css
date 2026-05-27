@@ -1,0 +1,334 @@
+/* ============================================================
+   MCSS-Lite: Component Layer
+   Reusable UI components. BEM naming: c-block__element--modifier.
+   Components never declare external margin (Golden Rule).
+   ============================================================ */
+
+@layer component {
+  /* === Button === */
+  .c-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border: var(--border-width-thin) solid var(--color-border-interactive);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-background-interactive);
+    color: var(--color-gray-900);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-tight);
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+    user-select: none;
+  }
+
+  .c-button:hover {
+    background-color: var(--color-background-interactive-hover);
+  }
+
+  .c-button:active {
+    transform: translateY(1px);
+  }
+
+  .c-button--primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .c-button--primary:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  .c-button--secondary {
+    background-color: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .c-button--secondary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .c-button--ghost {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .c-button--ghost:hover {
+    background-color: var(--color-gray-100);
+  }
+
+  .c-button--sm {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .c-button--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+  }
+
+  .c-button[data-state="disabled"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .c-button[data-state="loading"] {
+    opacity: 0.7;
+    cursor: wait;
+    pointer-events: none;
+  }
+
+  /* === Card === */
+  .c-card {
+    background-color: var(--color-white);
+    border: var(--border-width-thin) solid var(--color-gray-200);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .c-card--elevated {
+    box-shadow: var(--shadow-md);
+  }
+
+  .c-card--bordered {
+    box-shadow: none;
+    border-color: var(--color-gray-300);
+  }
+
+  .c-card--interactive {
+    cursor: pointer;
+    transition:
+      box-shadow var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .c-card--interactive:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+  }
+
+  .c-card__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .c-card__body {
+    margin-bottom: var(--space-4);
+  }
+
+  .c-card__body:last-child {
+    margin-bottom: 0;
+  }
+
+  .c-card__footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: var(--border-width-thin) solid var(--color-gray-200);
+  }
+
+  .c-card__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+  }
+
+  /* === Input === */
+  .c-input {
+    display: block;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: var(--border-width-thin) solid var(--color-border-interactive);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-background-interactive);
+    color: var(--color-gray-900);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .c-input::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  .c-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 90, 156, 0.15);
+    outline: none;
+  }
+
+  .c-input[data-state="error"] {
+    border-color: var(--color-border-error);
+  }
+
+  .c-input[data-state="error"]:focus {
+    box-shadow: 0 0 0 3px rgba(114, 28, 36, 0.15);
+  }
+
+  .c-input[data-state="success"] {
+    border-color: var(--color-border-success);
+  }
+
+  .c-input[data-state="disabled"] {
+    background-color: var(--color-background-disabled);
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  /* === Label === */
+  .c-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-700);
+    margin-bottom: var(--space-2);
+  }
+
+  /* === Form Field === */
+  .c-form-field {
+    /* Block-level wrapper; spacing handled by layout parent */
+  }
+
+  .c-form-field__label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-2);
+  }
+
+  .c-form-field__help {
+    margin-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+  }
+
+  .c-form-field__error {
+    margin-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-error);
+  }
+
+  /* === Badge / Tag === */
+  .c-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-700);
+  }
+
+  .c-badge--primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .c-badge--success {
+    background-color: var(--color-background-success);
+    color: var(--color-text-success);
+  }
+
+  .c-badge--warning {
+    background-color: var(--color-background-warning);
+    color: var(--color-text-warning);
+  }
+
+  .c-badge--error {
+    background-color: var(--color-background-error);
+    color: var(--color-text-error);
+  }
+
+  /* === Modal === */
+  .c-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-index-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .c-modal[data-state="closed"] {
+    display: none;
+  }
+
+  .c-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--z-index-modal-backdrop);
+  }
+
+  .c-modal__container {
+    position: relative;
+    z-index: var(--z-index-modal);
+    width: 100%;
+    max-width: 36rem;
+    max-height: 90vh;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-xl);
+    overflow-y: auto;
+  }
+
+  .c-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: var(--border-width-thin) solid var(--color-gray-200);
+  }
+
+  .c-modal__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+  }
+
+  .c-modal__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: var(--border-radius-md);
+    background: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    line-height: 1;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .c-modal__close:hover {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-900);
+  }
+
+  .c-modal__body {
+    padding: var(--space-6);
+  }
+
+  .c-modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-6);
+    border-top: var(--border-width-thin) solid var(--color-gray-200);
+  }
