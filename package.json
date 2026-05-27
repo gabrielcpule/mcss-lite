@@ -1,0 +1,23 @@
+{
+  "name": "@gabrielpule/mcss-lite",
+  "version": "0.1.0",
+  "description": "Lightweight CSS framework with semantic BEM components and design tokens. Production-ready subset of MCSS principles.",
+  "license": "MIT",
+  "author": "Gabriel Pule",
+  "repository": "github:gabrielcpule/mcss-lite",
+  "main": "index.css",
+  "style": "index.css",
+  "files": [
+    "index.css",
+    "src/"
+  ],
+  "keywords": [
+    "css",
+    "framework",
+    "design-system",
+    "design-tokens",
+    "bem",
+    "semantic",
+    "mcss"
+  ]
+}

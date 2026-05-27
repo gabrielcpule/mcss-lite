@@ -1,0 +1,17 @@
+/* ============================================================
+   MCSS-Lite
+   Lightweight CSS framework with semantic BEM components
+   and design tokens. Production-ready subset of MCSS principles.
+
+   Usage:
+     <link rel="stylesheet" href="mcss-lite/index.css">
+
+   Or import in your build:
+     @import '@gabrielpule/mcss-lite';
+   ============================================================ */
+
+@import './src/tokens.css';
+@import './src/global.css';
+@import './src/layout.css';
+@import './src/components.css';
+@import './src/utilities.css';

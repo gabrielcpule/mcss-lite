@@ -1,0 +1,119 @@
+/* ============================================================
+   MCSS-Lite: Layout Layer
+   Positioning and spacing between components.
+   Components NEVER declare external margin (Golden Rule).
+   ============================================================ */
+
+@layer layout {
+  /* Container */
+  .l-container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .l-container--narrow {
+    max-width: var(--container-narrow);
+  }
+
+  /* Grid */
+  .l-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .l-grid--2-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .l-grid--3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .l-grid--4-col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .l-grid--responsive {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  @media (max-width: 768px) {
+    .l-grid--2-col,
+    .l-grid--3-col,
+    .l-grid--4-col {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Stack: vertical spacing between children */
+  .l-stack > * + * {
+    margin-top: var(--space-4);
+  }
+
+  .l-stack--sm > * + * {
+    margin-top: var(--space-2);
+  }
+
+  .l-stack--lg > * + * {
+    margin-top: var(--space-8);
+  }
+
+  /* Center: horizontally center a block */
+  .l-center {
+    max-width: var(--container-narrow);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Cluster: inline flex that wraps */
+  .l-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  /* Sidebar: sidebar + main content layout */
+  .l-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .l-sidebar__sidebar {
+    flex-basis: 16rem;
+    flex-grow: 1;
+  }
+
+  .l-sidebar__content {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: 50%;
+  }
+
+  /* Switcher: switches between horizontal and stacked at a threshold */
+  .l-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .l-switcher > * {
+    flex-basis: calc((var(--switcher-threshold, 30rem) - 100%) * 999);
+    flex-grow: 1;
+  }
+
+  /* Section: vertical page sections */
+  .l-section {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+
+  .l-section--sm {
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-10);
+  }
+}
