@@ -5,35 +5,89 @@
   "layer": "component",
   "status": "stable",
   "description": "A raised surface that groups related content, such as a summary, a settings group or a list item.",
-  "tags": ["article", "section", "div", "li", "a"],
+  "tags": [
+    "article",
+    "section",
+    "div",
+    "li",
+    "a"
+  ],
   "modifiers": [
     {
       "group": "surface",
       "exclusive": true,
       "values": [
-        { "name": "elevated", "description": "Stronger shadow to lift the card above its neighbors." },
-        { "name": "bordered", "description": "Border only, no shadow; for flat, dense layouts." }
+        {
+          "name": "elevated",
+          "description": "Stronger shadow to lift the card above its neighbors."
+        },
+        {
+          "name": "bordered",
+          "description": "Keyline only, no brick edge; for flat, dense layouts."
+        }
       ]
     },
     {
       "group": "behavior",
       "exclusive": false,
       "values": [
-        { "name": "interactive", "description": "The whole card is clickable; shows hover feedback." }
+        {
+          "name": "interactive",
+          "description": "The whole card is clickable; shows hover feedback."
+        }
       ]
     }
   ],
   "elements": [
-    { "name": "header", "description": "Top area; holds the title and optional badges.", "tags": ["header", "div"] },
-    { "name": "title", "description": "Card heading. Use the heading level that fits the page outline.", "tags": ["h2", "h3", "h4", "h5", "h6"] },
-    { "name": "body", "description": "Main content.", "tags": ["div", "p"] },
-    { "name": "footer", "description": "Bottom area for actions or metadata; has a top divider.", "tags": ["footer", "div"] }
+    {
+      "name": "header",
+      "description": "Top area; holds the title and optional badges.",
+      "tags": [
+        "header",
+        "div"
+      ]
+    },
+    {
+      "name": "title",
+      "description": "Card heading. Use the heading level that fits the page outline.",
+      "tags": [
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6"
+      ]
+    },
+    {
+      "name": "body",
+      "description": "Main content.",
+      "tags": [
+        "div",
+        "p"
+      ]
+    },
+    {
+      "name": "footer",
+      "description": "Bottom area for actions or metadata; has a top divider.",
+      "tags": [
+        "footer",
+        "div"
+      ]
+    }
   ],
   "children": [
     "Elements appear in the order header, body, footer. All are optional.",
     "c-card__title goes inside c-card__header."
   ],
-  "tokens": ["--card-background", "--card-border", "--card-border-hover", "--card-radius", "--card-padding", "--card-shadow"],
+  "tokens": [
+    "--card-background",
+    "--card-border",
+    "--card-border-hover",
+    "--card-radius",
+    "--card-padding",
+    "--card-shadow",
+    "--card-shadow-elevated"
+  ],
   "guidelines": {
     "use": [
       "Place cards in l-grid or l-stack; the layout sets the gap between cards.",
@@ -49,6 +103,13 @@
     "An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.",
     "Keep the title a real heading so screen reader users can navigate by headings."
   ],
-  "related": ["l-grid", "l-stack", "c-badge", "c-button"],
-  "examples": ["card.html"]
+  "related": [
+    "l-grid",
+    "l-stack",
+    "c-badge",
+    "c-button"
+  ],
+  "examples": [
+    "card.html"
+  ]
 }

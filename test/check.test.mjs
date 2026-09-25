@@ -13,7 +13,7 @@ test('the repo passes its own checks', () => {
 });
 
 const CASES = [
-  ['a class missing from the contracts', '.c-button--danger { color: var(--color-text-error); }', /class \.c-button--danger is not defined/],
+  ['a class missing from the contracts', '.c-button--warning { color: var(--color-text-error); }', /class \.c-button--warning is not defined/],
   ['a state missing from the contract', '.c-button[data-state="busy"] { opacity: 1; }', /state c-button\[data-state="busy"\] is not in the c-button contract/],
   ['an unknown token', '.c-button { color: var(--color-brand-500); }', /var\(--color-brand-500\) is not a token/],
   ['a primitive color in a component', '.c-button { color: var(--color-gray-900); }', /is a primitive color/],

@@ -225,6 +225,18 @@
       }
     },
     "blue": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9333,
+            0.9647,
+            0.9882
+          ],
+          "hex": "#eef6fc"
+        }
+      },
       "100": {
         "$type": "color",
         "$value": {
@@ -236,6 +248,19 @@
           ],
           "hex": "#c7e2f8"
         }
+      },
+      "150": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8627,
+            0.9294,
+            0.9765
+          ],
+          "hex": "#dcedf9"
+        },
+        "$description": "Instruction-page sky: the demo canvas."
       },
       "200": {
         "$type": "color",
@@ -271,6 +296,43 @@
             0.9961
           ],
           "hex": "#4d90fe"
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.1137,
+            0.4235,
+            0.7529
+          ],
+          "hex": "#1d6cc0"
+        },
+        "$description": "Night-build primary: white text 5.3:1, 3.4:1 on navy."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0941,
+            0.3647,
+            0.651
+          ],
+          "hex": "#185da6"
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0784,
+            0.302,
+            0.5412
+          ],
+          "hex": "#144d8a"
         }
       }
     },
@@ -385,6 +447,19 @@
           "hex": "#f5d77a"
         }
       },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.949,
+            0.8039,
+            0.2157
+          ],
+          "hex": "#f2cd37"
+        },
+        "$description": "Brick yellow: new-part call-out and focus halo only."
+      },
       "800": {
         "$type": "color",
         "$value": {
@@ -457,6 +532,31 @@
             0.6902
           ],
           "hex": "#f4a9b0"
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7882,
+            0.102,
+            0.0353
+          ],
+          "hex": "#c91a09"
+        },
+        "$description": "Brick red."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6275,
+            0.0784,
+            0.0314
+          ],
+          "hex": "#a01408"
         }
       },
       "800": {
@@ -569,6 +669,129 @@
           "hex": "#0b2d33"
         }
       }
+    },
+    "navy": {
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.902,
+            0.9294,
+            0.9569
+          ],
+          "hex": "#e6edf4"
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8118,
+            0.8549,
+            0.898
+          ],
+          "hex": "#cfdae5"
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6627,
+            0.7294,
+            0.7961
+          ],
+          "hex": "#a9bacb"
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.498,
+            0.5843,
+            0.6706
+          ],
+          "hex": "#7f95ab"
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2275,
+            0.3216,
+            0.4196
+          ],
+          "hex": "#3a526b"
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.149,
+            0.2275,
+            0.3098
+          ],
+          "hex": "#263a4f"
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.102,
+            0.1647,
+            0.2314
+          ],
+          "hex": "#1a2a3b"
+        }
+      },
+      "850": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0745,
+            0.1255,
+            0.1804
+          ],
+          "hex": "#13202e"
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0549,
+            0.0941,
+            0.1412
+          ],
+          "hex": "#0e1824"
+        }
+      },
+      "950": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0392,
+            0.0706,
+            0.1059
+          ],
+          "hex": "#0a121b"
+        }
+      },
+      "$description": "Night-build neutrals for dark mode."
     }
   },
   "font": {
@@ -598,6 +821,19 @@
           "Courier New",
           "monospace"
         ],
+        "$extensions": {
+          "mcss.figma": false
+        }
+      },
+      "display": {
+        "$type": "fontFamily",
+        "$value": [
+          "Rubik",
+          "ui-rounded",
+          "system-ui",
+          "sans-serif"
+        ],
+        "$description": "Rounded display face for step numerals and wordmarks. Not loaded by the framework; load Rubik yourself or it falls back to the system face.",
         "$extensions": {
           "mcss.figma": false
         }

@@ -4,37 +4,87 @@
   "block": "c-button",
   "layer": "component",
   "status": "stable",
-  "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates.",
-  "tags": ["button", "a"],
+  "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.",
+  "tags": [
+    "button",
+    "a"
+  ],
   "modifiers": [
     {
       "group": "variant",
       "exclusive": true,
       "values": [
-        { "name": "primary", "description": "The main action in a view region. Use at most one per region." },
-        { "name": "secondary", "description": "Outlined in the action color; for important but not main actions." },
-        { "name": "ghost", "description": "No border or background; for low-emphasis actions such as Cancel." }
+        {
+          "name": "primary",
+          "description": "The main action in a view region. Use at most one per region."
+        },
+        {
+          "name": "secondary",
+          "description": "Outlined in the action color; for important but not main actions."
+        },
+        {
+          "name": "ghost",
+          "description": "No border or background; for low-emphasis actions such as Cancel."
+        },
+        {
+          "name": "danger",
+          "description": "Destructive, hard-to-undo actions such as Delete. Brick red."
+        }
       ]
     },
     {
       "group": "size",
       "exclusive": true,
       "values": [
-        { "name": "sm", "description": "Compact button for dense UI such as tables and toolbars." },
-        { "name": "lg", "description": "Large button for hero or empty-state calls to action." }
+        {
+          "name": "sm",
+          "description": "Compact button for dense UI such as tables and toolbars."
+        },
+        {
+          "name": "lg",
+          "description": "Large button for hero or empty-state calls to action."
+        }
       ]
     }
   ],
   "states": [
-    { "name": "disabled", "description": "The action is unavailable.", "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href." },
-    { "name": "loading", "description": "The action is in progress.", "pair": "Set aria-busy=\"true\" and keep the visible label (for example \"Saving…\")." }
+    {
+      "name": "disabled",
+      "description": "The action is unavailable. Rendered ghosted with a dashed keyline.",
+      "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href."
+    },
+    {
+      "name": "loading",
+      "description": "The action is in progress. Shows moving stripes; text keeps full contrast.",
+      "pair": "Set aria-busy=\"true\" and aria-disabled=\"true\", keep the visible label (for example \"Saving…\"), and ignore activation in your handler."
+    }
   ],
-  "tokens": ["--button-background", "--button-background-hover", "--button-border", "--button-text", "--button-radius", "--button-primary-background", "--button-primary-background-hover", "--button-primary-text", "--button-secondary-text", "--button-secondary-border", "--button-ghost-background-hover"],
+  "tokens": [
+    "--button-background",
+    "--button-background-hover",
+    "--button-border",
+    "--button-text",
+    "--button-radius",
+    "--button-shadow",
+    "--button-primary-background",
+    "--button-primary-background-hover",
+    "--button-primary-text",
+    "--button-secondary-text",
+    "--button-secondary-border",
+    "--button-ghost-background-hover",
+    "--button-danger-background",
+    "--button-danger-background-hover",
+    "--button-danger-text",
+    "--button-pressed-background",
+    "--button-pressed-border"
+  ],
   "guidelines": {
     "use": [
       "Group buttons with l-cluster; it provides the gap.",
       "Order a button group as secondary or ghost actions first, then the primary action last.",
-      "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\"."
+      "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
+      "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
+      "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
     ],
     "avoid": [
       "Adding margin to .c-button. Spacing belongs to the layout parent.",
@@ -45,8 +95,14 @@
   "a11y": [
     "A button needs a visible text label, or aria-label when it only contains an icon.",
     "Do not remove the :focus-visible outline.",
-    "Use type=\"button\" unless the button submits a form."
+    "Use type=\"button\" unless the button submits a form.",
+    "c-button--sm looks compact but keeps a 44px tall hit area."
   ],
-  "related": ["l-cluster", "c-modal"],
-  "examples": ["button.html"]
+  "related": [
+    "l-cluster",
+    "c-modal"
+  ],
+  "examples": [
+    "button.html"
+  ]
 }

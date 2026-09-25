@@ -8,7 +8,12 @@
 
    Or import in your build:
      @import '@gabrielpule/mcss-lite';
+
+   Single-file alternative (no @import chain):
+     dist/mcss-lite.css
    ============================================================ */
+
+@layer global, layout, component, utility;
 
 @import './src/tokens.css';
 @import './src/global.css';

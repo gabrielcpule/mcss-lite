@@ -38,7 +38,7 @@
     "text": {
       "default": {
         "$type": "color",
-        "$value": "{color.gray.50}",
+        "$value": "{color.navy.100}",
         "$description": "Default body and heading text.",
         "$extensions": {
           "com.figma.scopes": [
@@ -48,7 +48,7 @@
       },
       "muted": {
         "$type": "color",
-        "$value": "{color.gray.200}",
+        "$value": "{color.navy.200}",
         "$description": "Secondary text: labels, supporting copy.",
         "$extensions": {
           "com.figma.scopes": [
@@ -58,8 +58,8 @@
       },
       "subtle": {
         "$type": "color",
-        "$value": "{color.gray.400}",
-        "$description": "Tertiary text: help text, placeholders, icons.",
+        "$value": "{color.navy.300}",
+        "$description": "Tertiary text: help text, placeholders, icons. 4.5:1 on every background, canvas included.",
         "$extensions": {
           "com.figma.scopes": [
             "TEXT_FILL"
@@ -68,8 +68,8 @@
       },
       "inverse": {
         "$type": "color",
-        "$value": "{color.gray.900}",
-        "$description": "Text on an inverted (dark in light mode) background.",
+        "$value": "{color.navy.900}",
+        "$description": "Text on an inverted background.",
         "$extensions": {
           "com.figma.scopes": [
             "TEXT_FILL"
@@ -78,8 +78,18 @@
       },
       "on-action": {
         "$type": "color",
-        "$value": "{color.gray.900}",
+        "$value": "{color.white}",
         "$description": "Text on --color-action-primary.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "on-danger": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Text on --color-action-danger.",
         "$extensions": {
           "com.figma.scopes": [
             "TEXT_FILL"
@@ -89,7 +99,7 @@
       "link": {
         "$type": "color",
         "$value": "{color.blue.300}",
-        "$description": "Link text.",
+        "$description": "Link text. Links are also underlined.",
         "$extensions": {
           "com.figma.scopes": [
             "TEXT_FILL"
@@ -108,8 +118,8 @@
       },
       "disabled": {
         "$type": "color",
-        "$value": "{color.gray.600}",
-        "$description": "Text in disabled controls.",
+        "$value": "{color.navy.400}",
+        "$description": "Text in disabled (ghosted) controls.",
         "$extensions": {
           "com.figma.scopes": [
             "TEXT_FILL"
@@ -160,8 +170,19 @@
     "background": {
       "default": {
         "$type": "color",
-        "$value": "{color.gray.900}",
+        "$value": "{color.navy.900}",
         "$description": "Page background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "canvas": {
+        "$type": "color",
+        "$value": "{color.navy.950}",
+        "$description": "Instruction-page canvas for showcase and marketing pages; not for dense product UI.",
         "$extensions": {
           "com.figma.scopes": [
             "FRAME_FILL",
@@ -171,7 +192,7 @@
       },
       "subtle": {
         "$type": "color",
-        "$value": "{color.gray.800}",
+        "$value": "{color.navy.800}",
         "$description": "Subtle section or hover background.",
         "$extensions": {
           "com.figma.scopes": [
@@ -182,7 +203,7 @@
       },
       "muted": {
         "$type": "color",
-        "$value": "{color.gray.700}",
+        "$value": "{color.navy.700}",
         "$description": "Muted fill for neutral badges and chips.",
         "$extensions": {
           "com.figma.scopes": [
@@ -193,7 +214,7 @@
       },
       "raised": {
         "$type": "color",
-        "$value": "{color.gray.800}",
+        "$value": "{color.navy.850}",
         "$description": "Cards, modals and other raised surfaces.",
         "$extensions": {
           "com.figma.scopes": [
@@ -204,7 +225,7 @@
       },
       "interactive": {
         "$type": "color",
-        "$value": "{color.gray.800}",
+        "$value": "{color.navy.850}",
         "$description": "Resting background of controls (buttons, inputs).",
         "$extensions": {
           "com.figma.scopes": [
@@ -215,7 +236,7 @@
       },
       "interactive-hover": {
         "$type": "color",
-        "$value": "{color.gray.850}",
+        "$value": "{color.navy.800}",
         "$description": "Hover background of controls.",
         "$extensions": {
           "com.figma.scopes": [
@@ -226,8 +247,19 @@
       },
       "disabled": {
         "$type": "color",
-        "$value": "{color.gray.850}",
-        "$description": "Background of disabled controls.",
+        "$value": "{color.navy.800}",
+        "$description": "Background of disabled (ghosted) controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "callout": {
+        "$type": "color",
+        "$value": "{color.yellow.950}",
+        "$description": "The 1:1 call-out that introduces a new part.",
         "$extensions": {
           "com.figma.scopes": [
             "FRAME_FILL",
@@ -244,7 +276,7 @@
             0,
             0
           ],
-          "alpha": 0.7,
+          "alpha": 0.72,
           "hex": "#000000"
         },
         "$description": "Modal backdrop.",
@@ -303,8 +335,8 @@
     "border": {
       "default": {
         "$type": "color",
-        "$value": "{color.gray.700}",
-        "$description": "Dividers and card borders.",
+        "$value": "{color.navy.700}",
+        "$description": "Quiet dividers inside a part.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -313,8 +345,18 @@
       },
       "strong": {
         "$type": "color",
-        "$value": "{color.gray.600}",
-        "$description": "Emphasized borders.",
+        "$value": "{color.navy.600}",
+        "$description": "Emphasized dividers.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "keyline": {
+        "$type": "color",
+        "$value": "{color.navy.200}",
+        "$description": "The 2px ink keyline around every part: cards, controls, call-outs.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -323,7 +365,7 @@
       },
       "interactive": {
         "$type": "color",
-        "$value": "{color.gray.450}",
+        "$value": "{color.navy.300}",
         "$description": "Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast.",
         "$extensions": {
           "com.figma.scopes": [
@@ -333,8 +375,8 @@
       },
       "focus": {
         "$type": "color",
-        "$value": "{color.blue.300}",
-        "$description": "Focus outline color.",
+        "$value": "{color.yellow.400}",
+        "$description": "Focus ring color. Same as --color-focus-ring.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -343,8 +385,8 @@
       },
       "success": {
         "$type": "color",
-        "$value": "{color.green.800}",
-        "$description": "Border for success states.",
+        "$value": "{color.green.300}",
+        "$description": "Border for the success state. At least 3:1 against fields.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -353,8 +395,8 @@
       },
       "warning": {
         "$type": "color",
-        "$value": "{color.yellow.800}",
-        "$description": "Border for warning states.",
+        "$value": "{color.yellow.300}",
+        "$description": "Border for the warning state. At least 3:1 against fields.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -363,8 +405,8 @@
       },
       "error": {
         "$type": "color",
-        "$value": "{color.red.800}",
-        "$description": "Border for error states.",
+        "$value": "{color.red.300}",
+        "$description": "Border for the error state. At least 3:1 against fields.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -373,8 +415,8 @@
       },
       "info": {
         "$type": "color",
-        "$value": "{color.cyan.800}",
-        "$description": "Border for info states.",
+        "$value": "{color.cyan.300}",
+        "$description": "Border for the info state. At least 3:1 against fields.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -386,8 +428,8 @@
       "primary": {
         "default": {
           "$type": "color",
-          "$value": "{color.blue.300}",
-          "$description": "Primary action background (primary buttons, selection).",
+          "$value": "{color.blue.600}",
+          "$description": "Primary action background. Brick blue.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",
@@ -398,7 +440,7 @@
         },
         "hover": {
           "$type": "color",
-          "$value": "{color.blue.200}",
+          "$value": "{color.blue.700}",
           "$description": "Primary action on hover.",
           "$extensions": {
             "com.figma.scopes": [
@@ -410,8 +452,34 @@
         },
         "active": {
           "$type": "color",
-          "$value": "{color.blue.100}",
+          "$value": "{color.blue.800}",
           "$description": "Primary action while pressed.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "danger": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.red.600}",
+          "$description": "Destructive action background. Brick red.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{color.red.700}",
+          "$description": "Destructive action on hover.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",
@@ -423,7 +491,7 @@
       },
       "neutral-hover": {
         "$type": "color",
-        "$value": "{color.gray.700}",
+        "$value": "{color.navy.700}",
         "$description": "Hover background for ghost and icon buttons.",
         "$extensions": {
           "com.figma.scopes": [
@@ -436,17 +504,8 @@
     "focus-ring": {
       "default": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.4235,
-            0.7059,
-            0.9333
-          ],
-          "alpha": 0.35,
-          "hex": "#6cb4ee"
-        },
-        "$description": "Soft focus halo around focused inputs.",
+        "$value": "{color.yellow.400}",
+        "$description": "Solid 2px focus ring: at least 3:1 on every background in its theme.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
@@ -455,22 +514,23 @@
       },
       "error": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9569,
-            0.6627,
-            0.6902
-          ],
-          "alpha": 0.3,
-          "hex": "#f4a9b0"
-        },
-        "$description": "Focus halo for inputs in the error state.",
+        "$value": "{color.red.300}",
+        "$description": "Focus ring on a control in the error state.",
         "$extensions": {
           "com.figma.scopes": [
             "STROKE_COLOR"
           ]
         }
+      }
+    },
+    "focus-halo": {
+      "$type": "color",
+      "$value": "{color.navy.950}",
+      "$description": "Outer halo around the focus ring: the yellow \"new part\" highlight in light, a dark gap in dark.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "STROKE_COLOR"
+        ]
       }
     }
   }

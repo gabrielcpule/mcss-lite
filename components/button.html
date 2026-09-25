@@ -12,5 +12,12 @@
 
 <div class="l-cluster">
   <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true">Saving…</button>
+  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
 </div>
+
+<div class="l-cluster" role="group" aria-label="Theme">
+  <button type="button" class="c-button c-button--sm" aria-pressed="true">Light</button>
+  <button type="button" class="c-button c-button--sm" aria-pressed="false">Dark</button>
+</div>
+
+<button type="button" class="c-button c-button--danger">Delete project</button>
