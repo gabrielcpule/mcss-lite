@@ -31,14 +31,15 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-text-default` | #1a1d20 / #f8f9fa | Default body and heading text. |
-| `--color-text-muted` | #343a40 / #dee2e6 | Secondary text: labels, supporting copy. |
-| `--color-text-subtle` | #6c757d / #adb5bd | Tertiary text: help text, placeholders, icons. |
-| `--color-text-inverse` | #ffffff / #1a1d20 | Text on an inverted (dark in light mode) background. |
-| `--color-text-on-action` | #ffffff / #1a1d20 | Text on --color-action-primary. |
-| `--color-text-link` | #005a9c / #6cb4ee | Link text. |
+| `--color-text-default` | #1a1d20 / #e6edf4 | Default body and heading text. |
+| `--color-text-muted` | #343a40 / #cfdae5 | Secondary text: labels, supporting copy. |
+| `--color-text-subtle` | #495057 / #a9bacb | Tertiary text: help text, placeholders, icons. 4.5:1 on every background, canvas included. |
+| `--color-text-inverse` | #ffffff / #0e1824 | Text on an inverted background. |
+| `--color-text-on-action` | #ffffff / #ffffff | Text on --color-action-primary. |
+| `--color-text-on-danger` | #ffffff / #ffffff | Text on --color-action-danger. |
+| `--color-text-link` | #005a9c / #6cb4ee | Link text. Links are also underlined. |
 | `--color-text-link-hover` | #004a80 / #9ccdf4 | Link text on hover. |
-| `--color-text-disabled` | #adb5bd / #495057 | Text in disabled controls. |
+| `--color-text-disabled` | #6c757d / #7f95ab | Text in disabled (ghosted) controls. |
 | `--color-text-success` | #155724 / #a3d9b1 | Text on --color-background-success. |
 | `--color-text-warning` | #856404 / #f5d77a | Text on --color-background-warning. |
 | `--color-text-error` | #721c24 / #f4a9b0 | Text on --color-background-error. |
@@ -48,14 +49,16 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-background-default` | #ffffff / #1a1d20 | Page background. |
-| `--color-background-subtle` | #f8f9fa / #212529 | Subtle section or hover background. |
-| `--color-background-muted` | #e9ecef / #343a40 | Muted fill for neutral badges and chips. |
-| `--color-background-raised` | #ffffff / #212529 | Cards, modals and other raised surfaces. |
-| `--color-background-interactive` | #ffffff / #212529 | Resting background of controls (buttons, inputs). |
-| `--color-background-interactive-hover` | #f8f9fa / #2b3035 | Hover background of controls. |
-| `--color-background-disabled` | #dee2e6 / #2b3035 | Background of disabled controls. |
-| `--color-background-overlay` | rgb(0 0 0 / 0.5) / rgb(0 0 0 / 0.7) | Modal backdrop. |
+| `--color-background-default` | #ffffff / #0e1824 | Page background. |
+| `--color-background-canvas` | #dcedf9 / #0a121b | Instruction-page canvas for showcase and marketing pages; not for dense product UI. |
+| `--color-background-subtle` | #f8f9fa / #1a2a3b | Subtle section or hover background. |
+| `--color-background-muted` | #e9ecef / #263a4f | Muted fill for neutral badges and chips. |
+| `--color-background-raised` | #ffffff / #13202e | Cards, modals and other raised surfaces. |
+| `--color-background-interactive` | #ffffff / #13202e | Resting background of controls (buttons, inputs). |
+| `--color-background-interactive-hover` | #eef6fc / #1a2a3b | Hover background of controls. |
+| `--color-background-disabled` | #e9ecef / #1a2a3b | Background of disabled (ghosted) controls. |
+| `--color-background-callout` | #fff3cd / #3a2e05 | The 1:1 call-out that introduces a new part. |
+| `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) | Modal backdrop. |
 | `--color-background-success` | #d4edda / #0f2e1a | Background for success messages and badges. |
 | `--color-background-warning` | #fff3cd / #3a2e05 | Background for warning messages and badges. |
 | `--color-background-error` | #f8d7da / #3b1216 | Background for error messages and badges. |
@@ -65,34 +68,50 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-border-default` | #dee2e6 / #343a40 | Dividers and card borders. |
-| `--color-border-strong` | #ced4da / #495057 | Emphasized borders. |
-| `--color-border-interactive` | #868e96 / #868e96 | Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast. |
-| `--color-border-focus` | #4d90fe / #6cb4ee | Focus outline color. |
-| `--color-border-success` | #c3e6cb / #1e5631 | Border for success states. |
-| `--color-border-warning` | #ffeaa7 / #6b5310 | Border for warning states. |
-| `--color-border-error` | #f5c6cb / #6e2129 | Border for error states. |
-| `--color-border-info` | #bee5eb / #155a66 | Border for info states. |
+| `--color-border-default` | #ced4da / #263a4f | Quiet dividers inside a part. |
+| `--color-border-strong` | #6c757d / #3a526b | Emphasized dividers. |
+| `--color-border-keyline` | #1a1d20 / #cfdae5 | The 2px ink keyline around every part: cards, controls, call-outs. |
+| `--color-border-interactive` | #1a1d20 / #a9bacb | Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast. |
+| `--color-border-focus` | #1a1d20 / #f2cd37 | Focus ring color. Same as --color-focus-ring. |
+| `--color-border-success` | #1e5631 / #a3d9b1 | Border for the success state. At least 3:1 against fields. |
+| `--color-border-warning` | #856404 / #f5d77a | Border for the warning state. At least 3:1 against fields. |
+| `--color-border-error` | #c91a09 / #f4a9b0 | Border for the error state. At least 3:1 against fields. |
+| `--color-border-info` | #0c5460 / #9ad4df | Border for the info state. At least 3:1 against fields. |
 
 ### Actions
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-action-primary` | #005a9c / #6cb4ee | Primary action background (primary buttons, selection). |
-| `--color-action-primary-hover` | #004a80 / #9ccdf4 | Primary action on hover. |
-| `--color-action-primary-active` | #003860 / #c7e2f8 | Primary action while pressed. |
-| `--color-action-neutral-hover` | #e9ecef / #343a40 | Hover background for ghost and icon buttons. |
+| `--color-action-primary` | #005a9c / #1d6cc0 | Primary action background. Brick blue. |
+| `--color-action-primary-hover` | #004a80 / #185da6 | Primary action on hover. |
+| `--color-action-primary-active` | #003860 / #144d8a | Primary action while pressed. |
+| `--color-action-danger` | #c91a09 / #c91a09 | Destructive action background. Brick red. |
+| `--color-action-danger-hover` | #a01408 / #a01408 | Destructive action on hover. |
+| `--color-action-neutral-hover` | #e9ecef / #263a4f | Hover background for ghost and icon buttons. |
 
 ### Focus
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-focus-ring` | rgb(0 90 156 / 0.15) / rgb(108 180 238 / 0.35) | Soft focus halo around focused inputs. |
-| `--color-focus-ring-error` | rgb(114 28 36 / 0.15) / rgb(244 169 176 / 0.3) | Focus halo for inputs in the error state. |
+| `--color-focus-ring` | #1a1d20 / #f2cd37 | Solid 2px focus ring: at least 3:1 on every background in its theme. |
+| `--color-focus-ring-error` | #c91a09 / #f4a9b0 | Focus ring on a control in the error state. |
+
+### color.focus-halo
+
+| Token | Value | Use for |
+|---|---|---|
+| `--color-focus-halo` | #f2cd37 / #0a121b | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
+
+### shadow
+
+| Token | Value | Use for |
+|---|---|---|
+| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 
-- **font.family:** `--font-family-sans` (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif), `--font-family-mono` ('SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace)
+- **font.family:** `--font-family-sans` (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif), `--font-family-mono` ('SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace), `--font-family-display` (Rubik, 'ui-rounded', 'system-ui', sans-serif)
 - **font.size:** `--font-size-xs` (0.75rem), `--font-size-sm` (0.875rem), `--font-size-base` (1rem), `--font-size-lg` (1.125rem), `--font-size-xl` (1.25rem), `--font-size-2xl` (1.5rem), `--font-size-3xl` (1.875rem), `--font-size-4xl` (2.25rem), `--font-size-5xl` (3rem)
 - **font.weight:** `--font-weight-normal` (400), `--font-weight-medium` (500), `--font-weight-semibold` (600), `--font-weight-bold` (700)
 - **line-height:** `--line-height-tight` (1.25), `--line-height-normal` (1.5), `--line-height-relaxed` (1.75)
@@ -111,39 +130,46 @@ Override one of these to restyle a single component without affecting others.
 
 | Token | Aliases | Value |
 |---|---|---|
-| `--button-background` | `--color-background-interactive` | #ffffff / #212529 |
-| `--button-background-hover` | `--color-background-interactive-hover` | #f8f9fa / #2b3035 |
-| `--button-border` | `--color-border-interactive` | #868e96 |
-| `--button-text` | `--color-text-default` | #1a1d20 / #f8f9fa |
-| `--button-radius` | `--border-radius-md` | 0.375rem |
-| `--button-primary-background` | `--color-action-primary` | #005a9c / #6cb4ee |
-| `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #9ccdf4 |
-| `--button-primary-text` | `--color-text-on-action` | #ffffff / #1a1d20 |
-| `--button-secondary-text` | `--color-action-primary` | #005a9c / #6cb4ee |
-| `--button-secondary-border` | `--color-action-primary` | #005a9c / #6cb4ee |
-| `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #343a40 |
-| `--input-background` | `--color-background-interactive` | #ffffff / #212529 |
-| `--input-border` | `--color-border-interactive` | #868e96 |
-| `--input-border-focus` | `--color-action-primary` | #005a9c / #6cb4ee |
-| `--input-text` | `--color-text-default` | #1a1d20 / #f8f9fa |
-| `--input-placeholder` | `--color-text-subtle` | #6c757d / #adb5bd |
-| `--input-radius` | `--border-radius-md` | 0.375rem |
-| `--card-background` | `--color-background-raised` | #ffffff / #212529 |
-| `--card-border` | `--color-border-default` | #dee2e6 / #343a40 |
-| `--card-border-hover` | `--color-action-primary` | #005a9c / #6cb4ee |
+| `--button-background` | `--color-background-interactive` | #ffffff / #13202e |
+| `--button-background-hover` | `--color-background-interactive-hover` | #eef6fc / #1a2a3b |
+| `--button-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
+| `--button-text` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--button-radius` | `--border-radius-base` | 0.25rem |
+| `--button-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
+| `--button-primary-background` | `--color-action-primary` | #005a9c / #1d6cc0 |
+| `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #185da6 |
+| `--button-primary-text` | `--color-text-on-action` | #ffffff |
+| `--button-secondary-text` | `--color-text-link` | #005a9c / #6cb4ee |
+| `--button-secondary-border` | `--color-action-primary` | #005a9c / #1d6cc0 |
+| `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #263a4f |
+| `--button-danger-background` | `--color-action-danger` | #c91a09 |
+| `--button-danger-background-hover` | `--color-action-danger-hover` | #a01408 |
+| `--button-danger-text` | `--color-text-on-danger` | #ffffff |
+| `--button-pressed-background` | `--color-background-callout` | #fff3cd / #3a2e05 |
+| `--button-pressed-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--input-background` | `--color-background-interactive` | #ffffff / #13202e |
+| `--input-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
+| `--input-border-focus` | `--color-action-primary` | #005a9c / #1d6cc0 |
+| `--input-text` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--input-placeholder` | `--color-text-subtle` | #495057 / #a9bacb |
+| `--input-radius` | `--border-radius-base` | 0.25rem |
+| `--card-background` | `--color-background-raised` | #ffffff / #13202e |
+| `--card-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--card-border-hover` | `--color-action-primary` | #005a9c / #1d6cc0 |
 | `--card-radius` | `--border-radius-lg` | 0.5rem |
 | `--card-padding` | `--space-6` | 1.5rem |
-| `--card-shadow` | `--shadow-sm` | 0 1px 3px rgb(0 0 0 / 0.1) |
-| `--badge-background` | `--color-background-muted` | #e9ecef / #343a40 |
-| `--badge-text` | `--color-text-muted` | #343a40 / #dee2e6 |
-| `--modal-background` | `--color-background-raised` | #ffffff / #212529 |
-| `--modal-backdrop` | `--color-background-overlay` | rgb(0 0 0 / 0.5) / rgb(0 0 0 / 0.7) |
-| `--modal-border` | `--color-border-default` | #dee2e6 / #343a40 |
-| `--modal-radius` | `--border-radius-xl` | 0.75rem |
-| `--modal-shadow` | `--shadow-xl` | 0 25px 50px rgb(0 0 0 / 0.25) |
+| `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
+| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--badge-background` | `--color-background-muted` | #e9ecef / #263a4f |
+| `--badge-text` | `--color-text-muted` | #343a40 / #cfdae5 |
+| `--modal-background` | `--color-background-raised` | #ffffff / #13202e |
+| `--modal-backdrop` | `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) |
+| `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--modal-radius` | `--border-radius-lg` | 0.5rem |
+| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
 
 ## Primitive colors (do not use in components)
 
 These are the raw palette behind the semantic tokens. They do not change with the theme. Use them only to define your own semantic tokens.
 
-`--color-white`, `--color-black`, `--color-gray-50`, `--color-gray-100`, `--color-gray-200`, `--color-gray-300`, `--color-gray-400`, `--color-gray-450`, `--color-gray-500`, `--color-gray-600`, `--color-gray-700`, `--color-gray-800`, `--color-gray-850`, `--color-gray-900`, `--color-primary`, `--color-primary-hover`, `--color-primary-active`, `--color-accent`, `--color-blue-100`, `--color-blue-200`, `--color-blue-300`, `--color-blue-400`, `--color-green-100`, `--color-green-200`, `--color-green-300`, `--color-green-800`, `--color-green-900`, `--color-green-950`, `--color-yellow-100`, `--color-yellow-200`, `--color-yellow-300`, `--color-yellow-800`, `--color-yellow-900`, `--color-yellow-950`, `--color-red-100`, `--color-red-200`, `--color-red-300`, `--color-red-800`, `--color-red-900`, `--color-red-950`, `--color-cyan-100`, `--color-cyan-200`, `--color-cyan-300`, `--color-cyan-800`, `--color-cyan-900`, `--color-cyan-950`
+`--color-white`, `--color-black`, `--color-gray-50`, `--color-gray-100`, `--color-gray-200`, `--color-gray-300`, `--color-gray-400`, `--color-gray-450`, `--color-gray-500`, `--color-gray-600`, `--color-gray-700`, `--color-gray-800`, `--color-gray-850`, `--color-gray-900`, `--color-primary`, `--color-primary-hover`, `--color-primary-active`, `--color-accent`, `--color-blue-50`, `--color-blue-100`, `--color-blue-150`, `--color-blue-200`, `--color-blue-300`, `--color-blue-400`, `--color-blue-600`, `--color-blue-700`, `--color-blue-800`, `--color-green-100`, `--color-green-200`, `--color-green-300`, `--color-green-800`, `--color-green-900`, `--color-green-950`, `--color-yellow-100`, `--color-yellow-200`, `--color-yellow-300`, `--color-yellow-400`, `--color-yellow-800`, `--color-yellow-900`, `--color-yellow-950`, `--color-red-100`, `--color-red-200`, `--color-red-300`, `--color-red-600`, `--color-red-700`, `--color-red-800`, `--color-red-900`, `--color-red-950`, `--color-cyan-100`, `--color-cyan-200`, `--color-cyan-300`, `--color-cyan-800`, `--color-cyan-900`, `--color-cyan-950`, `--color-navy-100`, `--color-navy-200`, `--color-navy-300`, `--color-navy-400`, `--color-navy-600`, `--color-navy-700`, `--color-navy-800`, `--color-navy-850`, `--color-navy-900`, `--color-navy-950`

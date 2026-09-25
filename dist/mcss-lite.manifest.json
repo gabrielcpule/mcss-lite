@@ -41,7 +41,7 @@
     {
       "id": "no-invention",
       "title": "Never invent class or token names",
-      "text": "Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--danger."
+      "text": "Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning."
     },
     {
       "id": "states",
@@ -79,7 +79,7 @@
       "block": "l-cluster",
       "layer": "layout",
       "status": "stable",
-      "description": "Horizontal group that wraps, with a gap: button groups, badge lists, tags.",
+      "description": "Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.",
       "tokens": [
         "--space-3"
       ],
@@ -271,7 +271,7 @@
       "block": "l-stack",
       "layer": "layout",
       "status": "stable",
-      "description": "Vertical flow: adds space between consecutive children. The default way to space components vertically.",
+      "description": "Vertical flow with a fixed gap between children. Works with inline children (links, spans) too. The default way to space components vertically.",
       "modifiers": [
         {
           "group": "gap",
@@ -298,7 +298,7 @@
           "Nest stacks with different gaps to build rhythm."
         ],
         "avoid": [
-          "Adding margin-top to children to fix spacing; change the stack modifier instead."
+          "Adding margins to children to fix spacing; change the stack modifier instead."
         ]
       },
       "related": [
@@ -411,7 +411,7 @@
       "block": "c-button",
       "layer": "component",
       "status": "stable",
-      "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates.",
+      "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.",
       "tags": [
         "button",
         "a"
@@ -432,6 +432,10 @@
             {
               "name": "ghost",
               "description": "No border or background; for low-emphasis actions such as Cancel."
+            },
+            {
+              "name": "danger",
+              "description": "Destructive, hard-to-undo actions such as Delete. Brick red."
             }
           ]
         },
@@ -453,13 +457,13 @@
       "states": [
         {
           "name": "disabled",
-          "description": "The action is unavailable.",
+          "description": "The action is unavailable. Rendered ghosted with a dashed keyline.",
           "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href."
         },
         {
           "name": "loading",
-          "description": "The action is in progress.",
-          "pair": "Set aria-busy=\"true\" and keep the visible label (for example \"Saving…\")."
+          "description": "The action is in progress. Shows moving stripes; text keeps full contrast.",
+          "pair": "Set aria-busy=\"true\" and aria-disabled=\"true\", keep the visible label (for example \"Saving…\"), and ignore activation in your handler."
         }
       ],
       "tokens": [
@@ -468,18 +472,26 @@
         "--button-border",
         "--button-text",
         "--button-radius",
+        "--button-shadow",
         "--button-primary-background",
         "--button-primary-background-hover",
         "--button-primary-text",
         "--button-secondary-text",
         "--button-secondary-border",
-        "--button-ghost-background-hover"
+        "--button-ghost-background-hover",
+        "--button-danger-background",
+        "--button-danger-background-hover",
+        "--button-danger-text",
+        "--button-pressed-background",
+        "--button-pressed-border"
       ],
       "guidelines": {
         "use": [
           "Group buttons with l-cluster; it provides the gap.",
           "Order a button group as secondary or ghost actions first, then the primary action last.",
-          "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\"."
+          "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
+          "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
+          "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
         ],
         "avoid": [
           "Adding margin to .c-button. Spacing belongs to the layout parent.",
@@ -490,7 +502,8 @@
       "a11y": [
         "A button needs a visible text label, or aria-label when it only contains an icon.",
         "Do not remove the :focus-visible outline.",
-        "Use type=\"button\" unless the button submits a form."
+        "Use type=\"button\" unless the button submits a form.",
+        "c-button--sm looks compact but keeps a 44px tall hit area."
       ],
       "related": [
         "l-cluster",
@@ -499,7 +512,7 @@
       "examples": [
         {
           "file": "components/button.html",
-          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"submit\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\">Saving…</button>\n</div>"
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"submit\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
         }
       ]
     },
@@ -527,7 +540,7 @@
             },
             {
               "name": "bordered",
-              "description": "Border only, no shadow; for flat, dense layouts."
+              "description": "Keyline only, no brick edge; for flat, dense layouts."
             }
           ]
         },
@@ -589,7 +602,8 @@
         "--card-border-hover",
         "--card-radius",
         "--card-padding",
-        "--card-shadow"
+        "--card-shadow",
+        "--card-shadow-elevated"
       ],
       "guidelines": {
         "use": [
@@ -704,7 +718,7 @@
       "states": [
         {
           "name": "error",
-          "description": "The value is invalid.",
+          "description": "The value is invalid. Adds a thicker leading keyline so the state does not rely on color.",
           "pair": "Set aria-invalid=\"true\" and aria-describedby pointing at the c-form-field__error message."
         },
         {
@@ -713,7 +727,7 @@
         },
         {
           "name": "disabled",
-          "description": "The field cannot be edited.",
+          "description": "The field cannot be edited. Rendered ghosted with a dashed keyline.",
           "pair": "Also set the disabled attribute."
         }
       ],
@@ -775,7 +789,7 @@
       "block": "c-modal",
       "layer": "component",
       "status": "stable",
-      "description": "A dialog over the page that blocks interaction until dismissed. Prefer the native <dialog> element.",
+      "description": "A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role=\"dialog\">.",
       "tags": [
         "dialog",
         "div"
@@ -840,7 +854,7 @@
       "states": [
         {
           "name": "closed",
-          "description": "Hidden. Remove the attribute (or set another value) to show the modal.",
+          "description": "Hidden (div form). With <dialog>, use the open attribute / showModal() instead.",
           "pair": "When closed, return focus to the control that opened the modal."
         }
       ],
@@ -860,7 +874,7 @@
       "guidelines": {
         "use": [
           "Use for short, focused tasks: confirmations, small forms.",
-          "Buttons in c-modal__footer are c-button; the footer provides the gap."
+          "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
         ],
         "avoid": [
           "Opening a modal from another modal.",
@@ -868,10 +882,10 @@
         ]
       },
       "a11y": [
-        "Set role=\"dialog\" (or use <dialog>), aria-modal=\"true\" and aria-labelledby pointing at c-modal__title.",
-        "Move focus into the modal when it opens and trap it until it closes.",
-        "Close on Escape.",
-        "c-modal__close needs aria-label=\"Close\"."
+        "Prefer <dialog class=\"c-modal\"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role=\"dialog\", aria-modal=\"true\" and manage focus yourself.",
+        "Reference the title with aria-labelledby.",
+        "With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.",
+        "c-modal__close needs aria-label=\"Close\" and an SVG icon, not a text glyph."
       ],
       "related": [
         "c-button"
@@ -879,7 +893,7 @@
       "examples": [
         {
           "file": "components/modal.html",
-          "html": "<div class=\"c-modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"delete-title\">\n  <div class=\"c-modal__backdrop\"></div>\n  <div class=\"c-modal__container\">\n    <header class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"delete-title\">Delete project?</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\">×</button>\n    </header>\n    <div class=\"c-modal__body\">\n      <p class=\"u-margin-0\">Atlas and its 42 files will be deleted. This can't be undone.</p>\n    </div>\n    <footer class=\"c-modal__footer\">\n      <button type=\"button\" class=\"c-button c-button--ghost\">Keep project</button>\n      <button type=\"button\" class=\"c-button c-button--primary\">Delete project</button>\n    </footer>\n  </div>\n</div>"
+          "html": "<div class=\"c-modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"delete-title\">\n  <div class=\"c-modal__backdrop\"></div>\n  <div class=\"c-modal__container\">\n    <header class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"delete-title\">Delete project?</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 5l10 10M15 5L5 15\"/></svg></button>\n    </header>\n    <div class=\"c-modal__body\">\n      <p class=\"u-margin-0\">Atlas and its 42 files will be deleted. This can't be undone.</p>\n    </div>\n    <footer class=\"c-modal__footer\">\n      <button type=\"button\" class=\"c-button c-button--ghost\">Keep project</button>\n      <button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>\n    </footer>\n  </div>\n</div>"
         }
       ]
     },
@@ -896,11 +910,11 @@
         },
         {
           "name": "u-text-left",
-          "description": "Left-align text."
+          "description": "Align text to the start (left in left-to-right languages)."
         },
         {
           "name": "u-text-right",
-          "description": "Right-align text."
+          "description": "Align text to the end (right in left-to-right languages)."
         },
         {
           "name": "u-hidden",
@@ -1115,11 +1129,28 @@
       "figma": true
     },
     {
+      "name": "--color-blue-50",
+      "path": "color.blue.50",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#eef6fc",
+      "figma": true
+    },
+    {
       "name": "--color-blue-100",
       "path": "color.blue.100",
       "tier": "primitive",
       "type": "color",
       "value": "#c7e2f8",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-150",
+      "path": "color.blue.150",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#dcedf9",
+      "description": "Instruction-page sky: the demo canvas.",
       "figma": true
     },
     {
@@ -1144,6 +1175,31 @@
       "tier": "primitive",
       "type": "color",
       "value": "#4d90fe",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-600",
+      "path": "color.blue.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#1d6cc0",
+      "description": "Night-build primary: white text 5.3:1, 3.4:1 on navy.",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-700",
+      "path": "color.blue.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#185da6",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-800",
+      "path": "color.blue.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#144d8a",
       "figma": true
     },
     {
@@ -1219,6 +1275,15 @@
       "figma": true
     },
     {
+      "name": "--color-yellow-400",
+      "path": "color.yellow.400",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f2cd37",
+      "description": "Brick yellow: new-part call-out and focus halo only.",
+      "figma": true
+    },
+    {
       "name": "--color-yellow-800",
       "path": "color.yellow.800",
       "tier": "primitive",
@@ -1264,6 +1329,23 @@
       "tier": "primitive",
       "type": "color",
       "value": "#f4a9b0",
+      "figma": true
+    },
+    {
+      "name": "--color-red-600",
+      "path": "color.red.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#c91a09",
+      "description": "Brick red.",
+      "figma": true
+    },
+    {
+      "name": "--color-red-700",
+      "path": "color.red.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#a01408",
       "figma": true
     },
     {
@@ -1339,6 +1421,86 @@
       "figma": true
     },
     {
+      "name": "--color-navy-100",
+      "path": "color.navy.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#e6edf4",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-200",
+      "path": "color.navy.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#cfdae5",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-300",
+      "path": "color.navy.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#a9bacb",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-400",
+      "path": "color.navy.400",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#7f95ab",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-600",
+      "path": "color.navy.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#3a526b",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-700",
+      "path": "color.navy.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#263a4f",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-800",
+      "path": "color.navy.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#1a2a3b",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-850",
+      "path": "color.navy.850",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#13202e",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-900",
+      "path": "color.navy.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0e1824",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-950",
+      "path": "color.navy.950",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0a121b",
+      "figma": true
+    },
+    {
       "name": "--font-family-sans",
       "path": "font.family.sans",
       "tier": "primitive",
@@ -1352,6 +1514,15 @@
       "tier": "primitive",
       "type": "fontFamily",
       "value": "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace",
+      "figma": false
+    },
+    {
+      "name": "--font-family-display",
+      "path": "font.family.display",
+      "tier": "primitive",
+      "type": "fontFamily",
+      "value": "Rubik, 'ui-rounded', 'system-ui', sans-serif",
+      "description": "Rounded display face for step numerals and wordmarks. Not loaded by the framework; load Rubik yourself or it falls back to the system face.",
       "figma": false
     },
     {
@@ -1935,11 +2106,11 @@
       "type": "color",
       "alias": {
         "light": "--color-gray-900",
-        "dark": "--color-gray-50"
+        "dark": "--color-navy-100"
       },
       "value": {
         "light": "#1a1d20",
-        "dark": "#f8f9fa"
+        "dark": "#e6edf4"
       },
       "description": "Default body and heading text.",
       "figma": true
@@ -1951,11 +2122,11 @@
       "type": "color",
       "alias": {
         "light": "--color-gray-700",
-        "dark": "--color-gray-200"
+        "dark": "--color-navy-200"
       },
       "value": {
         "light": "#343a40",
-        "dark": "#dee2e6"
+        "dark": "#cfdae5"
       },
       "description": "Secondary text: labels, supporting copy.",
       "figma": true
@@ -1966,14 +2137,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-500",
-        "dark": "--color-gray-400"
+        "light": "--color-gray-600",
+        "dark": "--color-navy-300"
       },
       "value": {
-        "light": "#6c757d",
-        "dark": "#adb5bd"
+        "light": "#495057",
+        "dark": "#a9bacb"
       },
-      "description": "Tertiary text: help text, placeholders, icons.",
+      "description": "Tertiary text: help text, placeholders, icons. 4.5:1 on every background, canvas included.",
       "figma": true
     },
     {
@@ -1983,13 +2154,13 @@
       "type": "color",
       "alias": {
         "light": "--color-white",
-        "dark": "--color-gray-900"
+        "dark": "--color-navy-900"
       },
       "value": {
         "light": "#ffffff",
-        "dark": "#1a1d20"
+        "dark": "#0e1824"
       },
-      "description": "Text on an inverted (dark in light mode) background.",
+      "description": "Text on an inverted background.",
       "figma": true
     },
     {
@@ -1999,13 +2170,29 @@
       "type": "color",
       "alias": {
         "light": "--color-white",
-        "dark": "--color-gray-900"
+        "dark": "--color-white"
       },
       "value": {
         "light": "#ffffff",
-        "dark": "#1a1d20"
+        "dark": "#ffffff"
       },
       "description": "Text on --color-action-primary.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-on-danger",
+      "path": "color.text.on-danger",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-white"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#ffffff"
+      },
+      "description": "Text on --color-action-danger.",
       "figma": true
     },
     {
@@ -2021,7 +2208,7 @@
         "light": "#005a9c",
         "dark": "#6cb4ee"
       },
-      "description": "Link text.",
+      "description": "Link text. Links are also underlined.",
       "figma": true
     },
     {
@@ -2046,14 +2233,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-400",
-        "dark": "--color-gray-600"
+        "light": "--color-gray-500",
+        "dark": "--color-navy-400"
       },
       "value": {
-        "light": "#adb5bd",
-        "dark": "#495057"
+        "light": "#6c757d",
+        "dark": "#7f95ab"
       },
-      "description": "Text in disabled controls.",
+      "description": "Text in disabled (ghosted) controls.",
       "figma": true
     },
     {
@@ -2127,13 +2314,29 @@
       "type": "color",
       "alias": {
         "light": "--color-white",
-        "dark": "--color-gray-900"
+        "dark": "--color-navy-900"
       },
       "value": {
         "light": "#ffffff",
-        "dark": "#1a1d20"
+        "dark": "#0e1824"
       },
       "description": "Page background.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-canvas",
+      "path": "color.background.canvas",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-blue-150",
+        "dark": "--color-navy-950"
+      },
+      "value": {
+        "light": "#dcedf9",
+        "dark": "#0a121b"
+      },
+      "description": "Instruction-page canvas for showcase and marketing pages; not for dense product UI.",
       "figma": true
     },
     {
@@ -2143,11 +2346,11 @@
       "type": "color",
       "alias": {
         "light": "--color-gray-50",
-        "dark": "--color-gray-800"
+        "dark": "--color-navy-800"
       },
       "value": {
         "light": "#f8f9fa",
-        "dark": "#212529"
+        "dark": "#1a2a3b"
       },
       "description": "Subtle section or hover background.",
       "figma": true
@@ -2159,11 +2362,11 @@
       "type": "color",
       "alias": {
         "light": "--color-gray-100",
-        "dark": "--color-gray-700"
+        "dark": "--color-navy-700"
       },
       "value": {
         "light": "#e9ecef",
-        "dark": "#343a40"
+        "dark": "#263a4f"
       },
       "description": "Muted fill for neutral badges and chips.",
       "figma": true
@@ -2175,11 +2378,11 @@
       "type": "color",
       "alias": {
         "light": "--color-white",
-        "dark": "--color-gray-800"
+        "dark": "--color-navy-850"
       },
       "value": {
         "light": "#ffffff",
-        "dark": "#212529"
+        "dark": "#13202e"
       },
       "description": "Cards, modals and other raised surfaces.",
       "figma": true
@@ -2191,11 +2394,11 @@
       "type": "color",
       "alias": {
         "light": "--color-white",
-        "dark": "--color-gray-800"
+        "dark": "--color-navy-850"
       },
       "value": {
         "light": "#ffffff",
-        "dark": "#212529"
+        "dark": "#13202e"
       },
       "description": "Resting background of controls (buttons, inputs).",
       "figma": true
@@ -2206,12 +2409,12 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-50",
-        "dark": "--color-gray-850"
+        "light": "--color-blue-50",
+        "dark": "--color-navy-800"
       },
       "value": {
-        "light": "#f8f9fa",
-        "dark": "#2b3035"
+        "light": "#eef6fc",
+        "dark": "#1a2a3b"
       },
       "description": "Hover background of controls.",
       "figma": true
@@ -2222,14 +2425,30 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-200",
-        "dark": "--color-gray-850"
+        "light": "--color-gray-100",
+        "dark": "--color-navy-800"
       },
       "value": {
-        "light": "#dee2e6",
-        "dark": "#2b3035"
+        "light": "#e9ecef",
+        "dark": "#1a2a3b"
       },
-      "description": "Background of disabled controls.",
+      "description": "Background of disabled (ghosted) controls.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-callout",
+      "path": "color.background.callout",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-100",
+        "dark": "--color-yellow-950"
+      },
+      "value": {
+        "light": "#fff3cd",
+        "dark": "#3a2e05"
+      },
+      "description": "The 1:1 call-out that introduces a new part.",
       "figma": true
     },
     {
@@ -2238,8 +2457,8 @@
       "tier": "semantic",
       "type": "color",
       "value": {
-        "light": "rgb(0 0 0 / 0.5)",
-        "dark": "rgb(0 0 0 / 0.7)"
+        "light": "rgb(26 29 32 / 0.6)",
+        "dark": "rgb(0 0 0 / 0.72)"
       },
       "description": "Modal backdrop.",
       "figma": true
@@ -2314,14 +2533,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-200",
-        "dark": "--color-gray-700"
+        "light": "--color-gray-300",
+        "dark": "--color-navy-700"
       },
       "value": {
-        "light": "#dee2e6",
-        "dark": "#343a40"
+        "light": "#ced4da",
+        "dark": "#263a4f"
       },
-      "description": "Dividers and card borders.",
+      "description": "Quiet dividers inside a part.",
       "figma": true
     },
     {
@@ -2330,14 +2549,30 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-300",
-        "dark": "--color-gray-600"
+        "light": "--color-gray-500",
+        "dark": "--color-navy-600"
       },
       "value": {
-        "light": "#ced4da",
-        "dark": "#495057"
+        "light": "#6c757d",
+        "dark": "#3a526b"
       },
-      "description": "Emphasized borders.",
+      "description": "Emphasized dividers.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-keyline",
+      "path": "color.border.keyline",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-navy-200"
+      },
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "description": "The 2px ink keyline around every part: cards, controls, call-outs.",
       "figma": true
     },
     {
@@ -2346,12 +2581,12 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-gray-450",
-        "dark": "--color-gray-450"
+        "light": "--color-gray-900",
+        "dark": "--color-navy-300"
       },
       "value": {
-        "light": "#868e96",
-        "dark": "#868e96"
+        "light": "#1a1d20",
+        "dark": "#a9bacb"
       },
       "description": "Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast.",
       "figma": true
@@ -2362,14 +2597,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-blue-400",
-        "dark": "--color-blue-300"
+        "light": "--color-gray-900",
+        "dark": "--color-yellow-400"
       },
       "value": {
-        "light": "#4d90fe",
-        "dark": "#6cb4ee"
+        "light": "#1a1d20",
+        "dark": "#f2cd37"
       },
-      "description": "Focus outline color.",
+      "description": "Focus ring color. Same as --color-focus-ring.",
       "figma": true
     },
     {
@@ -2378,14 +2613,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-green-200",
-        "dark": "--color-green-800"
+        "light": "--color-green-800",
+        "dark": "--color-green-300"
       },
       "value": {
-        "light": "#c3e6cb",
-        "dark": "#1e5631"
+        "light": "#1e5631",
+        "dark": "#a3d9b1"
       },
-      "description": "Border for success states.",
+      "description": "Border for the success state. At least 3:1 against fields.",
       "figma": true
     },
     {
@@ -2394,14 +2629,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-yellow-200",
-        "dark": "--color-yellow-800"
+        "light": "--color-yellow-900",
+        "dark": "--color-yellow-300"
       },
       "value": {
-        "light": "#ffeaa7",
-        "dark": "#6b5310"
+        "light": "#856404",
+        "dark": "#f5d77a"
       },
-      "description": "Border for warning states.",
+      "description": "Border for the warning state. At least 3:1 against fields.",
       "figma": true
     },
     {
@@ -2410,14 +2645,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-red-200",
-        "dark": "--color-red-800"
+        "light": "--color-red-600",
+        "dark": "--color-red-300"
       },
       "value": {
-        "light": "#f5c6cb",
-        "dark": "#6e2129"
+        "light": "#c91a09",
+        "dark": "#f4a9b0"
       },
-      "description": "Border for error states.",
+      "description": "Border for the error state. At least 3:1 against fields.",
       "figma": true
     },
     {
@@ -2426,14 +2661,14 @@
       "tier": "semantic",
       "type": "color",
       "alias": {
-        "light": "--color-cyan-200",
-        "dark": "--color-cyan-800"
+        "light": "--color-cyan-900",
+        "dark": "--color-cyan-300"
       },
       "value": {
-        "light": "#bee5eb",
-        "dark": "#155a66"
+        "light": "#0c5460",
+        "dark": "#9ad4df"
       },
-      "description": "Border for info states.",
+      "description": "Border for the info state. At least 3:1 against fields.",
       "figma": true
     },
     {
@@ -2443,13 +2678,13 @@
       "type": "color",
       "alias": {
         "light": "--color-primary",
-        "dark": "--color-blue-300"
+        "dark": "--color-blue-600"
       },
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#1d6cc0"
       },
-      "description": "Primary action background (primary buttons, selection).",
+      "description": "Primary action background. Brick blue.",
       "figma": true
     },
     {
@@ -2459,11 +2694,11 @@
       "type": "color",
       "alias": {
         "light": "--color-primary-hover",
-        "dark": "--color-blue-200"
+        "dark": "--color-blue-700"
       },
       "value": {
         "light": "#004a80",
-        "dark": "#9ccdf4"
+        "dark": "#185da6"
       },
       "description": "Primary action on hover.",
       "figma": true
@@ -2475,13 +2710,45 @@
       "type": "color",
       "alias": {
         "light": "--color-primary-active",
-        "dark": "--color-blue-100"
+        "dark": "--color-blue-800"
       },
       "value": {
         "light": "#003860",
-        "dark": "#c7e2f8"
+        "dark": "#144d8a"
       },
       "description": "Primary action while pressed.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-danger",
+      "path": "color.action.danger.$root",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-600",
+        "dark": "--color-red-600"
+      },
+      "value": {
+        "light": "#c91a09",
+        "dark": "#c91a09"
+      },
+      "description": "Destructive action background. Brick red.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-danger-hover",
+      "path": "color.action.danger.hover",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-700",
+        "dark": "--color-red-700"
+      },
+      "value": {
+        "light": "#a01408",
+        "dark": "#a01408"
+      },
+      "description": "Destructive action on hover.",
       "figma": true
     },
     {
@@ -2491,11 +2758,11 @@
       "type": "color",
       "alias": {
         "light": "--color-gray-100",
-        "dark": "--color-gray-700"
+        "dark": "--color-navy-700"
       },
       "value": {
         "light": "#e9ecef",
-        "dark": "#343a40"
+        "dark": "#263a4f"
       },
       "description": "Hover background for ghost and icon buttons.",
       "figma": true
@@ -2505,11 +2772,15 @@
       "path": "color.focus-ring.$root",
       "tier": "semantic",
       "type": "color",
-      "value": {
-        "light": "rgb(0 90 156 / 0.15)",
-        "dark": "rgb(108 180 238 / 0.35)"
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-yellow-400"
       },
-      "description": "Soft focus halo around focused inputs.",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#f2cd37"
+      },
+      "description": "Solid 2px focus ring: at least 3:1 on every background in its theme.",
       "figma": true
     },
     {
@@ -2517,12 +2788,56 @@
       "path": "color.focus-ring.error",
       "tier": "semantic",
       "type": "color",
-      "value": {
-        "light": "rgb(114 28 36 / 0.15)",
-        "dark": "rgb(244 169 176 / 0.3)"
+      "alias": {
+        "light": "--color-red-600",
+        "dark": "--color-red-300"
       },
-      "description": "Focus halo for inputs in the error state.",
+      "value": {
+        "light": "#c91a09",
+        "dark": "#f4a9b0"
+      },
+      "description": "Focus ring on a control in the error state.",
       "figma": true
+    },
+    {
+      "name": "--color-focus-halo",
+      "path": "color.focus-halo",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-400",
+        "dark": "--color-navy-950"
+      },
+      "value": {
+        "light": "#f2cd37",
+        "dark": "#0a121b"
+      },
+      "description": "Outer halo around the focus ring: the yellow \"new part\" highlight in light, a dark gap in dark.",
+      "figma": true
+    },
+    {
+      "name": "--shadow-raised",
+      "path": "shadow.raised",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+      },
+      "description": "Brick-edge depth for raised parts: a 2px edge plus a soft blur.",
+      "figma": false
+    },
+    {
+      "name": "--shadow-elevated",
+      "path": "shadow.elevated",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+      },
+      "description": "Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible.",
+      "figma": false
     },
     {
       "name": "--button-background",
@@ -2532,7 +2847,7 @@
       "alias": "--color-background-interactive",
       "value": {
         "light": "#ffffff",
-        "dark": "#212529"
+        "dark": "#13202e"
       },
       "figma": true
     },
@@ -2543,8 +2858,8 @@
       "type": "color",
       "alias": "--color-background-interactive-hover",
       "value": {
-        "light": "#f8f9fa",
-        "dark": "#2b3035"
+        "light": "#eef6fc",
+        "dark": "#1a2a3b"
       },
       "figma": true
     },
@@ -2554,7 +2869,10 @@
       "tier": "component",
       "type": "color",
       "alias": "--color-border-interactive",
-      "value": "#868e96",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#a9bacb"
+      },
       "figma": true
     },
     {
@@ -2565,7 +2883,7 @@
       "alias": "--color-text-default",
       "value": {
         "light": "#1a1d20",
-        "dark": "#f8f9fa"
+        "dark": "#e6edf4"
       },
       "figma": true
     },
@@ -2574,9 +2892,21 @@
       "path": "button.radius",
       "tier": "component",
       "type": "dimension",
-      "alias": "--border-radius-md",
-      "value": "0.375rem",
+      "alias": "--border-radius-base",
+      "value": "0.25rem",
       "figma": true
+    },
+    {
+      "name": "--button-shadow",
+      "path": "button.shadow",
+      "tier": "component",
+      "type": "shadow",
+      "alias": "--shadow-raised",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+      },
+      "figma": false
     },
     {
       "name": "--button-primary-background",
@@ -2586,7 +2916,7 @@
       "alias": "--color-action-primary",
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#1d6cc0"
       },
       "figma": true
     },
@@ -2598,7 +2928,7 @@
       "alias": "--color-action-primary-hover",
       "value": {
         "light": "#004a80",
-        "dark": "#9ccdf4"
+        "dark": "#185da6"
       },
       "figma": true
     },
@@ -2608,10 +2938,7 @@
       "tier": "component",
       "type": "color",
       "alias": "--color-text-on-action",
-      "value": {
-        "light": "#ffffff",
-        "dark": "#1a1d20"
-      },
+      "value": "#ffffff",
       "figma": true
     },
     {
@@ -2619,7 +2946,7 @@
       "path": "button.secondary.text",
       "tier": "component",
       "type": "color",
-      "alias": "--color-action-primary",
+      "alias": "--color-text-link",
       "value": {
         "light": "#005a9c",
         "dark": "#6cb4ee"
@@ -2634,7 +2961,7 @@
       "alias": "--color-action-primary",
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#1d6cc0"
       },
       "figma": true
     },
@@ -2646,7 +2973,59 @@
       "alias": "--color-action-neutral-hover",
       "value": {
         "light": "#e9ecef",
-        "dark": "#343a40"
+        "dark": "#263a4f"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-danger-background",
+      "path": "button.danger.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-danger",
+      "value": "#c91a09",
+      "figma": true
+    },
+    {
+      "name": "--button-danger-background-hover",
+      "path": "button.danger.background-hover",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-danger-hover",
+      "value": "#a01408",
+      "figma": true
+    },
+    {
+      "name": "--button-danger-text",
+      "path": "button.danger.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-on-danger",
+      "value": "#ffffff",
+      "figma": true
+    },
+    {
+      "name": "--button-pressed-background",
+      "path": "button.pressed.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-callout",
+      "value": {
+        "light": "#fff3cd",
+        "dark": "#3a2e05"
+      },
+      "description": "Selected toggle (aria-pressed=\"true\").",
+      "figma": true
+    },
+    {
+      "name": "--button-pressed-border",
+      "path": "button.pressed.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
       },
       "figma": true
     },
@@ -2658,7 +3037,7 @@
       "alias": "--color-background-interactive",
       "value": {
         "light": "#ffffff",
-        "dark": "#212529"
+        "dark": "#13202e"
       },
       "figma": true
     },
@@ -2668,7 +3047,10 @@
       "tier": "component",
       "type": "color",
       "alias": "--color-border-interactive",
-      "value": "#868e96",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#a9bacb"
+      },
       "figma": true
     },
     {
@@ -2679,7 +3061,7 @@
       "alias": "--color-action-primary",
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#1d6cc0"
       },
       "figma": true
     },
@@ -2691,7 +3073,7 @@
       "alias": "--color-text-default",
       "value": {
         "light": "#1a1d20",
-        "dark": "#f8f9fa"
+        "dark": "#e6edf4"
       },
       "figma": true
     },
@@ -2702,8 +3084,8 @@
       "type": "color",
       "alias": "--color-text-subtle",
       "value": {
-        "light": "#6c757d",
-        "dark": "#adb5bd"
+        "light": "#495057",
+        "dark": "#a9bacb"
       },
       "figma": true
     },
@@ -2712,8 +3094,8 @@
       "path": "input.radius",
       "tier": "component",
       "type": "dimension",
-      "alias": "--border-radius-md",
-      "value": "0.375rem",
+      "alias": "--border-radius-base",
+      "value": "0.25rem",
       "figma": true
     },
     {
@@ -2724,7 +3106,7 @@
       "alias": "--color-background-raised",
       "value": {
         "light": "#ffffff",
-        "dark": "#212529"
+        "dark": "#13202e"
       },
       "figma": true
     },
@@ -2733,10 +3115,10 @@
       "path": "card.border",
       "tier": "component",
       "type": "color",
-      "alias": "--color-border-default",
+      "alias": "--color-border-keyline",
       "value": {
-        "light": "#dee2e6",
-        "dark": "#343a40"
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
       },
       "figma": true
     },
@@ -2748,7 +3130,7 @@
       "alias": "--color-action-primary",
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#1d6cc0"
       },
       "figma": true
     },
@@ -2775,8 +3157,23 @@
       "path": "card.shadow",
       "tier": "component",
       "type": "shadow",
-      "alias": "--shadow-sm",
-      "value": "0 1px 3px rgb(0 0 0 / 0.1)",
+      "alias": "--shadow-raised",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+      },
+      "figma": false
+    },
+    {
+      "name": "--card-shadow-elevated",
+      "path": "card.shadow-elevated",
+      "tier": "component",
+      "type": "shadow",
+      "alias": "--shadow-elevated",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+      },
       "figma": false
     },
     {
@@ -2787,7 +3184,7 @@
       "alias": "--color-background-muted",
       "value": {
         "light": "#e9ecef",
-        "dark": "#343a40"
+        "dark": "#263a4f"
       },
       "figma": true
     },
@@ -2799,7 +3196,7 @@
       "alias": "--color-text-muted",
       "value": {
         "light": "#343a40",
-        "dark": "#dee2e6"
+        "dark": "#cfdae5"
       },
       "figma": true
     },
@@ -2811,7 +3208,7 @@
       "alias": "--color-background-raised",
       "value": {
         "light": "#ffffff",
-        "dark": "#212529"
+        "dark": "#13202e"
       },
       "figma": true
     },
@@ -2822,8 +3219,8 @@
       "type": "color",
       "alias": "--color-background-overlay",
       "value": {
-        "light": "rgb(0 0 0 / 0.5)",
-        "dark": "rgb(0 0 0 / 0.7)"
+        "light": "rgb(26 29 32 / 0.6)",
+        "dark": "rgb(0 0 0 / 0.72)"
       },
       "figma": true
     },
@@ -2832,10 +3229,10 @@
       "path": "modal.border",
       "tier": "component",
       "type": "color",
-      "alias": "--color-border-default",
+      "alias": "--color-border-keyline",
       "value": {
-        "light": "#dee2e6",
-        "dark": "#343a40"
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
       },
       "figma": true
     },
@@ -2844,8 +3241,8 @@
       "path": "modal.radius",
       "tier": "component",
       "type": "dimension",
-      "alias": "--border-radius-xl",
-      "value": "0.75rem",
+      "alias": "--border-radius-lg",
+      "value": "0.5rem",
       "figma": true
     },
     {
@@ -2853,8 +3250,11 @@
       "path": "modal.shadow",
       "tier": "component",
       "type": "shadow",
-      "alias": "--shadow-xl",
-      "value": "0 25px 50px rgb(0 0 0 / 0.25)",
+      "alias": "--shadow-elevated",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+      },
       "figma": false
     }
   ]

@@ -127,5 +127,7 @@ function checkStatePair(tag, attrs, state, warn) {
     if (tag === 'a' && attr(attrs, 'aria-disabled') !== 'true') warn('data-state="disabled" on <a> also needs aria-disabled="true".');
   }
   if (state === 'error' && attr(attrs, 'aria-invalid') !== 'true') warn('data-state="error" also needs aria-invalid="true" and aria-describedby pointing at the error message.');
-  if (state === 'loading' && attr(attrs, 'aria-busy') !== 'true') warn('data-state="loading" also needs aria-busy="true".');
+  if (state === 'loading' && (attr(attrs, 'aria-busy') !== 'true' || attr(attrs, 'aria-disabled') !== 'true')) {
+    warn('data-state="loading" also needs aria-busy="true" and aria-disabled="true".');
+  }
 }

@@ -4,22 +4,41 @@
   "block": "l-stack",
   "layer": "layout",
   "status": "stable",
-  "description": "Vertical flow: adds space between consecutive children. The default way to space components vertically.",
+  "description": "Vertical flow with a fixed gap between children. Works with inline children (links, spans) too. The default way to space components vertically.",
   "modifiers": [
     {
       "group": "gap",
       "exclusive": true,
       "values": [
-        { "name": "sm", "description": "Tight spacing (0.5rem), e.g. form-field internals or list items." },
-        { "name": "lg", "description": "Loose spacing (2rem), e.g. between page blocks." }
+        {
+          "name": "sm",
+          "description": "Tight spacing (0.5rem), e.g. form-field internals or list items."
+        },
+        {
+          "name": "lg",
+          "description": "Loose spacing (2rem), e.g. between page blocks."
+        }
       ]
     }
   ],
-  "tokens": ["--space-2", "--space-4", "--space-8"],
+  "tokens": [
+    "--space-2",
+    "--space-4",
+    "--space-8"
+  ],
   "guidelines": {
-    "use": ["Nest stacks with different gaps to build rhythm."],
-    "avoid": ["Adding margin-top to children to fix spacing; change the stack modifier instead."]
+    "use": [
+      "Nest stacks with different gaps to build rhythm."
+    ],
+    "avoid": [
+      "Adding margins to children to fix spacing; change the stack modifier instead."
+    ]
   },
-  "related": ["l-cluster", "c-form-field"],
-  "examples": ["layouts.html"]
+  "related": [
+    "l-cluster",
+    "c-form-field"
+  ],
+  "examples": [
+    "layouts.html"
+  ]
 }

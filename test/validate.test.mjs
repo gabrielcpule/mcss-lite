@@ -24,8 +24,8 @@ test('bad markup reports every rule', () => {
 });
 
 test('unknown modifiers list the valid ones', () => {
-  const issue = validate('<button class="c-button c-button--danger">x</button>')[0];
-  assert.match(issue.message, /Valid modifiers of c-button: --primary, --secondary, --ghost, --sm, --lg/);
+  const issue = validate('<button class="c-button c-button--warning">x</button>')[0];
+  assert.match(issue.message, /Valid modifiers of c-button: --primary, --secondary, --ghost, --danger, --sm, --lg/);
 });
 
 test('typos get a suggestion', () => {

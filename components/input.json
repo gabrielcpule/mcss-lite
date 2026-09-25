@@ -5,13 +5,37 @@
   "layer": "component",
   "status": "stable",
   "description": "Single-line text entry. Also styles <textarea> and <select>.",
-  "tags": ["input", "textarea", "select"],
-  "states": [
-    { "name": "error", "description": "The value is invalid.", "pair": "Set aria-invalid=\"true\" and aria-describedby pointing at the c-form-field__error message." },
-    { "name": "success", "description": "The value was validated successfully." },
-    { "name": "disabled", "description": "The field cannot be edited.", "pair": "Also set the disabled attribute." }
+  "tags": [
+    "input",
+    "textarea",
+    "select"
   ],
-  "tokens": ["--input-background", "--input-border", "--input-border-focus", "--input-text", "--input-placeholder", "--input-radius", "--color-focus-ring", "--color-focus-ring-error"],
+  "states": [
+    {
+      "name": "error",
+      "description": "The value is invalid. Adds a thicker leading keyline so the state does not rely on color.",
+      "pair": "Set aria-invalid=\"true\" and aria-describedby pointing at the c-form-field__error message."
+    },
+    {
+      "name": "success",
+      "description": "The value was validated successfully."
+    },
+    {
+      "name": "disabled",
+      "description": "The field cannot be edited. Rendered ghosted with a dashed keyline.",
+      "pair": "Also set the disabled attribute."
+    }
+  ],
+  "tokens": [
+    "--input-background",
+    "--input-border",
+    "--input-border-focus",
+    "--input-text",
+    "--input-placeholder",
+    "--input-radius",
+    "--color-focus-ring",
+    "--color-focus-ring-error"
+  ],
   "guidelines": {
     "use": [
       "Always wrap in c-form-field with a c-form-field__label.",
@@ -26,6 +50,11 @@
     "Every input needs a programmatic label: <label for> on c-form-field__label.",
     "Error text must be linked with aria-describedby, not only shown in red."
   ],
-  "related": ["c-form-field", "l-stack"],
-  "examples": ["input.html"]
+  "related": [
+    "c-form-field",
+    "l-stack"
+  ],
+  "examples": [
+    "input.html"
+  ]
 }

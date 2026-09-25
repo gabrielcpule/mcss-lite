@@ -8,7 +8,7 @@
 
 1. **Components never set their own outer margin.** Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing.
 2. **Layout, then component, then utility, then token.** Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only.
-3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--danger.
+3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning.
 4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).
 5. **Theme with semantic tokens, never raw values.** Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode.
 
@@ -59,7 +59,7 @@ Centers a block horizontally at reading width without side gutters.
 
 ### Cluster — `l-cluster`
 
-Horizontal group that wraps, with a gap: button groups, badge lists, tags.
+Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.
 
 **Do:**
 - Group inline items such as buttons and badges.
@@ -314,7 +314,7 @@ A sidebar next to main content that stacks when the content would get narrower t
 
 ### Stack — `l-stack`
 
-Vertical flow: adds space between consecutive children. The default way to space components vertically.
+Vertical flow with a fixed gap between children. Works with inline children (links, spans) too. The default way to space components vertically.
 
 **Modifiers — gap** (pick at most one):
 - `l-stack--sm`: Tight spacing (0.5rem), e.g. form-field internals or list items.
@@ -324,7 +324,7 @@ Vertical flow: adds space between consecutive children. The default way to space
 - Nest stacks with different gaps to build rhythm.
 
 **Don't:**
-- Adding margin-top to children to fix spacing; change the stack modifier instead.
+- Adding margins to children to fix spacing; change the stack modifier instead.
 
 **Tokens:** `--space-2`, `--space-4`, `--space-8`
 
@@ -454,7 +454,7 @@ A short, non-interactive label for status or category, such as "Beta" or "Paid".
 
 ### Button — `c-button`
 
-Triggers an action. Apply to <button>. Apply to <a> only when the control navigates.
+Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.
 
 **Apply to:** `<button>`, `<a>`
 
@@ -462,19 +462,22 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 - `c-button--primary`: The main action in a view region. Use at most one per region.
 - `c-button--secondary`: Outlined in the action color; for important but not main actions.
 - `c-button--ghost`: No border or background; for low-emphasis actions such as Cancel.
+- `c-button--danger`: Destructive, hard-to-undo actions such as Delete. Brick red.
 
 **Modifiers — size** (pick at most one):
 - `c-button--sm`: Compact button for dense UI such as tables and toolbars.
 - `c-button--lg`: Large button for hero or empty-state calls to action.
 
 **States:**
-- `data-state="disabled"`: The action is unavailable. On <button>, also set the disabled attribute. On <a>, set aria-disabled="true" and remove href.
-- `data-state="loading"`: The action is in progress. Set aria-busy="true" and keep the visible label (for example "Saving…").
+- `data-state="disabled"`: The action is unavailable. Rendered ghosted with a dashed keyline. On <button>, also set the disabled attribute. On <a>, set aria-disabled="true" and remove href.
+- `data-state="loading"`: The action is in progress. Shows moving stripes; text keeps full contrast. Set aria-busy="true" and aria-disabled="true", keep the visible label (for example "Saving…"), and ignore activation in your handler.
 
 **Do:**
 - Group buttons with l-cluster; it provides the gap.
 - Order a button group as secondary or ghost actions first, then the primary action last.
 - Write labels as verbs that name the outcome: "Save changes", not "OK".
+- For toggle buttons (for example a theme switch), set aria-pressed="true" on the selected one; it gets the pressed style automatically.
+- Use c-button--danger for the confirming action of anything destructive, never c-button--primary.
 
 **Don't:**
 - Adding margin to .c-button. Spacing belongs to the layout parent.
@@ -485,8 +488,9 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 - A button needs a visible text label, or aria-label when it only contains an icon.
 - Do not remove the :focus-visible outline.
 - Use type="button" unless the button submits a form.
+- c-button--sm looks compact but keeps a 44px tall hit area.
 
-**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`
+**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-shadow`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`, `--button-danger-background`, `--button-danger-background-hover`, `--button-danger-text`, `--button-pressed-background`, `--button-pressed-border`
 
 **Example** (`components/button.html`):
 
@@ -505,8 +509,15 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 
 <div class="l-cluster">
   <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true">Saving…</button>
+  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
 </div>
+
+<div class="l-cluster" role="group" aria-label="Theme">
+  <button type="button" class="c-button c-button--sm" aria-pressed="true">Light</button>
+  <button type="button" class="c-button c-button--sm" aria-pressed="false">Dark</button>
+</div>
+
+<button type="button" class="c-button c-button--danger">Delete project</button>
 ```
 
 ### Card — `c-card`
@@ -517,7 +528,7 @@ A raised surface that groups related content, such as a summary, a settings grou
 
 **Modifiers — surface** (pick at most one):
 - `c-card--elevated`: Stronger shadow to lift the card above its neighbors.
-- `c-card--bordered`: Border only, no shadow; for flat, dense layouts.
+- `c-card--bordered`: Keyline only, no brick edge; for flat, dense layouts.
 
 **Modifiers — behavior** (combinable):
 - `c-card--interactive`: The whole card is clickable; shows hover feedback.
@@ -545,7 +556,7 @@ A raised surface that groups related content, such as a summary, a settings grou
 - An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.
 - Keep the title a real heading so screen reader users can navigate by headings.
 
-**Tokens:** `--card-background`, `--card-border`, `--card-border-hover`, `--card-radius`, `--card-padding`, `--card-shadow`
+**Tokens:** `--card-background`, `--card-border`, `--card-border-hover`, `--card-radius`, `--card-padding`, `--card-shadow`, `--card-shadow-elevated`
 
 **Example** (`components/card.html`):
 
@@ -646,9 +657,9 @@ Single-line text entry. Also styles <textarea> and <select>.
 **Apply to:** `<input>`, `<textarea>`, `<select>`
 
 **States:**
-- `data-state="error"`: The value is invalid. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
+- `data-state="error"`: The value is invalid. Adds a thicker leading keyline so the state does not rely on color. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
 - `data-state="success"`: The value was validated successfully.
-- `data-state="disabled"`: The field cannot be edited. Also set the disabled attribute.
+- `data-state="disabled"`: The field cannot be edited. Rendered ghosted with a dashed keyline. Also set the disabled attribute.
 
 **Do:**
 - Always wrap in c-form-field with a c-form-field__label.
@@ -685,7 +696,7 @@ Deprecated standalone label. Use c-form-field__label inside c-form-field instead
 
 ### Modal — `c-modal`
 
-A dialog over the page that blocks interaction until dismissed. Prefer the native <dialog> element.
+A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role="dialog">.
 
 **Apply to:** `<dialog>`, `<div>`
 
@@ -699,7 +710,7 @@ A dialog over the page that blocks interaction until dismissed. Prefer the nativ
 - `c-modal__footer`: Actions, right-aligned. Put the primary action last. On `<footer>`/`<div>`.
 
 **States:**
-- `data-state="closed"`: Hidden. Remove the attribute (or set another value) to show the modal. When closed, return focus to the control that opened the modal.
+- `data-state="closed"`: Hidden (div form). With <dialog>, use the open attribute / showModal() instead. When closed, return focus to the control that opened the modal.
 
 **Structure:**
 - c-modal contains c-modal__backdrop and c-modal__container as siblings.
@@ -707,17 +718,17 @@ A dialog over the page that blocks interaction until dismissed. Prefer the nativ
 
 **Do:**
 - Use for short, focused tasks: confirmations, small forms.
-- Buttons in c-modal__footer are c-button; the footer provides the gap.
+- Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations.
 
 **Don't:**
 - Opening a modal from another modal.
 - Long, scrolling content; use a page instead.
 
 **Accessibility:**
-- Set role="dialog" (or use <dialog>), aria-modal="true" and aria-labelledby pointing at c-modal__title.
-- Move focus into the modal when it opens and trap it until it closes.
-- Close on Escape.
-- c-modal__close needs aria-label="Close".
+- Prefer <dialog class="c-modal"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role="dialog", aria-modal="true" and manage focus yourself.
+- Reference the title with aria-labelledby.
+- With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.
+- c-modal__close needs aria-label="Close" and an SVG icon, not a text glyph.
 
 **Tokens:** `--modal-background`, `--modal-backdrop`, `--modal-border`, `--modal-radius`, `--modal-shadow`, `--z-index-modal`, `--z-index-modal-backdrop`
 
@@ -729,14 +740,14 @@ A dialog over the page that blocks interaction until dismissed. Prefer the nativ
   <div class="c-modal__container">
     <header class="c-modal__header">
       <h2 class="c-modal__title" id="delete-title">Delete project?</h2>
-      <button type="button" class="c-modal__close" aria-label="Close">×</button>
+      <button type="button" class="c-modal__close" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
     </header>
     <div class="c-modal__body">
       <p class="u-margin-0">Atlas and its 42 files will be deleted. This can't be undone.</p>
     </div>
     <footer class="c-modal__footer">
       <button type="button" class="c-button c-button--ghost">Keep project</button>
-      <button type="button" class="c-button c-button--primary">Delete project</button>
+      <button type="button" class="c-button c-button--danger">Delete project</button>
     </footer>
   </div>
 </div>
@@ -747,8 +758,8 @@ A dialog over the page that blocks interaction until dismissed. Prefer the nativ
 Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.
 
 - `u-text-center`: Center-align text.
-- `u-text-left`: Left-align text.
-- `u-text-right`: Right-align text.
+- `u-text-left`: Align text to the start (left in left-to-right languages).
+- `u-text-right`: Align text to the end (right in left-to-right languages).
 - `u-hidden`: display: none.
 - `u-visible`: visibility: visible.
 - `u-invisible`: visibility: hidden; keeps the space.

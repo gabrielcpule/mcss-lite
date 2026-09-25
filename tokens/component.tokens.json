@@ -15,7 +15,10 @@
       "$value": "{color.text.default}"
     },
     "radius": {
-      "$value": "{border-radius.md}"
+      "$value": "{border-radius.base}"
+    },
+    "shadow": {
+      "$value": "{shadow.raised}"
     },
     "primary": {
       "background": {
@@ -30,7 +33,7 @@
     },
     "secondary": {
       "text": {
-        "$value": "{color.action.primary.$root}"
+        "$value": "{color.text.link}"
       },
       "border": {
         "$value": "{color.action.primary.$root}"
@@ -39,6 +42,26 @@
     "ghost": {
       "background-hover": {
         "$value": "{color.action.neutral-hover}"
+      }
+    },
+    "danger": {
+      "background": {
+        "$value": "{color.action.danger.$root}"
+      },
+      "background-hover": {
+        "$value": "{color.action.danger.hover}"
+      },
+      "text": {
+        "$value": "{color.text.on-danger}"
+      }
+    },
+    "pressed": {
+      "background": {
+        "$value": "{color.background.callout}",
+        "$description": "Selected toggle (aria-pressed=\"true\")."
+      },
+      "border": {
+        "$value": "{color.border.keyline}"
       }
     }
   },
@@ -59,7 +82,7 @@
       "$value": "{color.text.subtle}"
     },
     "radius": {
-      "$value": "{border-radius.md}"
+      "$value": "{border-radius.base}"
     }
   },
   "card": {
@@ -67,7 +90,7 @@
       "$value": "{color.background.raised}"
     },
     "border": {
-      "$value": "{color.border.default}"
+      "$value": "{color.border.keyline}"
     },
     "border-hover": {
       "$value": "{color.action.primary.$root}"
@@ -79,10 +102,10 @@
       "$value": "{space.6}"
     },
     "shadow": {
-      "$value": "{shadow.sm}",
-      "$extensions": {
-        "mcss.figma": false
-      }
+      "$value": "{shadow.raised}"
+    },
+    "shadow-elevated": {
+      "$value": "{shadow.elevated}"
     }
   },
   "badge": {
@@ -101,16 +124,13 @@
       "$value": "{color.background.overlay}"
     },
     "border": {
-      "$value": "{color.border.default}"
+      "$value": "{color.border.keyline}"
     },
     "radius": {
-      "$value": "{border-radius.xl}"
+      "$value": "{border-radius.lg}"
     },
     "shadow": {
-      "$value": "{shadow.xl}",
-      "$extensions": {
-        "mcss.figma": false
-      }
+      "$value": "{shadow.elevated}"
     }
   }
 }
