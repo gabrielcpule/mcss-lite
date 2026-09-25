@@ -40,11 +40,14 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Demo: `demo/index.html` (`?theme=light|dark|auto`)
 - Branch: `claude/design-system-ai-mcss-lite-4mhmop`
 
-## Current state (2026-09-25, later)
+## Current state (2026-09-25, end of session 1)
 
-Done: identity + all critique/audit fixes, `c-button--danger`, bundle `dist/mcss-lite.css`, generated demo, Figma push script (tested against a fake API; pushed to the pule file: 206 variables, 127 aliases, 10 effect styles), 32 tests passing.
+Done and pushed on `claude/design-system-ai-mcss-lite-4mhmop`:
+- Contract-first system: DTCG tokens (primitive / semantic light+dark / component), 16 block contracts, generated AGENTS.md, llms*.txt, manifest, `dist/mcss-lite.css`, Figma files.
+- `npm run check`, `npx mcss-lite validate`, 32 tests (back-compat, WCAG AA pairs in both themes, validator, fake-Figma idempotency).
+- Build Instructions identity + every critique/audit fix. Finish reviewer disposition: **ship** (8 fixes + 1 regression resolved).
+- Generated instruction-booklet demo (`demo/index.html`) with real validate output.
+- Figma: `dist/figma/push-variables.js` works in any account; Gabriel's file synced (206+1 variables, 10 effect styles).
+- Skill eval: AGENTS.md only 2 errors / 2 warnings → skill + docs + validate 0 errors / 1 allowed warning; gaps it exposed are fixed.
 
-Next:
-1. Confirm round: finish reviewer on the demo (screenshots in `.impeccable/review/`), one fix batch max.
-2. `/impeccable document` → `DESIGN.md` + `.impeccable/design.json` (documenter agent).
-3. Skill eval (8 prompts, with/without skill, scored by `validate`).
+Open ambitions (not blockers, from the finish review): drawn brick parts with "1x" tags, placement arrows into seats, a more saturated light canvas, a step progress rail, dimension marks on spacing, a drawn misfit piece, a yellow call-out identity in dark. Also: a true no-docs eval baseline (run from outside the repo), an MCP server, Figma components / Code Connect.
