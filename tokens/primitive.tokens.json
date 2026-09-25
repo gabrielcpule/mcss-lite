@@ -921,6 +921,11 @@
       "bold": {
         "$type": "fontWeight",
         "$value": 700
+      },
+      "extrabold": {
+        "$type": "fontWeight",
+        "$value": 800,
+        "$description": "Display weight for step numerals and wordmarks."
       }
     }
   },

@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-25T00:00:00Z",
+  "title": "Design System: MCSS-Lite",
+  "sourceOfTruth": [
+    "tokens/*.tokens.json",
+    "components/*.json",
+    "AGENTS.md",
+    "llms-tokens.txt",
+    "llms-components.txt",
+    "dist/mcss-lite.manifest.json"
+  ],
+  "extensions": {
+    "colorMeta": {
+      "brick-blue": {
+        "role": "primary",
+        "displayName": "Brick Blue",
+        "canonical": "#005a9c",
+        "cssVar": "--color-action-primary (light)",
+        "tonalRamp": [
+          "#003860",
+          "#004a80",
+          "#005a9c",
+          "#2576cc",
+          "#6cb4ee",
+          "#9ccdf4",
+          "#c7e2f8",
+          "#eef6fc"
+        ]
+      },
+      "brick-blue-deep": {
+        "role": "primary",
+        "displayName": "Brick Blue Deep",
+        "canonical": "#004a80",
+        "cssVar": "--color-action-primary-hover (light)",
+        "tonalRamp": [
+          "#003860",
+          "#004a80",
+          "#005a9c",
+          "#2576cc",
+          "#6cb4ee",
+          "#9ccdf4",
+          "#c7e2f8",
+          "#eef6fc"
+        ]
+      },
+      "brick-blue-pressed": {
+        "role": "primary",
+        "displayName": "Brick Blue Pressed",
+        "canonical": "#003860",
+        "cssVar": "--color-action-primary-active (light)",
+        "tonalRamp": [
+          "#003860",
+          "#004a80",
+          "#005a9c",
+          "#2576cc",
+          "#6cb4ee",
+          "#9ccdf4",
+          "#c7e2f8",
+          "#eef6fc"
+        ]
+      },
+      "brick-red": {
+        "role": "secondary",
+        "displayName": "Brick Red",
+        "canonical": "#c91a09",
+        "cssVar": "--color-action-danger, --color-border-error (light)",
+        "tonalRamp": [
+          "#3b1216",
+          "#721c24",
+          "#6e2129",
+          "#a01408",
+          "#c91a09",
+          "#f4a9b0",
+          "#f5c6cb",
+          "#f8d7da"
+        ]
+      },
+      "brick-red-deep": {
+        "role": "secondary",
+        "displayName": "Brick Red Deep",
+        "canonical": "#a01408",
+        "cssVar": "--color-action-danger-hover",
+        "tonalRamp": [
+          "#3b1216",
+          "#721c24",
+          "#6e2129",
+          "#a01408",
+          "#c91a09",
+          "#f4a9b0",
+          "#f5c6cb",
+          "#f8d7da"
+        ]
+      },
+      "error-text": {
+        "role": "secondary",
+        "displayName": "Error Text",
+        "canonical": "#721c24",
+        "cssVar": "--color-text-error (light)",
+        "tonalRamp": [
+          "#3b1216",
+          "#721c24",
+          "#6e2129",
+          "#a01408",
+          "#c91a09",
+          "#f4a9b0",
+          "#f5c6cb",
+          "#f8d7da"
+        ]
+      },
+      "brick-yellow": {
+        "role": "tertiary",
+        "displayName": "Brick Yellow",
+        "canonical": "#f2cd37",
+        "cssVar": "--color-focus-halo (light); --color-focus-ring (dark)",
+        "tonalRamp": [
+          "#3a2e05",
+          "#6b5310",
+          "#856404",
+          "#f2cd37",
+          "#f5d77a",
+          "#ffeaa7",
+          "#fff3cd"
+        ]
+      },
+      "callout-cream": {
+        "role": "tertiary",
+        "displayName": "Callout Cream",
+        "canonical": "#fff3cd",
+        "cssVar": "--color-background-callout (light)",
+        "tonalRamp": [
+          "#3a2e05",
+          "#6b5310",
+          "#856404",
+          "#f2cd37",
+          "#f5d77a",
+          "#ffeaa7",
+          "#fff3cd"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#1a1d20",
+        "cssVar": "--color-text-default, --color-border-keyline, --color-focus-ring (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#343a40",
+        "cssVar": "--color-text-muted (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#495057",
+        "cssVar": "--color-text-subtle (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "cssVar": "--color-background-default / -raised / -interactive (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "paper-subtle": {
+        "role": "neutral",
+        "displayName": "Paper Subtle",
+        "canonical": "#f8f9fa",
+        "cssVar": "--color-background-subtle (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "paper-muted": {
+        "role": "neutral",
+        "displayName": "Paper Muted",
+        "canonical": "#e9ecef",
+        "cssVar": "--color-background-muted (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "blue-wash": {
+        "role": "neutral",
+        "displayName": "Blue Wash",
+        "canonical": "#eef6fc",
+        "cssVar": "--color-background-interactive-hover (light)",
+        "tonalRamp": [
+          "#003860",
+          "#004a80",
+          "#005a9c",
+          "#2576cc",
+          "#6cb4ee",
+          "#9ccdf4",
+          "#c7e2f8",
+          "#eef6fc"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#ced4da",
+        "cssVar": "--color-border-default (light)",
+        "tonalRamp": [
+          "#1a1d20",
+          "#343a40",
+          "#495057",
+          "#6c757d",
+          "#adb5bd",
+          "#ced4da",
+          "#e9ecef",
+          "#f8f9fa"
+        ]
+      },
+      "sky-canvas": {
+        "role": "neutral",
+        "displayName": "Sky Canvas",
+        "canonical": "#dcedf9",
+        "cssVar": "--color-background-canvas (light)",
+        "tonalRamp": [
+          "#003860",
+          "#004a80",
+          "#005a9c",
+          "#2576cc",
+          "#6cb4ee",
+          "#9ccdf4",
+          "#c7e2f8",
+          "#eef6fc"
+        ]
+      },
+      "night-navy": {
+        "role": "neutral",
+        "displayName": "Night Navy",
+        "canonical": "#0f2140",
+        "cssVar": "--color-background-default (dark)",
+        "tonalRamp": [
+          "#0b1a33",
+          "#0f2140",
+          "#1b335c",
+          "#3b5988",
+          "#7f95ab",
+          "#a9bacb",
+          "#cfdae5",
+          "#e6edf4"
+        ]
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Night Raised",
+        "canonical": "#14294d",
+        "cssVar": "--color-background-raised (dark)",
+        "tonalRamp": [
+          "#0b1a33",
+          "#0f2140",
+          "#1b335c",
+          "#3b5988",
+          "#7f95ab",
+          "#a9bacb",
+          "#cfdae5",
+          "#e6edf4"
+        ]
+      },
+      "night-canvas": {
+        "role": "neutral",
+        "displayName": "Night Canvas",
+        "canonical": "#0b1a33",
+        "cssVar": "--color-background-canvas (dark)",
+        "tonalRamp": [
+          "#0b1a33",
+          "#0f2140",
+          "#1b335c",
+          "#3b5988",
+          "#7f95ab",
+          "#a9bacb",
+          "#cfdae5",
+          "#e6edf4"
+        ]
+      },
+      "night-keyline": {
+        "role": "neutral",
+        "displayName": "Night Keyline",
+        "canonical": "#cfdae5",
+        "cssVar": "--color-border-keyline (dark)",
+        "tonalRamp": [
+          "#0b1a33",
+          "#0f2140",
+          "#1b335c",
+          "#3b5988",
+          "#7f95ab",
+          "#a9bacb",
+          "#cfdae5",
+          "#e6edf4"
+        ]
+      },
+      "night-text": {
+        "role": "neutral",
+        "displayName": "Night Text",
+        "canonical": "#e6edf4",
+        "cssVar": "--color-text-default (dark)",
+        "tonalRamp": [
+          "#0b1a33",
+          "#0f2140",
+          "#1b335c",
+          "#3b5988",
+          "#7f95ab",
+          "#a9bacb",
+          "#cfdae5",
+          "#e6edf4"
+        ]
+      },
+      "night-blue": {
+        "role": "primary",
+        "displayName": "Night Blue",
+        "canonical": "#2576cc",
+        "cssVar": "--color-action-primary (dark)",
+        "tonalRamp": [
+          "#003860",
+          "#004a80",
+          "#005a9c",
+          "#2576cc",
+          "#6cb4ee",
+          "#9ccdf4",
+          "#c7e2f8",
+          "#eef6fc"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero claim on showcase pages. Rubik 800; demo-local literal values, no size token."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Step numerals; Rubik 800 also sets the wordmark and part counts."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Global h1 (--font-size-4xl) stepping down to h6 (--font-size-base), bold, tight."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and modal titles (--font-size-lg, bold)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text; ledes at --font-size-lg / --line-height-relaxed, 48-58ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form-field labels, help and error text."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code, class names, tokens."
+      }
+    },
+    "shadows": [
+      {
+        "name": "--shadow-raised",
+        "value": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)",
+        "purpose": "Brick edge at rest: buttons, cards, stages, install line."
+      },
+      {
+        "name": "--shadow-elevated",
+        "value": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)",
+        "purpose": "Modals, elevated cards, interactive-card hover, parts inventory."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 5px var(--color-focus-halo)",
+        "purpose": "Paired with a 2px --color-focus-ring outline at 2px offset on every focusable element."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state",
+        "value": "var(--duration-fast) var(--ease-out)",
+        "purpose": "150ms ease-out for color, border, shadow and transform changes on controls and cards."
+      },
+      {
+        "name": "seat",
+        "value": "translateY(2px); box-shadow: none",
+        "purpose": "Pressed and toggled-on buttons drop onto their edge."
+      },
+      {
+        "name": "lift",
+        "value": "translateY(-2px) + --shadow-elevated",
+        "purpose": "Interactive card hover."
+      },
+      {
+        "name": "loading-stripes",
+        "value": "1.2s linear infinite",
+        "purpose": "Button loading state; stopped under prefers-reduced-motion."
+      },
+      {
+        "name": "demo-seat",
+        "value": "var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Demo only: stage and call-out drop 1rem into place as a step scrolls in; arrow draws. Disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "grid-collapse",
+        "value": "768px",
+        "purpose": "l-grid 2/3/4-col collapse to one column (max-width)."
+      },
+      {
+        "name": "demo-two-column",
+        "value": "60rem",
+        "purpose": "Demo hero and step grids go two-column (min-width)."
+      },
+      {
+        "name": "switcher-default",
+        "value": "30rem",
+        "purpose": "l-switcher default --switcher-threshold."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Default Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Paper brick with ink keyline; the neutral action.",
+      "html": "<button class=\"ds-btn\" type=\"button\">Cancel</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-block-size:2.75rem; padding:var(--space-2) var(--space-5); border:var(--border-width-thick) solid var(--button-border); border-radius:var(--button-radius); background-color:var(--button-background); box-shadow:var(--button-shadow); color:var(--button-text); font-family:var(--font-family-sans); font-weight:var(--font-weight-semibold); font-size:var(--font-size-base); line-height:var(--line-height-tight); cursor:pointer; transition:background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); } .ds-btn:hover { background-color:var(--button-background-hover); } .ds-btn:active { transform:translateY(2px); box-shadow:none; } .ds-btn:focus-visible { outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; box-shadow:0 0 0 5px var(--color-focus-halo); }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Brick-blue fill; the one main action.",
+      "html": "<button class=\"ds-btn ds-btn-primary\" type=\"button\">Save changes</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-block-size:2.75rem; padding:var(--space-2) var(--space-5); border:var(--border-width-thick) solid var(--button-border); border-radius:var(--button-radius); background-color:var(--button-background); box-shadow:var(--button-shadow); color:var(--button-text); font-family:var(--font-family-sans); font-weight:var(--font-weight-semibold); font-size:var(--font-size-base); line-height:var(--line-height-tight); cursor:pointer; transition:background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); } .ds-btn:hover { background-color:var(--button-background-hover); } .ds-btn:active { transform:translateY(2px); box-shadow:none; } .ds-btn:focus-visible { outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; box-shadow:0 0 0 5px var(--color-focus-halo); } .ds-btn-primary { background-color:var(--button-primary-background); border-color:var(--button-primary-background); color:var(--button-primary-text); } .ds-btn-primary:hover { background-color:var(--button-primary-background-hover); border-color:var(--button-primary-background-hover); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper fill, brick-blue keyline and text.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\" type=\"button\">Preview</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-block-size:2.75rem; padding:var(--space-2) var(--space-5); border:var(--border-width-thick) solid var(--button-border); border-radius:var(--button-radius); background-color:var(--button-background); box-shadow:var(--button-shadow); color:var(--button-text); font-family:var(--font-family-sans); font-weight:var(--font-weight-semibold); font-size:var(--font-size-base); line-height:var(--line-height-tight); cursor:pointer; transition:background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); } .ds-btn:hover { background-color:var(--button-background-hover); } .ds-btn:active { transform:translateY(2px); box-shadow:none; } .ds-btn:focus-visible { outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; box-shadow:0 0 0 5px var(--color-focus-halo); } .ds-btn-secondary { border-color:var(--button-secondary-border); color:var(--button-secondary-text); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost-hover",
+      "description": "No fill, border or edge until hovered.",
+      "html": "<button class=\"ds-btn ds-btn-ghost\" type=\"button\">Skip</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-block-size:2.75rem; padding:var(--space-2) var(--space-5); border:var(--border-width-thick) solid var(--button-border); border-radius:var(--button-radius); background-color:var(--button-background); box-shadow:var(--button-shadow); color:var(--button-text); font-family:var(--font-family-sans); font-weight:var(--font-weight-semibold); font-size:var(--font-size-base); line-height:var(--line-height-tight); cursor:pointer; transition:background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); } .ds-btn:hover { background-color:var(--button-background-hover); } .ds-btn:active { transform:translateY(2px); box-shadow:none; } .ds-btn:focus-visible { outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; box-shadow:0 0 0 5px var(--color-focus-halo); } .ds-btn-ghost { background-color:transparent; border-color:transparent; box-shadow:none; } .ds-btn-ghost:hover { background-color:var(--button-ghost-background-hover); }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Brick-red fill; confirms destructive actions.",
+      "html": "<button class=\"ds-btn ds-btn-danger\" type=\"button\">Delete project</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-block-size:2.75rem; padding:var(--space-2) var(--space-5); border:var(--border-width-thick) solid var(--button-border); border-radius:var(--button-radius); background-color:var(--button-background); box-shadow:var(--button-shadow); color:var(--button-text); font-family:var(--font-family-sans); font-weight:var(--font-weight-semibold); font-size:var(--font-size-base); line-height:var(--line-height-tight); cursor:pointer; transition:background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); } .ds-btn:hover { background-color:var(--button-background-hover); } .ds-btn:active { transform:translateY(2px); box-shadow:none; } .ds-btn:focus-visible { outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; box-shadow:0 0 0 5px var(--color-focus-halo); } .ds-btn-danger { background-color:var(--button-danger-background); border-color:var(--button-danger-background); color:var(--button-danger-text); } .ds-btn-danger:hover { background-color:var(--button-danger-background-hover); border-color:var(--button-danger-background-hover); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Keylined field; blue border, ink ring and halo on focus.",
+      "html": "<label class=\"ds-label\" for=\"ds-email\">Email</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"you@example.com\">",
+      "css": ".ds-label { display:block; margin-bottom:var(--space-2); font-family:var(--font-family-sans); font-size:var(--font-size-sm); font-weight:var(--font-weight-semibold); color:var(--color-text-muted); } .ds-input { display:block; width:100%; min-block-size:2.75rem; padding:var(--space-2) var(--space-3); border:var(--border-width-thick) solid var(--input-border); border-radius:var(--input-radius); background-color:var(--input-background); color:var(--input-text); font-family:var(--font-family-sans); font-size:var(--font-size-base); line-height:var(--line-height-normal); transition:border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out); } .ds-input::placeholder { color:var(--input-placeholder); opacity:1; } .ds-input:focus-visible { border-color:var(--input-border-focus); outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; box-shadow:0 0 0 5px var(--color-focus-halo); }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Keylined container on a brick edge; interactive variant lifts.",
+      "html": "<a class=\"ds-card\" href=\"#\"><h3 class=\"ds-card-title\">Tokens</h3><p class=\"ds-card-body\">Semantic tokens that follow the theme.</p></a>",
+      "css": ".ds-card { display:block; padding:var(--card-padding); background-color:var(--card-background); border:var(--border-width-thick) solid var(--card-border); border-radius:var(--card-radius); box-shadow:var(--card-shadow); color:var(--color-text-default); font-family:var(--font-family-sans); text-decoration:none; transition:box-shadow var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out); } .ds-card:hover { border-color:var(--card-border-hover); box-shadow:var(--card-shadow-elevated); transform:translateY(-2px); } .ds-card:focus-visible { outline:var(--border-width-thick) solid var(--color-focus-ring); outline-offset:2px; } .ds-card-title { margin:0 0 var(--space-2); font-size:var(--font-size-lg); font-weight:var(--font-weight-bold); line-height:var(--line-height-tight); } .ds-card-body { margin:0; }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Non-interactive pill label with a currentColor outline.",
+      "html": "<span class=\"ds-badge\">Beta</span> <span class=\"ds-badge ds-badge-primary\">New</span> <span class=\"ds-badge ds-badge-success\">Stable</span>",
+      "css": ".ds-badge { display:inline-flex; align-items:center; padding:var(--space-1) var(--space-3); border:var(--border-width-thin) solid currentColor; border-radius:var(--border-radius-full); font-family:var(--font-family-sans); font-size:var(--font-size-xs); font-weight:var(--font-weight-semibold); line-height:var(--line-height-normal); background-color:var(--badge-background); color:var(--badge-text); } .ds-badge-primary { background-color:var(--color-action-primary); border-color:var(--color-action-primary); color:var(--color-text-on-action); } .ds-badge-success { background-color:var(--color-background-success); color:var(--color-text-success); }"
+    },
+    {
+      "name": "Modal",
+      "kind": "custom",
+      "refersTo": "modal",
+      "description": "Keylined dialog on the elevated brick edge.",
+      "html": "<div class=\"ds-modal\" role=\"dialog\" aria-labelledby=\"ds-modal-t\"><div class=\"ds-modal-head\"><h2 class=\"ds-modal-title\" id=\"ds-modal-t\">Delete project?</h2></div><div class=\"ds-modal-body\">This cannot be undone.</div></div>",
+      "css": ".ds-modal { max-width:36rem; background-color:var(--modal-background); border:var(--border-width-thick) solid var(--modal-border); border-radius:var(--modal-radius); box-shadow:var(--modal-shadow); font-family:var(--font-family-sans); color:var(--color-text-default); } .ds-modal-head { padding:var(--space-4) var(--space-6); border-bottom:var(--border-width-thin) solid var(--color-border-default); } .ds-modal-title { margin:0; font-size:var(--font-size-lg); font-weight:var(--font-weight-bold); } .ds-modal-body { padding:var(--space-6); }"
+    },
+    {
+      "name": "Parts Call-out",
+      "kind": "custom",
+      "refersTo": "parts-callout",
+      "description": "Showcase-only 1:1 box listing each part's exact class; demo chrome built from framework tokens.",
+      "html": "<div class=\"ds-callout\"><ul class=\"ds-callout-list\"><li><code>c-button--primary</code></li><li><code>l-cluster</code></li></ul></div>",
+      "css": ".ds-callout { padding:var(--space-5); background-color:var(--color-background-callout); border:var(--border-width-thick) solid var(--color-border-keyline); border-radius:var(--border-radius-base); font-family:var(--font-family-sans); color:var(--color-text-default); } .ds-callout-list { display:grid; gap:var(--space-3); margin:0; padding:0; list-style:none; } .ds-callout code { padding:0.1em 0.35em; border-radius:var(--border-radius-sm); background-color:var(--color-background-raised); box-shadow:inset 0 0 0 var(--border-width-thick) var(--color-border-keyline); font-family:var(--font-family-mono); font-weight:var(--font-weight-bold); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Build Instructions",
+    "overview": "Every part is a brick with an ink outline, and every layout is the baseplate that seats it. Controls, cards, modals and panels wear the same 2px ink keyline and sit on a short, hard brick edge with a soft blur under it; pressing a part seats it, dropping it 2px onto that edge. Color is used the way a booklet uses it: one brick blue for action, brick red for danger and error, and brick yellow reserved for the \"new part\" highlight. The framework ships this world in both themes; the demo adds the instruction-page canvas, the stud grid and oversized Rubik step numerals.\n\nDensity is comfortable and control-sized: every interactive target is at least 2.75rem (44px) tall, including compact buttons, whose visual 2rem is padded out by an invisible hit area. Light is the default. Dark is a night build on navy ink: keylines turn pale, blue gets more saturated, and the yellow moves from the halo into the focus ring itself. Theming is opt-in through `data-theme` (`light`, `dark`, `auto`), and print always renders light.\n\nThe system is contract-bound: consumer CSS uses tokens only, components never set their own outer margin, and state is `data-state` plus the paired native or ARIA attribute. Those are enforced by `npm run check` and `npx mcss-lite validate`, not merely described.",
+    "keyCharacteristics": [
+      "2px ink keyline around every part (`--color-border-keyline`, `--color-border-interactive`, `--border-width-thick`).",
+      "Brick-edge depth: a 2px vertical ink edge plus a soft blur (`--shadow-raised`, `--shadow-elevated`).",
+      "One action blue (`--color-action-primary`), one danger red (`--color-action-danger`), yellow only for highlight.",
+      "Stud radius (4px) on parts, 8px on containers, pills only for badges.",
+      "System sans for everything readable; Rubik 800 only for display moments.",
+      "Focus is an ink ring plus a halo, never removed."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Brick blue means \"act\" (and links). It never decorates, fills a section, or tints a heading.",
+        "section": "colors"
+      },
+      {
+        "name": "The Yellow Is a Highlight Rule",
+        "body": "Brick yellow appears only as the focus halo and the call-out fill, always bounded by ink. It is never text, never a button, never a status.",
+        "section": "colors"
+      },
+      {
+        "name": "The Canvas Is Not the Product Rule",
+        "body": "Sky canvas and its stud grid belong to showcase and marketing pages. Product surfaces sit on `--color-background-default`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Semantic Only Rule",
+        "body": "Components and consumer CSS reference semantic or component tokens, never primitives (`--color-gray-*`, `--color-blue-*`, `--color-navy-*`) and never raw hex, because primitives do not follow the theme.",
+        "section": "colors"
+      },
+      {
+        "name": "The Rubik Is for Numbers Rule",
+        "body": "The display face is for display moments only: numerals, counts, the wordmark and the hero claim. Headings, body, labels and controls stay in system sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Seated Brick Rule",
+        "body": "Pressing seats a part: it drops 2px (`translateY(2px)`) and loses its shadow. A toggled-on button (`aria-pressed=\"true\"`) stays seated and ink-filled. Interactive cards lift 2px on hover and take the elevated shadow and a blue keyline.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Ink Keyline Rule",
+        "body": "Anything you can press, type into, or that holds content wears a 2px keyline. A 1px line divides; it never outlines a part.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** give every part a 2px keyline (`--border-width-thick`) in `--color-border-keyline` or `--color-border-interactive`.",
+      "**Do** use `--shadow-raised` at rest and `--shadow-elevated` for modals and lifted cards; seat parts 2px on press.",
+      "**Do** keep every interactive target at least 2.75rem (44px), padding compact controls out with a hit area.",
+      "**Do** keep focus visible: 2px `--color-focus-ring` outline, 2px offset, 5px `--color-focus-halo`.",
+      "**Do** mark disabled with dashed keylines and error with a heavier bottom edge, alongside color.",
+      "**Do** theme by overriding semantic tokens per `data-theme`, and check `npx mcss-lite validate` before shipping markup."
+    ],
+    "donts": [
+      "**Don't** hard-code colors or pixel spacing, or reach for primitive color tokens in components; they do not follow dark mode.",
+      "**Don't** add outer margin to a `c-` block; let an `l-` primitive space it.",
+      "**Don't** use brick yellow for text, buttons or status, or brick blue for decoration.",
+      "**Don't** put the sky canvas or stud grid behind dense product UI.",
+      "**Don't** use diagonal or large offset shadows; the brick edge is 2px straight down.",
+      "**Don't** set headings, body or controls in Rubik.",
+      "**Don't** invent class, modifier or token names; if it is not in `AGENTS.md`, write custom CSS with existing tokens."
+    ]
+  }
+}

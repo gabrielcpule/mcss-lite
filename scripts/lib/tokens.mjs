@@ -98,6 +98,9 @@ const CUBIC_KEYWORDS = {
 
 const round = (n, d = 4) => +n.toFixed(d);
 
+// CSS generic families and system keywords must never be quoted.
+const GENERIC_FONTS = new Set(['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'ui-serif', 'ui-sans-serif', 'ui-monospace', 'ui-rounded', 'math', 'emoji', 'fangsong', 'BlinkMacSystemFont']);
+
 export function colorToCss(v) {
   if (v.alpha !== undefined && v.alpha < 1) {
     const [r, g, b] = v.components.map((c) => Math.round(c * 255));
@@ -118,7 +121,7 @@ export function valueToCss(type, v) {
     case 'fontWeight': return String(v);
     case 'cubicBezier': return CUBIC_KEYWORDS[v.join(',')] ?? `cubic-bezier(${v.join(', ')})`;
     case 'fontFamily':
-      return (Array.isArray(v) ? v : [v]).map((f) => (/[\s-]/.test(f) && !/^-/.test(f) && f !== 'sans-serif' ? `'${f}'` : f)).join(', ');
+      return (Array.isArray(v) ? v : [v]).map((f) => (GENERIC_FONTS.has(f) || !/[\s-]/.test(f) || /^-/.test(f) ? f : `'${f}'`)).join(', ');
     case 'shadow': {
       const layers = Array.isArray(v) ? v : [v];
       return layers.map((s) => [

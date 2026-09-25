@@ -33,7 +33,7 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 ## Where things are
 
 - Spec: `docs/superpowers/specs/2026-09-25-ai-readable-design-system-design.md`
-- Product context: `PRODUCT.md` (Impeccable init). `DESIGN.md` comes from `/impeccable document` once the critique fixes land.
+- Product context: `PRODUCT.md` (Impeccable init). Visual system: `DESIGN.md` + `.impeccable/design.json` (Impeccable documenter, after the ship verdict).
 - Tooling: `scripts/lib/` (tokens, contracts, generate, check, validate), `bin/mcss-lite.mjs validate`
 - Tests: `npm test` (back-compat, WCAG contrast in both themes, check and validate fixtures, build)
 - Shipped agent skill: `skills/mcss-lite/SKILL.md`; eval prompts in `evals/mcss-lite-skill.md`
