@@ -2,3 +2,5 @@ node_modules/
 .DS_Store
 .impeccable/hook.cache.json
 .impeccable/config.local.json
+.impeccable/review/
+.impeccable/live/
