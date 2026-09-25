@@ -1,0 +1,30 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Utilities",
+  "block": "u-*",
+  "layer": "utility",
+  "status": "stable",
+  "description": "Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.",
+  "classes": [
+    { "name": "u-text-center", "description": "Center-align text." },
+    { "name": "u-text-left", "description": "Left-align text." },
+    { "name": "u-text-right", "description": "Right-align text." },
+    { "name": "u-hidden", "description": "display: none." },
+    { "name": "u-visible", "description": "visibility: visible." },
+    { "name": "u-invisible", "description": "visibility: hidden; keeps the space." },
+    { "name": "u-margin-0", "description": "Remove margin, e.g. from a heading or paragraph inside a component." },
+    { "name": "u-padding-0", "description": "Remove padding." },
+    { "name": "u-font-normal", "description": "Normal font weight." },
+    { "name": "u-font-medium", "description": "Medium font weight." },
+    { "name": "u-font-semibold", "description": "Semibold font weight." },
+    { "name": "u-font-bold", "description": "Bold font weight." },
+    { "name": "u-font-mono", "description": "Monospace font." },
+    { "name": "u-truncate", "description": "Single line with an ellipsis." },
+    { "name": "u-sr-only", "description": "Visually hidden but read by screen readers." }
+  ],
+  "guidelines": {
+    "use": ["u-sr-only for accessible labels on icon-only controls."],
+    "avoid": ["Stacking several utilities to restyle a component; add a modifier to its contract instead."]
+  },
+  "examples": ["utilities.html"]
+}

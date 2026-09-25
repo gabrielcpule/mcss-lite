@@ -1,0 +1,44 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Modal",
+  "block": "c-modal",
+  "layer": "component",
+  "status": "stable",
+  "description": "A dialog over the page that blocks interaction until dismissed. Prefer the native <dialog> element.",
+  "tags": ["dialog", "div"],
+  "elements": [
+    { "name": "backdrop", "description": "Dimmed layer behind the dialog; clicking it may close the modal.", "tags": ["div"] },
+    { "name": "container", "description": "The dialog panel.", "tags": ["div", "form"], "required": true },
+    { "name": "header", "description": "Holds the title and close button.", "tags": ["header", "div"] },
+    { "name": "title", "description": "Dialog heading, referenced by aria-labelledby.", "tags": ["h2", "h3"], "required": true },
+    { "name": "close", "description": "Icon button that closes the dialog.", "tags": ["button"] },
+    { "name": "body", "description": "Dialog content.", "tags": ["div"] },
+    { "name": "footer", "description": "Actions, right-aligned. Put the primary action last.", "tags": ["footer", "div"] }
+  ],
+  "states": [
+    { "name": "closed", "description": "Hidden. Remove the attribute (or set another value) to show the modal.", "pair": "When closed, return focus to the control that opened the modal." }
+  ],
+  "children": [
+    "c-modal contains c-modal__backdrop and c-modal__container as siblings.",
+    "c-modal__container contains header, body and footer in that order."
+  ],
+  "tokens": ["--modal-background", "--modal-backdrop", "--modal-border", "--modal-radius", "--modal-shadow", "--z-index-modal", "--z-index-modal-backdrop"],
+  "guidelines": {
+    "use": [
+      "Use for short, focused tasks: confirmations, small forms.",
+      "Buttons in c-modal__footer are c-button; the footer provides the gap."
+    ],
+    "avoid": [
+      "Opening a modal from another modal.",
+      "Long, scrolling content; use a page instead."
+    ]
+  },
+  "a11y": [
+    "Set role=\"dialog\" (or use <dialog>), aria-modal=\"true\" and aria-labelledby pointing at c-modal__title.",
+    "Move focus into the modal when it opens and trap it until it closes.",
+    "Close on Escape.",
+    "c-modal__close needs aria-label=\"Close\"."
+  ],
+  "related": ["c-button"],
+  "examples": ["modal.html"]
+}

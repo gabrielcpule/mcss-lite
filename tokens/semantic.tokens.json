@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "MCSS-Lite semantic tokens that do not change between light and dark mode.",
+  "space": {
+    "component-padding": {
+      "$value": "{space.4}",
+      "$description": "Default inner padding for components."
+    },
+    "element-gap": {
+      "$value": "{space.3}",
+      "$description": "Gap between sibling elements inside a component."
+    },
+    "section-gap": {
+      "$value": "{space.8}",
+      "$description": "Gap between page sections."
+    }
+  }
+}

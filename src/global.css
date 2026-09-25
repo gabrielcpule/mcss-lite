@@ -22,8 +22,8 @@
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-normal);
     line-height: var(--line-height-normal);
-    color: var(--color-gray-900);
-    background-color: var(--color-white);
+    color: var(--color-text-default);
+    background-color: var(--color-background-default);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -32,7 +32,7 @@
     margin: 0 0 var(--space-4);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
-    color: var(--color-gray-900);
+    color: var(--color-text-default);
   }
 
   h1 { font-size: var(--font-size-4xl); }
@@ -88,7 +88,7 @@
   }
 
   ::selection {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--color-action-primary);
+    color: var(--color-text-on-action);
   }
 }

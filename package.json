@@ -1,23 +1,64 @@
 {
   "name": "@gabrielpule/mcss-lite",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lightweight CSS framework with semantic BEM components and design tokens. Production-ready subset of MCSS principles.",
   "license": "MIT",
   "author": "Gabriel Pule",
   "repository": "github:gabrielcpule/mcss-lite",
+  "type": "module",
   "main": "index.css",
   "style": "index.css",
+  "exports": {
+    ".": {
+      "style": "./index.css",
+      "default": "./index.css"
+    },
+    "./manifest": "./dist/mcss-lite.manifest.json",
+    "./manifest.json": "./dist/mcss-lite.manifest.json",
+    "./tokens/*": "./tokens/*",
+    "./figma/*": "./dist/figma/*",
+    "./*": "./*"
+  },
+  "bin": {
+    "mcss-lite": "bin/mcss-lite.mjs"
+  },
   "files": [
     "index.css",
-    "src/"
+    "src/",
+    "tokens/",
+    "components/",
+    "schemas/",
+    "dist/",
+    "skills/",
+    "bin/",
+    "scripts/lib/",
+    "AGENTS.md",
+    "llms.txt",
+    "llms-components.txt",
+    "llms-tokens.txt",
+    "llms-full.txt"
   ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test",
+    "validate": "node bin/mcss-lite.mjs validate"
+  },
   "keywords": [
     "css",
     "framework",
     "design-system",
     "design-tokens",
+    "dtcg",
+    "figma-variables",
+    "dark-mode",
     "bem",
     "semantic",
+    "llms-txt",
+    "ai-agents",
     "mcss"
   ]
 }
