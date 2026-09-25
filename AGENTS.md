@@ -106,7 +106,7 @@ Values are shown as light / dark.
 | `--color-background-interactive` | #ffffff / #13202e | Resting background of controls (buttons, inputs). |
 | `--color-background-interactive-hover` | #eef6fc / #1a2a3b | Hover background of controls. |
 | `--color-background-disabled` | #e9ecef / #1a2a3b | Background of disabled (ghosted) controls. |
-| `--color-background-callout` | #fff3cd / #3a2e05 | The 1:1 call-out that introduces a new part. |
+| `--color-background-callout` | #fff3cd / #263a4f | The 1:1 call-out that introduces a new part. |
 | `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) | Modal backdrop. |
 | `--color-background-success` | #d4edda / #0f2e1a | Background for success messages and badges. |
 | `--color-background-warning` | #fff3cd / #3a2e05 | Background for warning messages and badges. |

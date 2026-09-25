@@ -6,6 +6,7 @@ import {
   loadTokens, tokensForMode, tokenToCss, resolvedCss, isAlias, aliasPath, isFigmaExcluded, MODES,
 } from './tokens.mjs';
 import { loadContracts, loadExamples } from './contracts.mjs';
+import { buildDemo } from './demo.mjs';
 
 export const RULES = [
   {
@@ -70,6 +71,7 @@ export function generate(root) {
   files.set('llms-components.txt', docs.components);
   files.set('llms-tokens.txt', docs.tokens);
   files.set('llms-full.txt', docs.full);
+  files.set('demo/index.html', buildDemo(root, pkg, contracts, tokenRows));
   return files;
 }
 

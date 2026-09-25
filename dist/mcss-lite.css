@@ -252,7 +252,7 @@
   --color-background-interactive: var(--color-navy-850);
   --color-background-interactive-hover: var(--color-navy-800);
   --color-background-disabled: var(--color-navy-800);
-  --color-background-callout: var(--color-yellow-950);
+  --color-background-callout: var(--color-navy-700);
   --color-background-overlay: rgb(0 0 0 / 0.72);
   --color-background-success: var(--color-green-950);
   --color-background-warning: var(--color-yellow-950);
@@ -340,7 +340,7 @@
     --color-background-interactive: var(--color-navy-850);
     --color-background-interactive-hover: var(--color-navy-800);
     --color-background-disabled: var(--color-navy-800);
-    --color-background-callout: var(--color-yellow-950);
+    --color-background-callout: var(--color-navy-700);
     --color-background-overlay: rgb(0 0 0 / 0.72);
     --color-background-success: var(--color-green-950);
     --color-background-warning: var(--color-yellow-950);
