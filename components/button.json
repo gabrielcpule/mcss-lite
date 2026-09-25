@@ -1,0 +1,52 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Button",
+  "block": "c-button",
+  "layer": "component",
+  "status": "stable",
+  "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates.",
+  "tags": ["button", "a"],
+  "modifiers": [
+    {
+      "group": "variant",
+      "exclusive": true,
+      "values": [
+        { "name": "primary", "description": "The main action in a view region. Use at most one per region." },
+        { "name": "secondary", "description": "Outlined in the action color; for important but not main actions." },
+        { "name": "ghost", "description": "No border or background; for low-emphasis actions such as Cancel." }
+      ]
+    },
+    {
+      "group": "size",
+      "exclusive": true,
+      "values": [
+        { "name": "sm", "description": "Compact button for dense UI such as tables and toolbars." },
+        { "name": "lg", "description": "Large button for hero or empty-state calls to action." }
+      ]
+    }
+  ],
+  "states": [
+    { "name": "disabled", "description": "The action is unavailable.", "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href." },
+    { "name": "loading", "description": "The action is in progress.", "pair": "Set aria-busy=\"true\" and keep the visible label (for example \"Saving…\")." }
+  ],
+  "tokens": ["--button-background", "--button-background-hover", "--button-border", "--button-text", "--button-radius", "--button-primary-background", "--button-primary-background-hover", "--button-primary-text", "--button-secondary-text", "--button-secondary-border", "--button-ghost-background-hover"],
+  "guidelines": {
+    "use": [
+      "Group buttons with l-cluster; it provides the gap.",
+      "Order a button group as secondary or ghost actions first, then the primary action last.",
+      "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\"."
+    ],
+    "avoid": [
+      "Adding margin to .c-button. Spacing belongs to the layout parent.",
+      "Combining two variant modifiers (for example c-button--primary c-button--ghost).",
+      "Using c-button on a <div> or <span>."
+    ]
+  },
+  "a11y": [
+    "A button needs a visible text label, or aria-label when it only contains an icon.",
+    "Do not remove the :focus-visible outline.",
+    "Use type=\"button\" unless the button submits a form."
+  ],
+  "related": ["l-cluster", "c-modal"],
+  "examples": ["button.html"]
+}

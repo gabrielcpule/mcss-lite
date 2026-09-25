@@ -1,0 +1,15 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Cluster",
+  "block": "l-cluster",
+  "layer": "layout",
+  "status": "stable",
+  "description": "Horizontal group that wraps, with a gap: button groups, badge lists, tags.",
+  "tokens": ["--space-3"],
+  "guidelines": {
+    "use": ["Group inline items such as buttons and badges."],
+    "avoid": ["Using l-cluster for two-column page layouts; use l-sidebar or l-grid."]
+  },
+  "related": ["c-button", "c-badge"],
+  "examples": ["layouts.html"]
+}

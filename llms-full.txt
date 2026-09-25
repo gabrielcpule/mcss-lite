@@ -1,0 +1,942 @@
+# MCSS-Lite (full)
+
+> Rules, components and tokens in one file.
+> Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
+> Package: @gabrielpule/mcss-lite@0.2.0
+
+## Rules
+
+1. **Components never set their own outer margin.** Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing.
+2. **Layout, then component, then utility, then token.** Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only.
+3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--danger.
+4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).
+5. **Theme with semantic tokens, never raw values.** Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode.
+
+## Setup
+
+```html
+<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/index.css">
+<html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
+```
+
+Cascade layers, lowest to highest: `@layer global, layout, component, utility;`. Prefixes: `l-` layout primitive, `c-` component, `u-` utility. Naming is BEM: `c-block`, `c-block__element`, `c-block--modifier`; state is `data-state="value"` on the block.
+
+Before finishing, check your markup:
+
+```sh
+npx mcss-lite validate path/to/file.html   # or a directory; add --json for machine output
+```
+
+## Blocks at a glance
+
+| Class | Layer | Modifiers | Elements | data-state | Use for |
+|---|---|---|---|---|---|
+| `l-center` | layout | — | — | — | Centers a block horizontally at reading width without side gutters. |
+| `l-cluster` | layout | — | — | — | Horizontal group that wraps, with a gap: button groups, badge lists, tags. |
+| `l-container` | layout | --narrow | — | — | Centers page content horizontally with a max width and side gutters. |
+| `l-grid` | layout | --2-col --3-col --4-col --responsive | — | — | Two-dimensional grid with a fixed gap. |
+| `l-section` | layout | --sm | — | — | Vertical padding for a full-width page section. |
+| `l-sidebar` | layout | — | __sidebar __content | — | A sidebar next to main content that stacks when the content would get narrower than 50%. |
+| `l-stack` | layout | --sm --lg | — | — | Vertical flow: adds space between consecutive children. |
+| `l-switcher` | layout | — | — | — | Children sit side by side until the container is narrower than a threshold, then all stack at once. |
+| `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
+| `c-button` | component | --primary --secondary --ghost · --sm --lg | — | disabled loading | Triggers an action. |
+| `c-card` | component | --elevated --bordered · --interactive | __header __title __body __footer | — | A raised surface that groups related content, such as a summary, a settings group or a list item. |
+| `c-form-field` | component | — | __label __help __error | — | Wraps one form control with its label, help text and error message. |
+| `c-input` | component | — | — | error success disabled | Single-line text entry. |
+| `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
+| `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
+
+## Layout primitives
+
+### Center — `l-center`
+
+Centers a block horizontally at reading width without side gutters.
+
+**Tokens:** `--container-narrow`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Cluster — `l-cluster`
+
+Horizontal group that wraps, with a gap: button groups, badge lists, tags.
+
+**Do:**
+- Group inline items such as buttons and badges.
+
+**Don't:**
+- Using l-cluster for two-column page layouts; use l-sidebar or l-grid.
+
+**Tokens:** `--space-3`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Container — `l-container`
+
+Centers page content horizontally with a max width and side gutters.
+
+**Modifiers — width** (pick at most one):
+- `l-container--narrow`: Reading width (48rem) for articles and forms.
+
+**Do:**
+- Use once per page region, as the outermost wrapper of the content.
+
+**Don't:**
+- Nesting containers.
+
+**Tokens:** `--container-max-width`, `--container-narrow`, `--space-4`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Grid — `l-grid`
+
+Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.
+
+**Modifiers — columns** (pick at most one):
+- `l-grid--2-col`: Two equal columns.
+- `l-grid--3-col`: Three equal columns.
+- `l-grid--4-col`: Four equal columns.
+- `l-grid--responsive`: As many 280px-minimum columns as fit; no breakpoint needed.
+
+**Do:**
+- Prefer l-grid--responsive for card collections of unknown length.
+
+**Don't:**
+- Adding margins to grid children; the gap already spaces them.
+
+**Tokens:** `--space-6`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Section — `l-section`
+
+Vertical padding for a full-width page section.
+
+**Modifiers — size** (pick at most one):
+- `l-section--sm`: Smaller vertical padding (2.5rem instead of 4rem).
+
+**Structure:**
+- Usually contains one l-container.
+
+**Tokens:** `--space-10`, `--space-16`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Sidebar — `l-sidebar`
+
+A sidebar next to main content that stacks when the content would get narrower than 50%.
+
+**Elements:**
+- `l-sidebar__sidebar` (required): The narrow side (16rem basis).
+- `l-sidebar__content` (required): The main content; takes the remaining space.
+
+**Structure:**
+- Exactly two children: l-sidebar__sidebar and l-sidebar__content, in either order.
+
+**Tokens:** `--space-6`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Stack — `l-stack`
+
+Vertical flow: adds space between consecutive children. The default way to space components vertically.
+
+**Modifiers — gap** (pick at most one):
+- `l-stack--sm`: Tight spacing (0.5rem), e.g. form-field internals or list items.
+- `l-stack--lg`: Loose spacing (2rem), e.g. between page blocks.
+
+**Do:**
+- Nest stacks with different gaps to build rhythm.
+
+**Don't:**
+- Adding margin-top to children to fix spacing; change the stack modifier instead.
+
+**Tokens:** `--space-2`, `--space-4`, `--space-8`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Switcher — `l-switcher`
+
+Children sit side by side until the container is narrower than a threshold, then all stack at once.
+
+**Custom properties:**
+- `--switcher-threshold` (default `30rem`): Container width below which children stack. Set inline, e.g. style="--switcher-threshold: 40rem".
+
+**Tokens:** `--space-4`
+
+**Example** (`components/layouts.html`):
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+      <h1>Projects</h1>
+
+      <div class="l-sidebar">
+        <nav class="l-sidebar__sidebar" aria-label="Filters">
+          <div class="l-stack l-stack--sm">
+            <a href="#all">All</a>
+            <a href="#mine">Mine</a>
+          </div>
+        </nav>
+        <div class="l-sidebar__content">
+          <div class="l-grid l-grid--3-col">
+            <div class="c-card">One</div>
+            <div class="c-card">Two</div>
+            <div class="c-card">Three</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-switcher" style="--switcher-threshold: 40rem">
+        <div class="c-card">Side by side on wide screens</div>
+        <div class="c-card">Stacked on narrow screens</div>
+      </div>
+
+      <div class="l-center">
+        <p class="u-text-center">Centered at reading width.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+## Components
+
+### Badge — `c-badge`
+
+A short, non-interactive label for status or category, such as "Beta" or "Paid".
+
+**Apply to:** `<span>`
+
+**Modifiers — tone** (pick at most one):
+- `c-badge--primary`: Brand emphasis, e.g. "New".
+- `c-badge--success`: Positive status, e.g. "Active".
+- `c-badge--warning`: Needs attention, e.g. "Expiring".
+- `c-badge--error`: Negative status, e.g. "Failed".
+- `c-badge--info`: Neutral information, e.g. "Draft".
+
+**Do:**
+- Keep badge text to one or two words.
+- Group several badges with l-cluster.
+
+**Don't:**
+- Making a badge clickable; use c-button--sm instead.
+- Relying on badge color alone to convey meaning; the text must carry the status.
+
+**Accessibility:**
+- Color is decorative; the badge text must describe the status on its own.
+
+**Tokens:** `--badge-background`, `--badge-text`, `--color-action-primary`, `--color-text-on-action`
+
+**Example** (`components/badge.html`):
+
+```html
+<div class="l-cluster">
+  <span class="c-badge">Draft</span>
+  <span class="c-badge c-badge--primary">New</span>
+  <span class="c-badge c-badge--success">Active</span>
+  <span class="c-badge c-badge--warning">Expiring</span>
+  <span class="c-badge c-badge--error">Failed</span>
+  <span class="c-badge c-badge--info">Beta</span>
+</div>
+```
+
+### Button — `c-button`
+
+Triggers an action. Apply to <button>. Apply to <a> only when the control navigates.
+
+**Apply to:** `<button>`, `<a>`
+
+**Modifiers — variant** (pick at most one):
+- `c-button--primary`: The main action in a view region. Use at most one per region.
+- `c-button--secondary`: Outlined in the action color; for important but not main actions.
+- `c-button--ghost`: No border or background; for low-emphasis actions such as Cancel.
+
+**Modifiers — size** (pick at most one):
+- `c-button--sm`: Compact button for dense UI such as tables and toolbars.
+- `c-button--lg`: Large button for hero or empty-state calls to action.
+
+**States:**
+- `data-state="disabled"`: The action is unavailable. On <button>, also set the disabled attribute. On <a>, set aria-disabled="true" and remove href.
+- `data-state="loading"`: The action is in progress. Set aria-busy="true" and keep the visible label (for example "Saving…").
+
+**Do:**
+- Group buttons with l-cluster; it provides the gap.
+- Order a button group as secondary or ghost actions first, then the primary action last.
+- Write labels as verbs that name the outcome: "Save changes", not "OK".
+
+**Don't:**
+- Adding margin to .c-button. Spacing belongs to the layout parent.
+- Combining two variant modifiers (for example c-button--primary c-button--ghost).
+- Using c-button on a <div> or <span>.
+
+**Accessibility:**
+- A button needs a visible text label, or aria-label when it only contains an icon.
+- Do not remove the :focus-visible outline.
+- Use type="button" unless the button submits a form.
+
+**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`
+
+**Example** (`components/button.html`):
+
+```html
+<div class="l-cluster">
+  <button type="button" class="c-button c-button--ghost">Cancel</button>
+  <button type="button" class="c-button">Save draft</button>
+  <button type="submit" class="c-button c-button--primary">Publish</button>
+</div>
+
+<div class="l-cluster">
+  <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
+  <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
+  <a class="c-button c-button--secondary" href="/docs">Read the docs</a>
+</div>
+
+<div class="l-cluster">
+  <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
+  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true">Saving…</button>
+</div>
+```
+
+### Card — `c-card`
+
+A raised surface that groups related content, such as a summary, a settings group or a list item.
+
+**Apply to:** `<article>`, `<section>`, `<div>`, `<li>`, `<a>`
+
+**Modifiers — surface** (pick at most one):
+- `c-card--elevated`: Stronger shadow to lift the card above its neighbors.
+- `c-card--bordered`: Border only, no shadow; for flat, dense layouts.
+
+**Modifiers — behavior** (combinable):
+- `c-card--interactive`: The whole card is clickable; shows hover feedback.
+
+**Elements:**
+- `c-card__header`: Top area; holds the title and optional badges. On `<header>`/`<div>`.
+- `c-card__title`: Card heading. Use the heading level that fits the page outline. On `<h2>`/`<h3>`/`<h4>`/`<h5>`/`<h6>`.
+- `c-card__body`: Main content. On `<div>`/`<p>`.
+- `c-card__footer`: Bottom area for actions or metadata; has a top divider. On `<footer>`/`<div>`.
+
+**Structure:**
+- Elements appear in the order header, body, footer. All are optional.
+- c-card__title goes inside c-card__header.
+
+**Do:**
+- Place cards in l-grid or l-stack; the layout sets the gap between cards.
+- For c-card--interactive, make the card an <a> or put one link inside whose area covers the card.
+
+**Don't:**
+- Nesting cards inside cards.
+- Adding margin to .c-card.
+- Putting several competing links inside a c-card--interactive.
+
+**Accessibility:**
+- An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.
+- Keep the title a real heading so screen reader users can navigate by headings.
+
+**Tokens:** `--card-background`, `--card-border`, `--card-border-hover`, `--card-radius`, `--card-padding`, `--card-shadow`
+
+**Example** (`components/card.html`):
+
+```html
+<div class="l-grid l-grid--responsive">
+  <article class="c-card">
+    <header class="c-card__header">
+      <div class="l-cluster">
+        <h3 class="c-card__title">Team plan</h3>
+        <span class="c-badge c-badge--success">Active</span>
+      </div>
+    </header>
+    <div class="c-card__body">
+      <p class="u-margin-0">12 of 20 seats used. Renews on 1 March.</p>
+    </div>
+    <footer class="c-card__footer">
+      <div class="l-cluster">
+        <button type="button" class="c-button c-button--sm">Manage seats</button>
+      </div>
+    </footer>
+  </article>
+
+  <a class="c-card c-card--interactive" href="/projects/atlas">
+    <div class="c-card__header">
+      <h3 class="c-card__title">Atlas</h3>
+    </div>
+    <div class="c-card__body">
+      <p class="u-margin-0">Updated 2 hours ago</p>
+    </div>
+  </a>
+
+  <section class="c-card c-card--bordered">
+    <div class="c-card__body">
+      <p class="u-margin-0">Bordered cards suit dense, flat layouts.</p>
+    </div>
+  </section>
+</div>
+```
+
+### Form field — `c-form-field`
+
+Wraps one form control with its label, help text and error message.
+
+**Apply to:** `<div>`, `<fieldset>`
+
+**Elements:**
+- `c-form-field__label` (required): The field label. On `<label>`/`<legend>`.
+- `c-form-field__help`: Hint shown below the control. On `<p>`/`<div>`/`<span>`.
+- `c-form-field__error`: Error message shown when the control has data-state="error". On `<p>`/`<div>`/`<span>`.
+
+**Structure:**
+- Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error.
+
+**Do:**
+- Stack several c-form-field blocks with l-stack.
+
+**Don't:**
+- Adding margin to .c-form-field; the layout parent spaces fields.
+
+**Accessibility:**
+- Connect label and control with for/id.
+- Give help and error elements ids and list them in the control's aria-describedby.
+- Use role="alert" or a live region on the error when it appears after submit.
+
+**Tokens:** `--color-text-muted`, `--color-text-subtle`, `--color-text-error`
+
+**Example** (`components/form-field.html`):
+
+```html
+<form class="l-stack" novalidate>
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="email">Work email</label>
+    <input class="c-input" id="email" type="email" autocomplete="email" aria-describedby="email-help">
+    <p class="c-form-field__help" id="email-help">We'll send the invite here.</p>
+  </div>
+
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="password">Password</label>
+    <input class="c-input" id="password" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error">
+    <p class="c-form-field__error" id="password-error">Use at least 12 characters.</p>
+  </div>
+
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="org">Organization</label>
+    <input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled>
+  </div>
+
+  <div class="l-cluster">
+    <button type="submit" class="c-button c-button--primary">Create account</button>
+  </div>
+</form>
+```
+
+### Input — `c-input`
+
+Single-line text entry. Also styles <textarea> and <select>.
+
+**Apply to:** `<input>`, `<textarea>`, `<select>`
+
+**States:**
+- `data-state="error"`: The value is invalid. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
+- `data-state="success"`: The value was validated successfully.
+- `data-state="disabled"`: The field cannot be edited. Also set the disabled attribute.
+
+**Do:**
+- Always wrap in c-form-field with a c-form-field__label.
+- Use the right type attribute (email, tel, number, search) so mobile keyboards match.
+
+**Don't:**
+- Using placeholder text as the only label.
+- Setting a width on .c-input; it fills its container. Constrain the container instead.
+
+**Accessibility:**
+- Every input needs a programmatic label: <label for> on c-form-field__label.
+- Error text must be linked with aria-describedby, not only shown in red.
+
+**Tokens:** `--input-background`, `--input-border`, `--input-border-focus`, `--input-text`, `--input-placeholder`, `--input-radius`, `--color-focus-ring`, `--color-focus-ring-error`
+
+**Example** (`components/input.html`):
+
+```html
+<div class="c-form-field">
+  <label class="c-form-field__label" for="search">Search projects</label>
+  <input class="c-input" id="search" type="search" placeholder="Name or ID">
+</div>
+```
+
+### Label — `c-label`
+
+**Deprecated.** Use `c-form-field__label` instead.
+
+Deprecated standalone label. Use c-form-field__label inside c-form-field instead; c-label will be removed in 1.0.
+
+**Apply to:** `<label>`
+
+**Tokens:** `--color-text-muted`
+
+### Modal — `c-modal`
+
+A dialog over the page that blocks interaction until dismissed. Prefer the native <dialog> element.
+
+**Apply to:** `<dialog>`, `<div>`
+
+**Elements:**
+- `c-modal__backdrop`: Dimmed layer behind the dialog; clicking it may close the modal. On `<div>`.
+- `c-modal__container` (required): The dialog panel. On `<div>`/`<form>`.
+- `c-modal__header`: Holds the title and close button. On `<header>`/`<div>`.
+- `c-modal__title` (required): Dialog heading, referenced by aria-labelledby. On `<h2>`/`<h3>`.
+- `c-modal__close`: Icon button that closes the dialog. On `<button>`.
+- `c-modal__body`: Dialog content. On `<div>`.
+- `c-modal__footer`: Actions, right-aligned. Put the primary action last. On `<footer>`/`<div>`.
+
+**States:**
+- `data-state="closed"`: Hidden. Remove the attribute (or set another value) to show the modal. When closed, return focus to the control that opened the modal.
+
+**Structure:**
+- c-modal contains c-modal__backdrop and c-modal__container as siblings.
+- c-modal__container contains header, body and footer in that order.
+
+**Do:**
+- Use for short, focused tasks: confirmations, small forms.
+- Buttons in c-modal__footer are c-button; the footer provides the gap.
+
+**Don't:**
+- Opening a modal from another modal.
+- Long, scrolling content; use a page instead.
+
+**Accessibility:**
+- Set role="dialog" (or use <dialog>), aria-modal="true" and aria-labelledby pointing at c-modal__title.
+- Move focus into the modal when it opens and trap it until it closes.
+- Close on Escape.
+- c-modal__close needs aria-label="Close".
+
+**Tokens:** `--modal-background`, `--modal-backdrop`, `--modal-border`, `--modal-radius`, `--modal-shadow`, `--z-index-modal`, `--z-index-modal-backdrop`
+
+**Example** (`components/modal.html`):
+
+```html
+<div class="c-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+  <div class="c-modal__backdrop"></div>
+  <div class="c-modal__container">
+    <header class="c-modal__header">
+      <h2 class="c-modal__title" id="delete-title">Delete project?</h2>
+      <button type="button" class="c-modal__close" aria-label="Close">×</button>
+    </header>
+    <div class="c-modal__body">
+      <p class="u-margin-0">Atlas and its 42 files will be deleted. This can't be undone.</p>
+    </div>
+    <footer class="c-modal__footer">
+      <button type="button" class="c-button c-button--ghost">Keep project</button>
+      <button type="button" class="c-button c-button--primary">Delete project</button>
+    </footer>
+  </div>
+</div>
+```
+
+## Utilities
+
+Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.
+
+- `u-text-center`: Center-align text.
+- `u-text-left`: Left-align text.
+- `u-text-right`: Right-align text.
+- `u-hidden`: display: none.
+- `u-visible`: visibility: visible.
+- `u-invisible`: visibility: hidden; keeps the space.
+- `u-margin-0`: Remove margin, e.g. from a heading or paragraph inside a component.
+- `u-padding-0`: Remove padding.
+- `u-font-normal`: Normal font weight.
+- `u-font-medium`: Medium font weight.
+- `u-font-semibold`: Semibold font weight.
+- `u-font-bold`: Bold font weight.
+- `u-font-mono`: Monospace font.
+- `u-truncate`: Single line with an ellipsis.
+- `u-sr-only`: Visually hidden but read by screen readers.
+
+## Themes
+
+Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes; component tokens alias semantic ones, so they follow automatically.
+
+To theme for a brand, override semantic tokens, for example:
+
+```css
+:root, [data-theme="light"] { --color-action-primary: #7a2e8f; }
+[data-theme="dark"] { --color-action-primary: #d9a6e8; }
+```
+
+## Semantic tokens (use these)
+
+Values are shown as light / dark.
+
+### Spacing (semantic)
+
+| Token | Value | Use for |
+|---|---|---|
+| `--space-component-padding` | 1rem | Default inner padding for components. |
+| `--space-element-gap` | 0.75rem | Gap between sibling elements inside a component. |
+| `--space-section-gap` | 2rem | Gap between page sections. |
+
+### Text
+
+| Token | Value | Use for |
+|---|---|---|
+| `--color-text-default` | #1a1d20 / #f8f9fa | Default body and heading text. |
+| `--color-text-muted` | #343a40 / #dee2e6 | Secondary text: labels, supporting copy. |
+| `--color-text-subtle` | #6c757d / #adb5bd | Tertiary text: help text, placeholders, icons. |
+| `--color-text-inverse` | #ffffff / #1a1d20 | Text on an inverted (dark in light mode) background. |
+| `--color-text-on-action` | #ffffff / #1a1d20 | Text on --color-action-primary. |
+| `--color-text-link` | #005a9c / #6cb4ee | Link text. |
+| `--color-text-link-hover` | #004a80 / #9ccdf4 | Link text on hover. |
+| `--color-text-disabled` | #adb5bd / #495057 | Text in disabled controls. |
+| `--color-text-success` | #155724 / #a3d9b1 | Text on --color-background-success. |
+| `--color-text-warning` | #856404 / #f5d77a | Text on --color-background-warning. |
+| `--color-text-error` | #721c24 / #f4a9b0 | Text on --color-background-error. |
+| `--color-text-info` | #0c5460 / #9ad4df | Text on --color-background-info. |
+
+### Backgrounds
+
+| Token | Value | Use for |
+|---|---|---|
+| `--color-background-default` | #ffffff / #1a1d20 | Page background. |
+| `--color-background-subtle` | #f8f9fa / #212529 | Subtle section or hover background. |
+| `--color-background-muted` | #e9ecef / #343a40 | Muted fill for neutral badges and chips. |
+| `--color-background-raised` | #ffffff / #212529 | Cards, modals and other raised surfaces. |
+| `--color-background-interactive` | #ffffff / #212529 | Resting background of controls (buttons, inputs). |
+| `--color-background-interactive-hover` | #f8f9fa / #2b3035 | Hover background of controls. |
+| `--color-background-disabled` | #dee2e6 / #2b3035 | Background of disabled controls. |
+| `--color-background-overlay` | rgb(0 0 0 / 0.5) / rgb(0 0 0 / 0.7) | Modal backdrop. |
+| `--color-background-success` | #d4edda / #0f2e1a | Background for success messages and badges. |
+| `--color-background-warning` | #fff3cd / #3a2e05 | Background for warning messages and badges. |
+| `--color-background-error` | #f8d7da / #3b1216 | Background for error messages and badges. |
+| `--color-background-info` | #d1ecf1 / #0b2d33 | Background for info messages and badges. |
+
+### Borders
+
+| Token | Value | Use for |
+|---|---|---|
+| `--color-border-default` | #dee2e6 / #343a40 | Dividers and card borders. |
+| `--color-border-strong` | #ced4da / #495057 | Emphasized borders. |
+| `--color-border-interactive` | #868e96 / #868e96 | Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast. |
+| `--color-border-focus` | #4d90fe / #6cb4ee | Focus outline color. |
+| `--color-border-success` | #c3e6cb / #1e5631 | Border for success states. |
+| `--color-border-warning` | #ffeaa7 / #6b5310 | Border for warning states. |
+| `--color-border-error` | #f5c6cb / #6e2129 | Border for error states. |
+| `--color-border-info` | #bee5eb / #155a66 | Border for info states. |
+
+### Actions
+
+| Token | Value | Use for |
+|---|---|---|
+| `--color-action-primary` | #005a9c / #6cb4ee | Primary action background (primary buttons, selection). |
+| `--color-action-primary-hover` | #004a80 / #9ccdf4 | Primary action on hover. |
+| `--color-action-primary-active` | #003860 / #c7e2f8 | Primary action while pressed. |
+| `--color-action-neutral-hover` | #e9ecef / #343a40 | Hover background for ghost and icon buttons. |
+
+### Focus
+
+| Token | Value | Use for |
+|---|---|---|
+| `--color-focus-ring` | rgb(0 90 156 / 0.15) / rgb(108 180 238 / 0.35) | Soft focus halo around focused inputs. |
+| `--color-focus-ring-error` | rgb(114 28 36 / 0.15) / rgb(244 169 176 / 0.3) | Focus halo for inputs in the error state. |
+
+## Scales (primitives safe to use anywhere)
+
+- **font.family:** `--font-family-sans` (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif), `--font-family-mono` ('SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace)
+- **font.size:** `--font-size-xs` (0.75rem), `--font-size-sm` (0.875rem), `--font-size-base` (1rem), `--font-size-lg` (1.125rem), `--font-size-xl` (1.25rem), `--font-size-2xl` (1.5rem), `--font-size-3xl` (1.875rem), `--font-size-4xl` (2.25rem), `--font-size-5xl` (3rem)
+- **font.weight:** `--font-weight-normal` (400), `--font-weight-medium` (500), `--font-weight-semibold` (600), `--font-weight-bold` (700)
+- **line-height:** `--line-height-tight` (1.25), `--line-height-normal` (1.5), `--line-height-relaxed` (1.75)
+- **space:** `--space-0` (0), `--space-1` (0.25rem), `--space-2` (0.5rem), `--space-3` (0.75rem), `--space-4` (1rem), `--space-5` (1.25rem), `--space-6` (1.5rem), `--space-8` (2rem), `--space-10` (2.5rem), `--space-12` (3rem), `--space-16` (4rem), `--space-20` (5rem), `--space-24` (6rem)
+- **border-radius:** `--border-radius-none` (0), `--border-radius-sm` (0.125rem), `--border-radius-base` (0.25rem), `--border-radius-md` (0.375rem), `--border-radius-lg` (0.5rem), `--border-radius-xl` (0.75rem), `--border-radius-2xl` (1rem), `--border-radius-full` (9999px)
+- **border-width:** `--border-width-0` (0), `--border-width-thin` (1px), `--border-width-thick` (2px), `--border-width-thicker` (4px)
+- **shadow:** `--shadow-xs` (0 1px 2px rgb(0 0 0 / 0.05)), `--shadow-sm` (0 1px 3px rgb(0 0 0 / 0.1)), `--shadow-base` (0 4px 6px rgb(0 0 0 / 0.1)), `--shadow-md` (0 8px 25px rgb(0 0 0 / 0.1)), `--shadow-lg` (0 25px 50px rgb(0 0 0 / 0.15)), `--shadow-xl` (0 25px 50px rgb(0 0 0 / 0.25))
+- **ease:** `--ease-linear` (linear), `--ease-in` (ease-in), `--ease-out` (ease-out), `--ease-in-out` (ease-in-out)
+- **duration:** `--duration-instant` (0ms), `--duration-fast` (150ms), `--duration-base` (250ms), `--duration-slow` (350ms), `--duration-slower` (500ms)
+- **z-index:** `--z-index-hide` (-1), `--z-index-base` (0), `--z-index-docked` (10), `--z-index-dropdown` (1000), `--z-index-sticky` (1020), `--z-index-modal-backdrop` (1040), `--z-index-modal` (1050), `--z-index-popover` (1060), `--z-index-toast` (1070), `--z-index-tooltip` (1080)
+- **container:** `--container-max-width` (72rem), `--container-narrow` (48rem)
+
+## Component tokens
+
+Override one of these to restyle a single component without affecting others.
+
+| Token | Aliases | Value |
+|---|---|---|
+| `--button-background` | `--color-background-interactive` | #ffffff / #212529 |
+| `--button-background-hover` | `--color-background-interactive-hover` | #f8f9fa / #2b3035 |
+| `--button-border` | `--color-border-interactive` | #868e96 |
+| `--button-text` | `--color-text-default` | #1a1d20 / #f8f9fa |
+| `--button-radius` | `--border-radius-md` | 0.375rem |
+| `--button-primary-background` | `--color-action-primary` | #005a9c / #6cb4ee |
+| `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #9ccdf4 |
+| `--button-primary-text` | `--color-text-on-action` | #ffffff / #1a1d20 |
+| `--button-secondary-text` | `--color-action-primary` | #005a9c / #6cb4ee |
+| `--button-secondary-border` | `--color-action-primary` | #005a9c / #6cb4ee |
+| `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #343a40 |
+| `--input-background` | `--color-background-interactive` | #ffffff / #212529 |
+| `--input-border` | `--color-border-interactive` | #868e96 |
+| `--input-border-focus` | `--color-action-primary` | #005a9c / #6cb4ee |
+| `--input-text` | `--color-text-default` | #1a1d20 / #f8f9fa |
+| `--input-placeholder` | `--color-text-subtle` | #6c757d / #adb5bd |
+| `--input-radius` | `--border-radius-md` | 0.375rem |
+| `--card-background` | `--color-background-raised` | #ffffff / #212529 |
+| `--card-border` | `--color-border-default` | #dee2e6 / #343a40 |
+| `--card-border-hover` | `--color-action-primary` | #005a9c / #6cb4ee |
+| `--card-radius` | `--border-radius-lg` | 0.5rem |
+| `--card-padding` | `--space-6` | 1.5rem |
+| `--card-shadow` | `--shadow-sm` | 0 1px 3px rgb(0 0 0 / 0.1) |
+| `--badge-background` | `--color-background-muted` | #e9ecef / #343a40 |
+| `--badge-text` | `--color-text-muted` | #343a40 / #dee2e6 |
+| `--modal-background` | `--color-background-raised` | #ffffff / #212529 |
+| `--modal-backdrop` | `--color-background-overlay` | rgb(0 0 0 / 0.5) / rgb(0 0 0 / 0.7) |
+| `--modal-border` | `--color-border-default` | #dee2e6 / #343a40 |
+| `--modal-radius` | `--border-radius-xl` | 0.75rem |
+| `--modal-shadow` | `--shadow-xl` | 0 25px 50px rgb(0 0 0 / 0.25) |
+
+## Primitive colors (do not use in components)
+
+These are the raw palette behind the semantic tokens. They do not change with the theme. Use them only to define your own semantic tokens.
+
+`--color-white`, `--color-black`, `--color-gray-50`, `--color-gray-100`, `--color-gray-200`, `--color-gray-300`, `--color-gray-400`, `--color-gray-450`, `--color-gray-500`, `--color-gray-600`, `--color-gray-700`, `--color-gray-800`, `--color-gray-850`, `--color-gray-900`, `--color-primary`, `--color-primary-hover`, `--color-primary-active`, `--color-accent`, `--color-blue-100`, `--color-blue-200`, `--color-blue-300`, `--color-blue-400`, `--color-green-100`, `--color-green-200`, `--color-green-300`, `--color-green-800`, `--color-green-900`, `--color-green-950`, `--color-yellow-100`, `--color-yellow-200`, `--color-yellow-300`, `--color-yellow-800`, `--color-yellow-900`, `--color-yellow-950`, `--color-red-100`, `--color-red-200`, `--color-red-300`, `--color-red-800`, `--color-red-900`, `--color-red-950`, `--color-cyan-100`, `--color-cyan-200`, `--color-cyan-300`, `--color-cyan-800`, `--color-cyan-900`, `--color-cyan-950`

@@ -1,0 +1,477 @@
+{
+  "space": {
+    "component-padding": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$description": "Default inner padding for components.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "GAP",
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "element-gap": {
+      "$type": "dimension",
+      "$value": "{space.3}",
+      "$description": "Gap between sibling elements inside a component.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "GAP",
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "section-gap": {
+      "$type": "dimension",
+      "$value": "{space.8}",
+      "$description": "Gap between page sections.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "GAP",
+          "WIDTH_HEIGHT"
+        ]
+      }
+    }
+  },
+  "color": {
+    "text": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$description": "Default body and heading text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.700}",
+        "$description": "Secondary text: labels, supporting copy.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.gray.500}",
+        "$description": "Tertiary text: help text, placeholders, icons.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Text on an inverted (dark in light mode) background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "on-action": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Text on --color-action-primary.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "link": {
+        "$type": "color",
+        "$value": "{color.primary.default}",
+        "$description": "Link text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "link-hover": {
+        "$type": "color",
+        "$value": "{color.primary.hover}",
+        "$description": "Link text on hover.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$description": "Text in disabled controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.green.900}",
+        "$description": "Text on --color-background-success.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.yellow.900}",
+        "$description": "Text on --color-background-warning.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.red.900}",
+        "$description": "Text on --color-background-error.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{color.cyan.900}",
+        "$description": "Text on --color-background-info.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      }
+    },
+    "background": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Page background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.gray.50}",
+        "$description": "Subtle section or hover background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$description": "Muted fill for neutral badges and chips.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "raised": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Cards, modals and other raised surfaces.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "interactive": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Resting background of controls (buttons, inputs).",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "interactive-hover": {
+        "$type": "color",
+        "$value": "{color.gray.50}",
+        "$description": "Hover background of controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$description": "Background of disabled controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.5,
+          "hex": "#000000"
+        },
+        "$description": "Modal backdrop.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.green.100}",
+        "$description": "Background for success messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.yellow.100}",
+        "$description": "Background for warning messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.red.100}",
+        "$description": "Background for error messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{color.cyan.100}",
+        "$description": "Background for info messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$description": "Dividers and card borders.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$description": "Emphasized borders.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "interactive": {
+        "$type": "color",
+        "$value": "{color.gray.450}",
+        "$description": "Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{color.blue.400}",
+        "$description": "Focus outline color.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.green.200}",
+        "$description": "Border for success states.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.yellow.200}",
+        "$description": "Border for warning states.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.red.200}",
+        "$description": "Border for error states.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{color.cyan.200}",
+        "$description": "Border for info states.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "action": {
+      "primary": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.primary.default}",
+          "$description": "Primary action background (primary buttons, selection).",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{color.primary.hover}",
+          "$description": "Primary action on hover.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{color.primary.active}",
+          "$description": "Primary action while pressed.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "neutral-hover": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$description": "Hover background for ghost and icon buttons.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    },
+    "focus-ring": {
+      "default": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.3529,
+            0.6118
+          ],
+          "alpha": 0.15,
+          "hex": "#005a9c"
+        },
+        "$description": "Soft focus halo around focused inputs.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4471,
+            0.1098,
+            0.1412
+          ],
+          "alpha": 0.15,
+          "hex": "#721c24"
+        },
+        "$description": "Focus halo for inputs in the error state.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    }
+  }
+}

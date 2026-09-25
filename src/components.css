@@ -2,6 +2,9 @@
    MCSS-Lite: Component Layer
    Reusable UI components. BEM naming: c-block__element--modifier.
    Components never declare external margin (Golden Rule).
+   Components use semantic or component tokens only, never
+   primitive color tokens, so they follow the active theme.
+   Contracts: components/*.json
    ============================================================ */
 
 @layer component {
@@ -12,10 +15,10 @@
     justify-content: center;
     gap: var(--space-2);
     padding: var(--space-3) var(--space-5);
-    border: var(--border-width-thin) solid var(--color-border-interactive);
-    border-radius: var(--border-radius-md);
-    background-color: var(--color-background-interactive);
-    color: var(--color-gray-900);
+    border: var(--border-width-thin) solid var(--button-border);
+    border-radius: var(--button-radius);
+    background-color: var(--button-background);
+    color: var(--button-text);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-base);
     line-height: var(--line-height-tight);
@@ -29,7 +32,8 @@
   }
 
   .c-button:hover {
-    background-color: var(--color-background-interactive-hover);
+    background-color: var(--button-background-hover);
+    color: var(--button-text);
   }
 
   .c-button:active {
@@ -37,25 +41,26 @@
   }
 
   .c-button--primary {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--button-primary-background);
+    border-color: var(--button-primary-background);
+    color: var(--button-primary-text);
   }
 
   .c-button--primary:hover {
-    background-color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    background-color: var(--button-primary-background-hover);
+    border-color: var(--button-primary-background-hover);
+    color: var(--button-primary-text);
   }
 
   .c-button--secondary {
     background-color: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--button-secondary-border);
+    color: var(--button-secondary-text);
   }
 
   .c-button--secondary:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--button-primary-background);
+    color: var(--button-primary-text);
   }
 
   .c-button--ghost {
@@ -64,7 +69,7 @@
   }
 
   .c-button--ghost:hover {
-    background-color: var(--color-gray-100);
+    background-color: var(--button-ghost-background-hover);
   }
 
   .c-button--sm {
@@ -77,6 +82,7 @@
     font-size: var(--font-size-lg);
   }
 
+  .c-button:disabled,
   .c-button[data-state="disabled"] {
     opacity: 0.5;
     cursor: not-allowed;
@@ -91,11 +97,11 @@
 
   /* === Card === */
   .c-card {
-    background-color: var(--color-white);
-    border: var(--border-width-thin) solid var(--color-gray-200);
-    border-radius: var(--border-radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-sm);
+    background-color: var(--card-background);
+    border: var(--border-width-thin) solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--card-shadow);
   }
 
   .c-card--elevated {
@@ -104,10 +110,12 @@
 
   .c-card--bordered {
     box-shadow: none;
-    border-color: var(--color-gray-300);
+    border-color: var(--color-border-strong);
   }
 
   .c-card--interactive {
+    display: block;
+    color: inherit;
     cursor: pointer;
     transition:
       box-shadow var(--duration-fast) var(--ease-out),
@@ -116,7 +124,8 @@
 
   .c-card--interactive:hover {
     box-shadow: var(--shadow-md);
-    border-color: var(--color-primary);
+    border-color: var(--card-border-hover);
+    color: inherit;
   }
 
   .c-card__header {
@@ -134,7 +143,7 @@
   .c-card__footer {
     margin-top: var(--space-4);
     padding-top: var(--space-4);
-    border-top: var(--border-width-thin) solid var(--color-gray-200);
+    border-top: var(--border-width-thin) solid var(--card-border);
   }
 
   .c-card__title {
@@ -148,10 +157,10 @@
     display: block;
     width: 100%;
     padding: var(--space-3) var(--space-4);
-    border: var(--border-width-thin) solid var(--color-border-interactive);
-    border-radius: var(--border-radius-md);
-    background-color: var(--color-background-interactive);
-    color: var(--color-gray-900);
+    border: var(--border-width-thin) solid var(--input-border);
+    border-radius: var(--input-radius);
+    background-color: var(--input-background);
+    color: var(--input-text);
     font-size: var(--font-size-base);
     line-height: var(--line-height-normal);
     transition:
@@ -160,12 +169,12 @@
   }
 
   .c-input::placeholder {
-    color: var(--color-gray-400);
+    color: var(--input-placeholder);
   }
 
   .c-input:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(0, 90, 156, 0.15);
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
     outline: none;
   }
 
@@ -174,26 +183,18 @@
   }
 
   .c-input[data-state="error"]:focus {
-    box-shadow: 0 0 0 3px rgba(114, 28, 36, 0.15);
+    box-shadow: 0 0 0 3px var(--color-focus-ring-error);
   }
 
   .c-input[data-state="success"] {
     border-color: var(--color-border-success);
   }
 
+  .c-input:disabled,
   .c-input[data-state="disabled"] {
     background-color: var(--color-background-disabled);
     color: var(--color-text-disabled);
     cursor: not-allowed;
-  }
-
-  /* === Label === */
-  .c-label {
-    display: block;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-gray-700);
-    margin-bottom: var(--space-2);
   }
 
   /* === Form Field === */
@@ -201,17 +202,20 @@
     /* Block-level wrapper; spacing handled by layout parent */
   }
 
-  .c-form-field__label {
+  /* .c-label is deprecated: use .c-form-field__label */
+  .c-form-field__label,
+  .c-label {
     display: block;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
     margin-bottom: var(--space-2);
   }
 
   .c-form-field__help {
     margin-top: var(--space-2);
     font-size: var(--font-size-sm);
-    color: var(--color-gray-500);
+    color: var(--color-text-subtle);
   }
 
   .c-form-field__error {
@@ -229,13 +233,13 @@
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-normal);
-    background-color: var(--color-gray-100);
-    color: var(--color-gray-700);
+    background-color: var(--badge-background);
+    color: var(--badge-text);
   }
 
   .c-badge--primary {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--color-action-primary);
+    color: var(--color-text-on-action);
   }
 
   .c-badge--success {
@@ -251,6 +255,11 @@
   .c-badge--error {
     background-color: var(--color-background-error);
     color: var(--color-text-error);
+  }
+
+  .c-badge--info {
+    background-color: var(--color-background-info);
+    color: var(--color-text-info);
   }
 
   /* === Modal === */
@@ -270,7 +279,7 @@
   .c-modal__backdrop {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--modal-backdrop);
     z-index: var(--z-index-modal-backdrop);
   }
 
@@ -280,9 +289,9 @@
     width: 100%;
     max-width: 36rem;
     max-height: 90vh;
-    background-color: var(--color-white);
-    border-radius: var(--border-radius-xl);
-    box-shadow: var(--shadow-xl);
+    background-color: var(--modal-background);
+    border-radius: var(--modal-radius);
+    box-shadow: var(--modal-shadow);
     overflow-y: auto;
   }
 
@@ -291,7 +300,7 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--space-4) var(--space-6);
-    border-bottom: var(--border-width-thin) solid var(--color-gray-200);
+    border-bottom: var(--border-width-thin) solid var(--modal-border);
   }
 
   .c-modal__title {
@@ -309,7 +318,7 @@
     border: none;
     border-radius: var(--border-radius-md);
     background: transparent;
-    color: var(--color-gray-500);
+    color: var(--color-text-subtle);
     cursor: pointer;
     font-size: var(--font-size-lg);
     line-height: 1;
@@ -317,8 +326,8 @@
   }
 
   .c-modal__close:hover {
-    background-color: var(--color-gray-100);
-    color: var(--color-gray-900);
+    background-color: var(--color-action-neutral-hover);
+    color: var(--color-text-default);
   }
 
   .c-modal__body {
@@ -330,6 +339,6 @@
     justify-content: flex-end;
     gap: var(--space-3);
     padding: var(--space-4) var(--space-6);
-    border-top: var(--border-width-thin) solid var(--color-gray-200);
+    border-top: var(--border-width-thin) solid var(--modal-border);
   }
 }

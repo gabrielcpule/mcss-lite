@@ -1,0 +1,22 @@
+<form class="l-stack" novalidate>
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="email">Work email</label>
+    <input class="c-input" id="email" type="email" autocomplete="email" aria-describedby="email-help">
+    <p class="c-form-field__help" id="email-help">We'll send the invite here.</p>
+  </div>
+
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="password">Password</label>
+    <input class="c-input" id="password" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error">
+    <p class="c-form-field__error" id="password-error">Use at least 12 characters.</p>
+  </div>
+
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="org">Organization</label>
+    <input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled>
+  </div>
+
+  <div class="l-cluster">
+    <button type="submit" class="c-button c-button--primary">Create account</button>
+  </div>
+</form>
