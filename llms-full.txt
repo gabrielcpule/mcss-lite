@@ -29,6 +29,8 @@ npx mcss-lite validate path/to/file.html   # or a directory; add --json for mach
 
 ## Blocks at a glance
 
+Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).
+
 | Class | Layer | Modifiers | Elements | data-state | Use for |
 |---|---|---|---|---|---|
 | `l-center` | layout | — | — | — | Centers a block horizontally at reading width without side gutters. |

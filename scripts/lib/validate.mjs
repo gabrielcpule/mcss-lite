@@ -29,6 +29,9 @@ export function createValidator(contracts) {
   const suggest = (cls) => {
     const best = names.map((n) => [n, levenshtein(cls, n)]).sort((a, b) => a[1] - b[1])[0];
     if (best && best[1] <= 2) return ` Did you mean "${best[0]}"?`;
+    if (cls.startsWith('u-')) {
+      return ` Utilities that exist: ${names.filter((n) => inventory.get(n).kind === 'utility').join(', ')}.`;
+    }
     const block = cls.split(/__|--/)[0];
     const info = inventory.get(block);
     if (info?.kind !== 'block') return '';
