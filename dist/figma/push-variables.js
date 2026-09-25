@@ -89,6 +89,7 @@ const DATA = {
     {"name":"font/weight/medium","type":"FLOAT","css":"--font-weight-medium","scopes":["FONT_WEIGHT"],"values":{"Value":500}},
     {"name":"font/weight/semibold","type":"FLOAT","css":"--font-weight-semibold","scopes":["FONT_WEIGHT"],"values":{"Value":600}},
     {"name":"font/weight/bold","type":"FLOAT","css":"--font-weight-bold","scopes":["FONT_WEIGHT"],"values":{"Value":700}},
+    {"name":"font/weight/extrabold","type":"FLOAT","css":"--font-weight-extrabold","description":"Display weight for step numerals and wordmarks.","scopes":["FONT_WEIGHT"],"values":{"Value":800}},
     {"name":"line-height/tight","type":"FLOAT","css":"--line-height-tight","scopes":[],"values":{"Value":1.25}},
     {"name":"line-height/normal","type":"FLOAT","css":"--line-height-normal","scopes":[],"values":{"Value":1.5}},
     {"name":"line-height/relaxed","type":"FLOAT","css":"--line-height-relaxed","scopes":[],"values":{"Value":1.75}},

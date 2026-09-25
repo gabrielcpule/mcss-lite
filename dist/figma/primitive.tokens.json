@@ -1323,6 +1323,16 @@
             "FONT_WEIGHT"
           ]
         }
+      },
+      "extrabold": {
+        "$type": "number",
+        "$value": 800,
+        "$description": "Display weight for step numerals and wordmarks.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
       }
     }
   },

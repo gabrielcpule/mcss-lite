@@ -1523,7 +1523,7 @@
       "path": "font.family.display",
       "tier": "primitive",
       "type": "fontFamily",
-      "value": "Rubik, 'ui-rounded', 'system-ui', sans-serif",
+      "value": "Rubik, ui-rounded, system-ui, sans-serif",
       "description": "Rounded display face for step numerals and wordmarks. Not loaded by the framework; load Rubik yourself or it falls back to the system face.",
       "figma": false
     },
@@ -1629,6 +1629,15 @@
       "tier": "primitive",
       "type": "fontWeight",
       "value": "700",
+      "figma": true
+    },
+    {
+      "name": "--font-weight-extrabold",
+      "path": "font.weight.extrabold",
+      "tier": "primitive",
+      "type": "fontWeight",
+      "value": "800",
+      "description": "Display weight for step numerals and wordmarks.",
       "figma": true
     },
     {
