@@ -13,7 +13,7 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Wants decisions grounded in research on successful systems (GitLab Pajamas, Primer, Atlassian, Shopify Polaris, shadcn).
 - Approves designs section by section; asks for adjustments rather than rewrites.
 - Impeccable runs include both `critique` and `audit`.
-- Figma work goes in the **pule** team (Pro plan).
+- Figma support must work for **any** account (native import files + generated push script). Gabriel's own copy lives in the **pule** team: "MCSS-Lite Tokens" (file key `oPGy6RPx7mAhDDK8op1I33`). Never commit account-specific IDs to shipped files.
 
 ## Decisions (approved)
 
@@ -26,6 +26,9 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 | 2026-09-25 | `c-label` deprecated in favour of `c-form-field__label`; `c-badge--info` added; control borders use `--color-gray-450` to meet 3:1. |
 | 2026-09-25 | Accessibility commitment: WCAG 2.2 AA in both themes. |
 | 2026-09-25 | Out of scope for now: an MCP server, Figma components, Code Connect. |
+| 2026-09-25 | Impeccable critique 20/40, audit 14/20 → fix everything (P1–P3). |
+| 2026-09-25 | Visual identity: **Build Instructions** world (Impeccable new-work, seed a4f52e2b). Ink keylines, brick blue primary (#005a9c kept), brick red danger, yellow focus halo/call-outs, sky canvas, night-build dark. Direction contract in `.impeccable/surfaces/demo-index-html.md`. |
+| 2026-09-25 | Demo is generated from contracts (`demo/steps.json` + examples) as an instruction booklet. |
 
 ## Where things are
 
@@ -37,19 +40,11 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Demo: `demo/index.html` (`?theme=light|dark|auto`)
 - Branch: `claude/design-system-ai-mcss-lite-4mhmop`
 
-## Current state (2026-09-25)
+## Current state (2026-09-25, later)
 
-Done: tokens, contracts, generator, check, validator, tests (27 passing), skill, CI, README, PRODUCT.md, demo.
-
-In progress: Impeccable critique of `demo/index.html` (design review 20/40, detector pass done, audit running). Findings so far:
-- Error and success input borders fail 3:1; a focused error input loses its focus border; inputs use `outline: none`.
-- No destructive (`danger`) button variant.
-- The demo doesn't show the contract (class names, `data-state`, links to AGENTS.md or the manifest); the palette reads as Bootstrap-generic.
-- `l-cluster` has no `align-items`; `l-stack` doesn't space inline children; links have no underline.
-- Dark primary button loses the brand weight; secondary hover looks like primary; the theme toggle has no pressed style; loading has no indicator.
+Done: identity + all critique/audit fixes, `c-button--danger`, bundle `dist/mcss-lite.css`, generated demo, Figma push script (tested against a fake API; pushed to the pule file: 206 variables, 127 aliases, 10 effect styles), 32 tests passing.
 
 Next:
-1. Fix the critique and audit findings in one batch, then one confirm round.
-2. Push tokens to a new Figma file "MCSS-Lite Tokens" in the pule team (collections Primitives, Semantic Light/Dark, Component; code syntax `var(--token)`; shadows as effect styles).
-3. `/impeccable document` → `DESIGN.md`.
-4. Run the skill eval (8 prompts, with and without the skill, scored by `validate`).
+1. Confirm round: finish reviewer on the demo (screenshots in `.impeccable/review/`), one fix batch max.
+2. `/impeccable document` → `DESIGN.md` + `.impeccable/design.json` (documenter agent).
+3. Skill eval (8 prompts, with/without skill, scored by `validate`).
