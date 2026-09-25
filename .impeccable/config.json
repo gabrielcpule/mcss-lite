@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "em-dash-overuse",
+        "value": "*",
+        "files": [
+          "demo/index.html"
+        ],
+        "createdAt": "2026-09-25T23:34:28.085Z",
+        "reason": "Claude verified: the file has zero em-dashes; the count comes from --modifier and --token names shown in code call-outs"
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "demo/index.html"
+        ],
+        "createdAt": "2026-09-25T23:34:28.095Z",
+        "reason": "Claude verified in Playwright: h1 renders 76px Rubik, step numerals 96px, h2 24px, body 16px; static scan cannot resolve clamp()/token sizes from demo.css"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "demo/index.html"
+        ],
+        "createdAt": "2026-09-25T23:34:28.106Z",
+        "reason": "Claude verified computed styles: demo-install/callout/stage/check have 8-24px padding from demo.css tokens; static scan does not read the linked stylesheet"
+      }
+    ]
+  }
+}
