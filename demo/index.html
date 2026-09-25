@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCSS-Lite demo</title>
+  <link rel="stylesheet" href="../index.css">
+  <style>
+    /* Demo-only chrome. Uses tokens only, like any consumer CSS should. */
+    .demo-header {
+      border-bottom: var(--border-width-thin) solid var(--color-border-default);
+      background-color: var(--color-background-raised);
+    }
+    .demo-header__bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: var(--space-4);
+    }
+    .demo-header h1 { font-size: var(--font-size-xl); margin: 0; }
+    .demo-scope {
+      padding: var(--space-6);
+      border-radius: var(--border-radius-lg);
+      background-color: var(--color-background-default);
+      color: var(--color-text-default);
+    }
+    .demo-muted { color: var(--color-text-subtle); }
+  </style>
+</head>
+<body>
+  <header class="demo-header">
+    <div class="l-container demo-header__bar">
+      <h1>MCSS-Lite</h1>
+      <div class="l-cluster" role="group" aria-label="Theme">
+        <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
+        <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
+        <button type="button" class="c-button c-button--sm" data-theme-choice="auto" aria-pressed="false">System</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="l-section l-section--sm" aria-labelledby="buttons">
+      <div class="l-container l-stack">
+        <h2 id="buttons">Buttons</h2>
+        <div class="l-cluster">
+          <button type="button" class="c-button c-button--primary">Publish</button>
+          <button type="button" class="c-button c-button--secondary">Export</button>
+          <button type="button" class="c-button">Save draft</button>
+          <button type="button" class="c-button c-button--ghost">Cancel</button>
+        </div>
+        <div class="l-cluster">
+          <button type="button" class="c-button c-button--primary c-button--sm">Small</button>
+          <button type="button" class="c-button c-button--primary c-button--lg">Large</button>
+          <button type="button" class="c-button" data-state="disabled" disabled>Disabled</button>
+          <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true">Saving…</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="l-section l-section--sm" aria-labelledby="badges">
+      <div class="l-container l-stack">
+        <h2 id="badges">Badges</h2>
+        <div class="l-cluster">
+          <span class="c-badge">Draft</span>
+          <span class="c-badge c-badge--primary">New</span>
+          <span class="c-badge c-badge--success">Active</span>
+          <span class="c-badge c-badge--warning">Expiring</span>
+          <span class="c-badge c-badge--error">Failed</span>
+          <span class="c-badge c-badge--info">Beta</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="l-section l-section--sm" aria-labelledby="cards">
+      <div class="l-container l-stack">
+        <h2 id="cards">Cards</h2>
+        <div class="l-grid l-grid--responsive">
+          <article class="c-card">
+            <header class="c-card__header">
+              <div class="l-cluster">
+                <h3 class="c-card__title">Team plan</h3>
+                <span class="c-badge c-badge--success">Active</span>
+              </div>
+            </header>
+            <div class="c-card__body">
+              <p class="u-margin-0">12 of 20 seats used. Renews on 1 March.</p>
+            </div>
+            <footer class="c-card__footer">
+              <div class="l-cluster">
+                <button type="button" class="c-button c-button--sm">Manage seats</button>
+              </div>
+            </footer>
+          </article>
+          <a class="c-card c-card--interactive" href="#cards">
+            <div class="c-card__header">
+              <h3 class="c-card__title">Atlas</h3>
+            </div>
+            <div class="c-card__body">
+              <p class="u-margin-0 demo-muted">Interactive card. Updated 2 hours ago.</p>
+            </div>
+          </a>
+          <article class="c-card c-card--elevated">
+            <div class="c-card__header"><h3 class="c-card__title">Elevated</h3></div>
+            <div class="c-card__body"><p class="u-margin-0">Stronger shadow.</p></div>
+          </article>
+          <article class="c-card c-card--bordered">
+            <div class="c-card__header"><h3 class="c-card__title">Bordered</h3></div>
+            <div class="c-card__body"><p class="u-margin-0">Flat, for dense layouts.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="l-section l-section--sm" aria-labelledby="forms">
+      <div class="l-container l-container--narrow l-stack">
+        <h2 id="forms">Form fields</h2>
+        <form class="l-stack" novalidate>
+          <div class="c-form-field">
+            <label class="c-form-field__label" for="email">Work email</label>
+            <input class="c-input" id="email" type="email" placeholder="you@company.com" autocomplete="email" aria-describedby="email-help">
+            <p class="c-form-field__help" id="email-help">We'll send the invite here.</p>
+          </div>
+          <div class="c-form-field">
+            <label class="c-form-field__label" for="password">Password</label>
+            <input class="c-input" id="password" type="password" value="short" data-state="error" aria-invalid="true" aria-describedby="password-error">
+            <p class="c-form-field__error" id="password-error">Use at least 12 characters.</p>
+          </div>
+          <div class="c-form-field">
+            <label class="c-form-field__label" for="handle">Username</label>
+            <input class="c-input" id="handle" type="text" value="ada" data-state="success" aria-describedby="handle-help">
+            <p class="c-form-field__help" id="handle-help">Available.</p>
+          </div>
+          <div class="c-form-field">
+            <label class="c-form-field__label" for="org">Organization</label>
+            <input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled>
+          </div>
+          <div class="l-cluster">
+            <button type="button" class="c-button c-button--ghost">Cancel</button>
+            <button type="button" class="c-button c-button--primary" data-open-modal>Delete account…</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="l-section l-section--sm" aria-labelledby="layouts">
+      <div class="l-container l-stack">
+        <h2 id="layouts">Layouts</h2>
+        <div class="l-sidebar">
+          <nav class="l-sidebar__sidebar" aria-label="Example navigation">
+            <div class="l-stack l-stack--sm">
+              <a href="#layouts">Overview</a>
+              <a href="#layouts">Members</a>
+              <a href="#layouts">Billing</a>
+            </div>
+          </nav>
+          <div class="l-sidebar__content">
+            <div class="l-grid l-grid--3-col">
+              <div class="c-card">l-grid--3-col</div>
+              <div class="c-card">collapses</div>
+              <div class="c-card">below 768px</div>
+            </div>
+          </div>
+        </div>
+        <div class="l-switcher">
+          <div class="c-card">l-switcher: side by side</div>
+          <div class="c-card">until 30rem, then stacked</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="l-section l-section--sm" aria-labelledby="scope">
+      <div class="l-container l-stack">
+        <h2 id="scope">Theme scope</h2>
+        <p class="demo-muted">data-theme works on any element, not only &lt;html&gt;.</p>
+        <div class="l-grid l-grid--2-col">
+          <div class="demo-scope" data-theme="light">
+            <div class="l-stack">
+              <span class="c-badge c-badge--info">data-theme="light"</span>
+              <div class="l-cluster">
+                <button type="button" class="c-button c-button--primary">Primary</button>
+                <button type="button" class="c-button">Default</button>
+              </div>
+            </div>
+          </div>
+          <div class="demo-scope" data-theme="dark">
+            <div class="l-stack">
+              <span class="c-badge c-badge--info">data-theme="dark"</span>
+              <div class="l-cluster">
+                <button type="button" class="c-button c-button--primary">Primary</button>
+                <button type="button" class="c-button">Default</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="c-modal" data-state="closed" role="dialog" aria-modal="true" aria-labelledby="modal-title" id="modal">
+    <div class="c-modal__backdrop" data-close-modal></div>
+    <div class="c-modal__container">
+      <header class="c-modal__header">
+        <h2 class="c-modal__title" id="modal-title">Delete account?</h2>
+        <button type="button" class="c-modal__close" aria-label="Close" data-close-modal>×</button>
+      </header>
+      <div class="c-modal__body">
+        <p class="u-margin-0">Your projects and invoices will be deleted. This can't be undone.</p>
+      </div>
+      <footer class="c-modal__footer">
+        <button type="button" class="c-button c-button--ghost" data-close-modal>Keep account</button>
+        <button type="button" class="c-button c-button--primary" data-close-modal>Delete account</button>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Theme switcher
+    const root = document.documentElement;
+    const choices = document.querySelectorAll('[data-theme-choice]');
+    const setTheme = (value) => {
+      root.dataset.theme = value;
+      choices.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === value)));
+      try { localStorage.setItem('mcss-lite-demo-theme', value); } catch {}
+    };
+    let saved = null;
+    try { saved = localStorage.getItem('mcss-lite-demo-theme'); } catch {}
+    const initial = new URLSearchParams(location.search).get('theme') || saved;
+    if (initial) setTheme(initial);
+    choices.forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeChoice)));
+
+    // Modal: open, close on Escape/backdrop, keep focus inside, restore focus
+    const modal = document.getElementById('modal');
+    let opener = null;
+    const focusable = () => modal.querySelectorAll('button, [href], input, select, textarea');
+    const open = (e) => {
+      opener = e.currentTarget;
+      modal.removeAttribute('data-state');
+      focusable()[0].focus();
+    };
+    const close = () => {
+      modal.dataset.state = 'closed';
+      opener?.focus();
+    };
+    document.querySelectorAll('[data-open-modal]').forEach((b) => b.addEventListener('click', open));
+    modal.querySelectorAll('[data-close-modal]').forEach((b) => b.addEventListener('click', close));
+    modal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+      if (e.key !== 'Tab') return;
+      const items = [...focusable()];
+      const first = items[0], last = items.at(-1);
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  </script>
+</body>
+</html>
