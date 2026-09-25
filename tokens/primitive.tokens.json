@@ -784,12 +784,13 @@
         "$value": {
           "colorSpace": "srgb",
           "components": [
-            0.0392,
-            0.0706,
-            0.1059
+            0.0431,
+            0.102,
+            0.2
           ],
-          "hex": "#0a121b"
-        }
+          "hex": "#0b1a33"
+        },
+        "$description": "Navy ink: the night-build canvas."
       },
       "$description": "Night-build neutrals for dark mode."
     }

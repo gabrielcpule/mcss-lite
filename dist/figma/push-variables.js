@@ -72,7 +72,7 @@ const DATA = {
     {"name":"color/navy/800","type":"COLOR","css":"--color-navy-800","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.102,"g":0.1647,"b":0.2314,"a":1}}},
     {"name":"color/navy/850","type":"COLOR","css":"--color-navy-850","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.0745,"g":0.1255,"b":0.1804,"a":1}}},
     {"name":"color/navy/900","type":"COLOR","css":"--color-navy-900","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.0549,"g":0.0941,"b":0.1412,"a":1}}},
-    {"name":"color/navy/950","type":"COLOR","css":"--color-navy-950","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.0392,"g":0.0706,"b":0.1059,"a":1}}},
+    {"name":"color/navy/950","type":"COLOR","css":"--color-navy-950","description":"Navy ink: the night-build canvas.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.0431,"g":0.102,"b":0.2,"a":1}}},
     {"name":"font/family/sans","type":"STRING","css":"--font-family-sans","scopes":["FONT_FAMILY"],"values":{"Value":"-apple-system"}},
     {"name":"font/family/mono","type":"STRING","css":"--font-family-mono","scopes":["FONT_FAMILY"],"values":{"Value":"SFMono-Regular"}},
     {"name":"font/family/display","type":"STRING","css":"--font-family-display","description":"Rounded display face for step numerals and wordmarks. Not loaded by the framework; load Rubik yourself or it falls back to the system face.","scopes":["FONT_FAMILY"],"values":{"Value":"Rubik"}},
@@ -200,8 +200,9 @@ const DATA = {
     {"name":"button/danger/background","type":"COLOR","css":"--button-danger-background","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/action/danger/default"}}},
     {"name":"button/danger/background-hover","type":"COLOR","css":"--button-danger-background-hover","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/action/danger/hover"}}},
     {"name":"button/danger/text","type":"COLOR","css":"--button-danger-text","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/on-danger"}}},
-    {"name":"button/pressed/background","type":"COLOR","css":"--button-pressed-background","description":"Selected toggle (aria-pressed=\"true\").","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/callout"}}},
+    {"name":"button/pressed/background","type":"COLOR","css":"--button-pressed-background","description":"Selected toggle (aria-pressed=\"true\"): an ink-filled piece.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
     {"name":"button/pressed/border","type":"COLOR","css":"--button-pressed-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/keyline"}}},
+    {"name":"button/pressed/text","type":"COLOR","css":"--button-pressed-text","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/inverse"}}},
     {"name":"input/background","type":"COLOR","css":"--input-background","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/interactive"}}},
     {"name":"input/border","type":"COLOR","css":"--input-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/interactive"}}},
     {"name":"input/border-focus","type":"COLOR","css":"--input-border-focus","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/action/primary/default"}}},
@@ -231,7 +232,7 @@ const DATA = {
     {"name":"MCSS-Lite/shadow/raised (light)","description":"var(--shadow-raised)","effects":[{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":1},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":0.12},"offset":{"x":0,"y":3},"radius":8,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
     {"name":"MCSS-Lite/shadow/raised (dark)","description":"var(--shadow-raised)","effects":[{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.6},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.35},"offset":{"x":0,"y":4},"radius":10,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
     {"name":"MCSS-Lite/shadow/elevated (light)","description":"var(--shadow-elevated)","effects":[{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":1},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":0.22},"offset":{"x":0,"y":10},"radius":24,"spread":-4,"visible":true,"blendMode":"NORMAL"}]},
-    {"name":"MCSS-Lite/shadow/elevated (dark)","description":"var(--shadow-elevated)","effects":[{"type":"DROP_SHADOW","color":{"r":0.6627,"g":0.7294,"b":0.7961,"a":0.35},"offset":{"x":0,"y":0},"radius":0,"spread":1,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.6},"offset":{"x":0,"y":12},"radius":28,"spread":-4,"visible":true,"blendMode":"NORMAL"}]}
+    {"name":"MCSS-Lite/shadow/elevated (dark)","description":"var(--shadow-elevated)","effects":[{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.7},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.6},"offset":{"x":0,"y":12},"radius":28,"spread":-4,"visible":true,"blendMode":"NORMAL"}]}
   ]
 };
 

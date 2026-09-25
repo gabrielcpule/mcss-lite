@@ -70,7 +70,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -98,7 +98,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -140,7 +140,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -192,7 +192,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -227,7 +227,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -262,7 +262,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -308,7 +308,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -335,7 +335,7 @@
       "examples": [
         {
           "file": "components/layouts.html",
-          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h1>Projects</h1>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
       ]
     },
@@ -483,7 +483,8 @@
         "--button-danger-background-hover",
         "--button-danger-text",
         "--button-pressed-background",
-        "--button-pressed-border"
+        "--button-pressed-border",
+        "--button-pressed-text"
       ],
       "guidelines": {
         "use": [
@@ -718,7 +719,7 @@
       "states": [
         {
           "name": "error",
-          "description": "The value is invalid. Adds a thicker leading keyline so the state does not rely on color.",
+          "description": "The value is invalid. Adds a heavier bottom edge so the state does not rely on color.",
           "pair": "Set aria-invalid=\"true\" and aria-describedby pointing at the c-form-field__error message."
         },
         {
@@ -1497,7 +1498,8 @@
       "path": "color.navy.950",
       "tier": "primitive",
       "type": "color",
-      "value": "#0a121b",
+      "value": "#0b1a33",
+      "description": "Navy ink: the night-build canvas.",
       "figma": true
     },
     {
@@ -2334,7 +2336,7 @@
       },
       "value": {
         "light": "#dcedf9",
-        "dark": "#0a121b"
+        "dark": "#0b1a33"
       },
       "description": "Instruction-page canvas for showcase and marketing pages; not for dense product UI.",
       "figma": true
@@ -2810,7 +2812,7 @@
       },
       "value": {
         "light": "#f2cd37",
-        "dark": "#0a121b"
+        "dark": "#0b1a33"
       },
       "description": "Outer halo around the focus ring: the yellow \"new part\" highlight in light, a dark gap in dark.",
       "figma": true
@@ -2834,7 +2836,7 @@
       "type": "shadow",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
-        "dark": "0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
       },
       "description": "Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible.",
       "figma": false
@@ -3009,12 +3011,12 @@
       "path": "button.pressed.background",
       "tier": "component",
       "type": "color",
-      "alias": "--color-background-callout",
+      "alias": "--color-text-default",
       "value": {
-        "light": "#fff3cd",
-        "dark": "#263a4f"
+        "light": "#1a1d20",
+        "dark": "#e6edf4"
       },
-      "description": "Selected toggle (aria-pressed=\"true\").",
+      "description": "Selected toggle (aria-pressed=\"true\"): an ink-filled piece.",
       "figma": true
     },
     {
@@ -3026,6 +3028,18 @@
       "value": {
         "light": "#1a1d20",
         "dark": "#cfdae5"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-pressed-text",
+      "path": "button.pressed.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-inverse",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#0e1824"
       },
       "figma": true
     },
@@ -3172,7 +3186,7 @@
       "alias": "--shadow-elevated",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
-        "dark": "0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
       },
       "figma": false
     },
@@ -3253,7 +3267,7 @@
       "alias": "--shadow-elevated",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
-        "dark": "0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
       },
       "figma": false
     }

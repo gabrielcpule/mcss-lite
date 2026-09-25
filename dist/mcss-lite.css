@@ -64,7 +64,7 @@
   --color-navy-800: #1a2a3b;
   --color-navy-850: #13202e;
   --color-navy-900: #0e1824;
-  --color-navy-950: #0a121b;
+  --color-navy-950: #0b1a33;
   --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace;
   --font-family-display: Rubik, 'ui-rounded', 'system-ui', sans-serif;
@@ -206,8 +206,9 @@
   --button-danger-background: var(--color-action-danger);
   --button-danger-background-hover: var(--color-action-danger-hover);
   --button-danger-text: var(--color-text-on-danger);
-  --button-pressed-background: var(--color-background-callout);
+  --button-pressed-background: var(--color-text-default);
   --button-pressed-border: var(--color-border-keyline);
+  --button-pressed-text: var(--color-text-inverse);
   --input-background: var(--color-background-interactive);
   --input-border: var(--color-border-interactive);
   --input-border-focus: var(--color-action-primary);
@@ -277,7 +278,7 @@
   --color-focus-ring-error: var(--color-red-300);
   --color-focus-halo: var(--color-navy-950);
   --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
-  --shadow-elevated: 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6);
+  --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
   --button-background: var(--color-background-interactive);
   --button-background-hover: var(--color-background-interactive-hover);
   --button-border: var(--color-border-interactive);
@@ -293,8 +294,9 @@
   --button-danger-background: var(--color-action-danger);
   --button-danger-background-hover: var(--color-action-danger-hover);
   --button-danger-text: var(--color-text-on-danger);
-  --button-pressed-background: var(--color-background-callout);
+  --button-pressed-background: var(--color-text-default);
   --button-pressed-border: var(--color-border-keyline);
+  --button-pressed-text: var(--color-text-inverse);
   --input-background: var(--color-background-interactive);
   --input-border: var(--color-border-interactive);
   --input-border-focus: var(--color-action-primary);
@@ -365,7 +367,7 @@
     --color-focus-ring-error: var(--color-red-300);
     --color-focus-halo: var(--color-navy-950);
     --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
-    --shadow-elevated: 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6);
+    --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
     --button-background: var(--color-background-interactive);
     --button-background-hover: var(--color-background-interactive-hover);
     --button-border: var(--color-border-interactive);
@@ -381,8 +383,9 @@
     --button-danger-background: var(--color-action-danger);
     --button-danger-background-hover: var(--color-action-danger-hover);
     --button-danger-text: var(--color-text-on-danger);
-    --button-pressed-background: var(--color-background-callout);
+    --button-pressed-background: var(--color-text-default);
     --button-pressed-border: var(--color-border-keyline);
+    --button-pressed-text: var(--color-text-inverse);
     --input-background: var(--color-background-interactive);
     --input-border: var(--color-border-interactive);
     --input-border-focus: var(--color-action-primary);
@@ -471,8 +474,9 @@
     --button-danger-background: var(--color-action-danger);
     --button-danger-background-hover: var(--color-action-danger-hover);
     --button-danger-text: var(--color-text-on-danger);
-    --button-pressed-background: var(--color-background-callout);
+    --button-pressed-background: var(--color-text-default);
     --button-pressed-border: var(--color-border-keyline);
+    --button-pressed-text: var(--color-text-inverse);
     --input-background: var(--color-background-interactive);
     --input-border: var(--color-border-interactive);
     --input-border-focus: var(--color-action-primary);
@@ -791,11 +795,13 @@
     padding: var(--space-3) var(--space-8);
     font-size: var(--font-size-lg);
   }
-  .c-button[aria-pressed="true"] {
+  .c-button[aria-pressed="true"],
+  .c-button[aria-pressed="true"]:hover {
     background-color: var(--button-pressed-background);
     border-color: var(--button-pressed-border);
-    color: var(--color-text-default);
-    box-shadow: inset 0 -3px 0 var(--button-pressed-border);
+    color: var(--button-pressed-text);
+    box-shadow: none;
+    transform: translateY(2px);
   }
   .c-button:disabled,
   .c-button[data-state="disabled"] {
@@ -896,12 +902,14 @@
   }
   .c-input[data-state="error"] {
     border-color: var(--color-border-error);
-    border-width: var(--border-width-thick);
-    border-inline-start-width: var(--border-width-thicker);
+    box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-error);
   }
   .c-input[data-state="error"]:focus-visible {
     border-color: var(--color-border-error);
     outline-color: var(--color-focus-ring-error);
+    box-shadow:
+      inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-error),
+      0 0 0 5px var(--color-focus-halo);
   }
   .c-input[data-state="success"] {
     border-color: var(--color-border-success);

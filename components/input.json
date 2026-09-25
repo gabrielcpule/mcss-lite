@@ -13,7 +13,7 @@
   "states": [
     {
       "name": "error",
-      "description": "The value is invalid. Adds a thicker leading keyline so the state does not rely on color.",
+      "description": "The value is invalid. Adds a heavier bottom edge so the state does not rely on color.",
       "pair": "Set aria-invalid=\"true\" and aria-describedby pointing at the c-form-field__error message."
     },
     {

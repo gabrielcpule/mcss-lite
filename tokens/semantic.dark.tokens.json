@@ -530,19 +530,19 @@
           "color": {
             "colorSpace": "srgb",
             "components": [
-              0.6627,
-              0.7294,
-              0.7961
+              0.0,
+              0.0,
+              0.0
             ],
-            "alpha": 0.35,
-            "hex": "#a9bacb"
+            "hex": "#000000",
+            "alpha": 0.7
           },
           "offsetX": {
             "value": 0,
             "unit": "px"
           },
           "offsetY": {
-            "value": 0,
+            "value": 2,
             "unit": "px"
           },
           "blur": {
@@ -550,7 +550,7 @@
             "unit": "px"
           },
           "spread": {
-            "value": 1,
+            "value": 0,
             "unit": "px"
           }
         },
@@ -558,12 +558,12 @@
           "color": {
             "colorSpace": "srgb",
             "components": [
-              0,
-              0,
-              0
+              0.0,
+              0.0,
+              0.0
             ],
-            "alpha": 0.6,
-            "hex": "#000000"
+            "hex": "#000000",
+            "alpha": 0.6
           },
           "offsetX": {
             "value": 0,
@@ -586,7 +586,7 @@
       "$extensions": {
         "mcss.figma": false
       },
-      "$description": "Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible."
+      "$description": "Lifted parts (elevated cards, modals): a 2px brick edge plus a soft blur."
     }
   }
 }

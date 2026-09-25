@@ -120,12 +120,14 @@
     font-size: var(--font-size-lg);
   }
 
-  /* Toggle buttons: the selected piece is marked with the call-out fill and an ink keyline. */
-  .c-button[aria-pressed="true"] {
+  /* Toggle buttons: the selected piece is ink-filled and seated (pressed down onto its edge). */
+  .c-button[aria-pressed="true"],
+  .c-button[aria-pressed="true"]:hover {
     background-color: var(--button-pressed-background);
     border-color: var(--button-pressed-border);
-    color: var(--color-text-default);
-    box-shadow: inset 0 -3px 0 var(--button-pressed-border);
+    color: var(--button-pressed-text);
+    box-shadow: none;
+    transform: translateY(2px);
   }
 
   /* Disabled parts are ghosted, like the finished steps in an instruction booklet. */
@@ -245,15 +247,18 @@
     box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
 
+  /* Error is marked by a heavier bottom edge as well as color, so it never relies on hue alone. */
   .c-input[data-state="error"] {
     border-color: var(--color-border-error);
-    border-width: var(--border-width-thick);
-    border-inline-start-width: var(--border-width-thicker);
+    box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-error);
   }
 
   .c-input[data-state="error"]:focus-visible {
     border-color: var(--color-border-error);
     outline-color: var(--color-focus-ring-error);
+    box-shadow:
+      inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-error),
+      0 0 0 5px var(--color-focus-halo);
   }
 
   .c-input[data-state="success"] {
