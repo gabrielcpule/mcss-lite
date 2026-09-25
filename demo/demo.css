@@ -144,7 +144,7 @@
   padding: var(--space-6);
   background-color: var(--color-background-raised);
   border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-base);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -153,9 +153,48 @@
   font-size: var(--font-size-xl);
 }
 
+.demo-inventory {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.demo-inventory__title {
+  margin: 0;
+}
+
+/* Each bag is a keylined, sealed parts bag: a folded top edge over a subtle fill. */
 .demo-bag {
-  padding-block: var(--space-4);
-  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+  padding: var(--space-4);
+  background-color: var(--color-background-subtle);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-block-start-width: var(--border-width-thicker);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-bag__part {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.demo-bag__note {
+  margin: var(--space-3) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.demo-glyph {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-text-default);
+}
+
+.demo-part__head {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
 }
 
 .demo-bag__head {
@@ -173,7 +212,7 @@
   height: 2rem;
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-full);
-  background-color: var(--color-background-callout);
+  background-color: var(--color-background-raised);
   font-family: var(--font-family-display);
   font-weight: 800;
 }
@@ -253,7 +292,7 @@
   padding: var(--space-5);
   background-color: var(--color-background-callout);
   border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-base);
 }
 
 .demo-callout__label {
@@ -316,8 +355,15 @@
 .demo-stage {
   padding: var(--space-6);
   background-color: var(--color-background-default);
+  /* The stud grid carries on inside the build area. */
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-border-keyline) 10%, transparent) 1.25px,
+    transparent 1.5px
+  );
+  background-size: var(--space-4) var(--space-4);
   border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-base);
   box-shadow: var(--shadow-raised);
   overflow-x: auto;
 }
@@ -344,8 +390,7 @@
   padding: var(--space-6);
   background-color: var(--color-background-raised);
   border: var(--border-width-thick) solid var(--color-border-error);
-  border-inline-start-width: var(--border-width-thicker);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-base);
   box-shadow: var(--shadow-raised);
 }
 

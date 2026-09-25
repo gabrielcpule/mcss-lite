@@ -121,7 +121,7 @@ Values are shown as light / dark.
 | Token | Value | Use for |
 |---|---|---|
 | `--color-background-default` | #ffffff / #0e1824 | Page background. |
-| `--color-background-canvas` | #dcedf9 / #0a121b | Instruction-page canvas for showcase and marketing pages; not for dense product UI. |
+| `--color-background-canvas` | #dcedf9 / #0b1a33 | Instruction-page canvas for showcase and marketing pages; not for dense product UI. |
 | `--color-background-subtle` | #f8f9fa / #1a2a3b | Subtle section or hover background. |
 | `--color-background-muted` | #e9ecef / #263a4f | Muted fill for neutral badges and chips. |
 | `--color-background-raised` | #ffffff / #13202e | Cards, modals and other raised surfaces. |
@@ -171,14 +171,14 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-focus-halo` | #f2cd37 / #0a121b | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
+| `--color-focus-halo` | #f2cd37 / #0b1a33 | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
 
 ### shadow
 
 | Token | Value | Use for |
 |---|---|---|
 | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
-| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 

@@ -150,8 +150,8 @@
     "pressed": {
       "background": {
         "$type": "color",
-        "$value": "{color.background.callout}",
-        "$description": "Selected toggle (aria-pressed=\"true\").",
+        "$value": "{color.text.default}",
+        "$description": "Selected toggle (aria-pressed=\"true\"): an ink-filled piece.",
         "$extensions": {
           "com.figma.scopes": [
             "ALL_FILLS",
@@ -162,6 +162,16 @@
       "border": {
         "$type": "color",
         "$value": "{color.border.keyline}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{color.text.inverse}",
         "$extensions": {
           "com.figma.scopes": [
             "ALL_FILLS",

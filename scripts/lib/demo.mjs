@@ -4,6 +4,27 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 
+// Authored part glyphs: one per block, drawn in the 2px ink keyline (24px grid).
+const GLYPHS = {
+  'l-center': '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 12h8"/>',
+  'l-cluster': '<rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/>',
+  'l-container': '<rect x="2" y="4" width="20" height="16" rx="1"/><path d="M6 4v16M18 4v16"/>',
+  'l-grid': '<rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/>',
+  'l-section': '<path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/>',
+  'l-sidebar': '<rect x="3" y="4" width="6" height="16" rx="1"/><rect x="11" y="4" width="10" height="16" rx="1"/>',
+  'l-stack': '<rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/>',
+  'l-switcher': '<rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><path d="M7 15v4h10v-4"/><path d="M15 17l2 2 2-2"/>',
+  'c-badge': '<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/>',
+  'c-button': '<rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/>',
+  'c-card': '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/>',
+  'c-form-field': '<path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/>',
+  'c-input': '<rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/>',
+  'c-modal': '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/>',
+};
+const glyph = (block) => (GLYPHS[block]
+  ? `<svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[block]}</svg>`
+  : '');
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l : l)).join('\n');
 
@@ -34,7 +55,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const componentTokens = tokenRows.filter((t) => t.tier === 'component');
   const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-halo', '--color-background-canvas', '--color-text-default', '--color-background-success'];
 
-  const partList = (list) => list.map((c) => `<li><code>${esc(c.block)}</code></li>`).join('');
+  const partList = (list) => list.map((c) => `<li class="demo-bag__part">${glyph(c.block)}<code>${esc(c.block)}</code></li>`).join('');
 
   const callout = (block) => {
     const c = byBlock.get(block);
@@ -50,7 +71,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
       els && `<span class="demo-part__row"><span class="demo-part__key">Elements</span> ${els}</span>`,
       states && `<span class="demo-part__row"><span class="demo-part__key">States</span> ${states}</span>`,
     ].filter(Boolean).join('');
-    return `<li class="demo-part"><code class="demo-part__name">${esc(c.block)}</code>${meta ? `<span class="demo-part__meta">${meta}</span>` : ''}</li>`;
+    return `<li class="demo-part"><span class="demo-part__head">${glyph(c.block)}<code class="demo-part__name">${esc(c.block)}</code></span>${meta ? `<span class="demo-part__meta">${meta}</span>` : ''}</li>`;
   };
 
   const stepHtml = (s, n) => {
@@ -147,7 +168,8 @@ ${indent(example(s.example), 10)}
             <ul class="demo-bag__list" role="list">${partList(components)}</ul>
           </div>
           <div class="demo-bag">
-            <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Tokens <span class="demo-bag__count">${semantic.length + componentTokens.length}×</span></p>
+            <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Tokens <span class="demo-bag__count">${tokenRows.length}×</span></p>
+            <p class="demo-bag__note">${semantic.length} semantic and ${componentTokens.length} component tokens to build with, on ${tokenRows.length - semantic.length - componentTokens.length} primitives.</p>
             <ul class="demo-swatches" role="list">${swatches.map((v) => `<li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(${v})"></span><code>${v}</code></li>`).join('')}</ul>
           </div>
         </aside>

@@ -76,7 +76,8 @@
     "--button-danger-background-hover",
     "--button-danger-text",
     "--button-pressed-background",
-    "--button-pressed-border"
+    "--button-pressed-border",
+    "--button-pressed-text"
   ],
   "guidelines": {
     "use": [

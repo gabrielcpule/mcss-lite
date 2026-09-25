@@ -23,10 +23,10 @@ Centers a block horizontally at reading width without side gutters.
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -72,10 +72,10 @@ Horizontal group that wraps, with a gap and vertically centered items: button gr
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -124,10 +124,10 @@ Centers page content horizontally with a max width and side gutters.
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -179,10 +179,10 @@ Two-dimensional grid with a fixed gap. Column modifiers collapse to one column b
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -228,10 +228,10 @@ Vertical padding for a full-width page section.
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -278,10 +278,10 @@ A sidebar next to main content that stacks when the content would get narrower t
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -331,10 +331,10 @@ Vertical flow with a fixed gap between children. Works with inline children (lin
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -377,10 +377,10 @@ Children sit side by side until the container is narrower than a threshold, then
 **Example** (`components/layouts.html`):
 
 ```html
-<section class="l-section">
+<section class="l-section l-section--sm">
   <div class="l-container">
     <div class="l-stack l-stack--lg">
-      <h1>Projects</h1>
+      <h3>Projects</h3>
 
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
@@ -490,7 +490,7 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 - Use type="button" unless the button submits a form.
 - c-button--sm looks compact but keeps a 44px tall hit area.
 
-**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-shadow`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`, `--button-danger-background`, `--button-danger-background-hover`, `--button-danger-text`, `--button-pressed-background`, `--button-pressed-border`
+**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-shadow`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`, `--button-danger-background`, `--button-danger-background-hover`, `--button-danger-text`, `--button-pressed-background`, `--button-pressed-border`, `--button-pressed-text`
 
 **Example** (`components/button.html`):
 
@@ -657,7 +657,7 @@ Single-line text entry. Also styles <textarea> and <select>.
 **Apply to:** `<input>`, `<textarea>`, `<select>`
 
 **States:**
-- `data-state="error"`: The value is invalid. Adds a thicker leading keyline so the state does not rely on color. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
+- `data-state="error"`: The value is invalid. Adds a heavier bottom edge so the state does not rely on color. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
 - `data-state="success"`: The value was validated successfully.
 - `data-state="disabled"`: The field cannot be edited. Rendered ghosted with a dashed keyline. Also set the disabled attribute.
 

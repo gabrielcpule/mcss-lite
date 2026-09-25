@@ -50,7 +50,7 @@ Values are shown as light / dark.
 | Token | Value | Use for |
 |---|---|---|
 | `--color-background-default` | #ffffff / #0e1824 | Page background. |
-| `--color-background-canvas` | #dcedf9 / #0a121b | Instruction-page canvas for showcase and marketing pages; not for dense product UI. |
+| `--color-background-canvas` | #dcedf9 / #0b1a33 | Instruction-page canvas for showcase and marketing pages; not for dense product UI. |
 | `--color-background-subtle` | #f8f9fa / #1a2a3b | Subtle section or hover background. |
 | `--color-background-muted` | #e9ecef / #263a4f | Muted fill for neutral badges and chips. |
 | `--color-background-raised` | #ffffff / #13202e | Cards, modals and other raised surfaces. |
@@ -100,14 +100,14 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-focus-halo` | #f2cd37 / #0a121b | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
+| `--color-focus-halo` | #f2cd37 / #0b1a33 | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
 
 ### shadow
 
 | Token | Value | Use for |
 |---|---|---|
 | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
-| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 
@@ -145,8 +145,9 @@ Override one of these to restyle a single component without affecting others.
 | `--button-danger-background` | `--color-action-danger` | #c91a09 |
 | `--button-danger-background-hover` | `--color-action-danger-hover` | #a01408 |
 | `--button-danger-text` | `--color-text-on-danger` | #ffffff |
-| `--button-pressed-background` | `--color-background-callout` | #fff3cd / #263a4f |
+| `--button-pressed-background` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--button-pressed-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--button-pressed-text` | `--color-text-inverse` | #ffffff / #0e1824 |
 | `--input-background` | `--color-background-interactive` | #ffffff / #13202e |
 | `--input-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
 | `--input-border-focus` | `--color-action-primary` | #005a9c / #1d6cc0 |
@@ -159,14 +160,14 @@ Override one of these to restyle a single component without affecting others.
 | `--card-radius` | `--border-radius-lg` | 0.5rem |
 | `--card-padding` | `--space-6` | 1.5rem |
 | `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
-| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
 | `--badge-background` | `--color-background-muted` | #e9ecef / #263a4f |
 | `--badge-text` | `--color-text-muted` | #343a40 / #cfdae5 |
 | `--modal-background` | `--color-background-raised` | #ffffff / #13202e |
 | `--modal-backdrop` | `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) |
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
-| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 0 0 1px rgb(169 186 203 / 0.35), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
 
 ## Primitive colors (do not use in components)
 

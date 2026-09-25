@@ -57,11 +57,14 @@
     },
     "pressed": {
       "background": {
-        "$value": "{color.background.callout}",
-        "$description": "Selected toggle (aria-pressed=\"true\")."
+        "$value": "{color.text.default}",
+        "$description": "Selected toggle (aria-pressed=\"true\"): an ink-filled piece."
       },
       "border": {
         "$value": "{color.border.keyline}"
+      },
+      "text": {
+        "$value": "{color.text.inverse}"
       }
     }
   },
