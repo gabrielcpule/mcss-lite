@@ -46,7 +46,20 @@ It reports unknown `c-`/`l-`/`u-` classes (listing the valid ones), modifiers wi
 
 ### Figma
 
-Import the four files in `dist/figma/` as Variables (Figma → Local variables → Import): **Primitives**, **Semantic** (modes Light and Dark, aliasing Primitives) and **Component** (aliasing Semantic). Shadows, font stacks and easings stay code-only because Figma variables can't hold composite values. To bring changes back, export the collections as DTCG JSON, merge them into `tokens/`, and run `npm run build`.
+The tokens work in **any** Figma account. Nothing in this repo points at a specific team or file. Pick a route:
+
+**A. Native import (no plugin, no agent).** In your file open *Local variables → Import* and import the files in [`dist/figma/`](dist/figma/): `primitive.tokens.json`, then `semantic.light.tokens.json` and `semantic.dark.tokens.json` as the Light and Dark modes of one collection, then `component.tokens.json`. Starter and Free plans allow one mode per collection, so import only the Light file there.
+
+**B. Push script (via an AI agent or a scripting plugin).** [`dist/figma/push-variables.js`](dist/figma/push-variables.js) is a generated Figma Plugin API script. Run it in your own file, for example by asking any agent that has the Figma MCP server: *"Run `dist/figma/push-variables.js` from @gabrielpule/mcss-lite in <your file URL>."* It creates or updates, by name:
+
+- **MCSS-Lite / Primitives**: 1 mode, raw values in px.
+- **MCSS-Lite / Semantic**: Light and Dark modes, aliasing Primitives.
+- **MCSS-Lite / Component**: aliasing Semantic.
+- **Effect styles** for the shadows.
+
+Every variable gets its Figma scopes, description, and CSS code syntax (`var(--token)`), so Dev Mode shows the right token. The script is safe to re-run (it updates and never duplicates), and on single-mode plans it warns and skips the Dark mode instead of failing.
+
+Shadows become effect styles; font stacks and easings stay code-only because Figma variables can't hold them. To bring design changes back, export the collections as DTCG JSON, merge them into `tokens/`, and run `npm run build`.
 
 ## Dark mode
 
@@ -70,6 +83,8 @@ npm install @gabrielpule/mcss-lite
 
 ```html
 <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/index.css">
+<!-- or one file, no @import chain -->
+<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.css">
 ```
 
 Or import in your CSS build:
@@ -123,6 +138,7 @@ BEM naming: `c-block__element--modifier`. States via `data-state` attributes.
 ```html
 <button class="c-button c-button--primary">Save</button>
 <button class="c-button c-button--ghost">Cancel</button>
+<button class="c-button c-button--danger">Delete</button>
 <button class="c-button" data-state="disabled">Disabled</button>
 
 <div class="c-card c-card--interactive">

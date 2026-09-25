@@ -7,6 +7,7 @@ import {
 } from './tokens.mjs';
 import { loadContracts, loadExamples } from './contracts.mjs';
 import { buildDemo } from './demo.mjs';
+import { buildFigmaScript } from './figma-script.mjs';
 
 export const RULES = [
   {
@@ -63,6 +64,7 @@ export function generate(root) {
   files.set('src/tokens.css', tokensCss);
   files.set('dist/mcss-lite.css', buildBundle(root, pkg, tokensCss));
   for (const [name, content] of buildFigma(sets)) files.set(`dist/figma/${name}`, content);
+  files.set('dist/figma/push-variables.js', buildFigmaScript(pkg, sets));
   files.set('dist/mcss-lite.manifest.json', JSON.stringify(manifest, null, 2) + '\n');
 
   const docs = buildDocs(pkg, tokenRows, contracts, examples);
