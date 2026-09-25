@@ -976,7 +976,7 @@
       "examples": [
         {
           "file": "components/utilities.html",
-          "html": "<button type=\"button\" class=\"c-button c-button--ghost\">\n  <span aria-hidden=\"true\">⚙</span>\n  <span class=\"u-sr-only\">Settings</span>\n</button>\n<p class=\"u-truncate u-font-mono\">a-very-long-file-name-that-will-be-cut-off-with-an-ellipsis.css</p>"
+          "html": "<button type=\"button\" class=\"c-button c-button--ghost\">\n  <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"10\" cy=\"10\" r=\"3\"/><path d=\"M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4 4l2.1 2.1M13.9 13.9L16 16M4 16l2.1-2.1M13.9 6.1L16 4\"/></svg>\n  <span class=\"u-sr-only\">Settings</span>\n</button>\n<p class=\"u-truncate u-font-mono\">a-very-long-file-name-that-will-be-cut-off-with-an-ellipsis.css</p>"
         }
       ]
     }
@@ -2442,11 +2442,11 @@
       "type": "color",
       "alias": {
         "light": "--color-yellow-100",
-        "dark": "--color-yellow-950"
+        "dark": "--color-navy-700"
       },
       "value": {
         "light": "#fff3cd",
-        "dark": "#3a2e05"
+        "dark": "#263a4f"
       },
       "description": "The 1:1 call-out that introduces a new part.",
       "figma": true
@@ -3012,7 +3012,7 @@
       "alias": "--color-background-callout",
       "value": {
         "light": "#fff3cd",
-        "dark": "#3a2e05"
+        "dark": "#263a4f"
       },
       "description": "Selected toggle (aria-pressed=\"true\").",
       "figma": true

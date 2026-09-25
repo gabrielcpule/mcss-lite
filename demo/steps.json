@@ -1,0 +1,47 @@
+{
+  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it).",
+  "steps": [
+    {
+      "title": "Lay the baseplate",
+      "text": "Layout primitives own all spacing. Components never set their own outer margin, so any part fits anywhere.",
+      "blocks": ["l-section", "l-container", "l-stack", "l-center", "l-sidebar", "l-switcher"],
+      "example": "layouts.html"
+    },
+    {
+      "title": "Seat the buttons in a cluster",
+      "text": "l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.",
+      "blocks": ["l-cluster", "c-button"],
+      "example": "button.html"
+    },
+    {
+      "title": "Snap on the badges",
+      "text": "Short status labels. The text carries the meaning; the color only reinforces it.",
+      "blocks": ["c-badge"],
+      "example": "badge.html"
+    },
+    {
+      "title": "Place cards on the grid",
+      "text": "l-grid sets the gap. Cards group related content; an interactive card is one real link.",
+      "blocks": ["l-grid", "c-card"],
+      "example": "card.html"
+    },
+    {
+      "title": "Build the form",
+      "text": "Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.",
+      "blocks": ["c-form-field", "c-input"],
+      "example": "form-field.html"
+    },
+    {
+      "title": "Fit the dialog",
+      "text": "Prefer a native dialog opened with showModal(). The preview below is contained; the button opens the real thing.",
+      "blocks": ["c-modal"],
+      "example": "modal.html"
+    },
+    {
+      "title": "Finishing touches",
+      "text": "Utilities are single-purpose overrides. Reach for them last.",
+      "blocks": ["u-*"],
+      "example": "utilities.html"
+    }
+  ]
+}

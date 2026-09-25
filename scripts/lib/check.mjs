@@ -6,6 +6,7 @@ import { loadContracts, classInventory, localCustomProperties } from './contract
 import { validateSchema } from './schema.mjs';
 import { createValidator } from './validate.mjs';
 import { generate } from './generate.mjs';
+import { loadSteps, uncoveredBlocks } from './demo.mjs';
 
 const HAND_WRITTEN_CSS = ['global.css', 'layout.css', 'components.css', 'utilities.css'];
 const RAW_COLOR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/i;
@@ -90,7 +91,10 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
     }
   }
 
-  // 5. Generated files are up to date.
+  // 5. The demo booklet introduces every stable block.
+  for (const block of uncoveredBlocks(contracts, loadSteps(root))) errors.push(`demo/steps.json: no step introduces ${block}`);
+
+  // 6. Generated files are up to date.
   if (!skipFreshness) {
     for (const [rel, content] of generate(root)) {
       const path = join(root, rel);

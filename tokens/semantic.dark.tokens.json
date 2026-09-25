@@ -203,7 +203,7 @@
         }
       },
       "callout": {
-        "$value": "{color.yellow.950}",
+        "$value": "{color.navy.700}",
         "$description": "The 1:1 call-out that introduces a new part.",
         "$extensions": {
           "com.figma.scopes": [
