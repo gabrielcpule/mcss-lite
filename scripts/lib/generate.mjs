@@ -288,6 +288,8 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
   const blocksTable = [
     '## Blocks at a glance',
     '',
+    'Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).',
+    '',
     '| Class | Layer | Modifiers | Elements | data-state | Use for |',
     '|---|---|---|---|---|---|',
     ...contracts.filter((c) => c.layer !== 'utility').map((c) => {
@@ -419,6 +421,7 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
     rulesMd,
     setupMd,
     blocksTable,
+    utilitiesMd,
     '## More detail',
     '',
     '- `llms-components.txt`: every block with modifiers, elements, states, accessibility rules and a canonical example.',

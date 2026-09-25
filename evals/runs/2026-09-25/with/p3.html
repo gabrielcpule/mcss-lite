@@ -1,0 +1,16 @@
+<dialog class="c-modal" aria-labelledby="delete-project-title" open>
+  <div class="c-modal__backdrop"></div>
+  <form class="c-modal__container" method="dialog">
+    <header class="c-modal__header">
+      <h2 class="c-modal__title" id="delete-project-title">Delete project?</h2>
+      <button type="submit" value="cancel" class="c-modal__close" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+    </header>
+    <div class="c-modal__body">
+      <p class="u-margin-0">Atlas and all of its files will be permanently deleted. This can't be undone.</p>
+    </div>
+    <footer class="c-modal__footer">
+      <button type="submit" value="cancel" class="c-button c-button--ghost">Cancel</button>
+      <button type="submit" value="delete" class="c-button c-button--danger">Delete</button>
+    </footer>
+  </form>
+</dialog>

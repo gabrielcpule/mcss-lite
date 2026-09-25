@@ -29,6 +29,8 @@ npx mcss-lite validate path/to/file.html   # or a directory; add --json for mach
 
 ## Blocks at a glance
 
+Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).
+
 | Class | Layer | Modifiers | Elements | data-state | Use for |
 |---|---|---|---|---|---|
 | `l-center` | layout | — | — | — | Centers a block horizontally at reading width without side gutters. |
@@ -46,6 +48,26 @@ npx mcss-lite validate path/to/file.html   # or a directory; add --json for mach
 | `c-input` | component | — | — | error success disabled | Single-line text entry. |
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
+
+## Utilities
+
+Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.
+
+- `u-text-center`: Center-align text.
+- `u-text-left`: Align text to the start (left in left-to-right languages).
+- `u-text-right`: Align text to the end (right in left-to-right languages).
+- `u-hidden`: display: none.
+- `u-visible`: visibility: visible.
+- `u-invisible`: visibility: hidden; keeps the space.
+- `u-margin-0`: Remove margin, e.g. from a heading or paragraph inside a component.
+- `u-padding-0`: Remove padding.
+- `u-font-normal`: Normal font weight.
+- `u-font-medium`: Medium font weight.
+- `u-font-semibold`: Semibold font weight.
+- `u-font-bold`: Bold font weight.
+- `u-font-mono`: Monospace font.
+- `u-truncate`: Single line with an ellipsis.
+- `u-sr-only`: Visually hidden but read by screen readers.
 
 ## More detail
 

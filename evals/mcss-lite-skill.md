@@ -22,4 +22,24 @@ invented CSS (hex values, custom classes that duplicate a block).
 
 ## Results
 
-See the table appended below by the eval run.
+### Run 2026-09-25 (outputs in `runs/2026-09-25/`)
+
+The planned "without" condition could not be isolated: agents started inside this repo auto-load the root `AGENTS.md` as project instructions. So the comparison is **AGENTS.md only** vs **skill + tiered docs + validate**. A true no-docs baseline needs a session whose working directory is outside the repo.
+
+| Prompt | AGENTS.md only | Skill + docs + validate |
+|---|---|---|
+| 1 Pricing cards | 1 error: `l-grid--3-col` combined with `l-grid--responsive` (exclusive group) | clean |
+| 2 Sign-up form | 1 warning: loading button without `aria-disabled` | clean |
+| 3 Delete dialog | clean | clean (native `<dialog>`, `c-button--danger`) |
+| 4 Settings layout | clean | clean |
+| 5 Toolbar | 1 error: invented `u-visually-hidden` (real class: `u-sr-only`) | clean |
+| 6 Deployments list | clean | clean |
+| 7 Empty state | clean | clean |
+| 8 Dark + purple override | 1 warning: inline raw color (allowed by the prompt) | 1 warning: inline raw color (allowed by the prompt) |
+| **Total** | **2 errors, 2 warnings** | **0 errors, 1 warning** |
+
+What the run changed in the system:
+
+- `AGENTS.md` now lists every `u-*` utility (it previously listed none, which caused the invented class).
+- `AGENTS.md` now states that modifiers within one group are exclusive (which caused the `l-grid` error).
+- `validate` now lists the real utilities when it sees an unknown `u-*` class.
