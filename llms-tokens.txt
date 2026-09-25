@@ -34,7 +34,7 @@ Values are shown as light / dark.
 | `--color-text-default` | #1a1d20 / #e6edf4 | Default body and heading text. |
 | `--color-text-muted` | #343a40 / #cfdae5 | Secondary text: labels, supporting copy. |
 | `--color-text-subtle` | #495057 / #a9bacb | Tertiary text: help text, placeholders, icons. 4.5:1 on every background, canvas included. |
-| `--color-text-inverse` | #ffffff / #0e1824 | Text on an inverted background. |
+| `--color-text-inverse` | #ffffff / #0f2140 | Text on an inverted background. |
 | `--color-text-on-action` | #ffffff / #ffffff | Text on --color-action-primary. |
 | `--color-text-on-danger` | #ffffff / #ffffff | Text on --color-action-danger. |
 | `--color-text-link` | #005a9c / #6cb4ee | Link text. Links are also underlined. |
@@ -49,15 +49,15 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-background-default` | #ffffff / #0e1824 | Page background. |
+| `--color-background-default` | #ffffff / #0f2140 | Page background. |
 | `--color-background-canvas` | #dcedf9 / #0b1a33 | Instruction-page canvas for showcase and marketing pages; not for dense product UI. |
-| `--color-background-subtle` | #f8f9fa / #1a2a3b | Subtle section or hover background. |
-| `--color-background-muted` | #e9ecef / #263a4f | Muted fill for neutral badges and chips. |
-| `--color-background-raised` | #ffffff / #13202e | Cards, modals and other raised surfaces. |
-| `--color-background-interactive` | #ffffff / #13202e | Resting background of controls (buttons, inputs). |
-| `--color-background-interactive-hover` | #eef6fc / #1a2a3b | Hover background of controls. |
-| `--color-background-disabled` | #e9ecef / #1a2a3b | Background of disabled (ghosted) controls. |
-| `--color-background-callout` | #fff3cd / #263a4f | The 1:1 call-out that introduces a new part. |
+| `--color-background-subtle` | #f8f9fa / #1b335c | Subtle section or hover background. |
+| `--color-background-muted` | #e9ecef / #27436f | Muted fill for neutral badges and chips. |
+| `--color-background-raised` | #ffffff / #14294d | Cards, modals and other raised surfaces. |
+| `--color-background-interactive` | #ffffff / #14294d | Resting background of controls (buttons, inputs). |
+| `--color-background-interactive-hover` | #eef6fc / #1b335c | Hover background of controls. |
+| `--color-background-disabled` | #e9ecef / #1b335c | Background of disabled (ghosted) controls. |
+| `--color-background-callout` | #fff3cd / #27436f | The 1:1 call-out that introduces a new part. |
 | `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) | Modal backdrop. |
 | `--color-background-success` | #d4edda / #0f2e1a | Background for success messages and badges. |
 | `--color-background-warning` | #fff3cd / #3a2e05 | Background for warning messages and badges. |
@@ -68,8 +68,8 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-border-default` | #ced4da / #263a4f | Quiet dividers inside a part. |
-| `--color-border-strong` | #6c757d / #3a526b | Emphasized dividers. |
+| `--color-border-default` | #ced4da / #27436f | Quiet dividers inside a part. |
+| `--color-border-strong` | #6c757d / #3b5988 | Emphasized dividers. |
 | `--color-border-keyline` | #1a1d20 / #cfdae5 | The 2px ink keyline around every part: cards, controls, call-outs. |
 | `--color-border-interactive` | #1a1d20 / #a9bacb | Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast. |
 | `--color-border-focus` | #1a1d20 / #f2cd37 | Focus ring color. Same as --color-focus-ring. |
@@ -82,12 +82,12 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--color-action-primary` | #005a9c / #1d6cc0 | Primary action background. Brick blue. |
+| `--color-action-primary` | #005a9c / #2576cc | Primary action background. Brick blue. |
 | `--color-action-primary-hover` | #004a80 / #185da6 | Primary action on hover. |
 | `--color-action-primary-active` | #003860 / #144d8a | Primary action while pressed. |
 | `--color-action-danger` | #c91a09 / #c91a09 | Destructive action background. Brick red. |
 | `--color-action-danger-hover` | #a01408 / #a01408 | Destructive action on hover. |
-| `--color-action-neutral-hover` | #e9ecef / #263a4f | Hover background for ghost and icon buttons. |
+| `--color-action-neutral-hover` | #e9ecef / #27436f | Hover background for ghost and icon buttons. |
 
 ### Focus
 
@@ -130,40 +130,40 @@ Override one of these to restyle a single component without affecting others.
 
 | Token | Aliases | Value |
 |---|---|---|
-| `--button-background` | `--color-background-interactive` | #ffffff / #13202e |
-| `--button-background-hover` | `--color-background-interactive-hover` | #eef6fc / #1a2a3b |
+| `--button-background` | `--color-background-interactive` | #ffffff / #14294d |
+| `--button-background-hover` | `--color-background-interactive-hover` | #eef6fc / #1b335c |
 | `--button-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
 | `--button-text` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--button-radius` | `--border-radius-base` | 0.25rem |
 | `--button-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
-| `--button-primary-background` | `--color-action-primary` | #005a9c / #1d6cc0 |
+| `--button-primary-background` | `--color-action-primary` | #005a9c / #2576cc |
 | `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #185da6 |
 | `--button-primary-text` | `--color-text-on-action` | #ffffff |
 | `--button-secondary-text` | `--color-text-link` | #005a9c / #6cb4ee |
-| `--button-secondary-border` | `--color-action-primary` | #005a9c / #1d6cc0 |
-| `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #263a4f |
+| `--button-secondary-border` | `--color-action-primary` | #005a9c / #2576cc |
+| `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #27436f |
 | `--button-danger-background` | `--color-action-danger` | #c91a09 |
 | `--button-danger-background-hover` | `--color-action-danger-hover` | #a01408 |
 | `--button-danger-text` | `--color-text-on-danger` | #ffffff |
 | `--button-pressed-background` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--button-pressed-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
-| `--button-pressed-text` | `--color-text-inverse` | #ffffff / #0e1824 |
-| `--input-background` | `--color-background-interactive` | #ffffff / #13202e |
+| `--button-pressed-text` | `--color-text-inverse` | #ffffff / #0f2140 |
+| `--input-background` | `--color-background-interactive` | #ffffff / #14294d |
 | `--input-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
-| `--input-border-focus` | `--color-action-primary` | #005a9c / #1d6cc0 |
+| `--input-border-focus` | `--color-action-primary` | #005a9c / #2576cc |
 | `--input-text` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--input-placeholder` | `--color-text-subtle` | #495057 / #a9bacb |
 | `--input-radius` | `--border-radius-base` | 0.25rem |
-| `--card-background` | `--color-background-raised` | #ffffff / #13202e |
+| `--card-background` | `--color-background-raised` | #ffffff / #14294d |
 | `--card-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
-| `--card-border-hover` | `--color-action-primary` | #005a9c / #1d6cc0 |
+| `--card-border-hover` | `--color-action-primary` | #005a9c / #2576cc |
 | `--card-radius` | `--border-radius-lg` | 0.5rem |
 | `--card-padding` | `--space-6` | 1.5rem |
 | `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
 | `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
-| `--badge-background` | `--color-background-muted` | #e9ecef / #263a4f |
+| `--badge-background` | `--color-background-muted` | #e9ecef / #27436f |
 | `--badge-text` | `--color-text-muted` | #343a40 / #cfdae5 |
-| `--modal-background` | `--color-background-raised` | #ffffff / #13202e |
+| `--modal-background` | `--color-background-raised` | #ffffff / #14294d |
 | `--modal-backdrop` | `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) |
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
