@@ -40,14 +40,12 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Demo: `demo/index.html` (`?theme=light|dark|auto`)
 - Branch: `claude/design-system-ai-mcss-lite-4mhmop`
 
-## Current state (2026-09-25, end of session 1)
+## Current state (2026-09-26)
 
-Done and pushed on `claude/design-system-ai-mcss-lite-4mhmop`:
-- Contract-first system: DTCG tokens (primitive / semantic light+dark / component), 16 block contracts, generated AGENTS.md, llms*.txt, manifest, `dist/mcss-lite.css`, Figma files.
-- `npm run check`, `npx mcss-lite validate`, 32 tests (back-compat, WCAG AA pairs in both themes, validator, fake-Figma idempotency).
-- Build Instructions identity + every critique/audit fix. Finish reviewer disposition: **ship** (8 fixes + 1 regression resolved).
-- Generated instruction-booklet demo (`demo/index.html`) with real validate output.
-- Figma: `dist/figma/push-variables.js` works in any account; Gabriel's file synced (206+1 variables, 10 effect styles).
-- Skill eval: AGENTS.md only 2 errors / 2 warnings → skill + docs + validate 0 errors / 1 allowed warning; gaps it exposed are fixed.
+Branch `claude/design-system-ai-mcss-lite-4mhmop` is ready for PR (42 tests, check, validate green).
 
-Open ambitions (not blockers, from the finish review): drawn brick parts with "1x" tags, placement arrows into seats, a more saturated light canvas, a step progress rail, dimension marks on spacing, a drawn misfit piece, a yellow call-out identity in dark. Also: a true no-docs eval baseline (run from outside the repo), an MCP server, Figma components / Code Connect.
+Latest quality round (after /code-review and /impeccable delight + critique + audit):
+- Critique 20 → 28/40; audit 14 → 16/20 before the v2 fix batch, which fixed every P1–P3 finding (nested-theme text, l-stack, [hidden], grid floor, forced-colors error edge, demo accuracy, baseplate step, rail at all widths).
+- Figma file synced with every token change (Primitives 126, Semantic 49, Component 37 + 10 effect styles).
+
+Open ambitions: live "break a part" interaction in the wrong-piece step (reader picks a modifier, validator rejects it live), dimension marks on spacing tokens, a true no-docs eval baseline, MCP server, Figma components / Code Connect.
