@@ -36,7 +36,7 @@
   }
 
   .l-grid--responsive {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(17.5rem, 100%), 1fr));
   }
 
   @media (max-width: 768px) {
@@ -47,33 +47,34 @@
     }
   }
 
-  /* Stack: vertical flow. Adds space between consecutive children, like 0.1,
-     so children keep their own width (buttons stay button-sized, l-center
-     keeps its reading width). Bare inline children (links, spans) are made
-     block-level so they stack instead of running together. */
+  /* Stack: vertical flow with a gap. Block parts (cards, forms, inputs) fill the
+     width; inline parts (buttons, badges, links, checkboxes) keep their own width. */
+  .l-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
   .l-stack > * {
     margin-block: 0;
   }
 
-  .l-stack > * + * {
-    margin-block-start: var(--space-4);
+  .l-stack > :where(a:not([class]), abbr, b, button, cite, code, em, i, img, kbd, label, picture, q, small, span, strong, svg, time, video, input[type="checkbox"], input[type="radio"], .c-button, .c-badge) {
+    align-self: flex-start;
   }
 
-  .l-stack--sm > * + * {
-    margin-block-start: var(--space-2);
+  .l-stack--sm {
+    gap: var(--space-2);
   }
 
-  .l-stack--lg > * + * {
-    margin-block-start: var(--space-8);
-  }
-
-  .l-stack > :where(a, abbr, b, cite, code, em, i, img, kbd, label, picture, q, small, span, strong, svg, time, video) {
-    display: block;
-    width: fit-content;
+  .l-stack--lg {
+    gap: var(--space-8);
   }
 
   /* Center: horizontally center a block */
   .l-center {
+    width: 100%;
     max-width: var(--container-narrow);
     margin-inline: auto;
   }

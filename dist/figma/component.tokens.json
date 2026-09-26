@@ -79,6 +79,27 @@
             "STROKE_COLOR"
           ]
         }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the primary piece.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "background-active": {
+        "$type": "color",
+        "$value": "{color.action.primary.active}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
       }
     },
     "secondary": {
@@ -139,6 +160,17 @@
       "text": {
         "$type": "color",
         "$value": "{color.text.on-danger}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the danger piece.",
         "$extensions": {
           "com.figma.scopes": [
             "ALL_FILLS",

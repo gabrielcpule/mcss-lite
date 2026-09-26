@@ -15,7 +15,8 @@
 ## Setup
 
 ```html
-<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/index.css">
+<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
+<!-- or index.css (readable, loads src/*.css via @import) -->
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
 ```
 
@@ -77,7 +78,7 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 
 ## Themes
 
-Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes; component tokens alias semantic ones, so they follow automatically.
+Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes. Component tokens are unset by default and fall back to semantic tokens, so components follow the theme. If you override a component token with a raw color, set it per theme (see below); a themed subtree also sets its own text and background colors.
 
 To theme for a brand, override semantic tokens, for example:
 
@@ -134,7 +135,7 @@ Values are shown as light / dark.
 | `--color-background-interactive-hover` | #eef6fc / #1b335c | Hover background of controls. |
 | `--color-background-disabled` | #e9ecef / #1b335c | Background of disabled (ghosted) controls. |
 | `--color-background-callout` | #fff3cd / #27436f | The 1:1 call-out that introduces a new part. |
-| `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) | Modal backdrop. |
+| `--color-background-overlay` | rgb(15 33 64 / 0.55) / rgb(0 0 0 / 0.72) | Modal backdrop. |
 | `--color-background-success` | #d4edda / #0f2e1a | Background for success messages and badges. |
 | `--color-background-warning` | #fff3cd / #3a2e05 | Background for warning messages and badges. |
 | `--color-background-error` | #f8d7da / #3b1216 | Background for error messages and badges. |
@@ -164,6 +165,7 @@ Values are shown as light / dark.
 | `--color-action-danger` | #c91a09 / #c91a09 | Destructive action background. Brick red. |
 | `--color-action-danger-hover` | #a01408 / #a01408 | Destructive action on hover. |
 | `--color-action-neutral-hover` | #e9ecef / #27436f | Hover background for ghost and icon buttons. |
+| `--color-action-loading-stripe` | rgb(0 0 0 / 0.14) / rgb(0 0 0 / 0.22) | Moving stripes on a loading control. Always darkens, so light text keeps its contrast. |
 
 ### Focus
 

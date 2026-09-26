@@ -499,6 +499,26 @@
             "SHAPE_FILL"
           ]
         }
+      },
+      "loading-stripe": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.22,
+          "hex": "#000000"
+        },
+        "$description": "Moving stripes on a loading control. Always darkens, so light text keeps its contrast.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
       }
     },
     "focus-ring": {

@@ -77,13 +77,14 @@
 
 /* First viewport */
 .demo-hero {
-  padding-block: var(--space-16) var(--space-12);
+  padding-block: var(--space-12) var(--space-10);
 }
 
 .demo-hero__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-10);
-  align-items: start;
+  align-items: center;
 }
 
 .demo-hero__title {
@@ -105,7 +106,7 @@
 
 .demo-install {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: var(--space-3);
   width: fit-content;
@@ -119,6 +120,10 @@
 }
 
 .demo .demo-install__cmd {
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-wrap: normal;
   padding: 0;
   background: none;
   box-shadow: none;
@@ -192,6 +197,7 @@
 
 .demo-bag__head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-3);
   margin-block-end: var(--space-3);
@@ -294,6 +300,35 @@
   font-weight: var(--font-weight-bold);
 }
 
+.demo-callout__hint {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-subtle);
+}
+
+.demo-callout__also {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding-block-start: var(--space-3);
+  border-block-start: var(--border-width-thin) dashed var(--color-border-strong);
+  font-size: var(--font-size-sm);
+}
+
+/* Parts that belong to another step are ghosted, like finished steps in a booklet. */
+.demo-also {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0.72;
+}
+
+.demo-also .demo-glyph {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
 .demo-parts {
   display: grid;
   gap: var(--space-3);
@@ -365,6 +400,35 @@
   margin-block-start: var(--space-4);
 }
 
+/* Step 1: a full-width baseplate; every layout primitive is outlined and tagged. */
+.demo-stage--baseplate :where([class^="l-"], [class*=" l-"]) {
+  position: relative;
+  outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.demo-stage--baseplate :where([class^="l-"], [class*=" l-"])::before {
+  content: attr(class);
+  position: absolute;
+  inset-block-start: calc(var(--space-3) * -1 - 2px);
+  inset-inline-start: var(--space-2);
+  z-index: 1;
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Nested primitives that share a top edge keep their tags apart. */
+.demo-stage--baseplate .l-container::before {
+  inset-inline: auto var(--space-2);
+}
+
 /* Contains the fixed-position modal preview inside the stage. */
 .demo-stage--contain {
   position: relative;
@@ -394,24 +458,31 @@
   line-height: 1.4;
 }
 
-/* Step rail: studs in the left gutter on wide screens. */
+/* Step rail: a sticky row of studs; on wide screens a column in the left gutter. */
 .demo-rail {
-  display: none;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-index-sticky);
+  padding-block: var(--space-2);
+  background-color: var(--color-background-raised);
+  border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
 }
 
 .demo-rail__list {
-  display: grid;
-  gap: var(--space-2);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .demo-rail__stud {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: min(2.5rem, calc((100vw - var(--space-12)) / 8));
+  height: min(2.5rem, calc((100vw - var(--space-12)) / 8));
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-full);
   background-color: var(--color-background-raised);
@@ -452,12 +523,51 @@
 
 @media (min-width: 90rem) {
   .demo-rail {
-    display: block;
     position: fixed;
     inset-inline-start: var(--space-8);
     inset-block-start: 50%;
     transform: translateY(-50%);
-    z-index: var(--z-index-sticky);
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .demo-rail__list {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .demo-rail__stud {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  /* The step title slides out beside the stud on hover and keyboard focus. */
+  .demo-rail__stud::after {
+    content: attr(data-label);
+    position: absolute;
+    inset-inline-start: calc(100% + var(--space-2));
+    padding: var(--space-1) var(--space-2);
+    border: var(--border-width-thick) solid var(--color-border-keyline);
+    border-radius: var(--border-radius-base);
+    background-color: var(--color-background-raised);
+    color: var(--color-text-default);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(calc(var(--space-2) * -1));
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+    pointer-events: none;
+  }
+
+  .demo-rail__stud:hover::after,
+  .demo-rail__stud:focus-visible::after {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -465,14 +575,29 @@
 .demo-misfit {
   display: block;
   width: 100%;
-  max-width: 20rem;
+  max-width: 28rem;
   height: auto;
-  margin-block-end: var(--space-4);
   color: var(--color-text-default);
 }
 
 .demo-misfit__bad {
   stroke: var(--color-border-error);
+}
+
+.demo-misfit__wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+@keyframes demo-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg) translateY(-3px); }
+  55% { transform: rotate(4deg); }
+  80% { transform: rotate(-2deg); }
+}
+
+.demo-step.is-seating .demo-misfit__wobble {
+  animation: demo-wobble 900ms var(--ease-out) 300ms both;
 }
 
 .demo-misfit__good {
@@ -489,13 +614,12 @@
 }
 
 .demo-check__label {
-  margin-block: var(--space-4) var(--space-2);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
 }
 
-.demo-check__label:first-child {
-  margin-block-start: 0;
+.demo-check__why {
+  color: var(--color-text-muted);
 }
 
 .demo-check__issues {
@@ -513,13 +637,15 @@
   background-color: var(--color-background-subtle);
   border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--border-radius-base);
-  white-space: pre-wrap;
+  white-space: pre;
+  overflow-x: auto;
 }
 
 .demo .demo-code code {
   padding: 0;
   background: none;
   box-shadow: none;
+  overflow-wrap: normal;
 }
 
 .demo-footer {
@@ -539,8 +665,8 @@
 }
 
 @keyframes demo-draw {
-  from { stroke-dashoffset: 120; }
-  to { stroke-dashoffset: 0; }
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
 }
 
 .demo-step.is-seating .demo-stage {
@@ -551,11 +677,37 @@
   animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.demo-step.is-seating .demo-arrow path:first-child {
+.demo-step.is-seating .demo-arrow {
   animation: demo-draw var(--duration-slower) var(--ease-out) both;
 }
 
 @media (min-width: 60rem) {
+  .demo-step--wide .demo-step__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .demo-step--wide .demo-step__head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--space-16);
+    align-items: start;
+  }
+
+  .demo-step--wide .demo-step__head > :not(.demo-callout) {
+    grid-column: 1;
+  }
+
+  .demo-step--wide .demo-callout {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  .demo-step--wide .demo-arrow {
+    display: none;
+  }
+
   .demo-hero__grid {
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     gap: var(--space-16);
@@ -577,7 +729,8 @@
   .demo-rail__stud { transition: none; }
   .demo-step.is-seating .demo-stage,
   .demo-step.is-seating .demo-callout,
-  .demo-step.is-seating .demo-arrow path {
+  .demo-step.is-seating .demo-arrow,
+  .demo-step.is-seating .demo-misfit__wobble {
     animation: none;
   }
 }

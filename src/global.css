@@ -10,6 +10,17 @@
     box-sizing: border-box;
   }
 
+  /* hidden always wins, even over components that set display. */
+  [hidden] {
+    display: none !important;
+  }
+
+  /* A themed subtree paints its own text and ground, so nested themes stay readable. */
+  [data-theme] {
+    color: var(--color-text-default);
+    background-color: var(--color-background-default);
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;

@@ -1,7 +1,7 @@
 {
   "name": "@gabrielpule/mcss-lite",
   "version": "0.2.0",
-  "description": "Lightweight CSS framework with semantic BEM components and design tokens. Production-ready subset of MCSS principles.",
+  "description": "Contract-first CSS design system: every class, state and token is declared in machine-readable contracts, so people and AI agents build UI with the right parts.",
   "generatedFrom": [
     "tokens/*.tokens.json",
     "components/*.json"
@@ -484,7 +484,10 @@
         "--button-danger-text",
         "--button-pressed-background",
         "--button-pressed-border",
-        "--button-pressed-text"
+        "--button-pressed-text",
+        "--button-primary-border",
+        "--button-danger-border",
+        "--button-primary-background-active"
       ],
       "guidelines": {
         "use": [
@@ -513,7 +516,7 @@
       "examples": [
         {
           "file": "components/button.html",
-          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"submit\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
         }
       ]
     },
@@ -2468,7 +2471,7 @@
       "tier": "semantic",
       "type": "color",
       "value": {
-        "light": "rgb(26 29 32 / 0.6)",
+        "light": "rgb(15 33 64 / 0.55)",
         "dark": "rgb(0 0 0 / 0.72)"
       },
       "description": "Modal backdrop.",
@@ -2779,6 +2782,18 @@
       "figma": true
     },
     {
+      "name": "--color-action-loading-stripe",
+      "path": "color.action.loading-stripe",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "light": "rgb(0 0 0 / 0.14)",
+        "dark": "rgb(0 0 0 / 0.22)"
+      },
+      "description": "Moving stripes on a loading control. Always darkens, so light text keeps its contrast.",
+      "figma": true
+    },
+    {
       "name": "--color-focus-ring",
       "path": "color.focus-ring.$root",
       "tier": "semantic",
@@ -2953,6 +2968,31 @@
       "figma": true
     },
     {
+      "name": "--button-primary-border",
+      "path": "button.primary.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "description": "Ink keyline around the primary piece.",
+      "figma": true
+    },
+    {
+      "name": "--button-primary-background-active",
+      "path": "button.primary.background-active",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary-active",
+      "value": {
+        "light": "#003860",
+        "dark": "#144d8a"
+      },
+      "figma": true
+    },
+    {
       "name": "--button-secondary-text",
       "path": "button.secondary.text",
       "tier": "component",
@@ -3013,6 +3053,19 @@
       "type": "color",
       "alias": "--color-text-on-danger",
       "value": "#ffffff",
+      "figma": true
+    },
+    {
+      "name": "--button-danger-border",
+      "path": "button.danger.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "description": "Ink keyline around the danger piece.",
       "figma": true
     },
     {
@@ -3242,7 +3295,7 @@
       "type": "color",
       "alias": "--color-background-overlay",
       "value": {
-        "light": "rgb(26 29 32 / 0.6)",
+        "light": "rgb(15 33 64 / 0.55)",
         "dark": "rgb(0 0 0 / 0.72)"
       },
       "figma": true

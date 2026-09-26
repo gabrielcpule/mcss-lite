@@ -184,7 +184,7 @@
   --color-background-interactive-hover: var(--color-blue-50);
   --color-background-disabled: var(--color-gray-100);
   --color-background-callout: var(--color-yellow-100);
-  --color-background-overlay: rgb(26 29 32 / 0.6);
+  --color-background-overlay: rgb(15 33 64 / 0.55);
   --color-background-success: var(--color-green-100);
   --color-background-warning: var(--color-yellow-100);
   --color-background-error: var(--color-red-100);
@@ -204,6 +204,7 @@
   --color-action-danger: var(--color-red-600);
   --color-action-danger-hover: var(--color-red-700);
   --color-action-neutral-hover: var(--color-gray-100);
+  --color-action-loading-stripe: rgb(0 0 0 / 0.14);
   --color-focus-ring: var(--color-gray-900);
   --color-focus-ring-error: var(--color-red-600);
   --color-focus-halo: var(--color-yellow-400);
@@ -255,6 +256,7 @@
   --color-action-danger: var(--color-red-600);
   --color-action-danger-hover: var(--color-red-700);
   --color-action-neutral-hover: var(--color-navy-700);
+  --color-action-loading-stripe: rgb(0 0 0 / 0.22);
   --color-focus-ring: var(--color-yellow-400);
   --color-focus-ring-error: var(--color-red-300);
   --color-focus-halo: var(--color-navy-950);
@@ -307,6 +309,7 @@
     --color-action-danger: var(--color-red-600);
     --color-action-danger-hover: var(--color-red-700);
     --color-action-neutral-hover: var(--color-navy-700);
+    --color-action-loading-stripe: rgb(0 0 0 / 0.22);
     --color-focus-ring: var(--color-yellow-400);
     --color-focus-ring-error: var(--color-red-300);
     --color-focus-halo: var(--color-navy-950);
@@ -342,7 +345,7 @@
     --color-background-interactive-hover: var(--color-blue-50);
     --color-background-disabled: var(--color-gray-100);
     --color-background-callout: var(--color-yellow-100);
-    --color-background-overlay: rgb(26 29 32 / 0.6);
+    --color-background-overlay: rgb(15 33 64 / 0.55);
     --color-background-success: var(--color-green-100);
     --color-background-warning: var(--color-yellow-100);
     --color-background-error: var(--color-red-100);
@@ -362,6 +365,7 @@
     --color-action-danger: var(--color-red-600);
     --color-action-danger-hover: var(--color-red-700);
     --color-action-neutral-hover: var(--color-gray-100);
+    --color-action-loading-stripe: rgb(0 0 0 / 0.14);
     --color-focus-ring: var(--color-gray-900);
     --color-focus-ring-error: var(--color-red-600);
     --color-focus-halo: var(--color-yellow-400);
