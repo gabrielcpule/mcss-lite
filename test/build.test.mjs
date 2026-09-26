@@ -1,5 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { generate } from '../scripts/lib/generate.mjs';
 import { root } from './helpers.mjs';
 
@@ -16,10 +18,19 @@ test('tokens.css has light default, dark and auto themes', () => {
   assert.match(css, /@media \(prefers-color-scheme: dark\) \{\n  \[data-theme="auto"\] \{/);
 });
 
-test('component tokens are re-declared in every theme block (light, dark, auto-dark, print)', () => {
+test('component tokens are optional overrides: not declared, read with a semantic fallback', () => {
   const css = files.get('src/tokens.css');
-  assert.equal(css.match(/--button-primary-background:/g).length, 4);
+  assert.doesNotMatch(css, /--button-primary-background:/);
   assert.match(css, /@media print \{\n  :root,\n  \[data-theme\] \{\n    color-scheme: light;/);
+  const components = readFileSync(join(root, 'src/components.css'), 'utf8');
+  assert.match(components, /var\(--button-primary-background, var\(--color-action-primary\)\)/);
+});
+
+test('generated docs group focus and depth tokens under readable headings', () => {
+  const agents = files.get('AGENTS.md');
+  assert.doesNotMatch(agents, /### color\.focus-halo|### shadow\n/);
+  assert.match(agents, /### Focus[\s\S]*--color-focus-halo/);
+  assert.match(agents, /\[data-theme="auto"\] \{ --color-action-primary/);
 });
 
 test('dist/mcss-lite.css bundles every layer in order without @import', () => {

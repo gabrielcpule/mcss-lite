@@ -7,7 +7,7 @@ import {
 } from './tokens.mjs';
 import { loadContracts, loadExamples } from './contracts.mjs';
 import { buildDemo } from './demo.mjs';
-import { buildFigmaScript } from './figma-script.mjs';
+import { buildFigmaScript, figmaScopes, px } from './figma-script.mjs';
 
 export const RULES = [
   {
@@ -86,9 +86,6 @@ function buildCss(sets, byMode) {
   const themed = (mode) => [
     `  color-scheme: ${mode};`,
     decls(sets[mode], byMode[mode]),
-    '',
-    '  /* Component tokens are re-declared per theme so their var() references resolve in this scope. */',
-    decls(sets.component, byMode[mode]),
   ].join('\n');
 
   return [
@@ -100,6 +97,11 @@ function buildCss(sets, byMode) {
     '   Themes: light (default), [data-theme="dark"], and',
     '   [data-theme="auto"] which follows prefers-color-scheme',
     '   (light unless the OS asks for dark, also when nested).',
+    '',
+    '   Component tokens (--button-*, --card-*, --input-*, --badge-*,',
+    '   --modal-*) are not declared here: they are optional overrides.',
+    '   Components read them with a semantic fallback, so setting one on',
+    '   :root restyles that component everywhere, in every theme.',
     '   ============================================================ */',
     '',
     block(':root', ['  /* === Primitives === */', decls(sets.primitive, light), '', '  /* === Semantic (all themes) === */', decls(sets.semantic, light)].join('\n')),
@@ -199,22 +201,10 @@ function buildFigma(sets) {
   const allExcluded = new Set(
     [...sets.primitive, ...sets.semantic, ...sets.light, ...sets.component].filter(isFigmaExcluded).map((t) => t.path),
   );
-  const figmaScopes = (t, type) => {
-    if (t.extensions['com.figma.scopes']) return t.extensions['com.figma.scopes'];
-    const p = t.path;
-    if (p.startsWith('space.')) return ['GAP', 'WIDTH_HEIGHT'];
-    if (p.startsWith('border-radius.') || p.endsWith('.radius')) return ['CORNER_RADIUS'];
-    if (p.startsWith('border-width.')) return ['STROKE_FLOAT'];
-    if (p.startsWith('font.size.')) return ['FONT_SIZE'];
-    if (p.startsWith('font.weight.')) return ['FONT_WEIGHT'];
-    if (p.startsWith('container.')) return ['WIDTH_HEIGHT'];
-    if (type === 'color') return ['ALL_FILLS', 'STROKE_COLOR'];
-    return [];
-  };
   const figmaPath = (path) => path.replace(/\$root/g, 'default');
   const figmaValue = (type, v) => {
     if (typeof v === 'string' && isAlias(v)) return `{${figmaPath(aliasPath(v))}}`;
-    if (type === 'dimension') return v.unit === 'rem' ? { value: +(v.value * 16).toFixed(3), unit: 'px' } : v;
+    if (type === 'dimension') return { value: px(v), unit: 'px' };
     if (type === 'duration') return v.value;
     return v;
   };
@@ -360,10 +350,13 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
 
   const semanticRows = tokenRows.filter((t) => t.tier === 'semantic');
   const group = (rows, keyFn) => rows.reduce((m, r) => m.set(keyFn(r), [...(m.get(keyFn(r)) ?? []), r]), new Map());
-  const intentOf = (r) => (r.path.startsWith('color.') ? r.path.split('.').slice(0, 2).join('.') : r.path.split('.')[0]);
+  const intentOf = (r) => {
+    if (/^color\.focus-(ring|halo)/.test(r.path)) return 'focus';
+    return r.path.startsWith('color.') ? r.path.split('.').slice(0, 2).join('.') : r.path.split('.')[0];
+  };
   const INTENT_TITLES = {
     'color.text': 'Text', 'color.background': 'Backgrounds', 'color.border': 'Borders',
-    'color.action': 'Actions', 'color.focus-ring': 'Focus', space: 'Spacing (semantic)',
+    'color.action': 'Actions', focus: 'Focus', space: 'Spacing (semantic)', shadow: 'Depth',
   };
   const themesMd = [
     '## Themes',
@@ -372,7 +365,9 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
     '',
     'To theme for a brand, override semantic tokens, for example:',
     '',
-    fence('css', ':root, [data-theme="light"] { --color-action-primary: #7a2e8f; }\n[data-theme="dark"] { --color-action-primary: #d9a6e8; }'),
+    fence('css', ':root, [data-theme="light"], [data-theme="auto"] { --color-action-primary: #7a2e8f; }\n[data-theme="dark"] { --color-action-primary: #b36ad0; }\n@media (prefers-color-scheme: dark) {\n  [data-theme="auto"] { --color-action-primary: #b36ad0; }\n}'),
+    '',
+    'Load your overrides after MCSS-Lite. To restyle one component in every theme, set its component token once on `:root`, for example `:root { --button-radius: 0; }`.',
     '',
   ].join('\n');
   const semanticMd = [
@@ -399,7 +394,7 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
   const componentTokensMd = [
     '## Component tokens',
     '',
-    'Override one of these to restyle a single component without affecting others.',
+    'Optional overrides. They are unset by default; each component falls back to the semantic token shown. Set one on `:root` to restyle a single component in every theme.',
     '',
     '| Token | Aliases | Value |',
     '|---|---|---|',

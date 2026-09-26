@@ -6,6 +6,11 @@
    Themes: light (default), [data-theme="dark"], and
    [data-theme="auto"] which follows prefers-color-scheme
    (light unless the OS asks for dark, also when nested).
+
+   Component tokens (--button-*, --card-*, --input-*, --badge-*,
+   --modal-*) are not declared here: they are optional overrides.
+   Components read them with a semantic fallback, so setting one on
+   :root restyles that component everywhere, in every theme.
    ============================================================ */
 
 :root {
@@ -204,46 +209,6 @@
   --color-focus-halo: var(--color-yellow-400);
   --shadow-raised: 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12);
   --shadow-elevated: 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22);
-
-  /* Component tokens are re-declared per theme so their var() references resolve in this scope. */
-  --button-background: var(--color-background-interactive);
-  --button-background-hover: var(--color-background-interactive-hover);
-  --button-border: var(--color-border-interactive);
-  --button-text: var(--color-text-default);
-  --button-radius: var(--border-radius-base);
-  --button-shadow: var(--shadow-raised);
-  --button-primary-background: var(--color-action-primary);
-  --button-primary-background-hover: var(--color-action-primary-hover);
-  --button-primary-text: var(--color-text-on-action);
-  --button-secondary-text: var(--color-text-link);
-  --button-secondary-border: var(--color-action-primary);
-  --button-ghost-background-hover: var(--color-action-neutral-hover);
-  --button-danger-background: var(--color-action-danger);
-  --button-danger-background-hover: var(--color-action-danger-hover);
-  --button-danger-text: var(--color-text-on-danger);
-  --button-pressed-background: var(--color-text-default);
-  --button-pressed-border: var(--color-border-keyline);
-  --button-pressed-text: var(--color-text-inverse);
-  --input-background: var(--color-background-interactive);
-  --input-border: var(--color-border-interactive);
-  --input-border-focus: var(--color-action-primary);
-  --input-text: var(--color-text-default);
-  --input-placeholder: var(--color-text-subtle);
-  --input-radius: var(--border-radius-base);
-  --card-background: var(--color-background-raised);
-  --card-border: var(--color-border-keyline);
-  --card-border-hover: var(--color-action-primary);
-  --card-radius: var(--border-radius-lg);
-  --card-padding: var(--space-6);
-  --card-shadow: var(--shadow-raised);
-  --card-shadow-elevated: var(--shadow-elevated);
-  --badge-background: var(--color-background-muted);
-  --badge-text: var(--color-text-muted);
-  --modal-background: var(--color-background-raised);
-  --modal-backdrop: var(--color-background-overlay);
-  --modal-border: var(--color-border-keyline);
-  --modal-radius: var(--border-radius-lg);
-  --modal-shadow: var(--shadow-elevated);
 }
 
 [data-theme="dark"] {
@@ -295,46 +260,6 @@
   --color-focus-halo: var(--color-navy-950);
   --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
   --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
-
-  /* Component tokens are re-declared per theme so their var() references resolve in this scope. */
-  --button-background: var(--color-background-interactive);
-  --button-background-hover: var(--color-background-interactive-hover);
-  --button-border: var(--color-border-interactive);
-  --button-text: var(--color-text-default);
-  --button-radius: var(--border-radius-base);
-  --button-shadow: var(--shadow-raised);
-  --button-primary-background: var(--color-action-primary);
-  --button-primary-background-hover: var(--color-action-primary-hover);
-  --button-primary-text: var(--color-text-on-action);
-  --button-secondary-text: var(--color-text-link);
-  --button-secondary-border: var(--color-action-primary);
-  --button-ghost-background-hover: var(--color-action-neutral-hover);
-  --button-danger-background: var(--color-action-danger);
-  --button-danger-background-hover: var(--color-action-danger-hover);
-  --button-danger-text: var(--color-text-on-danger);
-  --button-pressed-background: var(--color-text-default);
-  --button-pressed-border: var(--color-border-keyline);
-  --button-pressed-text: var(--color-text-inverse);
-  --input-background: var(--color-background-interactive);
-  --input-border: var(--color-border-interactive);
-  --input-border-focus: var(--color-action-primary);
-  --input-text: var(--color-text-default);
-  --input-placeholder: var(--color-text-subtle);
-  --input-radius: var(--border-radius-base);
-  --card-background: var(--color-background-raised);
-  --card-border: var(--color-border-keyline);
-  --card-border-hover: var(--color-action-primary);
-  --card-radius: var(--border-radius-lg);
-  --card-padding: var(--space-6);
-  --card-shadow: var(--shadow-raised);
-  --card-shadow-elevated: var(--shadow-elevated);
-  --badge-background: var(--color-background-muted);
-  --badge-text: var(--color-text-muted);
-  --modal-background: var(--color-background-raised);
-  --modal-backdrop: var(--color-background-overlay);
-  --modal-border: var(--color-border-keyline);
-  --modal-radius: var(--border-radius-lg);
-  --modal-shadow: var(--shadow-elevated);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -387,46 +312,6 @@
     --color-focus-halo: var(--color-navy-950);
     --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
     --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
-
-    /* Component tokens are re-declared per theme so their var() references resolve in this scope. */
-    --button-background: var(--color-background-interactive);
-    --button-background-hover: var(--color-background-interactive-hover);
-    --button-border: var(--color-border-interactive);
-    --button-text: var(--color-text-default);
-    --button-radius: var(--border-radius-base);
-    --button-shadow: var(--shadow-raised);
-    --button-primary-background: var(--color-action-primary);
-    --button-primary-background-hover: var(--color-action-primary-hover);
-    --button-primary-text: var(--color-text-on-action);
-    --button-secondary-text: var(--color-text-link);
-    --button-secondary-border: var(--color-action-primary);
-    --button-ghost-background-hover: var(--color-action-neutral-hover);
-    --button-danger-background: var(--color-action-danger);
-    --button-danger-background-hover: var(--color-action-danger-hover);
-    --button-danger-text: var(--color-text-on-danger);
-    --button-pressed-background: var(--color-text-default);
-    --button-pressed-border: var(--color-border-keyline);
-    --button-pressed-text: var(--color-text-inverse);
-    --input-background: var(--color-background-interactive);
-    --input-border: var(--color-border-interactive);
-    --input-border-focus: var(--color-action-primary);
-    --input-text: var(--color-text-default);
-    --input-placeholder: var(--color-text-subtle);
-    --input-radius: var(--border-radius-base);
-    --card-background: var(--color-background-raised);
-    --card-border: var(--color-border-keyline);
-    --card-border-hover: var(--color-action-primary);
-    --card-radius: var(--border-radius-lg);
-    --card-padding: var(--space-6);
-    --card-shadow: var(--shadow-raised);
-    --card-shadow-elevated: var(--shadow-elevated);
-    --badge-background: var(--color-background-muted);
-    --badge-text: var(--color-text-muted);
-    --modal-background: var(--color-background-raised);
-    --modal-backdrop: var(--color-background-overlay);
-    --modal-border: var(--color-border-keyline);
-    --modal-radius: var(--border-radius-lg);
-    --modal-shadow: var(--shadow-elevated);
   }
 }
 
@@ -482,45 +367,5 @@
     --color-focus-halo: var(--color-yellow-400);
     --shadow-raised: 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12);
     --shadow-elevated: 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22);
-
-    /* Component tokens are re-declared per theme so their var() references resolve in this scope. */
-    --button-background: var(--color-background-interactive);
-    --button-background-hover: var(--color-background-interactive-hover);
-    --button-border: var(--color-border-interactive);
-    --button-text: var(--color-text-default);
-    --button-radius: var(--border-radius-base);
-    --button-shadow: var(--shadow-raised);
-    --button-primary-background: var(--color-action-primary);
-    --button-primary-background-hover: var(--color-action-primary-hover);
-    --button-primary-text: var(--color-text-on-action);
-    --button-secondary-text: var(--color-text-link);
-    --button-secondary-border: var(--color-action-primary);
-    --button-ghost-background-hover: var(--color-action-neutral-hover);
-    --button-danger-background: var(--color-action-danger);
-    --button-danger-background-hover: var(--color-action-danger-hover);
-    --button-danger-text: var(--color-text-on-danger);
-    --button-pressed-background: var(--color-text-default);
-    --button-pressed-border: var(--color-border-keyline);
-    --button-pressed-text: var(--color-text-inverse);
-    --input-background: var(--color-background-interactive);
-    --input-border: var(--color-border-interactive);
-    --input-border-focus: var(--color-action-primary);
-    --input-text: var(--color-text-default);
-    --input-placeholder: var(--color-text-subtle);
-    --input-radius: var(--border-radius-base);
-    --card-background: var(--color-background-raised);
-    --card-border: var(--color-border-keyline);
-    --card-border-hover: var(--color-action-primary);
-    --card-radius: var(--border-radius-lg);
-    --card-padding: var(--space-6);
-    --card-shadow: var(--shadow-raised);
-    --card-shadow-elevated: var(--shadow-elevated);
-    --badge-background: var(--color-background-muted);
-    --badge-text: var(--color-text-muted);
-    --modal-background: var(--color-background-raised);
-    --modal-backdrop: var(--color-background-overlay);
-    --modal-border: var(--color-border-keyline);
-    --modal-radius: var(--border-radius-lg);
-    --modal-shadow: var(--shadow-elevated);
   }
 }

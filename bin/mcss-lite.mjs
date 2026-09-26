@@ -21,17 +21,25 @@ Checks markup against the MCSS-Lite contracts: unknown c-/l-/u- classes,
 modifiers without their block, conflicting modifiers, invalid data-state
 values, missing ARIA pairs, deprecated classes, inline raw colors.
 Exits with code 1 when any error is found.`);
-  process.exit(command === 'validate' || !command ? 2 : 0);
+  const known = !command || command === 'validate' || command === 'help' || command === '--help';
+  if (command && !known) console.error(`\nUnknown command "${command}".`);
+  process.exit(command === 'help' || command === '--help' ? 0 : 2);
 }
 
 const files = [];
-const walk = (p) => {
-  const s = statSync(p);
+// Directories are walked for known markup extensions; files named explicitly are always checked.
+const walk = (p, explicit) => {
+  let s;
+  try { s = statSync(p); } catch { console.error(`mcss-lite: ${p} does not exist`); process.exit(2); }
   if (s.isDirectory()) {
-    for (const entry of readdirSync(p).sort()) if (!SKIP_DIRS.has(entry)) walk(join(p, entry));
-  } else if (EXTENSIONS.has(extname(p))) files.push(p);
+    for (const entry of readdirSync(p).sort()) if (!SKIP_DIRS.has(entry)) walk(join(p, entry), false);
+  } else if (explicit || EXTENSIONS.has(extname(p))) files.push(p);
 };
-for (const t of targets) walk(t);
+for (const t of targets) walk(t, true);
+if (files.length === 0) {
+  console.error(`mcss-lite: no markup files found in ${targets.join(', ')} (looked for ${[...EXTENSIONS].join(' ')}).`);
+  process.exit(2);
+}
 
 const validate = createValidator(loadContracts(join(pkgRoot, 'components')));
 const results = files.map((f) => ({ file: relative(process.cwd(), f) || f, issues: validate(readFileSync(f, 'utf8')) }));

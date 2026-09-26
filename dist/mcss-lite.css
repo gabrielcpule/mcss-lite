@@ -192,44 +192,6 @@
   --color-focus-halo: var(--color-yellow-400);
   --shadow-raised: 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12);
   --shadow-elevated: 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22);
-  --button-background: var(--color-background-interactive);
-  --button-background-hover: var(--color-background-interactive-hover);
-  --button-border: var(--color-border-interactive);
-  --button-text: var(--color-text-default);
-  --button-radius: var(--border-radius-base);
-  --button-shadow: var(--shadow-raised);
-  --button-primary-background: var(--color-action-primary);
-  --button-primary-background-hover: var(--color-action-primary-hover);
-  --button-primary-text: var(--color-text-on-action);
-  --button-secondary-text: var(--color-text-link);
-  --button-secondary-border: var(--color-action-primary);
-  --button-ghost-background-hover: var(--color-action-neutral-hover);
-  --button-danger-background: var(--color-action-danger);
-  --button-danger-background-hover: var(--color-action-danger-hover);
-  --button-danger-text: var(--color-text-on-danger);
-  --button-pressed-background: var(--color-text-default);
-  --button-pressed-border: var(--color-border-keyline);
-  --button-pressed-text: var(--color-text-inverse);
-  --input-background: var(--color-background-interactive);
-  --input-border: var(--color-border-interactive);
-  --input-border-focus: var(--color-action-primary);
-  --input-text: var(--color-text-default);
-  --input-placeholder: var(--color-text-subtle);
-  --input-radius: var(--border-radius-base);
-  --card-background: var(--color-background-raised);
-  --card-border: var(--color-border-keyline);
-  --card-border-hover: var(--color-action-primary);
-  --card-radius: var(--border-radius-lg);
-  --card-padding: var(--space-6);
-  --card-shadow: var(--shadow-raised);
-  --card-shadow-elevated: var(--shadow-elevated);
-  --badge-background: var(--color-background-muted);
-  --badge-text: var(--color-text-muted);
-  --modal-background: var(--color-background-raised);
-  --modal-backdrop: var(--color-background-overlay);
-  --modal-border: var(--color-border-keyline);
-  --modal-radius: var(--border-radius-lg);
-  --modal-shadow: var(--shadow-elevated);
 }
 [data-theme="dark"] {
   color-scheme: dark;
@@ -280,44 +242,6 @@
   --color-focus-halo: var(--color-navy-950);
   --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
   --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
-  --button-background: var(--color-background-interactive);
-  --button-background-hover: var(--color-background-interactive-hover);
-  --button-border: var(--color-border-interactive);
-  --button-text: var(--color-text-default);
-  --button-radius: var(--border-radius-base);
-  --button-shadow: var(--shadow-raised);
-  --button-primary-background: var(--color-action-primary);
-  --button-primary-background-hover: var(--color-action-primary-hover);
-  --button-primary-text: var(--color-text-on-action);
-  --button-secondary-text: var(--color-text-link);
-  --button-secondary-border: var(--color-action-primary);
-  --button-ghost-background-hover: var(--color-action-neutral-hover);
-  --button-danger-background: var(--color-action-danger);
-  --button-danger-background-hover: var(--color-action-danger-hover);
-  --button-danger-text: var(--color-text-on-danger);
-  --button-pressed-background: var(--color-text-default);
-  --button-pressed-border: var(--color-border-keyline);
-  --button-pressed-text: var(--color-text-inverse);
-  --input-background: var(--color-background-interactive);
-  --input-border: var(--color-border-interactive);
-  --input-border-focus: var(--color-action-primary);
-  --input-text: var(--color-text-default);
-  --input-placeholder: var(--color-text-subtle);
-  --input-radius: var(--border-radius-base);
-  --card-background: var(--color-background-raised);
-  --card-border: var(--color-border-keyline);
-  --card-border-hover: var(--color-action-primary);
-  --card-radius: var(--border-radius-lg);
-  --card-padding: var(--space-6);
-  --card-shadow: var(--shadow-raised);
-  --card-shadow-elevated: var(--shadow-elevated);
-  --badge-background: var(--color-background-muted);
-  --badge-text: var(--color-text-muted);
-  --modal-background: var(--color-background-raised);
-  --modal-backdrop: var(--color-background-overlay);
-  --modal-border: var(--color-border-keyline);
-  --modal-radius: var(--border-radius-lg);
-  --modal-shadow: var(--shadow-elevated);
 }
 @media (prefers-color-scheme: dark) {
   [data-theme="auto"] {
@@ -369,44 +293,6 @@
     --color-focus-halo: var(--color-navy-950);
     --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
     --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
-    --button-background: var(--color-background-interactive);
-    --button-background-hover: var(--color-background-interactive-hover);
-    --button-border: var(--color-border-interactive);
-    --button-text: var(--color-text-default);
-    --button-radius: var(--border-radius-base);
-    --button-shadow: var(--shadow-raised);
-    --button-primary-background: var(--color-action-primary);
-    --button-primary-background-hover: var(--color-action-primary-hover);
-    --button-primary-text: var(--color-text-on-action);
-    --button-secondary-text: var(--color-text-link);
-    --button-secondary-border: var(--color-action-primary);
-    --button-ghost-background-hover: var(--color-action-neutral-hover);
-    --button-danger-background: var(--color-action-danger);
-    --button-danger-background-hover: var(--color-action-danger-hover);
-    --button-danger-text: var(--color-text-on-danger);
-    --button-pressed-background: var(--color-text-default);
-    --button-pressed-border: var(--color-border-keyline);
-    --button-pressed-text: var(--color-text-inverse);
-    --input-background: var(--color-background-interactive);
-    --input-border: var(--color-border-interactive);
-    --input-border-focus: var(--color-action-primary);
-    --input-text: var(--color-text-default);
-    --input-placeholder: var(--color-text-subtle);
-    --input-radius: var(--border-radius-base);
-    --card-background: var(--color-background-raised);
-    --card-border: var(--color-border-keyline);
-    --card-border-hover: var(--color-action-primary);
-    --card-radius: var(--border-radius-lg);
-    --card-padding: var(--space-6);
-    --card-shadow: var(--shadow-raised);
-    --card-shadow-elevated: var(--shadow-elevated);
-    --badge-background: var(--color-background-muted);
-    --badge-text: var(--color-text-muted);
-    --modal-background: var(--color-background-raised);
-    --modal-backdrop: var(--color-background-overlay);
-    --modal-border: var(--color-border-keyline);
-    --modal-radius: var(--border-radius-lg);
-    --modal-shadow: var(--shadow-elevated);
   }
 }
 @media print {
@@ -460,44 +346,6 @@
     --color-focus-halo: var(--color-yellow-400);
     --shadow-raised: 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12);
     --shadow-elevated: 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22);
-    --button-background: var(--color-background-interactive);
-    --button-background-hover: var(--color-background-interactive-hover);
-    --button-border: var(--color-border-interactive);
-    --button-text: var(--color-text-default);
-    --button-radius: var(--border-radius-base);
-    --button-shadow: var(--shadow-raised);
-    --button-primary-background: var(--color-action-primary);
-    --button-primary-background-hover: var(--color-action-primary-hover);
-    --button-primary-text: var(--color-text-on-action);
-    --button-secondary-text: var(--color-text-link);
-    --button-secondary-border: var(--color-action-primary);
-    --button-ghost-background-hover: var(--color-action-neutral-hover);
-    --button-danger-background: var(--color-action-danger);
-    --button-danger-background-hover: var(--color-action-danger-hover);
-    --button-danger-text: var(--color-text-on-danger);
-    --button-pressed-background: var(--color-text-default);
-    --button-pressed-border: var(--color-border-keyline);
-    --button-pressed-text: var(--color-text-inverse);
-    --input-background: var(--color-background-interactive);
-    --input-border: var(--color-border-interactive);
-    --input-border-focus: var(--color-action-primary);
-    --input-text: var(--color-text-default);
-    --input-placeholder: var(--color-text-subtle);
-    --input-radius: var(--border-radius-base);
-    --card-background: var(--color-background-raised);
-    --card-border: var(--color-border-keyline);
-    --card-border-hover: var(--color-action-primary);
-    --card-radius: var(--border-radius-lg);
-    --card-padding: var(--space-6);
-    --card-shadow: var(--shadow-raised);
-    --card-shadow-elevated: var(--shadow-elevated);
-    --badge-background: var(--color-background-muted);
-    --badge-text: var(--color-text-muted);
-    --modal-background: var(--color-background-raised);
-    --modal-backdrop: var(--color-background-overlay);
-    --modal-border: var(--color-border-keyline);
-    --modal-radius: var(--border-radius-lg);
-    --modal-shadow: var(--shadow-elevated);
   }
 }
 @layer global {
@@ -648,20 +496,21 @@
       grid-template-columns: 1fr;
     }
   }
-  .l-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-4);
-  }
   .l-stack > * {
     margin-block: 0;
   }
-  .l-stack--sm {
-    gap: var(--space-2);
+  .l-stack > * + * {
+    margin-block-start: var(--space-4);
   }
-  .l-stack--lg {
-    gap: var(--space-8);
+  .l-stack--sm > * + * {
+    margin-block-start: var(--space-2);
+  }
+  .l-stack--lg > * + * {
+    margin-block-start: var(--space-8);
+  }
+  .l-stack > :where(a, abbr, b, cite, code, em, i, img, kbd, label, picture, q, small, span, strong, svg, time, video) {
+    display: block;
+    width: fit-content;
   }
   .l-center {
     max-width: var(--container-narrow);
@@ -714,11 +563,11 @@
     gap: var(--space-2);
     min-block-size: 2.75rem;
     padding: var(--space-2) var(--space-5);
-    border: var(--border-width-thick) solid var(--button-border);
-    border-radius: var(--button-radius);
-    background-color: var(--button-background);
-    box-shadow: var(--button-shadow);
-    color: var(--button-text);
+    border: var(--border-width-thick) solid var(--button-border, var(--color-border-interactive));
+    border-radius: var(--button-radius, var(--border-radius-base));
+    background-color: var(--button-background, var(--color-background-interactive));
+    box-shadow: var(--button-shadow, var(--shadow-raised));
+    color: var(--button-text, var(--color-text-default));
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-base);
     line-height: var(--line-height-tight);
@@ -732,8 +581,8 @@
     user-select: none;
   }
   .c-button:hover {
-    background-color: var(--button-background-hover);
-    color: var(--button-text);
+    background-color: var(--button-background-hover, var(--color-background-interactive-hover));
+    color: var(--button-text, var(--color-text-default));
   }
   .c-button:active {
     transform: translateY(2px);
@@ -743,23 +592,23 @@
     box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
   .c-button--primary {
-    background-color: var(--button-primary-background);
-    border-color: var(--button-primary-background);
-    color: var(--button-primary-text);
+    background-color: var(--button-primary-background, var(--color-action-primary));
+    border-color: var(--button-primary-background, var(--color-action-primary));
+    color: var(--button-primary-text, var(--color-text-on-action));
   }
   .c-button--primary:hover {
-    background-color: var(--button-primary-background-hover);
-    border-color: var(--button-primary-background-hover);
-    color: var(--button-primary-text);
+    background-color: var(--button-primary-background-hover, var(--color-action-primary-hover));
+    border-color: var(--button-primary-background-hover, var(--color-action-primary-hover));
+    color: var(--button-primary-text, var(--color-text-on-action));
   }
   .c-button--secondary {
-    background-color: var(--button-background);
-    border-color: var(--button-secondary-border);
-    color: var(--button-secondary-text);
+    background-color: var(--button-background, var(--color-background-interactive));
+    border-color: var(--button-secondary-border, var(--color-action-primary));
+    color: var(--button-secondary-text, var(--color-text-link));
   }
   .c-button--secondary:hover {
-    background-color: var(--button-background-hover);
-    color: var(--button-secondary-text);
+    background-color: var(--button-background-hover, var(--color-background-interactive-hover));
+    color: var(--button-secondary-text, var(--color-text-link));
   }
   .c-button--ghost {
     background-color: transparent;
@@ -767,17 +616,17 @@
     box-shadow: none;
   }
   .c-button--ghost:hover {
-    background-color: var(--button-ghost-background-hover);
+    background-color: var(--button-ghost-background-hover, var(--color-action-neutral-hover));
   }
   .c-button--danger {
-    background-color: var(--button-danger-background);
-    border-color: var(--button-danger-background);
-    color: var(--button-danger-text);
+    background-color: var(--button-danger-background, var(--color-action-danger));
+    border-color: var(--button-danger-background, var(--color-action-danger));
+    color: var(--button-danger-text, var(--color-text-on-danger));
   }
   .c-button--danger:hover {
-    background-color: var(--button-danger-background-hover);
-    border-color: var(--button-danger-background-hover);
-    color: var(--button-danger-text);
+    background-color: var(--button-danger-background-hover, var(--color-action-danger-hover));
+    border-color: var(--button-danger-background-hover, var(--color-action-danger-hover));
+    color: var(--button-danger-text, var(--color-text-on-danger));
   }
   .c-button--sm {
     position: relative;
@@ -798,9 +647,9 @@
   }
   .c-button[aria-pressed="true"],
   .c-button[aria-pressed="true"]:hover {
-    background-color: var(--button-pressed-background);
-    border-color: var(--button-pressed-border);
-    color: var(--button-pressed-text);
+    background-color: var(--button-pressed-background, var(--color-text-default));
+    border-color: var(--button-pressed-border, var(--color-border-keyline));
+    color: var(--button-pressed-text, var(--color-text-inverse));
     box-shadow: none;
     transform: translateY(2px);
   }
@@ -828,14 +677,14 @@
     to { background-position: -2.83rem 0; }
   }
   .c-card {
-    background-color: var(--card-background);
-    border: var(--border-width-thick) solid var(--card-border);
-    border-radius: var(--card-radius);
-    padding: var(--card-padding);
-    box-shadow: var(--card-shadow);
+    background-color: var(--card-background, var(--color-background-raised));
+    border: var(--border-width-thick) solid var(--card-border, var(--color-border-keyline));
+    border-radius: var(--card-radius, var(--border-radius-lg));
+    padding: var(--card-padding, var(--space-6));
+    box-shadow: var(--card-shadow, var(--shadow-raised));
   }
   .c-card--elevated {
-    box-shadow: var(--card-shadow-elevated);
+    box-shadow: var(--card-shadow-elevated, var(--shadow-elevated));
   }
   .c-card--bordered {
     box-shadow: none;
@@ -851,8 +700,8 @@
       transform var(--duration-fast) var(--ease-out);
   }
   .c-card--interactive:hover {
-    border-color: var(--card-border-hover);
-    box-shadow: var(--card-shadow-elevated);
+    border-color: var(--card-border-hover, var(--color-action-primary));
+    box-shadow: var(--card-shadow-elevated, var(--shadow-elevated));
     transform: translateY(-2px);
     color: inherit;
   }
@@ -880,10 +729,10 @@
     width: 100%;
     min-block-size: 2.75rem;
     padding: var(--space-2) var(--space-3);
-    border: var(--border-width-thick) solid var(--input-border);
-    border-radius: var(--input-radius);
-    background-color: var(--input-background);
-    color: var(--input-text);
+    border: var(--border-width-thick) solid var(--input-border, var(--color-border-interactive));
+    border-radius: var(--input-radius, var(--border-radius-base));
+    background-color: var(--input-background, var(--color-background-interactive));
+    color: var(--input-text, var(--color-text-default));
     font-size: var(--font-size-base);
     line-height: var(--line-height-normal);
     transition:
@@ -891,12 +740,12 @@
       box-shadow var(--duration-fast) var(--ease-out);
   }
   .c-input::placeholder {
-    color: var(--input-placeholder);
+    color: var(--input-placeholder, var(--color-text-subtle));
     opacity: 1;
   }
   .c-input:focus-visible,
   .c-input[data-state]:focus-visible {
-    border-color: var(--input-border-focus);
+    border-color: var(--input-border-focus, var(--color-action-primary));
     outline: var(--border-width-thick) solid var(--color-focus-ring);
     outline-offset: 2px;
     box-shadow: 0 0 0 5px var(--color-focus-halo);
@@ -954,8 +803,8 @@
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-normal);
-    background-color: var(--badge-background);
-    color: var(--badge-text);
+    background-color: var(--badge-background, var(--color-background-muted));
+    color: var(--badge-text, var(--color-text-muted));
   }
   .c-badge--primary {
     background-color: var(--color-action-primary);
@@ -1004,12 +853,12 @@
     display: none;
   }
   dialog.c-modal::backdrop {
-    background-color: var(--modal-backdrop);
+    background-color: var(--modal-backdrop, var(--color-background-overlay));
   }
   .c-modal__backdrop {
     position: absolute;
     inset: 0;
-    background-color: var(--modal-backdrop);
+    background-color: var(--modal-backdrop, var(--color-background-overlay));
     z-index: var(--z-index-modal-backdrop);
   }
   .c-modal__container {
@@ -1018,10 +867,10 @@
     width: 100%;
     max-width: 36rem;
     max-height: calc(100dvh - var(--space-8));
-    background-color: var(--modal-background);
-    border: var(--border-width-thick) solid var(--modal-border);
-    border-radius: var(--modal-radius);
-    box-shadow: var(--modal-shadow);
+    background-color: var(--modal-background, var(--color-background-raised));
+    border: var(--border-width-thick) solid var(--modal-border, var(--color-border-keyline));
+    border-radius: var(--modal-radius, var(--border-radius-lg));
+    box-shadow: var(--modal-shadow, var(--shadow-elevated));
     overflow-y: auto;
   }
   .c-modal__header {

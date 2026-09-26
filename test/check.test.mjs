@@ -18,6 +18,7 @@ const CASES = [
   ['an unknown token', '.c-button { color: var(--color-brand-500); }', /var\(--color-brand-500\) is not a token/],
   ['a primitive color in a component', '.c-button { color: var(--color-gray-900); }', /is a primitive color/],
   ['a raw hex color', '.c-button { color: #ff0000; }', /raw color value/],
+  ['a component token without its semantic fallback', '.c-card { color: var(--card-background); }', /write var\(--card-background, var\(--color-background-raised\)\)/],
   ['a raw rgba() color', '.c-button { color: rgba(0, 0, 0, 0.5); }', /raw color value/],
 ];
 for (const [what, css, pattern] of CASES) {

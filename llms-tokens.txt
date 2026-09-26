@@ -11,9 +11,14 @@ Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dar
 To theme for a brand, override semantic tokens, for example:
 
 ```css
-:root, [data-theme="light"] { --color-action-primary: #7a2e8f; }
-[data-theme="dark"] { --color-action-primary: #d9a6e8; }
+:root, [data-theme="light"], [data-theme="auto"] { --color-action-primary: #7a2e8f; }
+[data-theme="dark"] { --color-action-primary: #b36ad0; }
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] { --color-action-primary: #b36ad0; }
+}
 ```
+
+Load your overrides after MCSS-Lite. To restyle one component in every theme, set its component token once on `:root`, for example `:root { --button-radius: 0; }`.
 
 ## Semantic tokens (use these)
 
@@ -95,14 +100,9 @@ Values are shown as light / dark.
 |---|---|---|
 | `--color-focus-ring` | #1a1d20 / #f2cd37 | Solid 2px focus ring: at least 3:1 on every background in its theme. |
 | `--color-focus-ring-error` | #c91a09 / #f4a9b0 | Focus ring on a control in the error state. |
-
-### color.focus-halo
-
-| Token | Value | Use for |
-|---|---|---|
 | `--color-focus-halo` | #f2cd37 / #0b1a33 | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
 
-### shadow
+### Depth
 
 | Token | Value | Use for |
 |---|---|---|
@@ -126,7 +126,7 @@ Values are shown as light / dark.
 
 ## Component tokens
 
-Override one of these to restyle a single component without affecting others.
+Optional overrides. They are unset by default; each component falls back to the semantic token shown. Set one on `:root` to restyle a single component in every theme.
 
 | Token | Aliases | Value |
 |---|---|---|

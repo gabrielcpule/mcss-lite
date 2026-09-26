@@ -39,7 +39,7 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `l-grid` | layout | --2-col --3-col --4-col --responsive | — | — | Two-dimensional grid with a fixed gap. |
 | `l-section` | layout | --sm | — | — | Vertical padding for a full-width page section. |
 | `l-sidebar` | layout | — | __sidebar __content | — | A sidebar next to main content that stacks when the content would get narrower than 50%. |
-| `l-stack` | layout | --sm --lg | — | — | Vertical flow with a fixed gap between children. |
+| `l-stack` | layout | --sm --lg | — | — | Vertical flow: adds space between consecutive children, which keep their own width. |
 | `l-switcher` | layout | — | — | — | Children sit side by side until the container is narrower than a threshold, then all stack at once. |
 | `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
 | `c-button` | component | --primary --secondary --ghost --danger · --sm --lg | — | disabled loading | Triggers an action. |
@@ -82,9 +82,14 @@ Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dar
 To theme for a brand, override semantic tokens, for example:
 
 ```css
-:root, [data-theme="light"] { --color-action-primary: #7a2e8f; }
-[data-theme="dark"] { --color-action-primary: #d9a6e8; }
+:root, [data-theme="light"], [data-theme="auto"] { --color-action-primary: #7a2e8f; }
+[data-theme="dark"] { --color-action-primary: #b36ad0; }
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] { --color-action-primary: #b36ad0; }
+}
 ```
+
+Load your overrides after MCSS-Lite. To restyle one component in every theme, set its component token once on `:root`, for example `:root { --button-radius: 0; }`.
 
 ## Semantic tokens (use these)
 
@@ -166,14 +171,9 @@ Values are shown as light / dark.
 |---|---|---|
 | `--color-focus-ring` | #1a1d20 / #f2cd37 | Solid 2px focus ring: at least 3:1 on every background in its theme. |
 | `--color-focus-ring-error` | #c91a09 / #f4a9b0 | Focus ring on a control in the error state. |
-
-### color.focus-halo
-
-| Token | Value | Use for |
-|---|---|---|
 | `--color-focus-halo` | #f2cd37 / #0b1a33 | Outer halo around the focus ring: the yellow "new part" highlight in light, a dark gap in dark. |
 
-### shadow
+### Depth
 
 | Token | Value | Use for |
 |---|---|---|
