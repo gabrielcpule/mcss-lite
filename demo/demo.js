@@ -37,6 +37,18 @@
     dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
   });
 
+  // Step rail: mark the step currently in view with aria-current="step".
+  const studs = new Map([...document.querySelectorAll('[data-rail]')].map((a) => [a.dataset.rail, a]));
+  if (studs.size && 'IntersectionObserver' in window) {
+    const setCurrent = (id) => studs.forEach((a, key) => {
+      if (key === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
+    });
+    const railIo = new IntersectionObserver((entries) => {
+      entries.filter((e) => e.isIntersecting).forEach((e) => setCurrent(e.target.id));
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    studs.forEach((_, id) => { const el = document.getElementById(id); if (el) railIo.observe(el); });
+  }
+
   // Step-in motion: parts drop into place along the arrow. Content is visible without it.
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
