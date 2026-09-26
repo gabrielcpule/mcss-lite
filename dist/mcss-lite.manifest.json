@@ -271,7 +271,7 @@
       "block": "l-stack",
       "layer": "layout",
       "status": "stable",
-      "description": "Vertical flow with a fixed gap between children. Works with inline children (links, spans) too. The default way to space components vertically.",
+      "description": "Vertical flow: adds space between consecutive children, which keep their own width. Bare inline children (links, spans) stack too. The default way to space components vertically.",
       "modifiers": [
         {
           "group": "gap",

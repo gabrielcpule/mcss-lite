@@ -3,13 +3,14 @@ import { classInventory, stateInventory } from './contracts.mjs';
 
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
 const PREFIXED = /^[clu]-[a-z0-9]/;
-const RAW_COLOR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/i;
+export const RAW_COLOR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/i;
 
 const attr = (attrs, name) => {
   const m = attrs.match(new RegExp(`(?:^|\\s)${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|\\{\\s*["'\`]([^"'\`]*)["'\`]\\s*\\})`, 'i'));
   return m ? (m[1] ?? m[2] ?? m[3]) : null;
 };
-const hasAttr = (attrs, name) => new RegExp(`(?:^|\\s)${name}(?=[\\s=/>]|$)`, 'i').test(attrs);
+// Test for a bare or valued attribute, ignoring text inside other attributes' quoted values.
+const hasAttr = (attrs, name) => new RegExp(`(?:^|\\s)${name}(?=[\\s=/>]|$)`, 'i').test(attrs.replace(/"[^"]*"|'[^']*'/g, '""'));
 
 function levenshtein(a, b) {
   const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
@@ -46,7 +47,13 @@ export function createValidator(contracts) {
     const issues = [];
     // Blank out comments, <script> and <style> bodies while keeping offsets (for line numbers).
     const text = source.replace(/<!--[\s\S]*?-->|\{\/\*[\s\S]*?\*\/\}|(<(script|style)\b[^>]*>)[\s\S]*?(<\/\2>)/gi, (m) => m.replace(/[^\n]/g, ' '));
-    const lineAt = (i) => text.slice(0, i).split('\n').length;
+    const lineStarts = [0];
+    for (let i = text.indexOf('\n'); i !== -1; i = text.indexOf('\n', i + 1)) lineStarts.push(i + 1);
+    const lineAt = (i) => {
+      let lo = 0, hi = lineStarts.length - 1;
+      while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (lineStarts[mid] <= i) lo = mid; else hi = mid - 1; }
+      return lo + 1;
+    };
     const stack = [];
     const report = (level, rule, index, message) => issues.push({ level, rule, line: lineAt(index), message });
 

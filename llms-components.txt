@@ -314,7 +314,7 @@ A sidebar next to main content that stacks when the content would get narrower t
 
 ### Stack — `l-stack`
 
-Vertical flow with a fixed gap between children. Works with inline children (links, spans) too. The default way to space components vertically.
+Vertical flow: adds space between consecutive children, which keep their own width. Bare inline children (links, spans) stack too. The default way to space components vertically.
 
 **Modifiers — gap** (pick at most one):
 - `l-stack--sm`: Tight spacing (0.5rem), e.g. form-field internals or list items.

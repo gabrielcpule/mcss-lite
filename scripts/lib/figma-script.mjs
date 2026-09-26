@@ -21,7 +21,7 @@ export function figmaScopes(t, type) {
 
 const figmaName = (path) => path.replace(/\.\$root$/, '.default').replace(/\$root/g, 'default').split('.').join('/');
 const rgba = (c) => ({ r: c.components[0], g: c.components[1], b: c.components[2], a: c.alpha ?? 1 });
-const px = (d) => (d.unit === 'rem' ? +(d.value * 16).toFixed(3) : d.value);
+export const px = (d) => (d.unit === 'rem' ? +(d.value * 16).toFixed(3) : d.value);
 
 function literal(type, v) {
   switch (type) {

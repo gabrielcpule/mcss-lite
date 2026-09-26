@@ -4,12 +4,11 @@ import { join } from 'node:path';
 import { loadTokens, MODES, tokensForMode } from './tokens.mjs';
 import { loadContracts, classInventory, localCustomProperties } from './contracts.mjs';
 import { validateSchema } from './schema.mjs';
-import { createValidator } from './validate.mjs';
+import { createValidator, RAW_COLOR } from './validate.mjs';
 import { generate } from './generate.mjs';
 import { loadSteps, uncoveredBlocks } from './demo.mjs';
 
 const HAND_WRITTEN_CSS = ['global.css', 'layout.css', 'components.css', 'utilities.css'];
-const RAW_COLOR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/i;
 
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
 const lineOf = (text, index) => text.slice(0, index).split('\n').length;
@@ -33,6 +32,9 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
   const localProps = localCustomProperties(contracts);
   const primitiveColors = new Set(sets.primitive.filter((t) => t.type === 'color').map((t) => t.name));
   const deprecatedTokens = new Set(allTokens.filter((t) => t.deprecated).map((t) => t.name));
+  // Component tokens are optional overrides: every use must fall back to the semantic token it aliases.
+  const byPathLight = tokensForMode(sets, 'light');
+  const componentFallback = new Map(sets.component.map((t) => [t.name, byPathLight.get(t.value.slice(1, -1)).name]));
   for (const m of MODES) tokensForMode(sets, m); // throws on duplicate paths
 
   for (const c of contracts) {
@@ -68,8 +70,12 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
       if (!tokenNames.has(name) && !localProps.has(name)) errors.push(`${where}: var(${name}) is not a token`);
       if (primitiveColors.has(name)) errors.push(`${where}: var(${name}) is a primitive color; use a semantic or component token so dark mode works`);
       if (deprecatedTokens.has(name)) errors.push(`${where}: var(${name}) is deprecated`);
+      if (componentFallback.has(name)) {
+        const expected = `var(${name}, var(${componentFallback.get(name)}))`;
+        if (!css.startsWith(expected, m.index)) errors.push(`${where}: write ${expected} (component tokens are unset by default)`);
+      }
     }
-    // Raw colors are only allowed in the generated tokens.css. @media queries may use px.
+    // Raw colors are only allowed in the generated tokens.css.
     css.split('\n').forEach((line, i) => {
       if (RAW_COLOR.test(line)) errors.push(`src/${file}:${i + 1}: raw color value; use a token`);
     });

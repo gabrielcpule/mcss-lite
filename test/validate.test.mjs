@@ -49,3 +49,27 @@ test('CLI exits 1 on errors and prints JSON', () => {
   const ok = execFileSync(process.execPath, [join(root, 'bin/mcss-lite.mjs'), 'validate', fixture('html', 'good.html')], { encoding: 'utf8' });
   assert.match(ok, /0 error\(s\), 0 warning\(s\)/);
 });
+
+test('the disabled pair check ignores the word inside other attribute values', () => {
+  const issues = validate('<button class="c-button" data-state="disabled" title="is disabled now">x</button>');
+  assert.ok(issues.some((i) => i.rule === 'state-pair'), JSON.stringify(issues));
+});
+
+test('unknown utilities list the real ones', () => {
+  assert.match(validate('<span class="u-visually-hidden">x</span>')[0].message, /u-sr-only/);
+});
+
+test('CLI: unknown command exits 2; explicitly named files are checked whatever the extension', async () => {
+  const { mkdtempSync, writeFileSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const cli = join(root, 'bin/mcss-lite.mjs');
+  const run = (...args) => {
+    try { execFileSync(process.execPath, [cli, ...args], { encoding: 'utf8', stdio: 'pipe' }); return 0; } catch (e) { return e.status; }
+  };
+  assert.equal(run('valdate', 'x'), 2);
+  const dir = mkdtempSync(join(tmpdir(), 'mcss-'));
+  const md = join(dir, 'page.md');
+  writeFileSync(md, '<button class="c-buton">x</button>');
+  assert.equal(run('validate', md), 1);
+  assert.equal(run('validate', dir), 2, 'a directory with no markup files is a usage error');
+});
