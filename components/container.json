@@ -1,0 +1,18 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Container",
+  "block": "l-container",
+  "layer": "layout",
+  "status": "stable",
+  "description": "Centers page content horizontally with a max width and side gutters.",
+  "modifiers": [
+    { "group": "width", "exclusive": true, "values": [ { "name": "narrow", "description": "Reading width (48rem) for articles and forms." } ] }
+  ],
+  "tokens": ["--container-max-width", "--container-narrow", "--space-4"],
+  "guidelines": {
+    "use": ["Use once per page region, as the outermost wrapper of the content."],
+    "avoid": ["Nesting containers."]
+  },
+  "related": ["l-section", "l-center"],
+  "examples": ["layouts.html"]
+}

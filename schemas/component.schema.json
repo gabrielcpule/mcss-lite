@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gabrielcpule/mcss-lite/schemas/component.schema.json",
+  "title": "MCSS-Lite contract",
+  "description": "Machine-readable contract for one MCSS-Lite block (component, layout primitive) or the utility set.",
+  "type": "object",
+  "required": ["name", "block", "layer", "status", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "name": { "type": "string", "description": "Human name, e.g. \"Button\"." },
+    "block": { "type": "string", "pattern": "^[clu]-[a-z0-9-]+$|^u-\\*$", "description": "Root class, e.g. c-button. Utilities use u-*." },
+    "layer": { "type": "string", "enum": ["layout", "component", "utility"] },
+    "status": { "type": "string", "enum": ["stable", "deprecated"] },
+    "replacement": { "type": "string", "description": "Class to use instead, when status is deprecated." },
+    "description": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" }, "description": "HTML elements the block may be applied to." },
+    "modifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["group", "exclusive", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "group": { "type": "string" },
+          "exclusive": { "type": "boolean", "description": "When true, at most one value of this group may be applied at once." },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "description"],
+              "additionalProperties": false,
+              "properties": {
+                "name": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+                "description": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "description": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "required": { "type": "boolean" }
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z-]+$" },
+          "description": { "type": "string" },
+          "pair": { "type": "string", "description": "Native attribute or ARIA that must accompany data-state." }
+        }
+      }
+    },
+    "classes": {
+      "type": "array",
+      "description": "Utility layer only: the individual utility classes.",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^u-[a-z0-9-]+$" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "customProperties": {
+      "type": "array",
+      "description": "Local custom properties the block reads, which callers may set inline.",
+      "items": {
+        "type": "object",
+        "required": ["name", "default", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^--[a-z0-9-]+$" },
+          "default": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "children": { "type": "array", "items": { "type": "string" }, "description": "Structural rules for children." },
+    "tokens": { "type": "array", "items": { "type": "string", "pattern": "^--[a-z0-9-]+$" }, "description": "Tokens that theme this block." },
+    "guidelines": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "use": { "type": "array", "items": { "type": "string" } },
+        "avoid": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "a11y": { "type": "array", "items": { "type": "string" } },
+    "related": { "type": "array", "items": { "type": "string" } },
+    "examples": { "type": "array", "items": { "type": "string", "pattern": "\\.html$" } }
+  }
+}

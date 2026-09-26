@@ -1,0 +1,388 @@
+{
+  "button": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "background-hover": {
+      "$type": "color",
+      "$value": "{color.background.interactive-hover}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "text": {
+      "$type": "color",
+      "$value": "{color.text.default}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{border-radius.base}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "primary": {
+      "background": {
+        "$type": "color",
+        "$value": "{color.action.primary.default}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "background-hover": {
+        "$type": "color",
+        "$value": "{color.action.primary.hover}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{color.text.on-action}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the primary piece.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "background-active": {
+        "$type": "color",
+        "$value": "{color.action.primary.active}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "secondary": {
+      "text": {
+        "$type": "color",
+        "$value": "{color.text.link}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.action.primary.default}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "ghost": {
+      "background-hover": {
+        "$type": "color",
+        "$value": "{color.action.neutral-hover}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "danger": {
+      "background": {
+        "$type": "color",
+        "$value": "{color.action.danger.default}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "background-hover": {
+        "$type": "color",
+        "$value": "{color.action.danger.hover}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{color.text.on-danger}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the danger piece.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "pressed": {
+      "background": {
+        "$type": "color",
+        "$value": "{color.text.default}",
+        "$description": "Selected toggle (aria-pressed=\"true\"): an ink-filled piece.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.border.keyline}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{color.text.inverse}",
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_FILLS",
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    }
+  },
+  "input": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border-focus": {
+      "$type": "color",
+      "$value": "{color.action.primary.default}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "text": {
+      "$type": "color",
+      "$value": "{color.text.default}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "placeholder": {
+      "$type": "color",
+      "$value": "{color.text.subtle}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{border-radius.base}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    }
+  },
+  "card": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.raised}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.keyline}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border-hover": {
+      "$type": "color",
+      "$value": "{color.action.primary.default}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{border-radius.lg}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": "{space.6}",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    }
+  },
+  "badge": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.muted}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "text": {
+      "$type": "color",
+      "$value": "{color.text.muted}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    }
+  },
+  "modal": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.raised}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "backdrop": {
+      "$type": "color",
+      "$value": "{color.background.overlay}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.keyline}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{border-radius.lg}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    }
+  }
+}

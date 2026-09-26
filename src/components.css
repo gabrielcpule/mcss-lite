@@ -2,21 +2,31 @@
    MCSS-Lite: Component Layer
    Reusable UI components. BEM naming: c-block__element--modifier.
    Components never declare external margin (Golden Rule).
+   Components use semantic or component tokens only, never
+   primitive color tokens, so they follow the active theme.
+   Contracts: components/*.json
    ============================================================ */
 
 @layer component {
+  /* Content inside a part never leaks its own trailing margin. */
+  :where(.c-card__body, .c-card__header, .c-card__footer, .c-modal__body) > :last-child {
+    margin-block-end: 0;
+  }
+
   /* === Button === */
   .c-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    padding: var(--space-3) var(--space-5);
-    border: var(--border-width-thin) solid var(--color-border-interactive);
-    border-radius: var(--border-radius-md);
-    background-color: var(--color-background-interactive);
-    color: var(--color-gray-900);
-    font-weight: var(--font-weight-medium);
+    min-block-size: 2.75rem;
+    padding: var(--space-2) var(--space-5);
+    border: var(--border-width-thick) solid var(--button-border, var(--color-border-interactive));
+    border-radius: var(--button-radius, var(--border-radius-base));
+    background-color: var(--button-background, var(--color-background-interactive));
+    box-shadow: var(--button-shadow, var(--shadow-raised));
+    color: var(--button-text, var(--color-text-default));
+    font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-base);
     line-height: var(--line-height-tight);
     cursor: pointer;
@@ -24,99 +34,167 @@
     transition:
       background-color var(--duration-fast) var(--ease-out),
       border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out),
       transform var(--duration-fast) var(--ease-out);
     user-select: none;
   }
 
   .c-button:hover {
-    background-color: var(--color-background-interactive-hover);
+    background-color: var(--button-background-hover, var(--color-background-interactive-hover));
+    color: var(--button-text, var(--color-text-default));
   }
 
+  /* Pressing seats the brick: it drops onto its edge. */
   .c-button:active {
-    transform: translateY(1px);
+    transform: translateY(2px);
+    box-shadow: none;
+  }
+
+  .c-button:focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
 
   .c-button--primary {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--button-primary-background, var(--color-action-primary));
+    border-color: var(--button-primary-border, var(--color-border-keyline));
+    color: var(--button-primary-text, var(--color-text-on-action));
   }
 
   .c-button--primary:hover {
-    background-color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    background-color: var(--button-primary-background-hover, var(--color-action-primary-hover));
+    border-color: var(--button-primary-border, var(--color-border-keyline));
+    color: var(--button-primary-text, var(--color-text-on-action));
   }
 
   .c-button--secondary {
-    background-color: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    background-color: var(--button-background, var(--color-background-interactive));
+    border-color: var(--button-secondary-border, var(--color-action-primary));
+    color: var(--button-secondary-text, var(--color-text-link));
   }
 
   .c-button--secondary:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--button-background-hover, var(--color-background-interactive-hover));
+    color: var(--button-secondary-text, var(--color-text-link));
+  }
+
+  .c-button--primary:active {
+    background-color: var(--button-primary-background-active, var(--color-action-primary-active));
   }
 
   .c-button--ghost {
     background-color: transparent;
     border-color: transparent;
+    box-shadow: none;
   }
 
   .c-button--ghost:hover {
-    background-color: var(--color-gray-100);
+    background-color: var(--button-ghost-background-hover, var(--color-action-neutral-hover));
   }
 
+  .c-button--danger {
+    background-color: var(--button-danger-background, var(--color-action-danger));
+    border-color: var(--button-danger-border, var(--color-border-keyline));
+    color: var(--button-danger-text, var(--color-text-on-danger));
+  }
+
+  .c-button--danger:hover {
+    background-color: var(--button-danger-background-hover, var(--color-action-danger-hover));
+    border-color: var(--button-danger-border, var(--color-border-keyline));
+    color: var(--button-danger-text, var(--color-text-on-danger));
+  }
+
+  /* Compact visually, but the hit area stays 44px tall. */
   .c-button--sm {
-    padding: var(--space-2) var(--space-3);
+    position: relative;
+    min-block-size: 2rem;
+    padding: var(--space-1) var(--space-3);
     font-size: var(--font-size-sm);
   }
 
+  .c-button--sm::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block: -0.375rem;
+  }
+
   .c-button--lg {
-    padding: var(--space-4) var(--space-8);
+    min-block-size: 3.5rem;
+    padding: var(--space-3) var(--space-8);
     font-size: var(--font-size-lg);
   }
 
+  /* Toggle buttons: the selected piece is ink-filled and seated (pressed down onto its edge). */
+  .c-button[aria-pressed="true"],
+  .c-button[aria-pressed="true"]:hover {
+    background-color: var(--button-pressed-background, var(--color-text-default));
+    border-color: var(--button-pressed-border, var(--color-border-keyline));
+    color: var(--button-pressed-text, var(--color-text-inverse));
+    box-shadow: none;
+    transform: translateY(2px);
+  }
+
+  /* Disabled parts are ghosted, like the finished steps in an instruction booklet. */
+  .c-button:disabled,
   .c-button[data-state="disabled"] {
-    opacity: 0.5;
+    opacity: 0.45;
+    border-style: dashed;
+    box-shadow: none;
     cursor: not-allowed;
     pointer-events: none;
   }
 
   .c-button[data-state="loading"] {
-    opacity: 0.7;
-    cursor: wait;
+    cursor: progress;
     pointer-events: none;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-action-loading-stripe) 0 0.5rem,
+      transparent 0.5rem 1rem
+    );
+    background-size: 200% 100%;
+    animation: c-button-loading 1.2s linear infinite;
+  }
+
+  @keyframes c-button-loading {
+    from { background-position: 0 0; }
+    to { background-position: -2.83rem 0; }
   }
 
   /* === Card === */
   .c-card {
-    background-color: var(--color-white);
-    border: var(--border-width-thin) solid var(--color-gray-200);
-    border-radius: var(--border-radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-sm);
+    color: var(--color-text-default);
+    background-color: var(--card-background, var(--color-background-raised));
+    border: var(--border-width-thick) solid var(--card-border, var(--color-border-keyline));
+    border-radius: var(--card-radius, var(--border-radius-lg));
+    padding: var(--card-padding, var(--space-6));
+    box-shadow: var(--card-shadow, var(--shadow-raised));
   }
 
   .c-card--elevated {
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--card-shadow-elevated, var(--shadow-elevated));
   }
 
   .c-card--bordered {
     box-shadow: none;
-    border-color: var(--color-gray-300);
   }
 
   .c-card--interactive {
+    display: block;
+    color: inherit;
+    text-decoration: none;
     cursor: pointer;
     transition:
       box-shadow var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out);
+      border-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
 
   .c-card--interactive:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--color-primary);
+    border-color: var(--card-border-hover, var(--color-action-primary));
+    box-shadow: var(--card-shadow-elevated, var(--shadow-elevated));
+    transform: translateY(-2px);
+    color: inherit;
   }
 
   .c-card__header {
@@ -134,12 +212,12 @@
   .c-card__footer {
     margin-top: var(--space-4);
     padding-top: var(--space-4);
-    border-top: var(--border-width-thin) solid var(--color-gray-200);
+    border-top: var(--border-width-thin) solid var(--color-border-default);
   }
 
   .c-card__title {
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-2);
   }
 
@@ -147,11 +225,12 @@
   .c-input {
     display: block;
     width: 100%;
-    padding: var(--space-3) var(--space-4);
-    border: var(--border-width-thin) solid var(--color-border-interactive);
-    border-radius: var(--border-radius-md);
-    background-color: var(--color-background-interactive);
-    color: var(--color-gray-900);
+    min-block-size: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    border: var(--border-width-thick) solid var(--input-border, var(--color-border-interactive));
+    border-radius: var(--input-radius, var(--border-radius-base));
+    background-color: var(--input-background, var(--color-background-interactive));
+    color: var(--input-text, var(--color-text-default));
     font-size: var(--font-size-base);
     line-height: var(--line-height-normal);
     transition:
@@ -160,40 +239,41 @@
   }
 
   .c-input::placeholder {
-    color: var(--color-gray-400);
+    color: var(--input-placeholder, var(--color-text-subtle));
+    opacity: 1;
   }
 
-  .c-input:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(0, 90, 156, 0.15);
-    outline: none;
+  /* Focus uses a real outline (never removed), so it survives forced-colors mode. */
+  .c-input:focus-visible,
+  .c-input[data-state]:focus-visible {
+    border-color: var(--input-border-focus, var(--color-action-primary));
+    outline: var(--border-width-thick) solid var(--color-focus-ring);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
 
+  /* Error is marked by a heavier bottom edge as well as color, so it never relies on hue alone. */
   .c-input[data-state="error"] {
     border-color: var(--color-border-error);
+    border-block-end-width: var(--border-width-thicker);
   }
 
-  .c-input[data-state="error"]:focus {
-    box-shadow: 0 0 0 3px rgba(114, 28, 36, 0.15);
+  .c-input[data-state="error"]:focus-visible {
+    border-color: var(--color-border-error);
+    outline-color: var(--color-focus-ring-error);
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
 
   .c-input[data-state="success"] {
     border-color: var(--color-border-success);
   }
 
+  .c-input:disabled,
   .c-input[data-state="disabled"] {
     background-color: var(--color-background-disabled);
+    border-style: dashed;
     color: var(--color-text-disabled);
     cursor: not-allowed;
-  }
-
-  /* === Label === */
-  .c-label {
-    display: block;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-gray-700);
-    margin-bottom: var(--space-2);
   }
 
   /* === Form Field === */
@@ -201,22 +281,28 @@
     /* Block-level wrapper; spacing handled by layout parent */
   }
 
-  .c-form-field__label {
+  /* .c-label is deprecated: use .c-form-field__label */
+  .c-form-field__label,
+  .c-label {
     display: block;
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
     margin-bottom: var(--space-2);
   }
 
   .c-form-field__help {
     margin-top: var(--space-2);
+    margin-bottom: 0;
     font-size: var(--font-size-sm);
-    color: var(--color-gray-500);
+    color: var(--color-text-subtle);
   }
 
   .c-form-field__error {
     margin-top: var(--space-2);
+    margin-bottom: 0;
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text-error);
   }
 
@@ -225,17 +311,19 @@
     display: inline-flex;
     align-items: center;
     padding: var(--space-1) var(--space-3);
+    border: var(--border-width-thin) solid currentColor;
     border-radius: var(--border-radius-full);
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-normal);
-    background-color: var(--color-gray-100);
-    color: var(--color-gray-700);
+    background-color: var(--badge-background, var(--color-background-muted));
+    color: var(--badge-text, var(--color-text-muted));
   }
 
   .c-badge--primary {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--color-action-primary);
+    border-color: var(--color-action-primary);
+    color: var(--color-text-on-action);
   }
 
   .c-badge--success {
@@ -253,6 +341,11 @@
     color: var(--color-text-error);
   }
 
+  .c-badge--info {
+    background-color: var(--color-background-info);
+    color: var(--color-text-info);
+  }
+
   /* === Modal === */
   .c-modal {
     position: fixed;
@@ -261,16 +354,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: var(--space-4);
   }
 
   .c-modal[data-state="closed"] {
     display: none;
   }
 
+  /* Native <dialog class="c-modal">: hidden until open, no UA chrome. */
+  dialog.c-modal {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  dialog.c-modal:not([open]) {
+    display: none;
+  }
+
+  dialog.c-modal::backdrop {
+    background-color: var(--modal-backdrop, var(--color-background-overlay));
+  }
+
   .c-modal__backdrop {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--modal-backdrop, var(--color-background-overlay));
     z-index: var(--z-index-modal-backdrop);
   }
 
@@ -279,10 +393,12 @@
     z-index: var(--z-index-modal);
     width: 100%;
     max-width: 36rem;
-    max-height: 90vh;
-    background-color: var(--color-white);
-    border-radius: var(--border-radius-xl);
-    box-shadow: var(--shadow-xl);
+    max-height: calc(100dvh - var(--space-8));
+    background-color: var(--modal-background, var(--color-background-raised));
+    color: var(--color-text-default);
+    border: var(--border-width-thick) solid var(--modal-border, var(--color-border-keyline));
+    border-radius: var(--modal-radius, var(--border-radius-lg));
+    box-shadow: var(--modal-shadow, var(--shadow-elevated));
     overflow-y: auto;
   }
 
@@ -290,35 +406,40 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-4);
     padding: var(--space-4) var(--space-6);
-    border-bottom: var(--border-width-thin) solid var(--color-gray-200);
+    border-bottom: var(--border-width-thin) solid var(--color-border-default);
   }
 
   .c-modal__title {
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
     margin: 0;
   }
 
   .c-modal__close {
     display: inline-flex;
+    flex: none;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border: none;
-    border-radius: var(--border-radius-md);
+    width: 2.75rem;
+    height: 2.75rem;
+    border: var(--border-width-thick) solid transparent;
+    border-radius: var(--border-radius-base);
     background: transparent;
-    color: var(--color-gray-500);
+    color: var(--color-text-subtle);
     cursor: pointer;
-    font-size: var(--font-size-lg);
-    line-height: 1;
     transition: background-color var(--duration-fast) var(--ease-out);
   }
 
+  .c-modal__close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
   .c-modal__close:hover {
-    background-color: var(--color-gray-100);
-    color: var(--color-gray-900);
+    background-color: var(--color-action-neutral-hover);
+    color: var(--color-text-default);
   }
 
   .c-modal__body {
@@ -327,9 +448,20 @@
 
   .c-modal__footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: var(--space-3);
     padding: var(--space-4) var(--space-6);
-    border-top: var(--border-width-thin) solid var(--color-gray-200);
+    border-top: var(--border-width-thin) solid var(--color-border-default);
+  }
+
+  @media (forced-colors: active) {
+    .c-modal__container {
+      border-color: CanvasText;
+    }
+
+    .c-button[aria-pressed="true"] {
+      outline: var(--border-width-thick) solid Highlight;
+    }
   }
 }

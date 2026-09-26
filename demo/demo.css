@@ -1,0 +1,735 @@
+/* Demo chrome for the MCSS-Lite instruction booklet. Tokens only, like any consumer CSS. */
+
+/* Rubik (SIL OFL 1.1, see fonts/OFL.txt), self-hosted variable font, Latin subset. */
+@font-face {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("fonts/rubik-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.demo {
+  background-color: var(--color-background-canvas);
+  /* The stud grid every part aligns to. */
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-border-keyline) 14%, transparent) 1.5px,
+    transparent 1.75px
+  );
+  background-size: var(--space-4) var(--space-4);
+}
+
+.demo code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-raised);
+  box-shadow: inset 0 0 0 1px var(--color-border-default);
+  color: var(--color-text-default);
+  overflow-wrap: anywhere;
+}
+
+.demo-skip {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  inset-block-start: -10rem;
+  z-index: var(--z-index-sticky);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-skip:focus-visible {
+  inset-block-start: var(--space-2);
+}
+
+/* Top bar */
+.demo-bar {
+  background-color: var(--color-background-raised);
+  border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-bar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+}
+
+.demo-wordmark {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.01em;
+}
+
+.demo-wordmark__version {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-subtle);
+}
+
+/* First viewport */
+.demo-hero {
+  padding-block: var(--space-12) var(--space-10);
+}
+
+.demo-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.demo-hero__title {
+  margin-block-end: var(--space-5);
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.demo-hero__lede {
+  max-width: 58ch;
+  margin-block-end: var(--space-6);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
+}
+
+.demo-install {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-3);
+  width: fit-content;
+  max-width: 100%;
+  margin-block-end: var(--space-6);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.demo .demo-install__cmd {
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  font-size: var(--font-size-base);
+}
+
+.demo-links {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-links a {
+  display: inline-block;
+  padding-block: var(--space-1);
+}
+
+/* Parts inventory */
+.demo-inventory {
+  padding: var(--space-6);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-elevated);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.demo-inventory__title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+}
+
+/* Each bag is a keylined, sealed parts bag: a folded top edge over a subtle fill. */
+.demo-bag {
+  padding: var(--space-4);
+  background-color: var(--color-background-subtle);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-block-start-width: var(--border-width-thicker);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-bag__part {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.demo-bag__note {
+  margin: var(--space-3) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.demo-glyph {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-text-default);
+}
+
+.demo-part__head {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+}
+
+.demo-bag__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-end: var(--space-3);
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-bag__num {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.demo-bag__count {
+  margin-inline-start: auto;
+  font-family: var(--font-family-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-bag__list,
+.demo-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.demo-swatch__chip {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+/* Steps */
+.demo-step {
+  padding-block: var(--space-16);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.demo-step__grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.demo-step__numeral {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-family-display);
+  font-size: clamp(4rem, 11vw, 6rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.demo-step__numeral--wrong {
+  color: var(--color-action-danger);
+}
+
+.demo-step__numeral svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.demo-step__title {
+  margin-block-end: var(--space-3);
+  font-size: var(--font-size-2xl);
+}
+
+.demo-step__text {
+  max-width: 48ch;
+  margin-block-end: var(--space-6);
+  color: var(--color-text-muted);
+}
+
+.demo-callout {
+  padding: var(--space-5);
+  background-color: var(--color-background-callout);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-callout__label {
+  margin-block-end: var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-callout__hint {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-subtle);
+}
+
+.demo-callout__also {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding-block-start: var(--space-3);
+  border-block-start: var(--border-width-thin) dashed var(--color-border-strong);
+  font-size: var(--font-size-sm);
+}
+
+/* Parts that belong to another step are ghosted, like finished steps in a booklet. */
+.demo-also {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0.72;
+}
+
+.demo-also .demo-glyph {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.demo-parts {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-part {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.demo .demo-part__name {
+  justify-self: start;
+  font-weight: var(--font-weight-bold);
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--color-border-keyline);
+}
+
+.demo-part__meta {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+}
+
+.demo-part__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+}
+
+.demo-part__key {
+  color: var(--color-text-subtle);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-step__build {
+  position: relative;
+  min-width: 0;
+}
+
+.demo-arrow {
+  display: none;
+  position: absolute;
+  inset-inline-start: -7.5rem;
+  inset-block-start: 1.5rem;
+  width: 7rem;
+  color: var(--color-text-default);
+}
+
+.demo-stage {
+  padding: var(--space-6);
+  background-color: var(--color-background-default);
+  /* The stud grid carries on inside the build area. */
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-border-keyline) 10%, transparent) 1.25px,
+    transparent 1.5px
+  );
+  background-size: var(--space-4) var(--space-4);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  overflow-x: auto;
+}
+
+.demo-stage > * + * {
+  margin-block-start: var(--space-4);
+}
+
+/* Step 1: a full-width baseplate; every layout primitive is outlined and tagged. */
+.demo-stage--baseplate :where([class^="l-"], [class*=" l-"]) {
+  position: relative;
+  outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.demo-stage--baseplate :where([class^="l-"], [class*=" l-"])::before {
+  content: attr(class);
+  position: absolute;
+  inset-block-start: calc(var(--space-3) * -1 - 2px);
+  inset-inline-start: var(--space-2);
+  z-index: 1;
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Nested primitives that share a top edge keep their tags apart. */
+.demo-stage--baseplate .l-container::before {
+  inset-inline: auto var(--space-2);
+}
+
+/* Contains the fixed-position modal preview inside the stage. */
+.demo-stage--contain {
+  position: relative;
+  min-height: 24rem;
+  padding: 0;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.demo-stage-actions {
+  margin-block-start: var(--space-4);
+}
+
+/* Count tag: how many times the part is used in this step. */
+.demo-count {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 2rem;
+  padding: 0 var(--space-1);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+/* Step rail: a sticky row of studs; on wide screens a column in the left gutter. */
+.demo-rail {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-index-sticky);
+  padding-block: var(--space-2);
+  background-color: var(--color-background-raised);
+  border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-rail__list {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-rail__stud {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(2.5rem, calc((100vw - var(--space-12)) / 8));
+  height: min(2.5rem, calc((100vw - var(--space-12)) / 8));
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-text-default);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.demo-rail__stud svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.demo-rail__stud:hover {
+  color: var(--color-text-default);
+  background-color: var(--color-background-interactive-hover);
+}
+
+/* The current step is seated: ink-filled and pressed onto its edge. */
+.demo-rail__stud[aria-current="step"] {
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.demo-rail__stud--wrong[aria-current="step"] {
+  background-color: var(--color-action-danger);
+  border-color: var(--color-action-danger);
+  color: var(--color-text-on-danger);
+}
+
+@media (min-width: 90rem) {
+  .demo-rail {
+    position: fixed;
+    inset-inline-start: var(--space-8);
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .demo-rail__list {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .demo-rail__stud {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  /* The step title slides out beside the stud on hover and keyboard focus. */
+  .demo-rail__stud::after {
+    content: attr(data-label);
+    position: absolute;
+    inset-inline-start: calc(100% + var(--space-2));
+    padding: var(--space-1) var(--space-2);
+    border: var(--border-width-thick) solid var(--color-border-keyline);
+    border-radius: var(--border-radius-base);
+    background-color: var(--color-background-raised);
+    color: var(--color-text-default);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(calc(var(--space-2) * -1));
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+    pointer-events: none;
+  }
+
+  .demo-rail__stud:hover::after,
+  .demo-rail__stud:focus-visible::after {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The misfit drawing */
+.demo-misfit {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  color: var(--color-text-default);
+}
+
+.demo-misfit__bad {
+  stroke: var(--color-border-error);
+}
+
+.demo-misfit__wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+/* The wrong brick drops once and lands askew: one smooth, decelerating move. */
+@keyframes demo-misfit-drop {
+  from { transform: translateY(-12px) rotate(10deg); }
+  to { transform: none; }
+}
+
+.demo-step.is-seating .demo-misfit__wobble {
+  animation: demo-misfit-drop var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+}
+
+.demo-misfit__good {
+  stroke: var(--color-action-primary);
+}
+
+/* The wrong piece */
+.demo-check {
+  padding: var(--space-6);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-error);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-check__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-check__why {
+  color: var(--color-text-muted);
+}
+
+.demo-check__issues {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-error);
+}
+
+.demo-code {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-background-subtle);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--border-radius-base);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.demo .demo-code code {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  overflow-wrap: normal;
+}
+
+.demo-footer {
+  padding-block: var(--space-10);
+  border-block-start: var(--border-width-thick) solid var(--color-border-keyline);
+  background-color: var(--color-background-raised);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+/* Parts drop into place along the arrow, press onto their 2px brick edge, and settle.
+   Content is visible throughout; only the position moves. */
+@keyframes demo-seat {
+  0% { transform: translateY(calc(var(--space-4) * -1)); }
+  70% { transform: translateY(2px); }
+  100% { transform: none; }
+}
+
+@keyframes demo-draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+.demo-step.is-seating .demo-stage {
+  animation: demo-seat var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.demo-step.is-seating .demo-callout {
+  animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.demo-step.is-seating .demo-arrow {
+  animation: demo-draw var(--duration-slower) var(--ease-out) both;
+}
+
+@media (min-width: 60rem) {
+  .demo-step--wide .demo-step__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .demo-step--wide .demo-step__head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--space-16);
+    align-items: start;
+  }
+
+  .demo-step--wide .demo-step__head > :not(.demo-callout) {
+    grid-column: 1;
+  }
+
+  .demo-step--wide .demo-callout {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  .demo-step--wide .demo-arrow {
+    display: none;
+  }
+
+  .demo-hero__grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .demo-step__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-16);
+  }
+
+  .demo-arrow {
+    display: block;
+    inset-inline-start: calc(var(--space-16) * -1 - 0.5rem);
+    width: calc(var(--space-16) + 0.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-rail__stud { transition: none; }
+  .demo-step.is-seating .demo-stage,
+  .demo-step.is-seating .demo-callout,
+  .demo-step.is-seating .demo-arrow,
+  .demo-step.is-seating .demo-misfit__wobble {
+    animation: none;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Form field",
+  "block": "c-form-field",
+  "layer": "component",
+  "status": "stable",
+  "description": "Wraps one form control with its label, help text and error message.",
+  "tags": ["div", "fieldset"],
+  "elements": [
+    { "name": "label", "description": "The field label.", "tags": ["label", "legend"], "required": true },
+    { "name": "help", "description": "Hint shown below the control.", "tags": ["p", "div", "span"] },
+    { "name": "error", "description": "Error message shown when the control has data-state=\"error\".", "tags": ["p", "div", "span"] }
+  ],
+  "children": [
+    "Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error."
+  ],
+  "tokens": ["--color-text-muted", "--color-text-subtle", "--color-text-error"],
+  "guidelines": {
+    "use": ["Stack several c-form-field blocks with l-stack."],
+    "avoid": ["Adding margin to .c-form-field; the layout parent spaces fields."]
+  },
+  "a11y": [
+    "Connect label and control with for/id.",
+    "Give help and error elements ids and list them in the control's aria-describedby.",
+    "Use role=\"alert\" or a live region on the error when it appears after submit."
+  ],
+  "related": ["c-input", "l-stack"],
+  "examples": ["form-field.html"]
+}

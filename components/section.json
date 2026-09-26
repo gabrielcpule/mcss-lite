@@ -1,0 +1,15 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Section",
+  "block": "l-section",
+  "layer": "layout",
+  "status": "stable",
+  "description": "Vertical padding for a full-width page section.",
+  "modifiers": [
+    { "group": "size", "exclusive": true, "values": [ { "name": "sm", "description": "Smaller vertical padding (2.5rem instead of 4rem)." } ] }
+  ],
+  "tokens": ["--space-10", "--space-16"],
+  "children": ["Usually contains one l-container."],
+  "related": ["l-container"],
+  "examples": ["layouts.html"]
+}

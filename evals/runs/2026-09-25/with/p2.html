@@ -1,0 +1,30 @@
+<section class="l-section">
+  <div class="l-container l-container--narrow">
+    <div class="l-stack l-stack--lg">
+      <h1 class="u-margin-0">Create your account</h1>
+      <form class="l-stack" novalidate aria-labelledby="signup-title">
+        <h2 class="u-sr-only" id="signup-title">Sign up</h2>
+        <div class="c-form-field">
+          <label class="c-form-field__label" for="signup-name">Full name</label>
+          <input class="c-input" id="signup-name" name="name" type="text" autocomplete="name" value="Ada Lovelace">
+        </div>
+
+        <div class="c-form-field">
+          <label class="c-form-field__label" for="signup-email">Work email</label>
+          <input class="c-input" id="signup-email" name="email" type="email" autocomplete="email" value="ada@example.com" aria-describedby="signup-email-help">
+          <p class="c-form-field__help" id="signup-email-help">Use the address your team knows you by.</p>
+        </div>
+
+        <div class="c-form-field">
+          <label class="c-form-field__label" for="signup-password">Password</label>
+          <input class="c-input" id="signup-password" name="password" type="password" autocomplete="new-password" data-state="error" aria-invalid="true" aria-describedby="signup-password-error">
+          <p class="c-form-field__error" id="signup-password-error" role="alert">Use at least 12 characters</p>
+        </div>
+
+        <div class="l-cluster">
+          <button type="submit" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Creating account…</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Grid",
+  "block": "l-grid",
+  "layer": "layout",
+  "status": "stable",
+  "description": "Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.",
+  "modifiers": [
+    {
+      "group": "columns",
+      "exclusive": true,
+      "values": [
+        { "name": "2-col", "description": "Two equal columns." },
+        { "name": "3-col", "description": "Three equal columns." },
+        { "name": "4-col", "description": "Four equal columns." },
+        { "name": "responsive", "description": "As many 280px-minimum columns as fit; no breakpoint needed." }
+      ]
+    }
+  ],
+  "tokens": ["--space-6"],
+  "guidelines": {
+    "use": ["Prefer l-grid--responsive for card collections of unknown length."],
+    "avoid": ["Adding margins to grid children; the gap already spaces them."]
+  },
+  "related": ["c-card", "l-switcher"],
+  "examples": ["layouts.html"]
+}

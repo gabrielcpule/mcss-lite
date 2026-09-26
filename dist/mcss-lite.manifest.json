@@ -1,0 +1,3337 @@
+{
+  "name": "@gabrielpule/mcss-lite",
+  "version": "0.2.0",
+  "description": "Contract-first CSS design system: every class, state and token is declared in machine-readable contracts, so people and AI agents build UI with the right parts.",
+  "generatedFrom": [
+    "tokens/*.tokens.json",
+    "components/*.json"
+  ],
+  "cascade": [
+    "global",
+    "layout",
+    "component",
+    "utility"
+  ],
+  "prefixes": {
+    "l-": "layout primitive",
+    "c-": "component",
+    "u-": "utility"
+  },
+  "naming": "BEM: block, block__element, block--modifier. State: data-state=\"value\" on the block.",
+  "themes": {
+    "attribute": "data-theme",
+    "default": "light",
+    "values": {
+      "light": "Light theme. Also the default when no data-theme attribute is set.",
+      "dark": "Dark theme.",
+      "auto": "Follows the operating system via prefers-color-scheme."
+    }
+  },
+  "rules": [
+    {
+      "id": "golden-rule",
+      "title": "Components never set their own outer margin",
+      "text": "Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing."
+    },
+    {
+      "id": "lookup-order",
+      "title": "Layout, then component, then utility, then token",
+      "text": "Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only."
+    },
+    {
+      "id": "no-invention",
+      "title": "Never invent class or token names",
+      "text": "Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning."
+    },
+    {
+      "id": "states",
+      "title": "States use data-state plus the native or ARIA pair",
+      "text": "Express component state with data-state=\"…\" (for example data-state=\"error\"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy)."
+    },
+    {
+      "id": "theming",
+      "title": "Theme with semantic tokens, never raw values",
+      "text": "Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode."
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Center",
+      "block": "l-center",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Centers a block horizontally at reading width without side gutters.",
+      "tokens": [
+        "--container-narrow"
+      ],
+      "related": [
+        "l-container"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Cluster",
+      "block": "l-cluster",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.",
+      "tokens": [
+        "--space-3"
+      ],
+      "guidelines": {
+        "use": [
+          "Group inline items such as buttons and badges."
+        ],
+        "avoid": [
+          "Using l-cluster for two-column page layouts; use l-sidebar or l-grid."
+        ]
+      },
+      "related": [
+        "c-button",
+        "c-badge"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Container",
+      "block": "l-container",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Centers page content horizontally with a max width and side gutters.",
+      "modifiers": [
+        {
+          "group": "width",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "narrow",
+              "description": "Reading width (48rem) for articles and forms."
+            }
+          ]
+        }
+      ],
+      "tokens": [
+        "--container-max-width",
+        "--container-narrow",
+        "--space-4"
+      ],
+      "guidelines": {
+        "use": [
+          "Use once per page region, as the outermost wrapper of the content."
+        ],
+        "avoid": [
+          "Nesting containers."
+        ]
+      },
+      "related": [
+        "l-section",
+        "l-center"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Grid",
+      "block": "l-grid",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.",
+      "modifiers": [
+        {
+          "group": "columns",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "2-col",
+              "description": "Two equal columns."
+            },
+            {
+              "name": "3-col",
+              "description": "Three equal columns."
+            },
+            {
+              "name": "4-col",
+              "description": "Four equal columns."
+            },
+            {
+              "name": "responsive",
+              "description": "As many 280px-minimum columns as fit; no breakpoint needed."
+            }
+          ]
+        }
+      ],
+      "tokens": [
+        "--space-6"
+      ],
+      "guidelines": {
+        "use": [
+          "Prefer l-grid--responsive for card collections of unknown length."
+        ],
+        "avoid": [
+          "Adding margins to grid children; the gap already spaces them."
+        ]
+      },
+      "related": [
+        "c-card",
+        "l-switcher"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Section",
+      "block": "l-section",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Vertical padding for a full-width page section.",
+      "modifiers": [
+        {
+          "group": "size",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "sm",
+              "description": "Smaller vertical padding (2.5rem instead of 4rem)."
+            }
+          ]
+        }
+      ],
+      "tokens": [
+        "--space-10",
+        "--space-16"
+      ],
+      "children": [
+        "Usually contains one l-container."
+      ],
+      "related": [
+        "l-container"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Sidebar",
+      "block": "l-sidebar",
+      "layer": "layout",
+      "status": "stable",
+      "description": "A sidebar next to main content that stacks when the content would get narrower than 50%.",
+      "elements": [
+        {
+          "name": "sidebar",
+          "description": "The narrow side (16rem basis).",
+          "required": true
+        },
+        {
+          "name": "content",
+          "description": "The main content; takes the remaining space.",
+          "required": true
+        }
+      ],
+      "children": [
+        "Exactly two children: l-sidebar__sidebar and l-sidebar__content, in either order."
+      ],
+      "tokens": [
+        "--space-6"
+      ],
+      "related": [
+        "l-grid",
+        "l-switcher"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Stack",
+      "block": "l-stack",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Vertical flow: adds space between consecutive children, which keep their own width. Bare inline children (links, spans) stack too. The default way to space components vertically.",
+      "modifiers": [
+        {
+          "group": "gap",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "sm",
+              "description": "Tight spacing (0.5rem), e.g. form-field internals or list items."
+            },
+            {
+              "name": "lg",
+              "description": "Loose spacing (2rem), e.g. between page blocks."
+            }
+          ]
+        }
+      ],
+      "tokens": [
+        "--space-2",
+        "--space-4",
+        "--space-8"
+      ],
+      "guidelines": {
+        "use": [
+          "Nest stacks with different gaps to build rhythm."
+        ],
+        "avoid": [
+          "Adding margins to children to fix spacing; change the stack modifier instead."
+        ]
+      },
+      "related": [
+        "l-cluster",
+        "c-form-field"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Switcher",
+      "block": "l-switcher",
+      "layer": "layout",
+      "status": "stable",
+      "description": "Children sit side by side until the container is narrower than a threshold, then all stack at once.",
+      "customProperties": [
+        {
+          "name": "--switcher-threshold",
+          "default": "30rem",
+          "description": "Container width below which children stack. Set inline, e.g. style=\"--switcher-threshold: 40rem\"."
+        }
+      ],
+      "tokens": [
+        "--space-4"
+      ],
+      "related": [
+        "l-grid",
+        "l-sidebar"
+      ],
+      "examples": [
+        {
+          "file": "components/layouts.html",
+          "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "block": "c-badge",
+      "layer": "component",
+      "status": "stable",
+      "description": "A short, non-interactive label for status or category, such as \"Beta\" or \"Paid\".",
+      "tags": [
+        "span"
+      ],
+      "modifiers": [
+        {
+          "group": "tone",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "primary",
+              "description": "Brand emphasis, e.g. \"New\"."
+            },
+            {
+              "name": "success",
+              "description": "Positive status, e.g. \"Active\"."
+            },
+            {
+              "name": "warning",
+              "description": "Needs attention, e.g. \"Expiring\"."
+            },
+            {
+              "name": "error",
+              "description": "Negative status, e.g. \"Failed\"."
+            },
+            {
+              "name": "info",
+              "description": "Neutral information, e.g. \"Draft\"."
+            }
+          ]
+        }
+      ],
+      "tokens": [
+        "--badge-background",
+        "--badge-text",
+        "--color-action-primary",
+        "--color-text-on-action"
+      ],
+      "guidelines": {
+        "use": [
+          "Keep badge text to one or two words.",
+          "Group several badges with l-cluster."
+        ],
+        "avoid": [
+          "Making a badge clickable; use c-button--sm instead.",
+          "Relying on badge color alone to convey meaning; the text must carry the status."
+        ]
+      },
+      "a11y": [
+        "Color is decorative; the badge text must describe the status on its own."
+      ],
+      "related": [
+        "l-cluster",
+        "c-card"
+      ],
+      "examples": [
+        {
+          "file": "components/badge.html",
+          "html": "<div class=\"l-cluster\">\n  <span class=\"c-badge\">Draft</span>\n  <span class=\"c-badge c-badge--primary\">New</span>\n  <span class=\"c-badge c-badge--success\">Active</span>\n  <span class=\"c-badge c-badge--warning\">Expiring</span>\n  <span class=\"c-badge c-badge--error\">Failed</span>\n  <span class=\"c-badge c-badge--info\">Beta</span>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "block": "c-button",
+      "layer": "component",
+      "status": "stable",
+      "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.",
+      "tags": [
+        "button",
+        "a"
+      ],
+      "modifiers": [
+        {
+          "group": "variant",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "primary",
+              "description": "The main action in a view region. Use at most one per region."
+            },
+            {
+              "name": "secondary",
+              "description": "Outlined in the action color; for important but not main actions."
+            },
+            {
+              "name": "ghost",
+              "description": "No border or background; for low-emphasis actions such as Cancel."
+            },
+            {
+              "name": "danger",
+              "description": "Destructive, hard-to-undo actions such as Delete. Brick red."
+            }
+          ]
+        },
+        {
+          "group": "size",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "sm",
+              "description": "Compact button for dense UI such as tables and toolbars."
+            },
+            {
+              "name": "lg",
+              "description": "Large button for hero or empty-state calls to action."
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "disabled",
+          "description": "The action is unavailable. Rendered ghosted with a dashed keyline.",
+          "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href."
+        },
+        {
+          "name": "loading",
+          "description": "The action is in progress. Shows moving stripes; text keeps full contrast.",
+          "pair": "Set aria-busy=\"true\" and aria-disabled=\"true\", keep the visible label (for example \"Saving…\"), and ignore activation in your handler."
+        }
+      ],
+      "tokens": [
+        "--button-background",
+        "--button-background-hover",
+        "--button-border",
+        "--button-text",
+        "--button-radius",
+        "--button-shadow",
+        "--button-primary-background",
+        "--button-primary-background-hover",
+        "--button-primary-text",
+        "--button-secondary-text",
+        "--button-secondary-border",
+        "--button-ghost-background-hover",
+        "--button-danger-background",
+        "--button-danger-background-hover",
+        "--button-danger-text",
+        "--button-pressed-background",
+        "--button-pressed-border",
+        "--button-pressed-text",
+        "--button-primary-border",
+        "--button-danger-border",
+        "--button-primary-background-active"
+      ],
+      "guidelines": {
+        "use": [
+          "Group buttons with l-cluster; it provides the gap.",
+          "Order a button group as secondary or ghost actions first, then the primary action last.",
+          "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
+          "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
+          "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
+        ],
+        "avoid": [
+          "Adding margin to .c-button. Spacing belongs to the layout parent.",
+          "Combining two variant modifiers (for example c-button--primary c-button--ghost).",
+          "Using c-button on a <div> or <span>."
+        ]
+      },
+      "a11y": [
+        "A button needs a visible text label, or aria-label when it only contains an icon.",
+        "Do not remove the :focus-visible outline.",
+        "Use type=\"button\" unless the button submits a form.",
+        "c-button--sm looks compact but keeps a 44px tall hit area."
+      ],
+      "related": [
+        "l-cluster",
+        "c-modal"
+      ],
+      "examples": [
+        {
+          "file": "components/button.html",
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
+        }
+      ]
+    },
+    {
+      "name": "Card",
+      "block": "c-card",
+      "layer": "component",
+      "status": "stable",
+      "description": "A raised surface that groups related content, such as a summary, a settings group or a list item.",
+      "tags": [
+        "article",
+        "section",
+        "div",
+        "li",
+        "a"
+      ],
+      "modifiers": [
+        {
+          "group": "surface",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "elevated",
+              "description": "Stronger shadow to lift the card above its neighbors."
+            },
+            {
+              "name": "bordered",
+              "description": "Keyline only, no brick edge; for flat, dense layouts."
+            }
+          ]
+        },
+        {
+          "group": "behavior",
+          "exclusive": false,
+          "values": [
+            {
+              "name": "interactive",
+              "description": "The whole card is clickable; shows hover feedback."
+            }
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "name": "header",
+          "description": "Top area; holds the title and optional badges.",
+          "tags": [
+            "header",
+            "div"
+          ]
+        },
+        {
+          "name": "title",
+          "description": "Card heading. Use the heading level that fits the page outline.",
+          "tags": [
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6"
+          ]
+        },
+        {
+          "name": "body",
+          "description": "Main content.",
+          "tags": [
+            "div",
+            "p"
+          ]
+        },
+        {
+          "name": "footer",
+          "description": "Bottom area for actions or metadata; has a top divider.",
+          "tags": [
+            "footer",
+            "div"
+          ]
+        }
+      ],
+      "children": [
+        "Elements appear in the order header, body, footer. All are optional.",
+        "c-card__title goes inside c-card__header."
+      ],
+      "tokens": [
+        "--card-background",
+        "--card-border",
+        "--card-border-hover",
+        "--card-radius",
+        "--card-padding",
+        "--card-shadow",
+        "--card-shadow-elevated"
+      ],
+      "guidelines": {
+        "use": [
+          "Place cards in l-grid or l-stack; the layout sets the gap between cards.",
+          "For c-card--interactive, make the card an <a> or put one link inside whose area covers the card."
+        ],
+        "avoid": [
+          "Nesting cards inside cards.",
+          "Adding margin to .c-card.",
+          "Putting several competing links inside a c-card--interactive."
+        ]
+      },
+      "a11y": [
+        "An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.",
+        "Keep the title a real heading so screen reader users can navigate by headings."
+      ],
+      "related": [
+        "l-grid",
+        "l-stack",
+        "c-badge",
+        "c-button"
+      ],
+      "examples": [
+        {
+          "file": "components/card.html",
+          "html": "<div class=\"l-grid l-grid--responsive\">\n  <article class=\"c-card\">\n    <header class=\"c-card__header\">\n      <div class=\"l-cluster\">\n        <h3 class=\"c-card__title\">Team plan</h3>\n        <span class=\"c-badge c-badge--success\">Active</span>\n      </div>\n    </header>\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">12 of 20 seats used. Renews on 1 March.</p>\n    </div>\n    <footer class=\"c-card__footer\">\n      <div class=\"l-cluster\">\n        <button type=\"button\" class=\"c-button c-button--sm\">Manage seats</button>\n      </div>\n    </footer>\n  </article>\n\n  <a class=\"c-card c-card--interactive\" href=\"/projects/atlas\">\n    <div class=\"c-card__header\">\n      <h3 class=\"c-card__title\">Atlas</h3>\n    </div>\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">Updated 2 hours ago</p>\n    </div>\n  </a>\n\n  <section class=\"c-card c-card--bordered\">\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">Bordered cards suit dense, flat layouts.</p>\n    </div>\n  </section>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "Form field",
+      "block": "c-form-field",
+      "layer": "component",
+      "status": "stable",
+      "description": "Wraps one form control with its label, help text and error message.",
+      "tags": [
+        "div",
+        "fieldset"
+      ],
+      "elements": [
+        {
+          "name": "label",
+          "description": "The field label.",
+          "tags": [
+            "label",
+            "legend"
+          ],
+          "required": true
+        },
+        {
+          "name": "help",
+          "description": "Hint shown below the control.",
+          "tags": [
+            "p",
+            "div",
+            "span"
+          ]
+        },
+        {
+          "name": "error",
+          "description": "Error message shown when the control has data-state=\"error\".",
+          "tags": [
+            "p",
+            "div",
+            "span"
+          ]
+        }
+      ],
+      "children": [
+        "Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error."
+      ],
+      "tokens": [
+        "--color-text-muted",
+        "--color-text-subtle",
+        "--color-text-error"
+      ],
+      "guidelines": {
+        "use": [
+          "Stack several c-form-field blocks with l-stack."
+        ],
+        "avoid": [
+          "Adding margin to .c-form-field; the layout parent spaces fields."
+        ]
+      },
+      "a11y": [
+        "Connect label and control with for/id.",
+        "Give help and error elements ids and list them in the control's aria-describedby.",
+        "Use role=\"alert\" or a live region on the error when it appears after submit."
+      ],
+      "related": [
+        "c-input",
+        "l-stack"
+      ],
+      "examples": [
+        {
+          "file": "components/form-field.html",
+          "html": "<form class=\"l-stack\" novalidate>\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"email\">Work email</label>\n    <input class=\"c-input\" id=\"email\" type=\"email\" autocomplete=\"email\" aria-describedby=\"email-help\">\n    <p class=\"c-form-field__help\" id=\"email-help\">We'll send the invite here.</p>\n  </div>\n\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"password\">Password</label>\n    <input class=\"c-input\" id=\"password\" type=\"password\" data-state=\"error\" aria-invalid=\"true\" aria-describedby=\"password-error\">\n    <p class=\"c-form-field__error\" id=\"password-error\">Use at least 12 characters.</p>\n  </div>\n\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"org\">Organization</label>\n    <input class=\"c-input\" id=\"org\" type=\"text\" value=\"Acme Inc.\" data-state=\"disabled\" disabled>\n  </div>\n\n  <div class=\"l-cluster\">\n    <button type=\"submit\" class=\"c-button c-button--primary\">Create account</button>\n  </div>\n</form>"
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "block": "c-input",
+      "layer": "component",
+      "status": "stable",
+      "description": "Single-line text entry. Also styles <textarea> and <select>.",
+      "tags": [
+        "input",
+        "textarea",
+        "select"
+      ],
+      "states": [
+        {
+          "name": "error",
+          "description": "The value is invalid. Adds a heavier bottom edge so the state does not rely on color.",
+          "pair": "Set aria-invalid=\"true\" and aria-describedby pointing at the c-form-field__error message."
+        },
+        {
+          "name": "success",
+          "description": "The value was validated successfully."
+        },
+        {
+          "name": "disabled",
+          "description": "The field cannot be edited. Rendered ghosted with a dashed keyline.",
+          "pair": "Also set the disabled attribute."
+        }
+      ],
+      "tokens": [
+        "--input-background",
+        "--input-border",
+        "--input-border-focus",
+        "--input-text",
+        "--input-placeholder",
+        "--input-radius",
+        "--color-focus-ring",
+        "--color-focus-ring-error"
+      ],
+      "guidelines": {
+        "use": [
+          "Always wrap in c-form-field with a c-form-field__label.",
+          "Use the right type attribute (email, tel, number, search) so mobile keyboards match."
+        ],
+        "avoid": [
+          "Using placeholder text as the only label.",
+          "Setting a width on .c-input; it fills its container. Constrain the container instead."
+        ]
+      },
+      "a11y": [
+        "Every input needs a programmatic label: <label for> on c-form-field__label.",
+        "Error text must be linked with aria-describedby, not only shown in red."
+      ],
+      "related": [
+        "c-form-field",
+        "l-stack"
+      ],
+      "examples": [
+        {
+          "file": "components/input.html",
+          "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"search\">Search projects</label>\n  <input class=\"c-input\" id=\"search\" type=\"search\" placeholder=\"Name or ID\">\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "Label",
+      "block": "c-label",
+      "layer": "component",
+      "status": "deprecated",
+      "replacement": "c-form-field__label",
+      "description": "Deprecated standalone label. Use c-form-field__label inside c-form-field instead; c-label will be removed in 1.0.",
+      "tags": [
+        "label"
+      ],
+      "tokens": [
+        "--color-text-muted"
+      ],
+      "related": [
+        "c-form-field"
+      ],
+      "examples": []
+    },
+    {
+      "name": "Modal",
+      "block": "c-modal",
+      "layer": "component",
+      "status": "stable",
+      "description": "A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role=\"dialog\">.",
+      "tags": [
+        "dialog",
+        "div"
+      ],
+      "elements": [
+        {
+          "name": "backdrop",
+          "description": "Dimmed layer behind the dialog; clicking it may close the modal.",
+          "tags": [
+            "div"
+          ]
+        },
+        {
+          "name": "container",
+          "description": "The dialog panel.",
+          "tags": [
+            "div",
+            "form"
+          ],
+          "required": true
+        },
+        {
+          "name": "header",
+          "description": "Holds the title and close button.",
+          "tags": [
+            "header",
+            "div"
+          ]
+        },
+        {
+          "name": "title",
+          "description": "Dialog heading, referenced by aria-labelledby.",
+          "tags": [
+            "h2",
+            "h3"
+          ],
+          "required": true
+        },
+        {
+          "name": "close",
+          "description": "Icon button that closes the dialog.",
+          "tags": [
+            "button"
+          ]
+        },
+        {
+          "name": "body",
+          "description": "Dialog content.",
+          "tags": [
+            "div"
+          ]
+        },
+        {
+          "name": "footer",
+          "description": "Actions, right-aligned. Put the primary action last.",
+          "tags": [
+            "footer",
+            "div"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "name": "closed",
+          "description": "Hidden (div form). With <dialog>, use the open attribute / showModal() instead.",
+          "pair": "When closed, return focus to the control that opened the modal."
+        }
+      ],
+      "children": [
+        "c-modal contains c-modal__backdrop and c-modal__container as siblings.",
+        "c-modal__container contains header, body and footer in that order."
+      ],
+      "tokens": [
+        "--modal-background",
+        "--modal-backdrop",
+        "--modal-border",
+        "--modal-radius",
+        "--modal-shadow",
+        "--z-index-modal",
+        "--z-index-modal-backdrop"
+      ],
+      "guidelines": {
+        "use": [
+          "Use for short, focused tasks: confirmations, small forms.",
+          "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
+        ],
+        "avoid": [
+          "Opening a modal from another modal.",
+          "Long, scrolling content; use a page instead."
+        ]
+      },
+      "a11y": [
+        "Prefer <dialog class=\"c-modal\"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role=\"dialog\", aria-modal=\"true\" and manage focus yourself.",
+        "Reference the title with aria-labelledby.",
+        "With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.",
+        "c-modal__close needs aria-label=\"Close\" and an SVG icon, not a text glyph."
+      ],
+      "related": [
+        "c-button"
+      ],
+      "examples": [
+        {
+          "file": "components/modal.html",
+          "html": "<div class=\"c-modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"delete-title\">\n  <div class=\"c-modal__backdrop\"></div>\n  <div class=\"c-modal__container\">\n    <header class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"delete-title\">Delete project?</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 5l10 10M15 5L5 15\"/></svg></button>\n    </header>\n    <div class=\"c-modal__body\">\n      <p class=\"u-margin-0\">Atlas and its 42 files will be deleted. This can't be undone.</p>\n    </div>\n    <footer class=\"c-modal__footer\">\n      <button type=\"button\" class=\"c-button c-button--ghost\">Keep project</button>\n      <button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>\n    </footer>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "block": "u-*",
+      "layer": "utility",
+      "status": "stable",
+      "description": "Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.",
+      "classes": [
+        {
+          "name": "u-text-center",
+          "description": "Center-align text."
+        },
+        {
+          "name": "u-text-left",
+          "description": "Align text to the start (left in left-to-right languages)."
+        },
+        {
+          "name": "u-text-right",
+          "description": "Align text to the end (right in left-to-right languages)."
+        },
+        {
+          "name": "u-hidden",
+          "description": "display: none."
+        },
+        {
+          "name": "u-visible",
+          "description": "visibility: visible."
+        },
+        {
+          "name": "u-invisible",
+          "description": "visibility: hidden; keeps the space."
+        },
+        {
+          "name": "u-margin-0",
+          "description": "Remove margin, e.g. from a heading or paragraph inside a component."
+        },
+        {
+          "name": "u-padding-0",
+          "description": "Remove padding."
+        },
+        {
+          "name": "u-font-normal",
+          "description": "Normal font weight."
+        },
+        {
+          "name": "u-font-medium",
+          "description": "Medium font weight."
+        },
+        {
+          "name": "u-font-semibold",
+          "description": "Semibold font weight."
+        },
+        {
+          "name": "u-font-bold",
+          "description": "Bold font weight."
+        },
+        {
+          "name": "u-font-mono",
+          "description": "Monospace font."
+        },
+        {
+          "name": "u-truncate",
+          "description": "Single line with an ellipsis."
+        },
+        {
+          "name": "u-sr-only",
+          "description": "Visually hidden but read by screen readers."
+        }
+      ],
+      "guidelines": {
+        "use": [
+          "u-sr-only for accessible labels on icon-only controls."
+        ],
+        "avoid": [
+          "Stacking several utilities to restyle a component; add a modifier to its contract instead."
+        ]
+      },
+      "examples": [
+        {
+          "file": "components/utilities.html",
+          "html": "<button type=\"button\" class=\"c-button c-button--ghost\">\n  <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"10\" cy=\"10\" r=\"3\"/><path d=\"M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4 4l2.1 2.1M13.9 13.9L16 16M4 16l2.1-2.1M13.9 6.1L16 4\"/></svg>\n  <span class=\"u-sr-only\">Settings</span>\n</button>\n<p class=\"u-truncate u-font-mono\">a-very-long-file-name-that-will-be-cut-off-with-an-ellipsis.css</p>"
+        }
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "--color-white",
+      "path": "color.white",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#ffffff",
+      "figma": true
+    },
+    {
+      "name": "--color-black",
+      "path": "color.black",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#000000",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-50",
+      "path": "color.gray.50",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f8f9fa",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-100",
+      "path": "color.gray.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#e9ecef",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-200",
+      "path": "color.gray.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#dee2e6",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-300",
+      "path": "color.gray.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#ced4da",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-400",
+      "path": "color.gray.400",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#adb5bd",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-450",
+      "path": "color.gray.450",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#868e96",
+      "description": "Lightest gray with 3:1 contrast on white and on gray-800; used for control borders.",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-500",
+      "path": "color.gray.500",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#6c757d",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-600",
+      "path": "color.gray.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#495057",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-700",
+      "path": "color.gray.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#343a40",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-800",
+      "path": "color.gray.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#212529",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-850",
+      "path": "color.gray.850",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#2b3035",
+      "figma": true
+    },
+    {
+      "name": "--color-gray-900",
+      "path": "color.gray.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#1a1d20",
+      "figma": true
+    },
+    {
+      "name": "--color-primary",
+      "path": "color.primary.$root",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#005a9c",
+      "description": "Brand color. For UI, prefer --color-action-primary, which adapts to dark mode.",
+      "figma": true
+    },
+    {
+      "name": "--color-primary-hover",
+      "path": "color.primary.hover",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#004a80",
+      "figma": true
+    },
+    {
+      "name": "--color-primary-active",
+      "path": "color.primary.active",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#003860",
+      "figma": true
+    },
+    {
+      "name": "--color-accent",
+      "path": "color.accent",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#00d4aa",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-50",
+      "path": "color.blue.50",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#eef6fc",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-100",
+      "path": "color.blue.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#c7e2f8",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-150",
+      "path": "color.blue.150",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#dcedf9",
+      "description": "Instruction-page sky: the demo canvas.",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-200",
+      "path": "color.blue.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#9ccdf4",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-300",
+      "path": "color.blue.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#6cb4ee",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-400",
+      "path": "color.blue.400",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#4d90fe",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-600",
+      "path": "color.blue.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#2576cc",
+      "description": "Night-build primary: white text 4.6:1, at least 3:1 on every navy surface.",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-700",
+      "path": "color.blue.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#185da6",
+      "figma": true
+    },
+    {
+      "name": "--color-blue-800",
+      "path": "color.blue.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#144d8a",
+      "figma": true
+    },
+    {
+      "name": "--color-green-100",
+      "path": "color.green.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#d4edda",
+      "figma": true
+    },
+    {
+      "name": "--color-green-200",
+      "path": "color.green.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#c3e6cb",
+      "figma": true
+    },
+    {
+      "name": "--color-green-300",
+      "path": "color.green.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#a3d9b1",
+      "figma": true
+    },
+    {
+      "name": "--color-green-800",
+      "path": "color.green.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#1e5631",
+      "figma": true
+    },
+    {
+      "name": "--color-green-900",
+      "path": "color.green.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#155724",
+      "figma": true
+    },
+    {
+      "name": "--color-green-950",
+      "path": "color.green.950",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0f2e1a",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-100",
+      "path": "color.yellow.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#fff3cd",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-200",
+      "path": "color.yellow.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#ffeaa7",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-300",
+      "path": "color.yellow.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f5d77a",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-400",
+      "path": "color.yellow.400",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f2cd37",
+      "description": "Brick yellow: new-part call-out and focus halo only.",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-800",
+      "path": "color.yellow.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#6b5310",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-900",
+      "path": "color.yellow.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#856404",
+      "figma": true
+    },
+    {
+      "name": "--color-yellow-950",
+      "path": "color.yellow.950",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#3a2e05",
+      "figma": true
+    },
+    {
+      "name": "--color-red-100",
+      "path": "color.red.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f8d7da",
+      "figma": true
+    },
+    {
+      "name": "--color-red-200",
+      "path": "color.red.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f5c6cb",
+      "figma": true
+    },
+    {
+      "name": "--color-red-300",
+      "path": "color.red.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#f4a9b0",
+      "figma": true
+    },
+    {
+      "name": "--color-red-600",
+      "path": "color.red.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#c91a09",
+      "description": "Brick red.",
+      "figma": true
+    },
+    {
+      "name": "--color-red-700",
+      "path": "color.red.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#a01408",
+      "figma": true
+    },
+    {
+      "name": "--color-red-800",
+      "path": "color.red.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#6e2129",
+      "figma": true
+    },
+    {
+      "name": "--color-red-900",
+      "path": "color.red.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#721c24",
+      "figma": true
+    },
+    {
+      "name": "--color-red-950",
+      "path": "color.red.950",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#3b1216",
+      "figma": true
+    },
+    {
+      "name": "--color-cyan-100",
+      "path": "color.cyan.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#d1ecf1",
+      "figma": true
+    },
+    {
+      "name": "--color-cyan-200",
+      "path": "color.cyan.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#bee5eb",
+      "figma": true
+    },
+    {
+      "name": "--color-cyan-300",
+      "path": "color.cyan.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#9ad4df",
+      "figma": true
+    },
+    {
+      "name": "--color-cyan-800",
+      "path": "color.cyan.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#155a66",
+      "figma": true
+    },
+    {
+      "name": "--color-cyan-900",
+      "path": "color.cyan.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0c5460",
+      "figma": true
+    },
+    {
+      "name": "--color-cyan-950",
+      "path": "color.cyan.950",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0b2d33",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-100",
+      "path": "color.navy.100",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#e6edf4",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-200",
+      "path": "color.navy.200",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#cfdae5",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-300",
+      "path": "color.navy.300",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#a9bacb",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-400",
+      "path": "color.navy.400",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#7f95ab",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-600",
+      "path": "color.navy.600",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#3b5988",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-700",
+      "path": "color.navy.700",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#27436f",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-800",
+      "path": "color.navy.800",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#1b335c",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-850",
+      "path": "color.navy.850",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#14294d",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-900",
+      "path": "color.navy.900",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0f2140",
+      "figma": true
+    },
+    {
+      "name": "--color-navy-950",
+      "path": "color.navy.950",
+      "tier": "primitive",
+      "type": "color",
+      "value": "#0b1a33",
+      "description": "Navy ink: the night-build canvas.",
+      "figma": true
+    },
+    {
+      "name": "--font-family-sans",
+      "path": "font.family.sans",
+      "tier": "primitive",
+      "type": "fontFamily",
+      "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+      "figma": false
+    },
+    {
+      "name": "--font-family-mono",
+      "path": "font.family.mono",
+      "tier": "primitive",
+      "type": "fontFamily",
+      "value": "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace",
+      "figma": false
+    },
+    {
+      "name": "--font-family-display",
+      "path": "font.family.display",
+      "tier": "primitive",
+      "type": "fontFamily",
+      "value": "Rubik, ui-rounded, system-ui, sans-serif",
+      "description": "Rounded display face for step numerals and wordmarks. Not loaded by the framework; load Rubik yourself or it falls back to the system face.",
+      "figma": false
+    },
+    {
+      "name": "--font-size-xs",
+      "path": "font.size.xs",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.75rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-sm",
+      "path": "font.size.sm",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.875rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-base",
+      "path": "font.size.base",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-lg",
+      "path": "font.size.lg",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1.125rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-xl",
+      "path": "font.size.xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1.25rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-2xl",
+      "path": "font.size.2xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1.5rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-3xl",
+      "path": "font.size.3xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1.875rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-4xl",
+      "path": "font.size.4xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "2.25rem",
+      "figma": true
+    },
+    {
+      "name": "--font-size-5xl",
+      "path": "font.size.5xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "3rem",
+      "figma": true
+    },
+    {
+      "name": "--font-weight-normal",
+      "path": "font.weight.normal",
+      "tier": "primitive",
+      "type": "fontWeight",
+      "value": "400",
+      "figma": true
+    },
+    {
+      "name": "--font-weight-medium",
+      "path": "font.weight.medium",
+      "tier": "primitive",
+      "type": "fontWeight",
+      "value": "500",
+      "figma": true
+    },
+    {
+      "name": "--font-weight-semibold",
+      "path": "font.weight.semibold",
+      "tier": "primitive",
+      "type": "fontWeight",
+      "value": "600",
+      "figma": true
+    },
+    {
+      "name": "--font-weight-bold",
+      "path": "font.weight.bold",
+      "tier": "primitive",
+      "type": "fontWeight",
+      "value": "700",
+      "figma": true
+    },
+    {
+      "name": "--font-weight-extrabold",
+      "path": "font.weight.extrabold",
+      "tier": "primitive",
+      "type": "fontWeight",
+      "value": "800",
+      "description": "Display weight for step numerals and wordmarks.",
+      "figma": true
+    },
+    {
+      "name": "--line-height-tight",
+      "path": "line-height.tight",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1.25",
+      "figma": true
+    },
+    {
+      "name": "--line-height-normal",
+      "path": "line-height.normal",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1.5",
+      "figma": true
+    },
+    {
+      "name": "--line-height-relaxed",
+      "path": "line-height.relaxed",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1.75",
+      "figma": true
+    },
+    {
+      "name": "--space-0",
+      "path": "space.0",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0",
+      "figma": true
+    },
+    {
+      "name": "--space-1",
+      "path": "space.1",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.25rem",
+      "figma": true
+    },
+    {
+      "name": "--space-2",
+      "path": "space.2",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.5rem",
+      "figma": true
+    },
+    {
+      "name": "--space-3",
+      "path": "space.3",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.75rem",
+      "figma": true
+    },
+    {
+      "name": "--space-4",
+      "path": "space.4",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1rem",
+      "figma": true
+    },
+    {
+      "name": "--space-5",
+      "path": "space.5",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1.25rem",
+      "figma": true
+    },
+    {
+      "name": "--space-6",
+      "path": "space.6",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1.5rem",
+      "figma": true
+    },
+    {
+      "name": "--space-8",
+      "path": "space.8",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "2rem",
+      "figma": true
+    },
+    {
+      "name": "--space-10",
+      "path": "space.10",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "2.5rem",
+      "figma": true
+    },
+    {
+      "name": "--space-12",
+      "path": "space.12",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "3rem",
+      "figma": true
+    },
+    {
+      "name": "--space-16",
+      "path": "space.16",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "4rem",
+      "figma": true
+    },
+    {
+      "name": "--space-20",
+      "path": "space.20",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "5rem",
+      "figma": true
+    },
+    {
+      "name": "--space-24",
+      "path": "space.24",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "6rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-none",
+      "path": "border-radius.none",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-sm",
+      "path": "border-radius.sm",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.125rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-base",
+      "path": "border-radius.base",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.25rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-md",
+      "path": "border-radius.md",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.375rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-lg",
+      "path": "border-radius.lg",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.5rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-xl",
+      "path": "border-radius.xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0.75rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-2xl",
+      "path": "border-radius.2xl",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1rem",
+      "figma": true
+    },
+    {
+      "name": "--border-radius-full",
+      "path": "border-radius.full",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "9999px",
+      "figma": true
+    },
+    {
+      "name": "--border-width-0",
+      "path": "border-width.0",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "0",
+      "figma": true
+    },
+    {
+      "name": "--border-width-thin",
+      "path": "border-width.thin",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "1px",
+      "figma": true
+    },
+    {
+      "name": "--border-width-thick",
+      "path": "border-width.thick",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "2px",
+      "figma": true
+    },
+    {
+      "name": "--border-width-thicker",
+      "path": "border-width.thicker",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "4px",
+      "figma": true
+    },
+    {
+      "name": "--shadow-xs",
+      "path": "shadow.xs",
+      "tier": "primitive",
+      "type": "shadow",
+      "value": "0 1px 2px rgb(0 0 0 / 0.05)",
+      "figma": false
+    },
+    {
+      "name": "--shadow-sm",
+      "path": "shadow.sm",
+      "tier": "primitive",
+      "type": "shadow",
+      "value": "0 1px 3px rgb(0 0 0 / 0.1)",
+      "figma": false
+    },
+    {
+      "name": "--shadow-base",
+      "path": "shadow.base",
+      "tier": "primitive",
+      "type": "shadow",
+      "value": "0 4px 6px rgb(0 0 0 / 0.1)",
+      "figma": false
+    },
+    {
+      "name": "--shadow-md",
+      "path": "shadow.md",
+      "tier": "primitive",
+      "type": "shadow",
+      "value": "0 8px 25px rgb(0 0 0 / 0.1)",
+      "figma": false
+    },
+    {
+      "name": "--shadow-lg",
+      "path": "shadow.lg",
+      "tier": "primitive",
+      "type": "shadow",
+      "value": "0 25px 50px rgb(0 0 0 / 0.15)",
+      "figma": false
+    },
+    {
+      "name": "--shadow-xl",
+      "path": "shadow.xl",
+      "tier": "primitive",
+      "type": "shadow",
+      "value": "0 25px 50px rgb(0 0 0 / 0.25)",
+      "figma": false
+    },
+    {
+      "name": "--ease-linear",
+      "path": "ease.linear",
+      "tier": "primitive",
+      "type": "cubicBezier",
+      "value": "linear",
+      "figma": false
+    },
+    {
+      "name": "--ease-in",
+      "path": "ease.in",
+      "tier": "primitive",
+      "type": "cubicBezier",
+      "value": "ease-in",
+      "figma": false
+    },
+    {
+      "name": "--ease-out",
+      "path": "ease.out",
+      "tier": "primitive",
+      "type": "cubicBezier",
+      "value": "ease-out",
+      "figma": false
+    },
+    {
+      "name": "--ease-in-out",
+      "path": "ease.in-out",
+      "tier": "primitive",
+      "type": "cubicBezier",
+      "value": "ease-in-out",
+      "figma": false
+    },
+    {
+      "name": "--duration-instant",
+      "path": "duration.instant",
+      "tier": "primitive",
+      "type": "duration",
+      "value": "0ms",
+      "figma": true
+    },
+    {
+      "name": "--duration-fast",
+      "path": "duration.fast",
+      "tier": "primitive",
+      "type": "duration",
+      "value": "150ms",
+      "figma": true
+    },
+    {
+      "name": "--duration-base",
+      "path": "duration.base",
+      "tier": "primitive",
+      "type": "duration",
+      "value": "250ms",
+      "figma": true
+    },
+    {
+      "name": "--duration-slow",
+      "path": "duration.slow",
+      "tier": "primitive",
+      "type": "duration",
+      "value": "350ms",
+      "figma": true
+    },
+    {
+      "name": "--duration-slower",
+      "path": "duration.slower",
+      "tier": "primitive",
+      "type": "duration",
+      "value": "500ms",
+      "figma": true
+    },
+    {
+      "name": "--z-index-hide",
+      "path": "z-index.hide",
+      "tier": "primitive",
+      "type": "number",
+      "value": "-1",
+      "figma": true
+    },
+    {
+      "name": "--z-index-base",
+      "path": "z-index.base",
+      "tier": "primitive",
+      "type": "number",
+      "value": "0",
+      "figma": true
+    },
+    {
+      "name": "--z-index-docked",
+      "path": "z-index.docked",
+      "tier": "primitive",
+      "type": "number",
+      "value": "10",
+      "figma": true
+    },
+    {
+      "name": "--z-index-dropdown",
+      "path": "z-index.dropdown",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1000",
+      "figma": true
+    },
+    {
+      "name": "--z-index-sticky",
+      "path": "z-index.sticky",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1020",
+      "figma": true
+    },
+    {
+      "name": "--z-index-modal-backdrop",
+      "path": "z-index.modal-backdrop",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1040",
+      "figma": true
+    },
+    {
+      "name": "--z-index-modal",
+      "path": "z-index.modal",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1050",
+      "figma": true
+    },
+    {
+      "name": "--z-index-popover",
+      "path": "z-index.popover",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1060",
+      "figma": true
+    },
+    {
+      "name": "--z-index-toast",
+      "path": "z-index.toast",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1070",
+      "figma": true
+    },
+    {
+      "name": "--z-index-tooltip",
+      "path": "z-index.tooltip",
+      "tier": "primitive",
+      "type": "number",
+      "value": "1080",
+      "figma": true
+    },
+    {
+      "name": "--container-max-width",
+      "path": "container.max-width",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "72rem",
+      "figma": true
+    },
+    {
+      "name": "--container-narrow",
+      "path": "container.narrow",
+      "tier": "primitive",
+      "type": "dimension",
+      "value": "48rem",
+      "figma": true
+    },
+    {
+      "name": "--space-component-padding",
+      "path": "space.component-padding",
+      "tier": "semantic",
+      "type": "dimension",
+      "alias": "--space-4",
+      "value": "1rem",
+      "description": "Default inner padding for components.",
+      "figma": true
+    },
+    {
+      "name": "--space-element-gap",
+      "path": "space.element-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "alias": "--space-3",
+      "value": "0.75rem",
+      "description": "Gap between sibling elements inside a component.",
+      "figma": true
+    },
+    {
+      "name": "--space-section-gap",
+      "path": "space.section-gap",
+      "tier": "semantic",
+      "type": "dimension",
+      "alias": "--space-8",
+      "value": "2rem",
+      "description": "Gap between page sections.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-default",
+      "path": "color.text.default",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-navy-100"
+      },
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#e6edf4"
+      },
+      "description": "Default body and heading text.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-muted",
+      "path": "color.text.muted",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-700",
+        "dark": "--color-navy-200"
+      },
+      "value": {
+        "light": "#343a40",
+        "dark": "#cfdae5"
+      },
+      "description": "Secondary text: labels, supporting copy.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-subtle",
+      "path": "color.text.subtle",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-600",
+        "dark": "--color-navy-300"
+      },
+      "value": {
+        "light": "#495057",
+        "dark": "#a9bacb"
+      },
+      "description": "Tertiary text: help text, placeholders, icons. 4.5:1 on every background, canvas included.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-inverse",
+      "path": "color.text.inverse",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-navy-900"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#0f2140"
+      },
+      "description": "Text on an inverted background.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-on-action",
+      "path": "color.text.on-action",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-white"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#ffffff"
+      },
+      "description": "Text on --color-action-primary.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-on-danger",
+      "path": "color.text.on-danger",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-white"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#ffffff"
+      },
+      "description": "Text on --color-action-danger.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-link",
+      "path": "color.text.link",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-primary",
+        "dark": "--color-blue-300"
+      },
+      "value": {
+        "light": "#005a9c",
+        "dark": "#6cb4ee"
+      },
+      "description": "Link text. Links are also underlined.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-link-hover",
+      "path": "color.text.link-hover",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-primary-hover",
+        "dark": "--color-blue-200"
+      },
+      "value": {
+        "light": "#004a80",
+        "dark": "#9ccdf4"
+      },
+      "description": "Link text on hover.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-disabled",
+      "path": "color.text.disabled",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-500",
+        "dark": "--color-navy-400"
+      },
+      "value": {
+        "light": "#6c757d",
+        "dark": "#7f95ab"
+      },
+      "description": "Text in disabled (ghosted) controls.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-success",
+      "path": "color.text.success",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-green-900",
+        "dark": "--color-green-300"
+      },
+      "value": {
+        "light": "#155724",
+        "dark": "#a3d9b1"
+      },
+      "description": "Text on --color-background-success.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-warning",
+      "path": "color.text.warning",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-900",
+        "dark": "--color-yellow-300"
+      },
+      "value": {
+        "light": "#856404",
+        "dark": "#f5d77a"
+      },
+      "description": "Text on --color-background-warning.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-error",
+      "path": "color.text.error",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-900",
+        "dark": "--color-red-300"
+      },
+      "value": {
+        "light": "#721c24",
+        "dark": "#f4a9b0"
+      },
+      "description": "Text on --color-background-error.",
+      "figma": true
+    },
+    {
+      "name": "--color-text-info",
+      "path": "color.text.info",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-cyan-900",
+        "dark": "--color-cyan-300"
+      },
+      "value": {
+        "light": "#0c5460",
+        "dark": "#9ad4df"
+      },
+      "description": "Text on --color-background-info.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-default",
+      "path": "color.background.default",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-navy-900"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#0f2140"
+      },
+      "description": "Page background.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-canvas",
+      "path": "color.background.canvas",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-blue-150",
+        "dark": "--color-navy-950"
+      },
+      "value": {
+        "light": "#dcedf9",
+        "dark": "#0b1a33"
+      },
+      "description": "Instruction-page canvas for showcase and marketing pages; not for dense product UI.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-subtle",
+      "path": "color.background.subtle",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-50",
+        "dark": "--color-navy-800"
+      },
+      "value": {
+        "light": "#f8f9fa",
+        "dark": "#1b335c"
+      },
+      "description": "Subtle section or hover background.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-muted",
+      "path": "color.background.muted",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-100",
+        "dark": "--color-navy-700"
+      },
+      "value": {
+        "light": "#e9ecef",
+        "dark": "#27436f"
+      },
+      "description": "Muted fill for neutral badges and chips.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-raised",
+      "path": "color.background.raised",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-navy-850"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "description": "Cards, modals and other raised surfaces.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-interactive",
+      "path": "color.background.interactive",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-white",
+        "dark": "--color-navy-850"
+      },
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "description": "Resting background of controls (buttons, inputs).",
+      "figma": true
+    },
+    {
+      "name": "--color-background-interactive-hover",
+      "path": "color.background.interactive-hover",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-blue-50",
+        "dark": "--color-navy-800"
+      },
+      "value": {
+        "light": "#eef6fc",
+        "dark": "#1b335c"
+      },
+      "description": "Hover background of controls.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-disabled",
+      "path": "color.background.disabled",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-100",
+        "dark": "--color-navy-800"
+      },
+      "value": {
+        "light": "#e9ecef",
+        "dark": "#1b335c"
+      },
+      "description": "Background of disabled (ghosted) controls.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-callout",
+      "path": "color.background.callout",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-100",
+        "dark": "--color-navy-700"
+      },
+      "value": {
+        "light": "#fff3cd",
+        "dark": "#27436f"
+      },
+      "description": "The 1:1 call-out that introduces a new part.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-overlay",
+      "path": "color.background.overlay",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "light": "rgb(15 33 64 / 0.55)",
+        "dark": "rgb(0 0 0 / 0.72)"
+      },
+      "description": "Modal backdrop.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-success",
+      "path": "color.background.success",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-green-100",
+        "dark": "--color-green-950"
+      },
+      "value": {
+        "light": "#d4edda",
+        "dark": "#0f2e1a"
+      },
+      "description": "Background for success messages and badges.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-warning",
+      "path": "color.background.warning",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-100",
+        "dark": "--color-yellow-950"
+      },
+      "value": {
+        "light": "#fff3cd",
+        "dark": "#3a2e05"
+      },
+      "description": "Background for warning messages and badges.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-error",
+      "path": "color.background.error",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-100",
+        "dark": "--color-red-950"
+      },
+      "value": {
+        "light": "#f8d7da",
+        "dark": "#3b1216"
+      },
+      "description": "Background for error messages and badges.",
+      "figma": true
+    },
+    {
+      "name": "--color-background-info",
+      "path": "color.background.info",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-cyan-100",
+        "dark": "--color-cyan-950"
+      },
+      "value": {
+        "light": "#d1ecf1",
+        "dark": "#0b2d33"
+      },
+      "description": "Background for info messages and badges.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-default",
+      "path": "color.border.default",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-300",
+        "dark": "--color-navy-700"
+      },
+      "value": {
+        "light": "#ced4da",
+        "dark": "#27436f"
+      },
+      "description": "Quiet dividers inside a part.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-strong",
+      "path": "color.border.strong",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-500",
+        "dark": "--color-navy-600"
+      },
+      "value": {
+        "light": "#6c757d",
+        "dark": "#3b5988"
+      },
+      "description": "Emphasized dividers.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-keyline",
+      "path": "color.border.keyline",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-navy-200"
+      },
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "description": "The 2px ink keyline around every part: cards, controls, call-outs.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-interactive",
+      "path": "color.border.interactive",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-navy-300"
+      },
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#a9bacb"
+      },
+      "description": "Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-focus",
+      "path": "color.border.focus",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-yellow-400"
+      },
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#f2cd37"
+      },
+      "description": "Focus ring color. Same as --color-focus-ring.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-success",
+      "path": "color.border.success",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-green-800",
+        "dark": "--color-green-300"
+      },
+      "value": {
+        "light": "#1e5631",
+        "dark": "#a3d9b1"
+      },
+      "description": "Border for the success state. At least 3:1 against fields.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-warning",
+      "path": "color.border.warning",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-900",
+        "dark": "--color-yellow-300"
+      },
+      "value": {
+        "light": "#856404",
+        "dark": "#f5d77a"
+      },
+      "description": "Border for the warning state. At least 3:1 against fields.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-error",
+      "path": "color.border.error",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-600",
+        "dark": "--color-red-300"
+      },
+      "value": {
+        "light": "#c91a09",
+        "dark": "#f4a9b0"
+      },
+      "description": "Border for the error state. At least 3:1 against fields.",
+      "figma": true
+    },
+    {
+      "name": "--color-border-info",
+      "path": "color.border.info",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-cyan-900",
+        "dark": "--color-cyan-300"
+      },
+      "value": {
+        "light": "#0c5460",
+        "dark": "#9ad4df"
+      },
+      "description": "Border for the info state. At least 3:1 against fields.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-primary",
+      "path": "color.action.primary.$root",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-primary",
+        "dark": "--color-blue-600"
+      },
+      "value": {
+        "light": "#005a9c",
+        "dark": "#2576cc"
+      },
+      "description": "Primary action background. Brick blue.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-primary-hover",
+      "path": "color.action.primary.hover",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-primary-hover",
+        "dark": "--color-blue-700"
+      },
+      "value": {
+        "light": "#004a80",
+        "dark": "#185da6"
+      },
+      "description": "Primary action on hover.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-primary-active",
+      "path": "color.action.primary.active",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-primary-active",
+        "dark": "--color-blue-800"
+      },
+      "value": {
+        "light": "#003860",
+        "dark": "#144d8a"
+      },
+      "description": "Primary action while pressed.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-danger",
+      "path": "color.action.danger.$root",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-600",
+        "dark": "--color-red-600"
+      },
+      "value": {
+        "light": "#c91a09",
+        "dark": "#c91a09"
+      },
+      "description": "Destructive action background. Brick red.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-danger-hover",
+      "path": "color.action.danger.hover",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-700",
+        "dark": "--color-red-700"
+      },
+      "value": {
+        "light": "#a01408",
+        "dark": "#a01408"
+      },
+      "description": "Destructive action on hover.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-neutral-hover",
+      "path": "color.action.neutral-hover",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-100",
+        "dark": "--color-navy-700"
+      },
+      "value": {
+        "light": "#e9ecef",
+        "dark": "#27436f"
+      },
+      "description": "Hover background for ghost and icon buttons.",
+      "figma": true
+    },
+    {
+      "name": "--color-action-loading-stripe",
+      "path": "color.action.loading-stripe",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "light": "rgb(0 0 0 / 0.14)",
+        "dark": "rgb(0 0 0 / 0.22)"
+      },
+      "description": "Moving stripes on a loading control. Always darkens, so light text keeps its contrast.",
+      "figma": true
+    },
+    {
+      "name": "--color-focus-ring",
+      "path": "color.focus-ring.$root",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-gray-900",
+        "dark": "--color-yellow-400"
+      },
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#f2cd37"
+      },
+      "description": "Solid 2px focus ring: at least 3:1 on every background in its theme.",
+      "figma": true
+    },
+    {
+      "name": "--color-focus-ring-error",
+      "path": "color.focus-ring.error",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-red-600",
+        "dark": "--color-red-300"
+      },
+      "value": {
+        "light": "#c91a09",
+        "dark": "#f4a9b0"
+      },
+      "description": "Focus ring on a control in the error state.",
+      "figma": true
+    },
+    {
+      "name": "--color-focus-halo",
+      "path": "color.focus-halo",
+      "tier": "semantic",
+      "type": "color",
+      "alias": {
+        "light": "--color-yellow-400",
+        "dark": "--color-navy-950"
+      },
+      "value": {
+        "light": "#f2cd37",
+        "dark": "#0b1a33"
+      },
+      "description": "Outer halo around the focus ring: the yellow \"new part\" highlight in light, a dark gap in dark.",
+      "figma": true
+    },
+    {
+      "name": "--shadow-raised",
+      "path": "shadow.raised",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+      },
+      "description": "Brick-edge depth for raised parts: a 2px edge plus a soft blur.",
+      "figma": false
+    },
+    {
+      "name": "--shadow-elevated",
+      "path": "shadow.elevated",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+      },
+      "description": "Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible.",
+      "figma": false
+    },
+    {
+      "name": "--button-background",
+      "path": "button.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-interactive",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-background-hover",
+      "path": "button.background-hover",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-interactive-hover",
+      "value": {
+        "light": "#eef6fc",
+        "dark": "#1b335c"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-border",
+      "path": "button.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-interactive",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#a9bacb"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-text",
+      "path": "button.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-default",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#e6edf4"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-radius",
+      "path": "button.radius",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--border-radius-base",
+      "value": "0.25rem",
+      "figma": true
+    },
+    {
+      "name": "--button-shadow",
+      "path": "button.shadow",
+      "tier": "component",
+      "type": "shadow",
+      "alias": "--shadow-raised",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+      },
+      "figma": false
+    },
+    {
+      "name": "--button-primary-background",
+      "path": "button.primary.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary",
+      "value": {
+        "light": "#005a9c",
+        "dark": "#2576cc"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-primary-background-hover",
+      "path": "button.primary.background-hover",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary-hover",
+      "value": {
+        "light": "#004a80",
+        "dark": "#185da6"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-primary-text",
+      "path": "button.primary.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-on-action",
+      "value": "#ffffff",
+      "figma": true
+    },
+    {
+      "name": "--button-primary-border",
+      "path": "button.primary.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "description": "Ink keyline around the primary piece.",
+      "figma": true
+    },
+    {
+      "name": "--button-primary-background-active",
+      "path": "button.primary.background-active",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary-active",
+      "value": {
+        "light": "#003860",
+        "dark": "#144d8a"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-secondary-text",
+      "path": "button.secondary.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-link",
+      "value": {
+        "light": "#005a9c",
+        "dark": "#6cb4ee"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-secondary-border",
+      "path": "button.secondary.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary",
+      "value": {
+        "light": "#005a9c",
+        "dark": "#2576cc"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-ghost-background-hover",
+      "path": "button.ghost.background-hover",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-neutral-hover",
+      "value": {
+        "light": "#e9ecef",
+        "dark": "#27436f"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-danger-background",
+      "path": "button.danger.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-danger",
+      "value": "#c91a09",
+      "figma": true
+    },
+    {
+      "name": "--button-danger-background-hover",
+      "path": "button.danger.background-hover",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-danger-hover",
+      "value": "#a01408",
+      "figma": true
+    },
+    {
+      "name": "--button-danger-text",
+      "path": "button.danger.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-on-danger",
+      "value": "#ffffff",
+      "figma": true
+    },
+    {
+      "name": "--button-danger-border",
+      "path": "button.danger.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "description": "Ink keyline around the danger piece.",
+      "figma": true
+    },
+    {
+      "name": "--button-pressed-background",
+      "path": "button.pressed.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-default",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#e6edf4"
+      },
+      "description": "Selected toggle (aria-pressed=\"true\"): an ink-filled piece.",
+      "figma": true
+    },
+    {
+      "name": "--button-pressed-border",
+      "path": "button.pressed.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "figma": true
+    },
+    {
+      "name": "--button-pressed-text",
+      "path": "button.pressed.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-inverse",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#0f2140"
+      },
+      "figma": true
+    },
+    {
+      "name": "--input-background",
+      "path": "input.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-interactive",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "figma": true
+    },
+    {
+      "name": "--input-border",
+      "path": "input.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-interactive",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#a9bacb"
+      },
+      "figma": true
+    },
+    {
+      "name": "--input-border-focus",
+      "path": "input.border-focus",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary",
+      "value": {
+        "light": "#005a9c",
+        "dark": "#2576cc"
+      },
+      "figma": true
+    },
+    {
+      "name": "--input-text",
+      "path": "input.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-default",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#e6edf4"
+      },
+      "figma": true
+    },
+    {
+      "name": "--input-placeholder",
+      "path": "input.placeholder",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-subtle",
+      "value": {
+        "light": "#495057",
+        "dark": "#a9bacb"
+      },
+      "figma": true
+    },
+    {
+      "name": "--input-radius",
+      "path": "input.radius",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--border-radius-base",
+      "value": "0.25rem",
+      "figma": true
+    },
+    {
+      "name": "--card-background",
+      "path": "card.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-raised",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "figma": true
+    },
+    {
+      "name": "--card-border",
+      "path": "card.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "figma": true
+    },
+    {
+      "name": "--card-border-hover",
+      "path": "card.border-hover",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-action-primary",
+      "value": {
+        "light": "#005a9c",
+        "dark": "#2576cc"
+      },
+      "figma": true
+    },
+    {
+      "name": "--card-radius",
+      "path": "card.radius",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--border-radius-lg",
+      "value": "0.5rem",
+      "figma": true
+    },
+    {
+      "name": "--card-padding",
+      "path": "card.padding",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--space-6",
+      "value": "1.5rem",
+      "figma": true
+    },
+    {
+      "name": "--card-shadow",
+      "path": "card.shadow",
+      "tier": "component",
+      "type": "shadow",
+      "alias": "--shadow-raised",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+      },
+      "figma": false
+    },
+    {
+      "name": "--card-shadow-elevated",
+      "path": "card.shadow-elevated",
+      "tier": "component",
+      "type": "shadow",
+      "alias": "--shadow-elevated",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+      },
+      "figma": false
+    },
+    {
+      "name": "--badge-background",
+      "path": "badge.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-muted",
+      "value": {
+        "light": "#e9ecef",
+        "dark": "#27436f"
+      },
+      "figma": true
+    },
+    {
+      "name": "--badge-text",
+      "path": "badge.text",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-text-muted",
+      "value": {
+        "light": "#343a40",
+        "dark": "#cfdae5"
+      },
+      "figma": true
+    },
+    {
+      "name": "--modal-background",
+      "path": "modal.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-raised",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "figma": true
+    },
+    {
+      "name": "--modal-backdrop",
+      "path": "modal.backdrop",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-overlay",
+      "value": {
+        "light": "rgb(15 33 64 / 0.55)",
+        "dark": "rgb(0 0 0 / 0.72)"
+      },
+      "figma": true
+    },
+    {
+      "name": "--modal-border",
+      "path": "modal.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "figma": true
+    },
+    {
+      "name": "--modal-radius",
+      "path": "modal.radius",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--border-radius-lg",
+      "value": "0.5rem",
+      "figma": true
+    },
+    {
+      "name": "--modal-shadow",
+      "path": "modal.shadow",
+      "tier": "component",
+      "type": "shadow",
+      "alias": "--shadow-elevated",
+      "value": {
+        "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
+        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+      },
+      "figma": false
+    }
+  ]
+}

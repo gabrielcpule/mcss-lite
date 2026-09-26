@@ -1,0 +1,111 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Modal",
+  "block": "c-modal",
+  "layer": "component",
+  "status": "stable",
+  "description": "A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role=\"dialog\">.",
+  "tags": [
+    "dialog",
+    "div"
+  ],
+  "elements": [
+    {
+      "name": "backdrop",
+      "description": "Dimmed layer behind the dialog; clicking it may close the modal.",
+      "tags": [
+        "div"
+      ]
+    },
+    {
+      "name": "container",
+      "description": "The dialog panel.",
+      "tags": [
+        "div",
+        "form"
+      ],
+      "required": true
+    },
+    {
+      "name": "header",
+      "description": "Holds the title and close button.",
+      "tags": [
+        "header",
+        "div"
+      ]
+    },
+    {
+      "name": "title",
+      "description": "Dialog heading, referenced by aria-labelledby.",
+      "tags": [
+        "h2",
+        "h3"
+      ],
+      "required": true
+    },
+    {
+      "name": "close",
+      "description": "Icon button that closes the dialog.",
+      "tags": [
+        "button"
+      ]
+    },
+    {
+      "name": "body",
+      "description": "Dialog content.",
+      "tags": [
+        "div"
+      ]
+    },
+    {
+      "name": "footer",
+      "description": "Actions, right-aligned. Put the primary action last.",
+      "tags": [
+        "footer",
+        "div"
+      ]
+    }
+  ],
+  "states": [
+    {
+      "name": "closed",
+      "description": "Hidden (div form). With <dialog>, use the open attribute / showModal() instead.",
+      "pair": "When closed, return focus to the control that opened the modal."
+    }
+  ],
+  "children": [
+    "c-modal contains c-modal__backdrop and c-modal__container as siblings.",
+    "c-modal__container contains header, body and footer in that order."
+  ],
+  "tokens": [
+    "--modal-background",
+    "--modal-backdrop",
+    "--modal-border",
+    "--modal-radius",
+    "--modal-shadow",
+    "--z-index-modal",
+    "--z-index-modal-backdrop"
+  ],
+  "guidelines": {
+    "use": [
+      "Use for short, focused tasks: confirmations, small forms.",
+      "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
+    ],
+    "avoid": [
+      "Opening a modal from another modal.",
+      "Long, scrolling content; use a page instead."
+    ]
+  },
+  "a11y": [
+    "Prefer <dialog class=\"c-modal\"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role=\"dialog\", aria-modal=\"true\" and manage focus yourself.",
+    "Reference the title with aria-labelledby.",
+    "With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.",
+    "c-modal__close needs aria-label=\"Close\" and an SVG icon, not a text glyph."
+  ],
+  "related": [
+    "c-button"
+  ],
+  "examples": [
+    "modal.html"
+  ]
+}

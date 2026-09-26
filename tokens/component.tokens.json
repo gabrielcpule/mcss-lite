@@ -1,0 +1,150 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "MCSS-Lite component tokens. Each aliases a semantic token; override these to theme one component.",
+  "button": {
+    "background": {
+      "$value": "{color.background.interactive}"
+    },
+    "background-hover": {
+      "$value": "{color.background.interactive-hover}"
+    },
+    "border": {
+      "$value": "{color.border.interactive}"
+    },
+    "text": {
+      "$value": "{color.text.default}"
+    },
+    "radius": {
+      "$value": "{border-radius.base}"
+    },
+    "shadow": {
+      "$value": "{shadow.raised}"
+    },
+    "primary": {
+      "background": {
+        "$value": "{color.action.primary.$root}"
+      },
+      "background-hover": {
+        "$value": "{color.action.primary.hover}"
+      },
+      "text": {
+        "$value": "{color.text.on-action}"
+      },
+      "border": {
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the primary piece."
+      },
+      "background-active": {
+        "$value": "{color.action.primary.active}"
+      }
+    },
+    "secondary": {
+      "text": {
+        "$value": "{color.text.link}"
+      },
+      "border": {
+        "$value": "{color.action.primary.$root}"
+      }
+    },
+    "ghost": {
+      "background-hover": {
+        "$value": "{color.action.neutral-hover}"
+      }
+    },
+    "danger": {
+      "background": {
+        "$value": "{color.action.danger.$root}"
+      },
+      "background-hover": {
+        "$value": "{color.action.danger.hover}"
+      },
+      "text": {
+        "$value": "{color.text.on-danger}"
+      },
+      "border": {
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the danger piece."
+      }
+    },
+    "pressed": {
+      "background": {
+        "$value": "{color.text.default}",
+        "$description": "Selected toggle (aria-pressed=\"true\"): an ink-filled piece."
+      },
+      "border": {
+        "$value": "{color.border.keyline}"
+      },
+      "text": {
+        "$value": "{color.text.inverse}"
+      }
+    }
+  },
+  "input": {
+    "background": {
+      "$value": "{color.background.interactive}"
+    },
+    "border": {
+      "$value": "{color.border.interactive}"
+    },
+    "border-focus": {
+      "$value": "{color.action.primary.$root}"
+    },
+    "text": {
+      "$value": "{color.text.default}"
+    },
+    "placeholder": {
+      "$value": "{color.text.subtle}"
+    },
+    "radius": {
+      "$value": "{border-radius.base}"
+    }
+  },
+  "card": {
+    "background": {
+      "$value": "{color.background.raised}"
+    },
+    "border": {
+      "$value": "{color.border.keyline}"
+    },
+    "border-hover": {
+      "$value": "{color.action.primary.$root}"
+    },
+    "radius": {
+      "$value": "{border-radius.lg}"
+    },
+    "padding": {
+      "$value": "{space.6}"
+    },
+    "shadow": {
+      "$value": "{shadow.raised}"
+    },
+    "shadow-elevated": {
+      "$value": "{shadow.elevated}"
+    }
+  },
+  "badge": {
+    "background": {
+      "$value": "{color.background.muted}"
+    },
+    "text": {
+      "$value": "{color.text.muted}"
+    }
+  },
+  "modal": {
+    "background": {
+      "$value": "{color.background.raised}"
+    },
+    "backdrop": {
+      "$value": "{color.background.overlay}"
+    },
+    "border": {
+      "$value": "{color.border.keyline}"
+    },
+    "radius": {
+      "$value": "{border-radius.lg}"
+    },
+    "shadow": {
+      "$value": "{shadow.elevated}"
+    }
+  }
+}
