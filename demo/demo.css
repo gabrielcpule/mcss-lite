@@ -589,15 +589,14 @@
   transform-origin: 50% 100%;
 }
 
-@keyframes demo-wobble {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-5deg) translateY(-3px); }
-  55% { transform: rotate(4deg); }
-  80% { transform: rotate(-2deg); }
+/* The wrong brick drops once and lands askew: one smooth, decelerating move. */
+@keyframes demo-misfit-drop {
+  from { transform: translateY(-12px) rotate(10deg); }
+  to { transform: none; }
 }
 
 .demo-step.is-seating .demo-misfit__wobble {
-  animation: demo-wobble 900ms var(--ease-out) 300ms both;
+  animation: demo-misfit-drop var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
 }
 
 .demo-misfit__good {
