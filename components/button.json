@@ -77,7 +77,10 @@
     "--button-danger-text",
     "--button-pressed-background",
     "--button-pressed-border",
-    "--button-pressed-text"
+    "--button-pressed-text",
+    "--button-primary-border",
+    "--button-danger-border",
+    "--button-primary-background-active"
   ],
   "guidelines": {
     "use": [

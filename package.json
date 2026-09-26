@@ -1,7 +1,7 @@
 {
   "name": "@gabrielpule/mcss-lite",
   "version": "0.2.0",
-  "description": "Lightweight CSS framework with semantic BEM components and design tokens. Production-ready subset of MCSS principles.",
+  "description": "Contract-first CSS design system: every class, state and token is declared in machine-readable contracts, so people and AI agents build UI with the right parts.",
   "license": "MIT",
   "author": "Gabriel Pule",
   "repository": "github:gabrielcpule/mcss-lite",
@@ -17,7 +17,8 @@
     "./manifest.json": "./dist/mcss-lite.manifest.json",
     "./tokens/*": "./tokens/*",
     "./figma/*": "./dist/figma/*",
-    "./*": "./*"
+    "./*": "./*",
+    "./min": "./dist/mcss-lite.min.css"
   },
   "bin": {
     "mcss-lite": "bin/mcss-lite.mjs"

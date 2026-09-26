@@ -29,6 +29,13 @@
       },
       "text": {
         "$value": "{color.text.on-action}"
+      },
+      "border": {
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the primary piece."
+      },
+      "background-active": {
+        "$value": "{color.action.primary.active}"
       }
     },
     "secondary": {
@@ -53,6 +60,10 @@
       },
       "text": {
         "$value": "{color.text.on-danger}"
+      },
+      "border": {
+        "$value": "{color.border.keyline}",
+        "$description": "Ink keyline around the danger piece."
       }
     },
     "pressed": {

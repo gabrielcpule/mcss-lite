@@ -62,7 +62,9 @@ export function generate(root) {
   const files = new Map();
   const tokensCss = buildCss(sets, byMode);
   files.set('src/tokens.css', tokensCss);
-  files.set('dist/mcss-lite.css', buildBundle(root, pkg, tokensCss));
+  const bundle = buildBundle(root, pkg, tokensCss);
+  files.set('dist/mcss-lite.css', bundle);
+  files.set('dist/mcss-lite.min.css', minify(bundle));
   for (const [name, content] of buildFigma(sets)) files.set(`dist/figma/${name}`, content);
   files.set('dist/figma/push-variables.js', buildFigmaScript(pkg, sets));
   files.set('dist/mcss-lite.manifest.json', JSON.stringify(manifest, null, 2) + '\n');
@@ -115,6 +117,17 @@ function buildCss(sets, byMode) {
 
 function indented(atRule, body) {
   return `${atRule} {\n${body.trimEnd().split('\n').map((l) => (l ? '  ' + l : l)).join('\n')}\n}\n`;
+}
+
+// Whitespace-only minifier: safe for this codebase's CSS (no strings with significant spaces except content: "").
+function minify(css) {
+  const [banner, ...rest] = css.split('\n');
+  const body = rest.join('\n')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([{};,>])\s*/g, '$1')
+    .replace(/;}/g, '}')
+    .trim();
+  return `${banner}\n${body}\n`;
 }
 
 // One file, no @import waterfall: layer order, tokens, then each layer. Comments stripped.
@@ -265,7 +278,7 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
   const setupMd = [
     '## Setup',
     '',
-    fence('html', `<link rel="stylesheet" href="node_modules/${pkg.name}/index.css">\n<html data-theme="auto"> <!-- optional: light (default) | dark | auto -->`),
+    fence('html', `<link rel="stylesheet" href="node_modules/${pkg.name}/dist/mcss-lite.min.css">\n<!-- or index.css (readable, loads src/*.css via @import) -->\n<html data-theme="auto"> <!-- optional: light (default) | dark | auto -->`),
     '',
     'Cascade layers, lowest to highest: `@layer global, layout, component, utility;`. Prefixes: `l-` layout primitive, `c-` component, `u-` utility. Naming is BEM: `c-block`, `c-block__element`, `c-block--modifier`; state is `data-state="value"` on the block.',
     '',
@@ -361,7 +374,7 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
   const themesMd = [
     '## Themes',
     '',
-    'Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes; component tokens alias semantic ones, so they follow automatically.',
+    'Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes. Component tokens are unset by default and fall back to semantic tokens, so components follow the theme. If you override a component token with a raw color, set it per theme (see below); a themed subtree also sets its own text and background colors.',
     '',
     'To theme for a brand, override semantic tokens, for example:',
     '',

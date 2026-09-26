@@ -29,6 +29,14 @@
     });
   });
 
+  // Toggle groups inside the examples really toggle, so aria-pressed never lies.
+  document.querySelectorAll('.demo-stage [role="group"]').forEach((group) => {
+    const toggles = group.querySelectorAll('[aria-pressed]');
+    toggles.forEach((t) => t.addEventListener('click', () => {
+      toggles.forEach((o) => o.setAttribute('aria-pressed', String(o === t)));
+    }));
+  });
+
   // Native <dialog class="c-modal">: the browser handles focus, Escape and inertness.
   document.querySelectorAll('[data-open-dialog]').forEach((opener) => {
     const dialog = document.getElementById(opener.dataset.openDialog);

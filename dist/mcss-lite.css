@@ -167,7 +167,7 @@
   --color-background-interactive-hover: var(--color-blue-50);
   --color-background-disabled: var(--color-gray-100);
   --color-background-callout: var(--color-yellow-100);
-  --color-background-overlay: rgb(26 29 32 / 0.6);
+  --color-background-overlay: rgb(15 33 64 / 0.55);
   --color-background-success: var(--color-green-100);
   --color-background-warning: var(--color-yellow-100);
   --color-background-error: var(--color-red-100);
@@ -187,6 +187,7 @@
   --color-action-danger: var(--color-red-600);
   --color-action-danger-hover: var(--color-red-700);
   --color-action-neutral-hover: var(--color-gray-100);
+  --color-action-loading-stripe: rgb(0 0 0 / 0.14);
   --color-focus-ring: var(--color-gray-900);
   --color-focus-ring-error: var(--color-red-600);
   --color-focus-halo: var(--color-yellow-400);
@@ -237,6 +238,7 @@
   --color-action-danger: var(--color-red-600);
   --color-action-danger-hover: var(--color-red-700);
   --color-action-neutral-hover: var(--color-navy-700);
+  --color-action-loading-stripe: rgb(0 0 0 / 0.22);
   --color-focus-ring: var(--color-yellow-400);
   --color-focus-ring-error: var(--color-red-300);
   --color-focus-halo: var(--color-navy-950);
@@ -288,6 +290,7 @@
     --color-action-danger: var(--color-red-600);
     --color-action-danger-hover: var(--color-red-700);
     --color-action-neutral-hover: var(--color-navy-700);
+    --color-action-loading-stripe: rgb(0 0 0 / 0.22);
     --color-focus-ring: var(--color-yellow-400);
     --color-focus-ring-error: var(--color-red-300);
     --color-focus-halo: var(--color-navy-950);
@@ -321,7 +324,7 @@
     --color-background-interactive-hover: var(--color-blue-50);
     --color-background-disabled: var(--color-gray-100);
     --color-background-callout: var(--color-yellow-100);
-    --color-background-overlay: rgb(26 29 32 / 0.6);
+    --color-background-overlay: rgb(15 33 64 / 0.55);
     --color-background-success: var(--color-green-100);
     --color-background-warning: var(--color-yellow-100);
     --color-background-error: var(--color-red-100);
@@ -341,6 +344,7 @@
     --color-action-danger: var(--color-red-600);
     --color-action-danger-hover: var(--color-red-700);
     --color-action-neutral-hover: var(--color-gray-100);
+    --color-action-loading-stripe: rgb(0 0 0 / 0.14);
     --color-focus-ring: var(--color-gray-900);
     --color-focus-ring-error: var(--color-red-600);
     --color-focus-halo: var(--color-yellow-400);
@@ -353,6 +357,13 @@
   *::before,
   *::after {
     box-sizing: border-box;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  [data-theme] {
+    color: var(--color-text-default);
+    background-color: var(--color-background-default);
   }
   html {
     -webkit-text-size-adjust: 100%;
@@ -487,7 +498,7 @@
     grid-template-columns: repeat(4, 1fr);
   }
   .l-grid--responsive {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(17.5rem, 100%), 1fr));
   }
   @media (max-width: 768px) {
     .l-grid--2-col,
@@ -496,23 +507,26 @@
       grid-template-columns: 1fr;
     }
   }
+  .l-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
   .l-stack > * {
     margin-block: 0;
   }
-  .l-stack > * + * {
-    margin-block-start: var(--space-4);
+  .l-stack > :where(a:not([class]), abbr, b, button, cite, code, em, i, img, kbd, label, picture, q, small, span, strong, svg, time, video, input[type="checkbox"], input[type="radio"], .c-button, .c-badge) {
+    align-self: flex-start;
   }
-  .l-stack--sm > * + * {
-    margin-block-start: var(--space-2);
+  .l-stack--sm {
+    gap: var(--space-2);
   }
-  .l-stack--lg > * + * {
-    margin-block-start: var(--space-8);
-  }
-  .l-stack > :where(a, abbr, b, cite, code, em, i, img, kbd, label, picture, q, small, span, strong, svg, time, video) {
-    display: block;
-    width: fit-content;
+  .l-stack--lg {
+    gap: var(--space-8);
   }
   .l-center {
+    width: 100%;
     max-width: var(--container-narrow);
     margin-inline: auto;
   }
@@ -593,12 +607,12 @@
   }
   .c-button--primary {
     background-color: var(--button-primary-background, var(--color-action-primary));
-    border-color: var(--button-primary-background, var(--color-action-primary));
+    border-color: var(--button-primary-border, var(--color-border-keyline));
     color: var(--button-primary-text, var(--color-text-on-action));
   }
   .c-button--primary:hover {
     background-color: var(--button-primary-background-hover, var(--color-action-primary-hover));
-    border-color: var(--button-primary-background-hover, var(--color-action-primary-hover));
+    border-color: var(--button-primary-border, var(--color-border-keyline));
     color: var(--button-primary-text, var(--color-text-on-action));
   }
   .c-button--secondary {
@@ -610,6 +624,9 @@
     background-color: var(--button-background-hover, var(--color-background-interactive-hover));
     color: var(--button-secondary-text, var(--color-text-link));
   }
+  .c-button--primary:active {
+    background-color: var(--button-primary-background-active, var(--color-action-primary-active));
+  }
   .c-button--ghost {
     background-color: transparent;
     border-color: transparent;
@@ -620,12 +637,12 @@
   }
   .c-button--danger {
     background-color: var(--button-danger-background, var(--color-action-danger));
-    border-color: var(--button-danger-background, var(--color-action-danger));
+    border-color: var(--button-danger-border, var(--color-border-keyline));
     color: var(--button-danger-text, var(--color-text-on-danger));
   }
   .c-button--danger:hover {
     background-color: var(--button-danger-background-hover, var(--color-action-danger-hover));
-    border-color: var(--button-danger-background-hover, var(--color-action-danger-hover));
+    border-color: var(--button-danger-border, var(--color-border-keyline));
     color: var(--button-danger-text, var(--color-text-on-danger));
   }
   .c-button--sm {
@@ -666,7 +683,7 @@
     pointer-events: none;
     background-image: repeating-linear-gradient(
       -45deg,
-      color-mix(in srgb, currentColor 14%, transparent) 0 0.5rem,
+      var(--color-action-loading-stripe) 0 0.5rem,
       transparent 0.5rem 1rem
     );
     background-size: 200% 100%;
@@ -677,6 +694,7 @@
     to { background-position: -2.83rem 0; }
   }
   .c-card {
+    color: var(--color-text-default);
     background-color: var(--card-background, var(--color-background-raised));
     border: var(--border-width-thick) solid var(--card-border, var(--color-border-keyline));
     border-radius: var(--card-radius, var(--border-radius-lg));
@@ -752,14 +770,12 @@
   }
   .c-input[data-state="error"] {
     border-color: var(--color-border-error);
-    box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-error);
+    border-block-end-width: var(--border-width-thicker);
   }
   .c-input[data-state="error"]:focus-visible {
     border-color: var(--color-border-error);
     outline-color: var(--color-focus-ring-error);
-    box-shadow:
-      inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-error),
-      0 0 0 5px var(--color-focus-halo);
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
   .c-input[data-state="success"] {
     border-color: var(--color-border-success);
@@ -868,6 +884,7 @@
     max-width: 36rem;
     max-height: calc(100dvh - var(--space-8));
     background-color: var(--modal-background, var(--color-background-raised));
+    color: var(--color-text-default);
     border: var(--border-width-thick) solid var(--modal-border, var(--color-border-keyline));
     border-radius: var(--modal-radius, var(--border-radius-lg));
     box-shadow: var(--modal-shadow, var(--shadow-elevated));

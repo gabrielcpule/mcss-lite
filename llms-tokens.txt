@@ -6,7 +6,7 @@
 
 ## Themes
 
-Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes; component tokens alias semantic ones, so they follow automatically.
+Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes. Component tokens are unset by default and fall back to semantic tokens, so components follow the theme. If you override a component token with a raw color, set it per theme (see below); a themed subtree also sets its own text and background colors.
 
 To theme for a brand, override semantic tokens, for example:
 
@@ -63,7 +63,7 @@ Values are shown as light / dark.
 | `--color-background-interactive-hover` | #eef6fc / #1b335c | Hover background of controls. |
 | `--color-background-disabled` | #e9ecef / #1b335c | Background of disabled (ghosted) controls. |
 | `--color-background-callout` | #fff3cd / #27436f | The 1:1 call-out that introduces a new part. |
-| `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) | Modal backdrop. |
+| `--color-background-overlay` | rgb(15 33 64 / 0.55) / rgb(0 0 0 / 0.72) | Modal backdrop. |
 | `--color-background-success` | #d4edda / #0f2e1a | Background for success messages and badges. |
 | `--color-background-warning` | #fff3cd / #3a2e05 | Background for warning messages and badges. |
 | `--color-background-error` | #f8d7da / #3b1216 | Background for error messages and badges. |
@@ -93,6 +93,7 @@ Values are shown as light / dark.
 | `--color-action-danger` | #c91a09 / #c91a09 | Destructive action background. Brick red. |
 | `--color-action-danger-hover` | #a01408 / #a01408 | Destructive action on hover. |
 | `--color-action-neutral-hover` | #e9ecef / #27436f | Hover background for ghost and icon buttons. |
+| `--color-action-loading-stripe` | rgb(0 0 0 / 0.14) / rgb(0 0 0 / 0.22) | Moving stripes on a loading control. Always darkens, so light text keeps its contrast. |
 
 ### Focus
 
@@ -139,12 +140,15 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--button-primary-background` | `--color-action-primary` | #005a9c / #2576cc |
 | `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #185da6 |
 | `--button-primary-text` | `--color-text-on-action` | #ffffff |
+| `--button-primary-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--button-primary-background-active` | `--color-action-primary-active` | #003860 / #144d8a |
 | `--button-secondary-text` | `--color-text-link` | #005a9c / #6cb4ee |
 | `--button-secondary-border` | `--color-action-primary` | #005a9c / #2576cc |
 | `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #27436f |
 | `--button-danger-background` | `--color-action-danger` | #c91a09 |
 | `--button-danger-background-hover` | `--color-action-danger-hover` | #a01408 |
 | `--button-danger-text` | `--color-text-on-danger` | #ffffff |
+| `--button-danger-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--button-pressed-background` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--button-pressed-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--button-pressed-text` | `--color-text-inverse` | #ffffff / #0f2140 |
@@ -164,7 +168,7 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--badge-background` | `--color-background-muted` | #e9ecef / #27436f |
 | `--badge-text` | `--color-text-muted` | #343a40 / #cfdae5 |
 | `--modal-background` | `--color-background-raised` | #ffffff / #14294d |
-| `--modal-backdrop` | `--color-background-overlay` | rgb(26 29 32 / 0.6) / rgb(0 0 0 / 0.72) |
+| `--modal-backdrop` | `--color-background-overlay` | rgb(15 33 64 / 0.55) / rgb(0 0 0 / 0.72) |
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
 | `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |

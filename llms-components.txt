@@ -490,7 +490,7 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 - Use type="button" unless the button submits a form.
 - c-button--sm looks compact but keeps a 44px tall hit area.
 
-**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-shadow`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`, `--button-danger-background`, `--button-danger-background-hover`, `--button-danger-text`, `--button-pressed-background`, `--button-pressed-border`, `--button-pressed-text`
+**Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-shadow`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`, `--button-danger-background`, `--button-danger-background-hover`, `--button-danger-text`, `--button-pressed-background`, `--button-pressed-border`, `--button-pressed-text`, `--button-primary-border`, `--button-danger-border`, `--button-primary-background-active`
 
 **Example** (`components/button.html`):
 
@@ -498,13 +498,13 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 <div class="l-cluster">
   <button type="button" class="c-button c-button--ghost">Cancel</button>
   <button type="button" class="c-button">Save draft</button>
-  <button type="submit" class="c-button c-button--primary">Publish</button>
+  <button type="button" class="c-button c-button--primary">Publish</button>
 </div>
 
 <div class="l-cluster">
   <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
-  <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
   <a class="c-button c-button--secondary" href="/docs">Read the docs</a>
+  <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
 </div>
 
 <div class="l-cluster">
