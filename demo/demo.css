@@ -378,6 +378,107 @@
   margin-block-start: var(--space-4);
 }
 
+/* Count tag: how many times the part is used in this step. */
+.demo-count {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 2rem;
+  padding: 0 var(--space-1);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+/* Step rail: studs in the left gutter on wide screens. */
+.demo-rail {
+  display: none;
+}
+
+.demo-rail__list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-rail__stud {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-text-default);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.demo-rail__stud svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.demo-rail__stud:hover {
+  color: var(--color-text-default);
+  background-color: var(--color-background-interactive-hover);
+}
+
+/* The current step is seated: ink-filled and pressed onto its edge. */
+.demo-rail__stud[aria-current="step"] {
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.demo-rail__stud--wrong[aria-current="step"] {
+  background-color: var(--color-action-danger);
+  border-color: var(--color-action-danger);
+  color: var(--color-text-on-danger);
+}
+
+@media (min-width: 90rem) {
+  .demo-rail {
+    display: block;
+    position: fixed;
+    inset-inline-start: var(--space-8);
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-index-sticky);
+  }
+}
+
+/* The misfit drawing */
+.demo-misfit {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  margin-block-end: var(--space-4);
+  color: var(--color-text-default);
+}
+
+.demo-misfit__bad {
+  stroke: var(--color-border-error);
+}
+
+.demo-misfit__good {
+  stroke: var(--color-action-primary);
+}
+
 /* The wrong piece */
 .demo-check {
   padding: var(--space-6);
@@ -429,10 +530,12 @@
   font-size: var(--font-size-sm);
 }
 
-/* Parts drop into place along the arrow; content is visible throughout. */
+/* Parts drop into place along the arrow, press onto their 2px brick edge, and settle.
+   Content is visible throughout; only the position moves. */
 @keyframes demo-seat {
-  from { transform: translateY(calc(var(--space-4) * -1)); }
-  to { transform: none; }
+  0% { transform: translateY(calc(var(--space-4) * -1)); }
+  70% { transform: translateY(2px); }
+  100% { transform: none; }
 }
 
 @keyframes demo-draw {
@@ -471,6 +574,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .demo-rail__stud { transition: none; }
   .demo-step.is-seating .demo-stage,
   .demo-step.is-seating .demo-callout,
   .demo-step.is-seating .demo-arrow path {

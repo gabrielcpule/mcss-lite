@@ -25,6 +25,27 @@ const glyph = (block) => (GLYPHS[block]
   ? `<svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[block]}</svg>`
   : '');
 
+const tag = (n) => (n > 0 ? `<span class="demo-count" title="Used ${n} time${n === 1 ? '' : 's'} in this step">${n}×</span>` : '');
+
+// The misfit: a brick whose studs miss the baseplate, next to one seated flush. Drawn in the keyline.
+const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 0 320 120" role="img" aria-labelledby="misfit-title" focusable="false">
+  <title id="misfit-title">A brick tilted off its baseplate next to a brick seated flush</title>
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+    <rect x="8" y="92" width="136" height="16" rx="3"/>
+    <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
+    <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
+      <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
+      <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
+    </g>
+    <rect x="176" y="92" width="136" height="16" rx="3"/>
+    <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
+    <g class="demo-misfit__good">
+      <rect x="186" y="56" width="112" height="30" rx="3"/>
+      <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
+    </g>
+  </g>
+</svg>`;
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l : l)).join('\n');
 
@@ -71,11 +92,18 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
 
   const partList = (list) => list.map((c) => `<li class="demo-bag__part">${glyph(c.block)}<code>${esc(c.block)}</code></li>`).join('');
 
-  const callout = (block) => {
+  // How many times a block is used in the step's canonical example: the booklet's "1x" count tag.
+  const countIn = (html, block) => {
+    if (block === 'u-*') return (html.match(/class="[^"]*\bu-[a-z0-9-]+/g) || []).length;
+    const re = new RegExp(`class="[^"]*(?<![\\w-])${block.replace(/[-]/g, '\\-')}(?![\\w-])`, 'g');
+    return (html.match(re) || []).length;
+  };
+
+  const callout = (block, html) => {
     const c = byBlock.get(block);
     if (!c) throw new Error(`demo/steps.json names unknown block ${block}`);
     if (c.layer === 'utility') {
-      return `<li class="demo-part"><code class="demo-part__name">u-*</code><span class="demo-part__meta"><span class="demo-part__row">${c.classes.map((u) => `<code>${esc(u.name)}</code>`).join(' ')}</span></span></li>`;
+      return `<li class="demo-part"><span class="demo-part__head"><code class="demo-part__name">u-*</code>${tag(countIn(html, 'u-*'))}</span><span class="demo-part__meta"><span class="demo-part__row">${c.classes.map((u) => `<code>${esc(u.name)}</code>`).join(' ')}</span></span></li>`;
     }
     const mods = (c.modifiers ?? []).flatMap((m) => m.values.map((v) => `<code>--${esc(v.name)}</code>`)).join(' ');
     const els = (c.elements ?? []).map((e) => `<code>__${esc(e.name)}</code>`).join(' ');
@@ -85,7 +113,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
       els && `<span class="demo-part__row"><span class="demo-part__key">Elements</span> ${els}</span>`,
       states && `<span class="demo-part__row"><span class="demo-part__key">States</span> ${states}</span>`,
     ].filter(Boolean).join('');
-    return `<li class="demo-part"><span class="demo-part__head">${glyph(c.block)}<code class="demo-part__name">${esc(c.block)}</code></span>${meta ? `<span class="demo-part__meta">${meta}</span>` : ''}</li>`;
+    return `<li class="demo-part"><span class="demo-part__head">${glyph(c.block)}<code class="demo-part__name">${esc(c.block)}</code>${tag(countIn(html, c.block))}</span>${meta ? `<span class="demo-part__meta">${meta}</span>` : ''}</li>`;
   };
 
   const stepHtml = (s, n) => {
@@ -103,7 +131,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
         <p class="demo-step__text">${esc(s.text)}</p>
         <div class="demo-callout">
           <p class="demo-callout__label">New parts, 1:1</p>
-          <ul class="demo-parts" role="list">${s.blocks.map(callout).join('')}</ul>
+          <ul class="demo-parts" role="list">${s.blocks.map((b) => callout(b, example(s.example))).join('')}</ul>
         </div>
       </div>
       <div class="demo-step__build">
@@ -151,6 +179,13 @@ ${indent(isModal ? inlinePreview(example(s.example)) : example(s.example), 10)}
       </div>
     </div>
   </header>
+
+  <nav class="demo-rail" aria-label="Build steps">
+    <ol class="demo-rail__list" role="list">
+${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
+      <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+    </ol>
+  </nav>
 
   <main>
     <section class="demo-hero" aria-labelledby="demo-title">
@@ -202,6 +237,7 @@ ${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
           </div>
           <div class="demo-step__build">
             <div class="demo-check">
+              ${MISFIT_SVG}
               <p class="demo-check__label">Invented markup</p>
               <pre class="demo-code"><code>${esc(WRONG_PIECE)}</code></pre>
               <p class="demo-check__label">validate</p>
