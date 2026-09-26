@@ -1,0 +1,14 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Switcher",
+  "block": "l-switcher",
+  "layer": "layout",
+  "status": "stable",
+  "description": "Children sit side by side until the container is narrower than a threshold, then all stack at once.",
+  "customProperties": [
+    { "name": "--switcher-threshold", "default": "30rem", "description": "Container width below which children stack. Set inline, e.g. style=\"--switcher-threshold: 40rem\"." }
+  ],
+  "tokens": ["--space-4"],
+  "related": ["l-grid", "l-sidebar"],
+  "examples": ["layouts.html"]
+}

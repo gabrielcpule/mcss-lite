@@ -1,0 +1,33 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Badge",
+  "block": "c-badge",
+  "layer": "component",
+  "status": "stable",
+  "description": "A short, non-interactive label for status or category, such as \"Beta\" or \"Paid\".",
+  "tags": ["span"],
+  "modifiers": [
+    {
+      "group": "tone",
+      "exclusive": true,
+      "values": [
+        { "name": "primary", "description": "Brand emphasis, e.g. \"New\"." },
+        { "name": "success", "description": "Positive status, e.g. \"Active\"." },
+        { "name": "warning", "description": "Needs attention, e.g. \"Expiring\"." },
+        { "name": "error", "description": "Negative status, e.g. \"Failed\"." },
+        { "name": "info", "description": "Neutral information, e.g. \"Draft\"." }
+      ]
+    }
+  ],
+  "tokens": ["--badge-background", "--badge-text", "--color-action-primary", "--color-text-on-action"],
+  "guidelines": {
+    "use": ["Keep badge text to one or two words.", "Group several badges with l-cluster."],
+    "avoid": [
+      "Making a badge clickable; use c-button--sm instead.",
+      "Relying on badge color alone to convey meaning; the text must carry the status."
+    ]
+  },
+  "a11y": ["Color is decorative; the badge text must describe the status on its own."],
+  "related": ["l-cluster", "c-card"],
+  "examples": ["badge.html"]
+}

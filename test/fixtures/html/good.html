@@ -1,0 +1,17 @@
+<main class="l-container">
+  <div class="l-stack">
+    <article class="c-card c-card--elevated">
+      <header class="c-card__header"><h2 class="c-card__title">Plan</h2></header>
+      <div class="c-card__body">Body</div>
+    </article>
+    <div class="c-form-field">
+      <label class="c-form-field__label" for="e">Email</label>
+      <input class="c-input" id="e" data-state="error" aria-invalid="true" aria-describedby="e-err">
+      <p class="c-form-field__error" id="e-err">Required.</p>
+    </div>
+    <div class="l-cluster">
+      <button type="button" class="c-button c-button--primary c-button--sm" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+      <MyIcon className="c-badge c-badge--info" />
+    </div>
+  </div>
+</main>

@@ -1,0 +1,12 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Label",
+  "block": "c-label",
+  "layer": "component",
+  "status": "deprecated",
+  "replacement": "c-form-field__label",
+  "description": "Deprecated standalone label. Use c-form-field__label inside c-form-field instead; c-label will be removed in 1.0.",
+  "tags": ["label"],
+  "tokens": ["--color-text-muted"],
+  "related": ["c-form-field"]
+}

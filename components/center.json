@@ -1,0 +1,11 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Center",
+  "block": "l-center",
+  "layer": "layout",
+  "status": "stable",
+  "description": "Centers a block horizontally at reading width without side gutters.",
+  "tokens": ["--container-narrow"],
+  "related": ["l-container"],
+  "examples": ["layouts.html"]
+}

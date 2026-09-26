@@ -1,0 +1,17 @@
+# MCSS-Lite
+
+> Contract-first CSS design system: every class, state and token is declared in machine-readable contracts, so people and AI agents build UI with the right parts. Pure CSS: design tokens, l-* layout primitives, c-* BEM components with data-state, u-* utilities. Light, dark and auto themes.
+
+Key rules: components never set outer margin (layouts space them); never invent class or token names; states are data-state plus ARIA; use semantic tokens, never raw colors. Validate markup with `npx mcss-lite validate <path>`.
+
+## Docs
+
+- [AGENTS.md](AGENTS.md): rules, setup, all blocks at a glance, semantic tokens
+- [Components](llms-components.txt): every block with modifiers, elements, states, a11y and examples
+- [Tokens](llms-tokens.txt): every token with light and dark values
+- [Manifest](dist/mcss-lite.manifest.json): machine-readable tokens and contracts
+
+## Optional
+
+- [Full](llms-full.txt): everything above in one file
+- [Figma tokens](dist/figma/): DTCG files for native Figma Variables import

@@ -1,0 +1,223 @@
+{
+  "title": "Choose the visual world for MCSS-Lite",
+  "question": "The roll assigned Packing Manifest. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Packing Manifest",
+      "kicker": "THE ROLL",
+      "lineage": "freight manifests, thermal shipping labels and customs inspection stamps",
+      "thesis": "The design system as a shipping manifest: every part declared, labeled and inspected before it ships.",
+      "palette": [
+        "#fafaf7",
+        "#141414",
+        "#005a9c",
+        "#6a2c91"
+      ],
+      "materials": [
+        "thermal label stock",
+        "ruled field boxes",
+        "rubber inspection stamp"
+      ],
+      "viewport": "A full-width manifest label: MCSS-Lite as the consignee block, blocks as numbered line items, and a live validate stamp rejecting an invented class.",
+      "risk": "Turns into costume if the label fields become decoration instead of real structure; product UI built on it must stay calm.",
+      "raised": [
+        {
+          "from": "challenger-darkroom",
+          "raise": "Every state carries a mark as well as a hue (struck rule, dashed outline, hatch), so no state depends on color."
+        },
+        {
+          "from": "challenger-cutting-bench",
+          "raise": "Everything snaps to one ruled field pitch; rank comes from how many fields a box spans, not from type size."
+        },
+        {
+          "from": "challenger-miura",
+          "raise": "Every part prints its own identifier: the class name sits in the field corner like a label field code."
+        },
+        {
+          "from": "challenger-generative",
+          "raise": "One manifest drives every surface: editing a token in the demo reprints the whole page in lockstep."
+        }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Component Datasheet",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "IC datasheets: pinout diagrams, absolute maximum ratings, electrical characteristics tables",
+      "thesis": "Each block documented like a chip: pinout for elements, ratings for constraints, a characteristics table for states.",
+      "palette": [
+        "#ffffff",
+        "#1b1b1b",
+        "#005a9c",
+        "#e0a100"
+      ],
+      "materials": [
+        "ruled spec tables",
+        "pinout diagrams",
+        "part-number headers"
+      ],
+      "viewport": "A datasheet front page: part number MCSS-LITE, a pinout of c-button, and a ratings table of its states.",
+      "risk": "The most familiar engineering-docs look; many developer tools already land here."
+    },
+    {
+      "id": "challenger-brick",
+      "label": "Build Instructions",
+      "verdict": "competitive",
+      "lineage": "brick build-instruction booklets",
+      "thesis": "Layouts assemble components step by step, the way an instruction book seats each brick.",
+      "palette": [
+        "#a9d5ef",
+        "#111111",
+        "#c91a09",
+        "#f2cd37"
+      ],
+      "materials": [
+        "stud grid",
+        "1:1 part call-outs",
+        "wordless arrows"
+      ],
+      "viewport": "Step 1 to 3: an empty l-stack, a c-card clicking into it, then a c-button seated in l-cluster, with a parts inventory up front.",
+      "case": "Fuses well: the Golden Rule becomes 'layouts seat the parts'; holds audience identification but explains the contract less directly than a manifest.",
+      "risk": "Toy-like sky blue fights product UI that consumers build on these tokens.",
+      "hero": "https://impeccable.style/worlds/cards/games-toys-physics-play-brick-build-instructions-hero.webp"
+    },
+    {
+      "id": "challenger-patent",
+      "label": "Patent Drawing Sheet",
+      "verdict": "competitive",
+      "lineage": "utility patent drawing sheets",
+      "thesis": "Each block drawn as an exploded figure whose reference numerals link to lines of its contract.",
+      "palette": [
+        "#ffffff",
+        "#161616",
+        "#b31b34"
+      ],
+      "materials": [
+        "india ink line",
+        "leader lines",
+        "section hatching"
+      ],
+      "viewport": "Fig. 1, c-card exploded into header, title, body and footer, each numeral linked to its line in card.json.",
+      "case": "Fuses strongly on product clarity (numerals map to contracts); weaker on audience identification for app builders.",
+      "risk": "Line-art austerity can feel academic; the carmine must stay reserved for what is under inspection.",
+      "hero": "https://impeccable.style/worlds/cards/notation-diagram-systems-patent-drawing-sheet-hero.webp"
+    },
+    {
+      "id": "challenger-darkroom",
+      "label": "Exposure Record",
+      "verdict": "declined",
+      "lineage": "darkroom exposure record sheets",
+      "thesis": "Zone-ramp neutrals with hatch density as state.",
+      "palette": [
+        "#f2f2f2",
+        "#7a7a7a",
+        "#1a1a1a",
+        "#c2185b"
+      ],
+      "materials": [
+        "tracing overlays",
+        "zone wedge"
+      ],
+      "viewport": "Stacked translucent sheets over an eleven-step ramp.",
+      "case": "Fuses poorly: design-system readers do not identify with darkroom printing.",
+      "kept": "States readable without color.",
+      "risk": "Obscure for this audience.",
+      "hero": "https://impeccable.style/worlds/cards/operate-b-exposure-record-zone-sheets-hero.webp"
+    },
+    {
+      "id": "challenger-cutting-bench",
+      "label": "Cutting Bench",
+      "verdict": "declined",
+      "lineage": "film editing benches",
+      "thesis": "A perforated rail of frames with tape-flag states.",
+      "palette": [
+        "#0a0a0a",
+        "#ff6a13",
+        "#ffffff"
+      ],
+      "materials": [
+        "film grain",
+        "perforations"
+      ],
+      "viewport": "A select rail crossing an orange field.",
+      "case": "Fuses poorly: linear film metaphor fights a catalogue of parts.",
+      "kept": "One fixed module pitch; rank by span.",
+      "risk": "Orange-on-black is too loud for a UI kit.",
+      "hero": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp"
+    },
+    {
+      "id": "challenger-miura",
+      "label": "Miura Fold Sheet",
+      "verdict": "declined",
+      "lineage": "deployable Miura-fold sheets",
+      "thesis": "A packet that unfolds into a crease field.",
+      "palette": [
+        "#ffffff",
+        "#c9a227",
+        "#8a8a8a",
+        "#a8c8e8"
+      ],
+      "materials": [
+        "scored creases",
+        "gold foil"
+      ],
+      "viewport": "A compact packet deploying into a tessellated sheet.",
+      "case": "Fuses poorly: folding does not explain contracts or validation.",
+      "kept": "Visible identifiers on every part.",
+      "risk": "Spectacle over substance.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp"
+    },
+    {
+      "id": "challenger-generative",
+      "label": "Generative Identity",
+      "verdict": "declined",
+      "lineage": "parametric brand systems",
+      "thesis": "A seed-driven mark that reshapes palette and layout.",
+      "palette": [
+        "#6b5bff",
+        "#ff8ad8",
+        "#1a1a2e"
+      ],
+      "materials": [
+        "parametric SVG",
+        "flat vector"
+      ],
+      "viewport": "A live mark reseeding the page.",
+      "case": "Fuses poorly: a contract system is deterministic; randomness undercuts trust.",
+      "kept": "One source updates every surface in lockstep.",
+      "risk": "Reads as a generic AI-brand trope.",
+      "hero": "https://impeccable.style/worlds/cards/generative-parametric-identity-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": false
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A clean design-system docs site, executed impeccably.",
+    "palette": [
+      "#ffffff",
+      "#111827",
+      "#2563eb"
+    ],
+    "materials": [
+      "sidebar docs",
+      "code blocks",
+      "component previews"
+    ],
+    "viewport": "Sidebar navigation, a component preview and its code snippet.",
+    "risk": "Indistinguishable from every other design-system site by design."
+  },
+  "steer": true,
+  "seed": "a4f52e2b",
+  "chosen": "challenger-brick"
+}

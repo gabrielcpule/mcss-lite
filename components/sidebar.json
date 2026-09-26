@@ -1,0 +1,16 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Sidebar",
+  "block": "l-sidebar",
+  "layer": "layout",
+  "status": "stable",
+  "description": "A sidebar next to main content that stacks when the content would get narrower than 50%.",
+  "elements": [
+    { "name": "sidebar", "description": "The narrow side (16rem basis).", "required": true },
+    { "name": "content", "description": "The main content; takes the remaining space.", "required": true }
+  ],
+  "children": ["Exactly two children: l-sidebar__sidebar and l-sidebar__content, in either order."],
+  "tokens": ["--space-6"],
+  "related": ["l-grid", "l-switcher"],
+  "examples": ["layouts.html"]
+}

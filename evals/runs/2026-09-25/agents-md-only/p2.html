@@ -1,0 +1,19 @@
+<form class="l-stack" action="/signup" method="post" aria-busy="true" novalidate>
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="signup-name">Name</label>
+    <input class="c-input" id="signup-name" name="name" type="text" autocomplete="name" required>
+  </div>
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="signup-email">Work email</label>
+    <input class="c-input" id="signup-email" name="email" type="email" autocomplete="email" required>
+  </div>
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="signup-password">Password</label>
+    <input class="c-input" id="signup-password" name="password" type="password" autocomplete="new-password" required
+           data-state="error" aria-invalid="true" aria-describedby="signup-password-error">
+    <p class="c-form-field__error" id="signup-password-error">Use at least 12 characters</p>
+  </div>
+  <div class="l-cluster">
+    <button class="c-button c-button--primary" type="submit" data-state="loading" aria-busy="true" disabled>Creating account…</button>
+  </div>
+</form>

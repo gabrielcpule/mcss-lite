@@ -1,0 +1,612 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "MCSS-Lite semantic tokens, dark mode (\"Build Instructions\" identity). Use these or component tokens in UI code.",
+  "color": {
+    "text": {
+      "default": {
+        "$value": "{color.navy.100}",
+        "$description": "Default body and heading text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "muted": {
+        "$value": "{color.navy.200}",
+        "$description": "Secondary text: labels, supporting copy.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "subtle": {
+        "$value": "{color.navy.300}",
+        "$description": "Tertiary text: help text, placeholders, icons. 4.5:1 on every background, canvas included.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "inverse": {
+        "$value": "{color.navy.900}",
+        "$description": "Text on an inverted background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "on-action": {
+        "$value": "{color.white}",
+        "$description": "Text on --color-action-primary.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "on-danger": {
+        "$value": "{color.white}",
+        "$description": "Text on --color-action-danger.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "link": {
+        "$value": "{color.blue.300}",
+        "$description": "Link text. Links are also underlined.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "link-hover": {
+        "$value": "{color.blue.200}",
+        "$description": "Link text on hover.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "disabled": {
+        "$value": "{color.navy.400}",
+        "$description": "Text in disabled (ghosted) controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "success": {
+        "$value": "{color.green.300}",
+        "$description": "Text on --color-background-success.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "warning": {
+        "$value": "{color.yellow.300}",
+        "$description": "Text on --color-background-warning.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "error": {
+        "$value": "{color.red.300}",
+        "$description": "Text on --color-background-error.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "info": {
+        "$value": "{color.cyan.300}",
+        "$description": "Text on --color-background-info.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      }
+    },
+    "background": {
+      "default": {
+        "$value": "{color.navy.900}",
+        "$description": "Page background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "canvas": {
+        "$value": "{color.navy.950}",
+        "$description": "Instruction-page canvas for showcase and marketing pages; not for dense product UI.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "subtle": {
+        "$value": "{color.navy.800}",
+        "$description": "Subtle section or hover background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "muted": {
+        "$value": "{color.navy.700}",
+        "$description": "Muted fill for neutral badges and chips.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "raised": {
+        "$value": "{color.navy.850}",
+        "$description": "Cards, modals and other raised surfaces.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "interactive": {
+        "$value": "{color.navy.850}",
+        "$description": "Resting background of controls (buttons, inputs).",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "interactive-hover": {
+        "$value": "{color.navy.800}",
+        "$description": "Hover background of controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "disabled": {
+        "$value": "{color.navy.800}",
+        "$description": "Background of disabled (ghosted) controls.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "callout": {
+        "$value": "{color.navy.700}",
+        "$description": "The 1:1 call-out that introduces a new part.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "alpha": 0.72,
+          "hex": "#000000"
+        },
+        "$description": "Modal backdrop.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "success": {
+        "$value": "{color.green.950}",
+        "$description": "Background for success messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "warning": {
+        "$value": "{color.yellow.950}",
+        "$description": "Background for warning messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "error": {
+        "$value": "{color.red.950}",
+        "$description": "Background for error messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "info": {
+        "$value": "{color.cyan.950}",
+        "$description": "Background for info messages and badges.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "{color.navy.700}",
+        "$description": "Quiet dividers inside a part.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "strong": {
+        "$value": "{color.navy.600}",
+        "$description": "Emphasized dividers.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "keyline": {
+        "$value": "{color.navy.200}",
+        "$description": "The 2px ink keyline around every part: cards, controls, call-outs.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "interactive": {
+        "$value": "{color.navy.300}",
+        "$description": "Borders of controls (inputs, default buttons). Meets 3:1 non-text contrast.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "focus": {
+        "$value": "{color.yellow.400}",
+        "$description": "Focus ring color. Same as --color-focus-ring.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "success": {
+        "$value": "{color.green.300}",
+        "$description": "Border for the success state. At least 3:1 against fields.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "warning": {
+        "$value": "{color.yellow.300}",
+        "$description": "Border for the warning state. At least 3:1 against fields.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "error": {
+        "$value": "{color.red.300}",
+        "$description": "Border for the error state. At least 3:1 against fields.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "info": {
+        "$value": "{color.cyan.300}",
+        "$description": "Border for the info state. At least 3:1 against fields.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "action": {
+      "primary": {
+        "$root": {
+          "$value": "{color.blue.600}",
+          "$description": "Primary action background. Brick blue.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "hover": {
+          "$value": "{color.blue.700}",
+          "$description": "Primary action on hover.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "active": {
+          "$value": "{color.blue.800}",
+          "$description": "Primary action while pressed.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "danger": {
+        "$root": {
+          "$value": "{color.red.600}",
+          "$description": "Destructive action background. Brick red.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "hover": {
+          "$value": "{color.red.700}",
+          "$description": "Destructive action on hover.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "neutral-hover": {
+        "$value": "{color.navy.700}",
+        "$description": "Hover background for ghost and icon buttons.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      },
+      "loading-stripe": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "alpha": 0.22,
+          "hex": "#000000"
+        },
+        "$description": "Moving stripes on a loading control. Always darkens, so light text keeps its contrast.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    },
+    "focus-ring": {
+      "$root": {
+        "$value": "{color.yellow.400}",
+        "$description": "Solid 2px focus ring: at least 3:1 on every background in its theme.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "error": {
+        "$value": "{color.red.300}",
+        "$description": "Focus ring on a control in the error state.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "focus-halo": {
+      "$value": "{color.navy.950}",
+      "$description": "Outer halo around the focus ring: the yellow \"new part\" highlight in light, a dark gap in dark.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "STROKE_COLOR"
+        ]
+      }
+    }
+  },
+  "shadow": {
+    "raised": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.6,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.35,
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 4,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 10,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$extensions": {
+        "mcss.figma": false
+      },
+      "$description": "Brick-edge depth for raised parts: a 2px edge plus a soft blur."
+    },
+    "elevated": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "hex": "#000000",
+            "alpha": 0.7
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "hex": "#000000",
+            "alpha": 0.6
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 12,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 28,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -4,
+            "unit": "px"
+          }
+        }
+      ],
+      "$extensions": {
+        "mcss.figma": false
+      },
+      "$description": "Lifted parts (elevated cards, modals): a 2px brick edge plus a soft blur."
+    }
+  }
+}
