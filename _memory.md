@@ -38,7 +38,8 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Tests: `npm test` (back-compat, WCAG contrast in both themes, check and validate fixtures, build)
 - Shipped agent skill: `skills/mcss-lite/SKILL.md`; eval prompts in `evals/mcss-lite-skill.md`
 - Demo: `demo/index.html` (`?theme=light|dark|auto`)
-- Branch: `claude/design-system-ai-mcss-lite-4mhmop`
+- Hosted demo: https://www.gabrielpule.work/design-system, served from Gabriel's portfolio repo (`gabrielcpule/New-new-new-portf`, Next.js on Vercel) as static files in `public/design-system/`. After changing the demo here, run `pnpm sync:design-system` in the portfolio repo (`scripts/sync-design-system.mjs`) and deploy.
+- Branch: `claude/design-system-ai-mcss-lite-4mhmop` (merged as #1)
 
 ## Current state (2026-09-26)
 
