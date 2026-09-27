@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Gabriel Pule",
   "repository": "github:gabrielcpule/mcss-lite",
+  "homepage": "https://www.gabrielpule.work/design-system",
   "type": "module",
   "main": "index.css",
   "style": "index.css",
