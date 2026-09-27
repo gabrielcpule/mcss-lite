@@ -2,6 +2,8 @@
 
 Lightweight CSS framework with semantic BEM components and design tokens. A production-ready subset of [MCSS](https://github.com/gabrielcpule/MCSS) principles.
 
+**See it live: [gabrielpule.work/design-system](https://www.gabrielpule.work/design-system)**. The demo booklet shows every block in every state, in light and dark.
+
 ## What it is
 
 MCSS-Lite extracts the three most practical parts of the MCSS architecture:
