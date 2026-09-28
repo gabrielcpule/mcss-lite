@@ -7,6 +7,7 @@ import { validateSchema } from './schema.mjs';
 import { createValidator, RAW_COLOR } from './validate.mjs';
 import { generate } from './generate.mjs';
 import { loadSteps, uncoveredBlocks } from './demo.mjs';
+import { checkGuidance } from './pages.mjs';
 
 const HAND_WRITTEN_CSS = ['global.css', 'layout.css', 'components.css', 'utilities.css'];
 
@@ -97,14 +98,30 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
     }
   }
 
+  // 4b. Guidance examples: every "do" validates cleanly, every "don't" triggers the rule it names.
+  errors.push(...checkGuidance(contracts));
+
+  // 4c. The content guide matches its schema.
+  const contentSchema = JSON.parse(readFileSync(join(root, 'schemas/content.schema.json'), 'utf8'));
+  const content = JSON.parse(readFileSync(join(root, 'guidelines/content.json'), 'utf8'));
+  for (const e of validateSchema(contentSchema, content)) errors.push(`guidelines/content.json: ${e}`);
+
   // 5. The demo booklet introduces every stable block.
   for (const block of uncoveredBlocks(contracts, loadSteps(root))) errors.push(`demo/steps.json: no step introduces ${block}`);
 
   // 6. Generated files are up to date.
   if (!skipFreshness) {
-    for (const [rel, content] of generate(root)) {
+    const generated = generate(root);
+    for (const [rel, text] of generated) {
       const path = join(root, rel);
-      if (!existsSync(path) || readFileSync(path, 'utf8') !== content) errors.push(`${rel} is stale; run npm run build`);
+      if (!existsSync(path) || readFileSync(path, 'utf8') !== text) errors.push(`${rel} is stale; run npm run build`);
+    }
+    // Part sheets of removed contracts must not linger.
+    const sheetDir = join(root, 'demo', 'components');
+    if (existsSync(sheetDir)) {
+      for (const f of readdirSync(sheetDir)) {
+        if (!generated.has(`demo/components/${f}`)) errors.push(`demo/components/${f} has no contract; run npm run build`);
+      }
     }
   }
   return errors;

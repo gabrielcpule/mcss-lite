@@ -4,6 +4,7 @@
   "block": "l-grid",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.",
   "modifiers": [
     {
@@ -17,11 +18,42 @@
       ]
     }
   ],
-  "tokens": ["--space-6"],
   "guidelines": {
+    "whenToUse": [
+      "Card collections of unknown length: l-grid--responsive fits as many columns as there is room for.",
+      "Dashboards with a fixed number of equal columns: l-grid--2-col, --3-col or --4-col."
+    ],
+    "whenNotToUse": [
+      "A main area with a narrower side column: use `l-sidebar`.",
+      "A row of equal items that should all stack at once: use `l-switcher`."
+    ],
     "use": ["Prefer l-grid--responsive for card collections of unknown length."],
-    "avoid": ["Adding margins to grid children; the gap already spaces them."]
+    "avoid": ["Adding margins to grid children; the gap already spaces them."],
+    "doDont": [
+      {
+        "do": {
+          "text": "Keep the source order the same as the visual order.",
+          "html": "<div class=\"l-grid l-grid--3-col\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 1</p></section>\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 2</p></section>\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 3</p></section>\n</div>"
+        },
+        "dont": {
+          "text": "Don't combine column modifiers.",
+          "html": "<div class=\"l-grid l-grid--2-col l-grid--responsive\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 1</p></section>\n</div>",
+          "rule": "exclusive-modifiers"
+        }
+      }
+    ],
+    "content": [
+      "If you reorder items visually with CSS, keyboard and screen reader users still get the source order, so change the markup instead."
+    ]
   },
+  "tokens": ["--space-6"],
   "related": ["c-card", "l-switcher"],
-  "examples": ["layouts.html"]
+  "examples": ["layouts.html"],
+  "sources": [
+    { "title": "Defensive CSS: auto-fit vs auto-fill", "url": "https://defensivecss.dev/tip/auto-fit-fill/" },
+    {
+      "title": "MDN: Grid layout and accessibility",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Grid_layout_and_accessibility"
+    }
+  ]
 }

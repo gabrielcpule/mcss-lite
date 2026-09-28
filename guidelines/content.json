@@ -1,0 +1,70 @@
+{
+  "$schema": "../schemas/content.schema.json",
+  "title": "Read before you build",
+  "intro": "Words are parts too. These rules keep labels, messages and help text consistent across every screen, whether a person or an agent writes them. They follow the GOV.UK Design System, GitLab Pajamas and NN/g research.",
+  "rules": [
+    {
+      "id": "sentence-case",
+      "title": "Write in sentence case",
+      "text": "Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels.",
+      "do": "Create account",
+      "dont": "Create Account"
+    },
+    {
+      "id": "button-verbs",
+      "title": "Buttons say what happens",
+      "text": "Start with a verb and name the thing it acts on. A person should know the result before they click.",
+      "do": "Save changes",
+      "dont": "OK"
+    },
+    {
+      "id": "no-vague-labels",
+      "title": "No vague labels",
+      "text": "\"Submit\", \"Click here\", \"Yes\" and \"More\" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text.",
+      "do": "Download the invoice",
+      "dont": "Click here"
+    },
+    {
+      "id": "error-messages",
+      "title": "Errors say what went wrong and how to fix it",
+      "text": "Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say \"invalid\".",
+      "do": "Enter a date after 1 January 2020",
+      "dont": "Invalid input"
+    },
+    {
+      "id": "error-timing",
+      "title": "Show errors at the right moment",
+      "text": "Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field.",
+      "do": "There is a problem: Enter your email address",
+      "dont": "Email is invalid (shown after the first keystroke)"
+    },
+    {
+      "id": "optional-fields",
+      "title": "Mark optional fields, not required ones",
+      "text": "Ask only for what you need, then add \"(optional)\" to the few fields people may skip. Rows of asterisks add noise and need a legend.",
+      "do": "Phone number (optional)",
+      "dont": "Phone number *"
+    },
+    {
+      "id": "punctuation",
+      "title": "Keep punctuation light",
+      "text": "No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks.",
+      "do": "Delete project",
+      "dont": "Delete project!"
+    },
+    {
+      "id": "numbers-dates",
+      "title": "Write numbers and dates the same way everywhere",
+      "text": "Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04.",
+      "do": "1 March 2026, 12 of 20 seats",
+      "dont": "03/01/26, twelve of twenty seats"
+    },
+    {
+      "id": "inclusive",
+      "title": "Write for everyone",
+      "text": "Use plain words, active voice and \"you\". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks (\"select\", not \"click the blue button\").",
+      "do": "Choose a plan to continue",
+      "dont": "Just hit the big blue button, guys"
+    }
+  ]
+}

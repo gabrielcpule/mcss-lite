@@ -2,7 +2,7 @@
 
 > Rules, components and tokens in one file.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.2.0
+> Package: @gabrielpule/mcss-lite@0.3.0
 
 ## Rules
 
@@ -50,11 +50,50 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
 
+## Content rules
+
+Labels, messages and help text follow the same rules everywhere.
+
+- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account".
+- **Buttons say what happens.** Start with a verb and name the thing it acts on. A person should know the result before they click. Do: "Save changes". Don't: "OK".
+- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here".
+- **Errors say what went wrong and how to fix it.** Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say "invalid". Do: "Enter a date after 1 January 2020". Don't: "Invalid input".
+- **Show errors at the right moment.** Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field. Do: "There is a problem: Enter your email address". Don't: "Email is invalid (shown after the first keystroke)".
+- **Mark optional fields, not required ones.** Ask only for what you need, then add "(optional)" to the few fields people may skip. Rows of asterisks add noise and need a legend. Do: "Phone number (optional)". Don't: "Phone number *".
+- **Keep punctuation light.** No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks. Do: "Delete project". Don't: "Delete project!".
+- **Write numbers and dates the same way everywhere.** Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04. Do: "1 March 2026, 12 of 20 seats". Don't: "03/01/26, twelve of twenty seats".
+- **Write for everyone.** Use plain words, active voice and "you". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks ("select", not "click the blue button"). Do: "Choose a plan to continue". Don't: "Just hit the big blue button, guys".
+
 ## Layout primitives
 
 ### Center — `l-center`
 
 Centers a block horizontally at reading width without side gutters.
+
+**When to use:**
+- Long-form text or a single form that should sit at a comfortable reading width.
+
+**When not to use:**
+- The outermost page wrapper that also needs side gutters: use `l-container`.
+- Inside another centered block: one reading width per column is enough.
+
+**Do (example):** Center one column of reading content.
+
+```html
+<div class="l-center">
+  <p class="u-margin-0">Articles read best at 60 to 75 characters per line.</p>
+</div>
+```
+
+**Don't (example):** Don't nest centered blocks inside each other.
+
+```html
+<div class="l-center">
+  <div class="l-center">
+    <p class="u-margin-0">Twice centered.</p>
+  </div>
+</div>
+```
 
 **Tokens:** `--container-narrow`
 
@@ -99,11 +138,37 @@ Centers a block horizontally at reading width without side gutters.
 
 Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.
 
+**When to use:**
+- Button groups, badge lists, tags and metadata rows that should wrap on narrow screens.
+
+**When not to use:**
+- Two columns of page content: use `l-sidebar` or `l-grid`.
+- Items that must stay equal width: use `l-switcher`.
+
 **Do:**
 - Group inline items such as buttons and badges.
 
 **Don't:**
 - Using l-cluster for two-column page layouts; use l-sidebar or l-grid.
+
+**Do (example):** Let items wrap; the gap holds on every row.
+
+```html
+<div class="l-cluster">
+  <span class="c-badge">Design</span>
+  <span class="c-badge">Research</span>
+  <span class="c-badge">Accessibility</span>
+</div>
+```
+
+**Don't (example):** Don't space items with margins. (`mcss-lite validate` reports `[golden-rule]`)
+
+```html
+<div class="l-cluster">
+  <button type="button" class="c-button" style="margin-right: 8px">Back</button>
+  <button type="button" class="c-button c-button--primary">Next</button>
+</div>
+```
 
 **Tokens:** `--space-3`
 
@@ -148,6 +213,13 @@ Horizontal group that wraps, with a gap and vertically centered items: button gr
 
 Centers page content horizontally with a max width and side gutters.
 
+**When to use:**
+- The outermost wrapper of each page region: header, main content, footer.
+
+**When not to use:**
+- Narrowing text inside a region: use `l-center`.
+- Inside another container.
+
 **Modifiers — width** (pick at most one):
 - `l-container--narrow`: Reading width (48rem) for articles and forms.
 
@@ -156,6 +228,24 @@ Centers page content horizontally with a max width and side gutters.
 
 **Don't:**
 - Nesting containers.
+
+**Do (example):** Use one container per region.
+
+```html
+<header>
+  <div class="l-container">
+    <p class="u-margin-0">Acme</p>
+  </div>
+</header>
+```
+
+**Don't (example):** Don't invent width modifiers. (`mcss-lite validate` reports `[unknown-class]`)
+
+```html
+<div class="l-container l-container--wide">
+  <p class="u-margin-0">Acme</p>
+</div>
+```
 
 **Tokens:** `--container-max-width`, `--container-narrow`, `--space-4`
 
@@ -200,6 +290,14 @@ Centers page content horizontally with a max width and side gutters.
 
 Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.
 
+**When to use:**
+- Card collections of unknown length: l-grid--responsive fits as many columns as there is room for.
+- Dashboards with a fixed number of equal columns: l-grid--2-col, --3-col or --4-col.
+
+**When not to use:**
+- A main area with a narrower side column: use `l-sidebar`.
+- A row of equal items that should all stack at once: use `l-switcher`.
+
 **Modifiers — columns** (pick at most one):
 - `l-grid--2-col`: Two equal columns.
 - `l-grid--3-col`: Three equal columns.
@@ -211,6 +309,27 @@ Two-dimensional grid with a fixed gap. Column modifiers collapse to one column b
 
 **Don't:**
 - Adding margins to grid children; the gap already spaces them.
+
+**Do (example):** Keep the source order the same as the visual order.
+
+```html
+<div class="l-grid l-grid--3-col">
+  <section class="c-card"><p class="u-margin-0">Step 1</p></section>
+  <section class="c-card"><p class="u-margin-0">Step 2</p></section>
+  <section class="c-card"><p class="u-margin-0">Step 3</p></section>
+</div>
+```
+
+**Don't (example):** Don't combine column modifiers. (`mcss-lite validate` reports `[exclusive-modifiers]`)
+
+```html
+<div class="l-grid l-grid--2-col l-grid--responsive">
+  <section class="c-card"><p class="u-margin-0">Step 1</p></section>
+</div>
+```
+
+**Content:**
+- If you reorder items visually with CSS, keyboard and screen reader users still get the source order, so change the markup instead.
 
 **Tokens:** `--space-6`
 
@@ -255,11 +374,36 @@ Two-dimensional grid with a fixed gap. Column modifiers collapse to one column b
 
 Vertical padding for a full-width page section.
 
+**When to use:**
+- Full-width bands of a page that need vertical breathing room, such as a hero or a feature row.
+
+**When not to use:**
+- Spacing between components inside a section: use `l-stack`.
+- A bordered group of content: use `c-card`.
+
 **Modifiers — size** (pick at most one):
 - `l-section--sm`: Smaller vertical padding (2.5rem instead of 4rem).
 
 **Structure:**
 - Usually contains one l-container.
+
+**Do (example):** Put a container inside the section for the side gutters.
+
+```html
+<section class="l-section">
+  <div class="l-container">
+    <h2 class="u-margin-0">Features</h2>
+  </div>
+</section>
+```
+
+**Don't (example):** Don't invent size modifiers; use l-section--sm for a tighter band. (`mcss-lite validate` reports `[unknown-class]`)
+
+```html
+<section class="l-section l-section--xl">
+  <h2 class="u-margin-0">Features</h2>
+</section>
+```
 
 **Tokens:** `--space-10`, `--space-16`
 
@@ -304,12 +448,35 @@ Vertical padding for a full-width page section.
 
 A sidebar next to main content that stacks when the content would get narrower than 50%.
 
+**When to use:**
+- Filters next to results, a form label next to its field, an avatar next to text.
+- Any side column that should drop below the content when space runs out.
+
+**When not to use:**
+- Equal columns: use `l-grid` or `l-switcher`.
+- Page-level navigation that must stay fixed while scrolling: that is app chrome, outside this layout.
+
 **Elements:**
 - `l-sidebar__sidebar` (required): The narrow side (16rem basis).
 - `l-sidebar__content` (required): The main content; takes the remaining space.
 
 **Structure:**
 - Exactly two children: l-sidebar__sidebar and l-sidebar__content, in either order.
+
+**Do (example):** Put the side column first in the source only if it should also be read first.
+
+```html
+<div class="l-sidebar">
+  <aside class="l-sidebar__sidebar"><p class="u-margin-0">Filters</p></aside>
+  <div class="l-sidebar__content"><p class="u-margin-0">42 results</p></div>
+</div>
+```
+
+**Don't (example):** Don't use the sidebar elements on their own. (`mcss-lite validate` reports `[element-outside-block]`)
+
+```html
+<aside class="l-sidebar__sidebar"><p class="u-margin-0">Filters</p></aside>
+```
 
 **Tokens:** `--space-6`
 
@@ -354,6 +521,14 @@ A sidebar next to main content that stacks when the content would get narrower t
 
 Vertical flow: adds space between consecutive children, which keep their own width. Bare inline children (links, spans) stack too. The default way to space components vertically.
 
+**When to use:**
+- Anything that flows top to bottom: form fields, paragraphs, a card body, a page column.
+- Changing rhythm: nest a smaller stack (l-stack--sm) inside a larger one.
+
+**When not to use:**
+- Items in a row that wrap: use `l-cluster`.
+- Two-dimensional layouts: use `l-grid`.
+
 **Modifiers — gap** (pick at most one):
 - `l-stack--sm`: Tight spacing (0.5rem), e.g. form-field internals or list items.
 - `l-stack--lg`: Loose spacing (2rem), e.g. between page blocks.
@@ -363,6 +538,43 @@ Vertical flow: adds space between consecutive children, which keep their own wid
 
 **Don't:**
 - Adding margins to children to fix spacing; change the stack modifier instead.
+
+**Do (example):** Let the stack own the space between its children.
+
+```html
+<div class="l-stack">
+  <h2 class="u-margin-0">Billing</h2>
+  <p class="u-margin-0">Your plan renews on 1 March.</p>
+  <div class="l-cluster">
+    <button type="button" class="c-button">Change plan</button>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't fix spacing with margins on the children. (`mcss-lite validate` reports `[golden-rule]`)
+
+```html
+<div class="l-stack">
+  <section class="c-card" style="margin-top: 32px"><p class="u-margin-0">Plan</p></section>
+</div>
+```
+
+**Do (example):** Pick the gap with a modifier.
+
+```html
+<div class="l-stack l-stack--sm">
+  <p class="u-margin-0">Line one</p>
+  <p class="u-margin-0">Line two</p>
+</div>
+```
+
+**Don't (example):** Don't combine two gap modifiers. (`mcss-lite validate` reports `[exclusive-modifiers]`)
+
+```html
+<div class="l-stack l-stack--sm l-stack--lg">
+  <p class="u-margin-0">Line one</p>
+</div>
+```
 
 **Tokens:** `--space-2`, `--space-4`, `--space-8`
 
@@ -407,8 +619,32 @@ Vertical flow: adds space between consecutive children, which keep their own wid
 
 Children sit side by side until the container is narrower than a threshold, then all stack at once.
 
+**When to use:**
+- Two to four items of equal importance, such as pricing tiers or steps, that should switch from a row to a column all at once.
+
+**When not to use:**
+- Items of unequal importance: use `l-sidebar`.
+- Five or more items, or a list of unknown length: use `l-grid` with l-grid--responsive.
+
 **Custom properties:**
 - `--switcher-threshold` (default `30rem`): Container width below which children stack. Set inline, e.g. style="--switcher-threshold: 40rem".
+
+**Do (example):** Set the threshold with the custom property.
+
+```html
+<div class="l-switcher" style="--switcher-threshold: 40rem">
+  <section class="c-card"><p class="u-margin-0">Free</p></section>
+  <section class="c-card"><p class="u-margin-0">Team</p></section>
+</div>
+```
+
+**Don't (example):** Don't invent size modifiers. (`mcss-lite validate` reports `[unknown-class]`)
+
+```html
+<div class="l-switcher l-switcher--wide">
+  <section class="c-card"><p class="u-margin-0">Free</p></section>
+</div>
+```
 
 **Tokens:** `--space-4`
 
@@ -455,6 +691,15 @@ Children sit side by side until the container is narrower than a threshold, then
 
 A short, non-interactive label for status or category, such as "Beta" or "Paid".
 
+**When to use:**
+- Showing the status of an item: Draft, Active, Failed.
+- A short category or plan label: Beta, Pro.
+
+**When not to use:**
+- Anything clickable, removable or filterable: use `c-button` with c-button--sm.
+- A count on a navigation item: badges here are for status words, not numbers.
+- A sentence: use body text or an alert.
+
 **Apply to:** `<span>`
 
 **Modifiers — tone** (pick at most one):
@@ -471,6 +716,25 @@ A short, non-interactive label for status or category, such as "Beta" or "Paid".
 **Don't:**
 - Making a badge clickable; use c-button--sm instead.
 - Relying on badge color alone to convey meaning; the text must carry the status.
+
+**Do (example):** Say the status in words; the tone only supports it.
+
+```html
+<div class="l-cluster">
+  <span class="c-badge c-badge--error">Failed</span>
+  <span class="c-badge c-badge--success">Passed</span>
+</div>
+```
+
+**Don't (example):** Don't make a badge clickable or invent tones. (`mcss-lite validate` reports `[unknown-class]`)
+
+```html
+<span class="c-badge c-badge--danger">Failed</span>
+```
+
+**Content:**
+- One or two words, sentence case: "In review", not "IN REVIEW".
+- Each tone keeps one meaning across the product: error always means something failed.
 
 **Accessibility:**
 - Color is decorative; the badge text must describe the status on its own.
@@ -494,6 +758,16 @@ A short, non-interactive label for status or category, such as "Beta" or "Paid".
 
 Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.
 
+**When to use:**
+- The control does something on this page: submits a form, saves, deletes, opens a dialog, toggles a setting.
+- A confirming or cancelling action in a form or `c-modal` footer.
+- An on/off toolbar control such as Bold or Mute, with aria-pressed.
+
+**When not to use:**
+- The control goes to another page or URL: use a plain link. Apply c-button to an <a> only when a link must look like a button, such as a start-page call to action.
+- Showing a status that does nothing when clicked: use `c-badge`.
+- Filtering or removing items in a list of tags: that is a chip, which MCSS-Lite does not ship yet.
+
 **Apply to:** `<button>`, `<a>`
 
 **Modifiers — variant** (pick at most one):
@@ -507,7 +781,7 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 - `c-button--lg`: Large button for hero or empty-state calls to action.
 
 **States:**
-- `data-state="disabled"`: The action is unavailable. Rendered ghosted with a dashed keyline. On <button>, also set the disabled attribute. On <a>, set aria-disabled="true" and remove href.
+- `data-state="disabled"`: The action cannot run right now. Rendered ghosted with a dashed keyline. Prefer aria-disabled="true": the button stays focusable, so link a visible reason with aria-describedby and ignore activation in your handler. The disabled attribute also works on <button> but removes it from the tab order. On <a>, set aria-disabled="true" and remove href.
 - `data-state="loading"`: The action is in progress. Shows moving stripes; text keeps full contrast. Set aria-busy="true" and aria-disabled="true", keep the visible label (for example "Saving…"), and ignore activation in your handler.
 
 **Do:**
@@ -522,11 +796,66 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 - Combining two variant modifiers (for example c-button--primary c-button--ghost).
 - Using c-button on a <div> or <span>.
 
+**Do (example):** Use one primary button per region, placed last in its group.
+
+```html
+<div class="l-cluster">
+  <button type="button" class="c-button c-button--ghost">Cancel</button>
+  <button type="submit" class="c-button c-button--primary">Save changes</button>
+</div>
+```
+
+**Don't (example):** Don't combine two variants on one button to make it stand out more. (`mcss-lite validate` reports `[exclusive-modifiers]`)
+
+```html
+<button type="submit" class="c-button c-button--primary c-button--danger">Save changes</button>
+```
+
+**Do (example):** Keep an unavailable action focusable and say why it can't run, with aria-disabled and a linked reason.
+
+```html
+<div class="l-stack l-stack--sm">
+  <button type="button" class="c-button c-button--primary" data-state="disabled" aria-disabled="true" aria-describedby="publish-why">Publish</button>
+  <p id="publish-why" class="u-margin-0">Add a title before you publish.</p>
+</div>
+```
+
+**Don't (example):** Don't grey out a button without saying why, or set the state without its native pair. (`mcss-lite validate` reports `[state-pair]`)
+
+```html
+<button type="button" class="c-button" data-state="disabled">Publish</button>
+```
+
+**Do (example):** Invent nothing: a warning-style action is c-button--danger or a plain button.
+
+```html
+<button type="button" class="c-button c-button--danger">Delete project</button>
+```
+
+**Don't (example):** Don't guess a modifier that isn't in the contract. (`mcss-lite validate` reports `[unknown-class]`)
+
+```html
+<button type="button" class="c-button c-button--warning">Delete project</button>
+```
+
+**Content:**
+- Write a verb plus the thing it acts on: "Save changes", "Delete project". Never "OK", "Submit" or "Click here".
+- Use sentence case: "Create account", not "Create Account".
+- Keep the label the same when a toggle changes state; aria-pressed carries the state.
+- A danger button names what is destroyed: "Delete account", not "Confirm".
+- No full stop at the end of a label.
+
 **Accessibility:**
 - A button needs a visible text label, or aria-label when it only contains an icon.
 - Do not remove the :focus-visible outline.
 - Use type="button" unless the button submits a form.
 - c-button--sm looks compact but keeps a 44px tall hit area.
+- Don't disable a submit button until the form is valid. Let people submit, then show what is missing.
+
+**Keyboard:**
+- Enter: Activates the button.
+- Space: Activates the button (not links).
+- Tab: Moves focus to the button, including one marked aria-disabled.
 
 **Tokens:** `--button-background`, `--button-background-hover`, `--button-border`, `--button-text`, `--button-radius`, `--button-shadow`, `--button-primary-background`, `--button-primary-background-hover`, `--button-primary-text`, `--button-secondary-text`, `--button-secondary-border`, `--button-ghost-background-hover`, `--button-danger-background`, `--button-danger-background-hover`, `--button-danger-text`, `--button-pressed-background`, `--button-pressed-border`, `--button-pressed-text`, `--button-primary-border`, `--button-danger-border`, `--button-primary-background-active`
 
@@ -562,6 +891,16 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 
 A raised surface that groups related content, such as a summary, a settings group or a list item.
 
+**When to use:**
+- A collection of similar items people browse and open one at a time: projects, articles, plans.
+- A dashboard summary that groups a figure with its actions.
+- A group of related settings.
+
+**When not to use:**
+- People compare items side by side or scan dense data: use a list or table.
+- Grouping inside another card: use `l-stack` and a heading instead of a card in a card.
+- A page section with no border of its own: use `l-section`.
+
 **Apply to:** `<article>`, `<section>`, `<div>`, `<li>`, `<a>`
 
 **Modifiers — surface** (pick at most one):
@@ -590,9 +929,53 @@ A raised surface that groups related content, such as a summary, a settings grou
 - Adding margin to .c-card.
 - Putting several competing links inside a c-card--interactive.
 
+**Do (example):** Put the link on the title and add c-card--interactive; the link covers the card and other actions stay clickable.
+
+```html
+<article class="c-card c-card--interactive">
+  <div class="c-card__header">
+    <h3 class="c-card__title"><a href="#atlas">Atlas</a></h3>
+  </div>
+  <div class="c-card__body">
+    <p class="u-margin-0">Updated 2 hours ago</p>
+  </div>
+</article>
+```
+
+**Don't (example):** Don't wrap the whole card in a link: screen readers read the entire card as one long link name. (`mcss-lite validate` reports `[card-link]`)
+
+```html
+<a class="c-card c-card--interactive" href="#atlas">
+  <h3 class="c-card__title">Atlas</h3>
+  <p class="u-margin-0">Updated 2 hours ago</p>
+</a>
+```
+
+**Do (example):** Let the grid space the cards.
+
+```html
+<div class="l-grid l-grid--responsive">
+  <section class="c-card c-card--bordered"><p class="u-margin-0">Storage: 4 GB of 10 GB</p></section>
+  <section class="c-card c-card--bordered"><p class="u-margin-0">Seats: 12 of 20</p></section>
+</div>
+```
+
+**Don't (example):** Don't space cards with their own margin. (`mcss-lite validate` reports `[golden-rule]`)
+
+```html
+<section class="c-card" style="margin-block-end: 16px"><p class="u-margin-0">Storage: 4 GB of 10 GB</p></section>
+```
+
+**Content:**
+- The title names the thing, not the action: "Atlas", not "View Atlas".
+- Keep the body to one or two lines of summary; details belong on the page the card opens.
+
 **Accessibility:**
 - An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.
 - Keep the title a real heading so screen reader users can navigate by headings.
+
+**Keyboard:**
+- Tab: Focuses the title link (the card shows the focus ring), then any other actions in the card.
 
 **Tokens:** `--card-background`, `--card-border`, `--card-border-hover`, `--card-radius`, `--card-padding`, `--card-shadow`, `--card-shadow-elevated`
 
@@ -617,14 +1000,14 @@ A raised surface that groups related content, such as a summary, a settings grou
     </footer>
   </article>
 
-  <a class="c-card c-card--interactive" href="/projects/atlas">
+  <article class="c-card c-card--interactive">
     <div class="c-card__header">
-      <h3 class="c-card__title">Atlas</h3>
+      <h3 class="c-card__title"><a href="/projects/atlas">Atlas</a></h3>
     </div>
     <div class="c-card__body">
       <p class="u-margin-0">Updated 2 hours ago</p>
     </div>
-  </a>
+  </article>
 
   <section class="c-card c-card--bordered">
     <div class="c-card__body">
@@ -637,6 +1020,13 @@ A raised surface that groups related content, such as a summary, a settings grou
 ### Form field — `c-form-field`
 
 Wraps one form control with its label, help text and error message.
+
+**When to use:**
+- Any form control that needs a label, help text or an error message.
+- Each field of a form; stack the fields with `l-stack`.
+
+**When not to use:**
+- A search box in a toolbar with a visible button: a labelled `c-input` inside `l-cluster` is enough, with a visually hidden label.
 
 **Apply to:** `<div>`, `<fieldset>`
 
@@ -653,6 +1043,52 @@ Wraps one form control with its label, help text and error message.
 
 **Don't:**
 - Adding margin to .c-form-field; the layout parent spaces fields.
+
+**Do (example):** Link help and error text to the control with aria-describedby.
+
+```html
+<div class="c-form-field">
+  <label class="c-form-field__label" for="phone">Phone number (optional)</label>
+  <p class="c-form-field__help" id="phone-help">For delivery updates only.</p>
+  <input class="c-input" id="phone" type="tel" autocomplete="tel" aria-describedby="phone-help">
+</div>
+```
+
+**Don't (example):** Don't use the elements outside their block: the help text loses its spacing and link. (`mcss-lite validate` reports `[element-outside-block]`)
+
+```html
+<p class="c-form-field__help">For delivery updates only.</p>
+```
+
+**Do (example):** Space fields with l-stack.
+
+```html
+<form class="l-stack">
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="first">First name</label>
+    <input class="c-input" id="first" autocomplete="given-name">
+  </div>
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="last">Last name</label>
+    <input class="c-input" id="last" autocomplete="family-name">
+  </div>
+</form>
+```
+
+**Don't (example):** Don't push fields apart with margins on the field. (`mcss-lite validate` reports `[golden-rule]`)
+
+```html
+<div class="c-form-field" style="margin-bottom: 24px">
+  <label class="c-form-field__label" for="first2">First name</label>
+  <input class="c-input" id="first2">
+</div>
+```
+
+**Content:**
+- Labels are short nouns in sentence case: "Email address", not "Please Enter Your Email".
+- Help text explains format or why you ask; keep it to one sentence.
+- Mark optional fields "(optional)" and ask only for what you need.
+- After a failed submit, list every error at the top of the form, each linked to its field.
 
 **Accessibility:**
 - Connect label and control with for/id.
@@ -692,6 +1128,15 @@ Wraps one form control with its label, help text and error message.
 
 Single-line text entry. Also styles <textarea> and <select>.
 
+**When to use:**
+- One line of free text: a name, an email address, a search query, a number.
+- Multi-line text on a <textarea>, or a choice from many options on a <select>.
+
+**When not to use:**
+- Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).
+- A yes/no setting: a checkbox (coming in 0.4.0).
+- Showing a value that cannot change: plain text, not a read-only input.
+
 **Apply to:** `<input>`, `<textarea>`, `<select>`
 
 **States:**
@@ -707,9 +1152,48 @@ Single-line text entry. Also styles <textarea> and <select>.
 - Using placeholder text as the only label.
 - Setting a width on .c-input; it fills its container. Constrain the container instead.
 
+**Do (example):** Give every input a visible label that stays visible while typing.
+
+```html
+<div class="c-form-field">
+  <label class="c-form-field__label" for="email">Email address</label>
+  <input class="c-input" id="email" type="email" autocomplete="email">
+</div>
+```
+
+**Don't (example):** Don't use the placeholder as the label: it disappears as soon as someone types.
+
+```html
+<input class="c-input" type="email" placeholder="Email address">
+```
+
+**Do (example):** Pair the error state with aria-invalid and link the message with aria-describedby.
+
+```html
+<div class="c-form-field">
+  <label class="c-form-field__label" for="start">Start date</label>
+  <input class="c-input" id="start" data-state="error" aria-invalid="true" aria-describedby="start-error">
+  <p class="c-form-field__error" id="start-error">Enter a start date after 1 January 2020.</p>
+</div>
+```
+
+**Don't (example):** Don't show an error with a red border alone. (`mcss-lite validate` reports `[state-pair]`)
+
+```html
+<input class="c-input" data-state="error">
+```
+
+**Content:**
+- Error messages say what went wrong and how to fix it: "Enter a date after 1 January 2020", not "Invalid date".
+- Show errors when the person leaves the field or submits, not while they type the first value. Once a field is in error, clear the message as soon as it is fixed.
+- Mark the few optional fields with "(optional)" in the label; don't add asterisks to required ones.
+
 **Accessibility:**
 - Every input needs a programmatic label: <label for> on c-form-field__label.
 - Error text must be linked with aria-describedby, not only shown in red.
+
+**Keyboard:**
+- Tab: Moves focus into and out of the field.
 
 **Tokens:** `--input-background`, `--input-border`, `--input-border-focus`, `--input-text`, `--input-placeholder`, `--input-radius`, `--color-focus-ring`, `--color-focus-ring-error`
 
@@ -728,13 +1212,44 @@ Single-line text entry. Also styles <textarea> and <select>.
 
 Deprecated standalone label. Use c-form-field__label inside c-form-field instead; c-label will be removed in 1.0.
 
+**When to use:**
+- Never in new code. Existing c-label markup keeps working until 1.0.
+
+**When not to use:**
+- Labelling any form control: use `c-form-field` with c-form-field__label.
+
 **Apply to:** `<label>`
+
+**Do (example):** Use the form-field label.
+
+```html
+<div class="c-form-field">
+  <label class="c-form-field__label" for="name">Name</label>
+  <input class="c-input" id="name">
+</div>
+```
+
+**Don't (example):** Don't use the deprecated block. (`mcss-lite validate` reports `[deprecated]`)
+
+```html
+<label class="c-label" for="name2">Name</label>
+```
 
 **Tokens:** `--color-text-muted`
 
 ### Modal — `c-modal`
 
 A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role="dialog">.
+
+**When to use:**
+- Confirming a destructive or irreversible action, such as deleting a project.
+- A short task that must not lose the page behind it, such as renaming an item.
+- Warning that unsaved work will be lost.
+
+**When not to use:**
+- Long or scrolling content, or anything with its own navigation: make it a page.
+- Success messages and tips: show them inline on the page.
+- Opening a dialog from a dialog: keep it to one level where you can, two at most.
 
 **Apply to:** `<dialog>`, `<div>`
 
@@ -762,11 +1277,70 @@ A dialog over the page that blocks interaction until dismissed. Works on <dialog
 - Opening a modal from another modal.
 - Long, scrolling content; use a page instead.
 
+**Do (example):** Use <dialog> opened with showModal(), named by its title, with verb buttons.
+
+```html
+<dialog class="c-modal" aria-labelledby="leave-title">
+  <div class="c-modal__container">
+    <div class="c-modal__header">
+      <h2 class="c-modal__title" id="leave-title">Discard your changes?</h2>
+    </div>
+    <div class="c-modal__footer">
+      <div class="l-cluster">
+        <button type="button" class="c-button c-button--ghost">Keep editing</button>
+        <button type="button" class="c-button c-button--danger">Discard changes</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+```
+
+**Don't (example):** Don't build a dialog from a bare <div>: no focus handling, no Escape, nothing announced. (`mcss-lite validate` reports `[a11y]`)
+
+```html
+<div class="c-modal">
+  <div class="c-modal__container">Discard your changes?</div>
+</div>
+```
+
+**Do (example):** Label the close button.
+
+```html
+<dialog class="c-modal" aria-labelledby="share-title">
+  <div class="c-modal__container">
+    <div class="c-modal__header">
+      <h2 class="c-modal__title" id="share-title">Share project</h2>
+      <button type="button" class="c-modal__close" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+    </div>
+  </div>
+</dialog>
+```
+
+**Don't (example):** Don't leave an icon-only close button without a name. (`mcss-lite validate` reports `[a11y]`)
+
+```html
+<dialog class="c-modal" aria-labelledby="share-title2">
+  <div class="c-modal__container">
+    <h2 class="c-modal__title" id="share-title2">Share project</h2>
+    <button type="button" class="c-modal__close">×</button>
+  </div>
+</dialog>
+```
+
+**Content:**
+- Title the dialog with the question or task: "Delete this project?"
+- Button labels repeat the verb: "Delete project" and "Keep project", never "OK" and "Cancel".
+- Say what happens next in one or two sentences in the body.
+
 **Accessibility:**
 - Prefer <dialog class="c-modal"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role="dialog", aria-modal="true" and manage focus yourself.
 - Reference the title with aria-labelledby.
 - With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.
 - c-modal__close needs aria-label="Close" and an SVG icon, not a text glyph.
+
+**Keyboard:**
+- Escape: Closes the dialog and returns focus to the control that opened it.
+- Tab: Moves focus between controls inside the dialog only.
 
 **Tokens:** `--modal-background`, `--modal-backdrop`, `--modal-border`, `--modal-radius`, `--modal-shadow`, `--z-index-modal`, `--z-index-modal-backdrop`
 

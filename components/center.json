@@ -4,8 +4,29 @@
   "block": "l-center",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Centers a block horizontally at reading width without side gutters.",
+  "guidelines": {
+    "whenToUse": ["Long-form text or a single form that should sit at a comfortable reading width."],
+    "whenNotToUse": [
+      "The outermost page wrapper that also needs side gutters: use `l-container`.",
+      "Inside another centered block: one reading width per column is enough."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Center one column of reading content.",
+          "html": "<div class=\"l-center\">\n  <p class=\"u-margin-0\">Articles read best at 60 to 75 characters per line.</p>\n</div>"
+        },
+        "dont": {
+          "text": "Don't nest centered blocks inside each other.",
+          "html": "<div class=\"l-center\">\n  <div class=\"l-center\">\n    <p class=\"u-margin-0\">Twice centered.</p>\n  </div>\n</div>"
+        }
+      }
+    ]
+  },
   "tokens": ["--container-narrow"],
   "related": ["l-container"],
-  "examples": ["layouts.html"]
+  "examples": ["layouts.html"],
+  "sources": [{ "title": "Every Layout: The Center", "url": "https://every-layout.dev/layouts/center/" }]
 }

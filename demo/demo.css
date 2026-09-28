@@ -733,3 +733,613 @@
     animation: none;
   }
 }
+
+/* ===== Part sheets, parts inventory and "Read before you build" =====
+   More pages of the same booklet: keylined plates, numbered sections, check-your-build panels. */
+
+.demo-wordmark__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.demo-bar__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-bar__links a {
+  display: inline-block;
+  padding-block: var(--space-2);
+}
+
+/* Sheet header: the part on its own plate, element ID first, like a parts-list entry. */
+.demo-sheet__head {
+  padding-block: var(--space-12) var(--space-10);
+}
+
+.demo-sheet__head-grid {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.demo-sheet__plate {
+  display: grid;
+  place-items: center;
+  width: 8rem;
+  aspect-ratio: 1;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-sheet__plate .demo-glyph {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.demo-sheet__kicker {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-subtle);
+}
+
+.demo-sheet__title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.demo-sheet__id {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: 0.55em;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+}
+
+.demo-sheet__since {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.demo-sheet__replaced {
+  margin: 0;
+  padding: var(--space-4);
+  background-color: var(--color-background-callout);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-sheet__row {
+  display: grid;
+  gap: var(--space-2) var(--space-8);
+  align-items: start;
+}
+
+.demo-sheet__body {
+  min-width: 0;
+}
+
+.demo-sheet__body > .demo-step__title {
+  margin: 0;
+}
+
+.demo-sheet__section {
+  padding-block: var(--space-12);
+}
+
+/* Status sticker: a monochrome tag with a keyline, never a status color (One Blue Rule). */
+.demo-sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.demo-sticker svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.demo-sticker--beta {
+  border-style: dashed;
+}
+
+.demo-sticker--deprecated {
+  border-style: dashed;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: var(--border-width-thick);
+}
+
+/* Pick this part / Pick another part */
+.demo-pick {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.demo-pick__col {
+  padding: var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-pick__col--other {
+  background-color: var(--color-background-subtle);
+  border-style: dashed;
+}
+
+.demo-pick__list,
+.demo-safe__list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-inline-start: var(--space-5);
+}
+
+/* Build it: numbered steps, then the finished build on the stud grid. */
+.demo-build-steps {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: build;
+}
+
+.demo-build-steps li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  counter-increment: build;
+}
+
+.demo-build-steps li::before {
+  content: counter(build);
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.demo-sheet__stage {
+  position: relative;
+}
+
+.demo-sheet__stage .demo-arrow {
+  display: none;
+}
+
+/* Check your build: ✓ fits / ✗ doesn't fit, side by side. */
+.demo-misfit-row .demo-misfit {
+  max-width: 20rem;
+}
+
+.demo-checks {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.demo-checks__pair {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.demo-checks__card {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  min-width: 0;
+  padding: var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-checks__card > p {
+  margin: 0;
+}
+
+.demo-checks__card--dont {
+  border-color: var(--color-border-error);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.demo-checks__head {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+.demo-mark {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.demo-checks__card--do .demo-checks__head .demo-mark {
+  color: var(--color-text-success);
+}
+
+.demo-checks__card--dont .demo-checks__head .demo-mark {
+  color: var(--color-text-error);
+}
+
+.demo-checks__verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-checks__verdict .demo-mark {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-text-success);
+}
+
+.demo-checks__guidance {
+  padding: var(--space-3);
+  background-color: var(--color-background-subtle);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-checks .demo-stage {
+  padding: var(--space-4);
+}
+
+/* Spec sheet tables */
+.demo-spec {
+  overflow-x: auto;
+}
+
+.demo-spec table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  font-size: var(--font-size-sm);
+}
+
+.demo-spec caption {
+  padding-block-end: var(--space-2);
+  text-align: start;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+}
+
+.demo-spec th,
+.demo-spec td {
+  padding: var(--space-3);
+  border-block-end: var(--border-width-thin) solid var(--color-border-default);
+  text-align: start;
+  vertical-align: top;
+}
+
+.demo-spec thead th {
+  background-color: var(--color-background-subtle);
+  border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-spec tbody th {
+  font-weight: var(--font-weight-normal);
+  white-space: nowrap;
+}
+
+.demo-spec__muted {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-xs);
+}
+
+.demo kbd {
+  padding: 0.05em 0.4em;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-block-end-width: var(--border-width-thicker);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+/* Fits with: a mini bag of linked parts */
+.demo-fits a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.demo-sheet__sources {
+  padding-block: var(--space-8);
+  font-size: var(--font-size-sm);
+}
+
+.demo-sheet__sources-title {
+  margin-block-end: var(--space-3);
+  font-size: var(--font-size-base);
+}
+
+.demo-sheet__sources-list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding-inline-start: var(--space-5);
+}
+
+.demo-sheet__pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-8) var(--space-12);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-sheet__pager a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+}
+
+/* Parts inventory: bags per layer at the back of the booklet. */
+.demo-legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-sm);
+}
+
+.demo-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.demo-bag--wide {
+  background-color: var(--color-background-raised);
+}
+
+.demo-inventory-table__part {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Read before you build: numbered notices, like the safety page of a booklet. */
+.demo-notices {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-notices--compact {
+  gap: var(--space-2);
+  padding-inline-start: var(--space-5);
+  list-style: decimal;
+}
+
+.demo-notice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  scroll-margin-block-start: var(--space-16);
+}
+
+.demo-notice__num {
+  margin: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-raised);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.demo-notice p,
+.demo-notice__title {
+  margin: 0;
+}
+
+.demo-notice__title {
+  font-size: var(--font-size-lg);
+}
+
+.demo-notice__pair {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.demo-notice__do,
+.demo-notice__dont {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-notice__do .demo-mark {
+  color: var(--color-text-success);
+}
+
+.demo-notice__dont {
+  border-style: dashed;
+  border-color: var(--color-border-error);
+  color: var(--color-text-muted);
+}
+
+.demo-notice__dont .demo-mark {
+  color: var(--color-text-error);
+}
+
+.demo-notice__checked {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+/* Narrow screens: spec tables stack into labelled rows. */
+@media (max-width: 40rem) {
+  .demo-spec thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .demo-spec tr {
+    display: grid;
+    padding: var(--space-2) 0;
+    border-block-end: var(--border-width-thin) solid var(--color-border-default);
+  }
+
+  .demo-spec th,
+  .demo-spec td {
+    display: block;
+    padding: var(--space-1) var(--space-3);
+    border: 0;
+  }
+
+  .demo-spec tbody th {
+    white-space: normal;
+  }
+
+  .demo-spec td[data-label]::before {
+    content: attr(data-label) ": ";
+    content: attr(data-label) ": " / "";
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+@media (min-width: 48rem) {
+  .demo-sheet__head-grid {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .demo-pick,
+  .demo-notice__pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-sheet__row {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .demo-checks__pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.demo-pick code,
+.demo-fits code,
+.demo-inventory-table code {
+  overflow-wrap: normal;
+  white-space: nowrap;
+}
+
+/* Booklet: links from the inventory and call-outs to each part sheet, and the fit panel. */
+.demo-bag__link,
+.demo-part__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: inherit;
+  text-decoration: none;
+}
+
+.demo-bag__link:hover code,
+.demo-part__link:hover code {
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--color-border-keyline);
+}
+
+.demo-fit {
+  padding-block: var(--space-10);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.demo-fit__title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+}
+
+/* Review fixes: the wrong piece stays visible, the inventory bag holds its table without a second box,
+   the sticky rail never covers what receives focus. */
+.demo-checks .demo-code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.demo-bag--wide .demo-spec table {
+  border: 0;
+  background-color: transparent;
+}
+
+.demo-code,
+.demo-checks__card,
+.demo-sheet__section {
+  scroll-margin-block-start: var(--space-20);
+}
+
+.demo-fit__callout .demo-pick__col {
+  background-color: var(--color-background-raised);
+}

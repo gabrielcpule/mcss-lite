@@ -4,13 +4,44 @@
   "block": "l-sidebar",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "A sidebar next to main content that stacks when the content would get narrower than 50%.",
   "elements": [
     { "name": "sidebar", "description": "The narrow side (16rem basis).", "required": true },
     { "name": "content", "description": "The main content; takes the remaining space.", "required": true }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "Filters next to results, a form label next to its field, an avatar next to text.",
+      "Any side column that should drop below the content when space runs out."
+    ],
+    "whenNotToUse": [
+      "Equal columns: use `l-grid` or `l-switcher`.",
+      "Page-level navigation that must stay fixed while scrolling: that is app chrome, outside this layout."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Put the side column first in the source only if it should also be read first.",
+          "html": "<div class=\"l-sidebar\">\n  <aside class=\"l-sidebar__sidebar\"><p class=\"u-margin-0\">Filters</p></aside>\n  <div class=\"l-sidebar__content\"><p class=\"u-margin-0\">42 results</p></div>\n</div>"
+        },
+        "dont": {
+          "text": "Don't use the sidebar elements on their own.",
+          "html": "<aside class=\"l-sidebar__sidebar\"><p class=\"u-margin-0\">Filters</p></aside>",
+          "rule": "element-outside-block"
+        }
+      }
+    ]
+  },
   "children": ["Exactly two children: l-sidebar__sidebar and l-sidebar__content, in either order."],
   "tokens": ["--space-6"],
   "related": ["l-grid", "l-switcher"],
-  "examples": ["layouts.html"]
+  "examples": ["layouts.html"],
+  "sources": [
+    { "title": "Every Layout: The Sidebar", "url": "https://every-layout.dev/layouts/sidebar/" },
+    {
+      "title": "Josh Comeau: Container queries",
+      "url": "https://www.joshwcomeau.com/css/container-queries-introduction/"
+    }
+  ]
 }

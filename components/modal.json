@@ -4,6 +4,7 @@
   "block": "c-modal",
   "layer": "component",
   "status": "stable",
+  "since": "0.1.0",
   "description": "A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role=\"dialog\">.",
   "tags": [
     "dialog",
@@ -73,6 +74,55 @@
       "pair": "When closed, return focus to the control that opened the modal."
     }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "Confirming a destructive or irreversible action, such as deleting a project.",
+      "A short task that must not lose the page behind it, such as renaming an item.",
+      "Warning that unsaved work will be lost."
+    ],
+    "whenNotToUse": [
+      "Long or scrolling content, or anything with its own navigation: make it a page.",
+      "Success messages and tips: show them inline on the page.",
+      "Opening a dialog from a dialog: keep it to one level where you can, two at most."
+    ],
+    "use": [
+      "Use for short, focused tasks: confirmations, small forms.",
+      "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
+    ],
+    "avoid": [
+      "Opening a modal from another modal.",
+      "Long, scrolling content; use a page instead."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Use <dialog> opened with showModal(), named by its title, with verb buttons.",
+          "html": "<dialog class=\"c-modal\" aria-labelledby=\"leave-title\">\n  <div class=\"c-modal__container\">\n    <div class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"leave-title\">Discard your changes?</h2>\n    </div>\n    <div class=\"c-modal__footer\">\n      <div class=\"l-cluster\">\n        <button type=\"button\" class=\"c-button c-button--ghost\">Keep editing</button>\n        <button type=\"button\" class=\"c-button c-button--danger\">Discard changes</button>\n      </div>\n    </div>\n  </div>\n</dialog>"
+        },
+        "dont": {
+          "text": "Don't build a dialog from a bare <div>: no focus handling, no Escape, nothing announced.",
+          "html": "<div class=\"c-modal\">\n  <div class=\"c-modal__container\">Discard your changes?</div>\n</div>",
+          "rule": "a11y"
+        }
+      },
+      {
+        "do": {
+          "text": "Label the close button.",
+          "html": "<dialog class=\"c-modal\" aria-labelledby=\"share-title\">\n  <div class=\"c-modal__container\">\n    <div class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"share-title\">Share project</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 4l8 8M12 4l-8 8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></button>\n    </div>\n  </div>\n</dialog>"
+        },
+        "dont": {
+          "text": "Don't leave an icon-only close button without a name.",
+          "html": "<dialog class=\"c-modal\" aria-labelledby=\"share-title2\">\n  <div class=\"c-modal__container\">\n    <h2 class=\"c-modal__title\" id=\"share-title2\">Share project</h2>\n    <button type=\"button\" class=\"c-modal__close\">×</button>\n  </div>\n</dialog>",
+          "rule": "a11y"
+        }
+      }
+    ],
+    "content": [
+      "Title the dialog with the question or task: \"Delete this project?\"",
+      "Button labels repeat the verb: \"Delete project\" and \"Keep project\", never \"OK\" and \"Cancel\".",
+      "Say what happens next in one or two sentences in the body."
+    ]
+  },
   "children": [
     "c-modal contains c-modal__backdrop and c-modal__container as siblings.",
     "c-modal__container contains header, body and footer in that order."
@@ -86,26 +136,48 @@
     "--z-index-modal",
     "--z-index-modal-backdrop"
   ],
-  "guidelines": {
-    "use": [
-      "Use for short, focused tasks: confirmations, small forms.",
-      "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
-    ],
-    "avoid": [
-      "Opening a modal from another modal.",
-      "Long, scrolling content; use a page instead."
-    ]
-  },
   "a11y": [
     "Prefer <dialog class=\"c-modal\"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role=\"dialog\", aria-modal=\"true\" and manage focus yourself.",
     "Reference the title with aria-labelledby.",
     "With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.",
     "c-modal__close needs aria-label=\"Close\" and an SVG icon, not a text glyph."
   ],
+  "keyboard": [
+    {
+      "key": "Escape",
+      "action": "Closes the dialog and returns focus to the control that opened it."
+    },
+    {
+      "key": "Tab",
+      "action": "Moves focus between controls inside the dialog only."
+    }
+  ],
   "related": [
     "c-button"
   ],
   "examples": [
     "modal.html"
+  ],
+  "sources": [
+    {
+      "title": "NN/g: Overuse of overlays",
+      "url": "https://www.nngroup.com/articles/overuse-of-overlays/"
+    },
+    {
+      "title": "NN/g: Modal and nonmodal dialogs",
+      "url": "https://www.nngroup.com/articles/modal-nonmodal-dialog/"
+    },
+    {
+      "title": "Scott O'Hara: Use the dialog element (reasonably)",
+      "url": "https://www.scottohara.me/blog/2023/01/26/use-the-dialog-element.html"
+    },
+    {
+      "title": "Primer: Dialog guidelines",
+      "url": "https://primer.style/product/components/dialog/guidelines/"
+    },
+    {
+      "title": "Frontend Masters: Scroll-locked dialogs",
+      "url": "https://frontendmasters.com/blog/scroll-locked-dialogs/"
+    }
   ]
 }

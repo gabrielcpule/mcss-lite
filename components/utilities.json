@@ -4,6 +4,7 @@
   "block": "u-*",
   "layer": "utility",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.",
   "classes": [
     {
@@ -68,11 +69,32 @@
     }
   ],
   "guidelines": {
+    "whenToUse": [
+      "A single, local override that no layout or component covers, such as removing a paragraph margin inside a card.",
+      "u-sr-only for text that screen readers need but the layout already shows visually, such as an icon-only label."
+    ],
+    "whenNotToUse": [
+      "Spacing between components: use `l-stack` or `l-cluster`.",
+      "Restyling a component everywhere: set its component token on :root."
+    ],
     "use": [
       "u-sr-only for accessible labels on icon-only controls."
     ],
     "avoid": [
       "Stacking several utilities to restyle a component; add a modifier to its contract instead."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Remove a paragraph margin inside a component.",
+          "html": "<section class=\"c-card\">\n  <p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p>\n</section>"
+        },
+        "dont": {
+          "text": "Don't guess a utility that doesn't exist.",
+          "html": "<p class=\"u-mt-4\">Storage: 4 GB of 10 GB</p>",
+          "rule": "unknown-class"
+        }
+      }
     ]
   },
   "examples": [

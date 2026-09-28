@@ -180,6 +180,7 @@
   }
 
   .c-card--interactive {
+    position: relative;
     display: block;
     color: inherit;
     text-decoration: none;
@@ -195,6 +196,37 @@
     box-shadow: var(--card-shadow-elevated, var(--shadow-elevated));
     transform: translateY(-2px);
     color: inherit;
+  }
+
+  /* Recommended pattern: the link lives on the title and its hit area is stretched over the
+     card, so screen readers announce only the title and no link wraps other controls. */
+  .c-card--interactive .c-card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .c-card--interactive .c-card__title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .c-card--interactive .c-card__title a:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .c-card--interactive:has(.c-card__title a:focus-visible) {
+    outline: var(--border-width-thick) solid var(--color-focus-ring);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
+  }
+
+  /* Secondary actions sit above the stretched link so they stay clickable. */
+  .c-card--interactive :is(a, button, input, select, textarea, summary, label):not(.c-card__title a) {
+    position: relative;
+    z-index: 1;
   }
 
   .c-card__header {

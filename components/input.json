@@ -4,6 +4,7 @@
   "block": "c-input",
   "layer": "component",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Single-line text entry. Also styles <textarea> and <select>.",
   "tags": [
     "input",
@@ -26,6 +27,53 @@
       "pair": "Also set the disabled attribute."
     }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "One line of free text: a name, an email address, a search query, a number.",
+      "Multi-line text on a <textarea>, or a choice from many options on a <select>."
+    ],
+    "whenNotToUse": [
+      "Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).",
+      "A yes/no setting: a checkbox (coming in 0.4.0).",
+      "Showing a value that cannot change: plain text, not a read-only input."
+    ],
+    "use": [
+      "Always wrap in c-form-field with a c-form-field__label.",
+      "Use the right type attribute (email, tel, number, search) so mobile keyboards match."
+    ],
+    "avoid": [
+      "Using placeholder text as the only label.",
+      "Setting a width on .c-input; it fills its container. Constrain the container instead."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Give every input a visible label that stays visible while typing.",
+          "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"email\">Email address</label>\n  <input class=\"c-input\" id=\"email\" type=\"email\" autocomplete=\"email\">\n</div>"
+        },
+        "dont": {
+          "text": "Don't use the placeholder as the label: it disappears as soon as someone types.",
+          "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">"
+        }
+      },
+      {
+        "do": {
+          "text": "Pair the error state with aria-invalid and link the message with aria-describedby.",
+          "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"start\">Start date</label>\n  <input class=\"c-input\" id=\"start\" data-state=\"error\" aria-invalid=\"true\" aria-describedby=\"start-error\">\n  <p class=\"c-form-field__error\" id=\"start-error\">Enter a start date after 1 January 2020.</p>\n</div>"
+        },
+        "dont": {
+          "text": "Don't show an error with a red border alone.",
+          "html": "<input class=\"c-input\" data-state=\"error\">",
+          "rule": "state-pair"
+        }
+      }
+    ],
+    "content": [
+      "Error messages say what went wrong and how to fix it: \"Enter a date after 1 January 2020\", not \"Invalid date\".",
+      "Show errors when the person leaves the field or submits, not while they type the first value. Once a field is in error, clear the message as soon as it is fixed.",
+      "Mark the few optional fields with \"(optional)\" in the label; don't add asterisks to required ones."
+    ]
+  },
   "tokens": [
     "--input-background",
     "--input-border",
@@ -36,19 +84,15 @@
     "--color-focus-ring",
     "--color-focus-ring-error"
   ],
-  "guidelines": {
-    "use": [
-      "Always wrap in c-form-field with a c-form-field__label.",
-      "Use the right type attribute (email, tel, number, search) so mobile keyboards match."
-    ],
-    "avoid": [
-      "Using placeholder text as the only label.",
-      "Setting a width on .c-input; it fills its container. Constrain the container instead."
-    ]
-  },
   "a11y": [
     "Every input needs a programmatic label: <label for> on c-form-field__label.",
     "Error text must be linked with aria-describedby, not only shown in red."
+  ],
+  "keyboard": [
+    {
+      "key": "Tab",
+      "action": "Moves focus into and out of the field."
+    }
   ],
   "related": [
     "c-form-field",
@@ -56,5 +100,31 @@
   ],
   "examples": [
     "input.html"
+  ],
+  "sources": [
+    {
+      "title": "GOV.UK Design System: Error message",
+      "url": "https://design-system.service.gov.uk/components/error-message"
+    },
+    {
+      "title": "GOV.UK Design System: Validation",
+      "url": "https://design-system.service.gov.uk/patterns/validation"
+    },
+    {
+      "title": "NN/g: Error-message guidelines for forms",
+      "url": "https://www.nngroup.com/articles/errors-forms-design-guidelines/"
+    },
+    {
+      "title": "Smashing: Inline validation in web forms",
+      "url": "https://www.smashingmagazine.com/2022/09/inline-validation-web-forms-ux/"
+    },
+    {
+      "title": "NN/g: Marking required fields in forms",
+      "url": "https://www.nngroup.com/articles/required-fields/"
+    },
+    {
+      "title": "NN/g: Placeholders in form fields are harmful",
+      "url": "https://www.nngroup.com/articles/form-design-placeholders/"
+    }
   ]
 }

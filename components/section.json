@@ -4,10 +4,37 @@
   "block": "l-section",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Vertical padding for a full-width page section.",
   "modifiers": [
-    { "group": "size", "exclusive": true, "values": [ { "name": "sm", "description": "Smaller vertical padding (2.5rem instead of 4rem)." } ] }
+    {
+      "group": "size",
+      "exclusive": true,
+      "values": [{ "name": "sm", "description": "Smaller vertical padding (2.5rem instead of 4rem)." }]
+    }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "Full-width bands of a page that need vertical breathing room, such as a hero or a feature row."
+    ],
+    "whenNotToUse": [
+      "Spacing between components inside a section: use `l-stack`.",
+      "A bordered group of content: use `c-card`."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Put a container inside the section for the side gutters.",
+          "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <h2 class=\"u-margin-0\">Features</h2>\n  </div>\n</section>"
+        },
+        "dont": {
+          "text": "Don't invent size modifiers; use l-section--sm for a tighter band.",
+          "html": "<section class=\"l-section l-section--xl\">\n  <h2 class=\"u-margin-0\">Features</h2>\n</section>",
+          "rule": "unknown-class"
+        }
+      }
+    ]
+  },
   "tokens": ["--space-10", "--space-16"],
   "children": ["Usually contains one l-container."],
   "related": ["l-container"],

@@ -1,6 +1,6 @@
 {
   "name": "@gabrielpule/mcss-lite",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Contract-first CSS design system: every class, state and token is declared in machine-readable contracts, so people and AI agents build UI with the right parts.",
   "generatedFrom": [
     "tokens/*.tokens.json",
@@ -54,13 +54,121 @@
       "text": "Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode."
     }
   ],
+  "contentRules": [
+    {
+      "id": "sentence-case",
+      "title": "Write in sentence case",
+      "text": "Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels.",
+      "do": "Create account",
+      "dont": "Create Account"
+    },
+    {
+      "id": "button-verbs",
+      "title": "Buttons say what happens",
+      "text": "Start with a verb and name the thing it acts on. A person should know the result before they click.",
+      "do": "Save changes",
+      "dont": "OK"
+    },
+    {
+      "id": "no-vague-labels",
+      "title": "No vague labels",
+      "text": "\"Submit\", \"Click here\", \"Yes\" and \"More\" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text.",
+      "do": "Download the invoice",
+      "dont": "Click here"
+    },
+    {
+      "id": "error-messages",
+      "title": "Errors say what went wrong and how to fix it",
+      "text": "Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say \"invalid\".",
+      "do": "Enter a date after 1 January 2020",
+      "dont": "Invalid input"
+    },
+    {
+      "id": "error-timing",
+      "title": "Show errors at the right moment",
+      "text": "Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field.",
+      "do": "There is a problem: Enter your email address",
+      "dont": "Email is invalid (shown after the first keystroke)"
+    },
+    {
+      "id": "optional-fields",
+      "title": "Mark optional fields, not required ones",
+      "text": "Ask only for what you need, then add \"(optional)\" to the few fields people may skip. Rows of asterisks add noise and need a legend.",
+      "do": "Phone number (optional)",
+      "dont": "Phone number *"
+    },
+    {
+      "id": "punctuation",
+      "title": "Keep punctuation light",
+      "text": "No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks.",
+      "do": "Delete project",
+      "dont": "Delete project!"
+    },
+    {
+      "id": "numbers-dates",
+      "title": "Write numbers and dates the same way everywhere",
+      "text": "Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04.",
+      "do": "1 March 2026, 12 of 20 seats",
+      "dont": "03/01/26, twelve of twenty seats"
+    },
+    {
+      "id": "inclusive",
+      "title": "Write for everyone",
+      "text": "Use plain words, active voice and \"you\". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks (\"select\", not \"click the blue button\").",
+      "do": "Choose a plan to continue",
+      "dont": "Just hit the big blue button, guys"
+    }
+  ],
+  "pages": [
+    "demo/index.html",
+    "demo/status.html",
+    "demo/content.html",
+    "demo/components/center.html",
+    "demo/components/cluster.html",
+    "demo/components/container.html",
+    "demo/components/grid.html",
+    "demo/components/section.html",
+    "demo/components/sidebar.html",
+    "demo/components/stack.html",
+    "demo/components/switcher.html",
+    "demo/components/badge.html",
+    "demo/components/button.html",
+    "demo/components/card.html",
+    "demo/components/form-field.html",
+    "demo/components/input.html",
+    "demo/components/label.html",
+    "demo/components/modal.html",
+    "demo/components/utilities.html"
+  ],
   "blocks": [
     {
       "name": "Center",
       "block": "l-center",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Centers a block horizontally at reading width without side gutters.",
+      "guidelines": {
+        "whenToUse": [
+          "Long-form text or a single form that should sit at a comfortable reading width."
+        ],
+        "whenNotToUse": [
+          "The outermost page wrapper that also needs side gutters: use `l-container`.",
+          "Inside another centered block: one reading width per column is enough."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Center one column of reading content.",
+              "html": "<div class=\"l-center\">\n  <p class=\"u-margin-0\">Articles read best at 60 to 75 characters per line.</p>\n</div>"
+            },
+            "dont": {
+              "text": "Don't nest centered blocks inside each other.",
+              "html": "<div class=\"l-center\">\n  <div class=\"l-center\">\n    <p class=\"u-margin-0\">Twice centered.</p>\n  </div>\n</div>"
+            }
+          }
+        ]
+      },
       "tokens": [
         "--container-narrow"
       ],
@@ -72,6 +180,12 @@
           "file": "components/layouts.html",
           "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
+      ],
+      "sources": [
+        {
+          "title": "Every Layout: The Center",
+          "url": "https://every-layout.dev/layouts/center/"
+        }
       ]
     },
     {
@@ -79,18 +193,39 @@
       "block": "l-cluster",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.",
-      "tokens": [
-        "--space-3"
-      ],
       "guidelines": {
+        "whenToUse": [
+          "Button groups, badge lists, tags and metadata rows that should wrap on narrow screens."
+        ],
+        "whenNotToUse": [
+          "Two columns of page content: use `l-sidebar` or `l-grid`.",
+          "Items that must stay equal width: use `l-switcher`."
+        ],
         "use": [
           "Group inline items such as buttons and badges."
         ],
         "avoid": [
           "Using l-cluster for two-column page layouts; use l-sidebar or l-grid."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Let items wrap; the gap holds on every row.",
+              "html": "<div class=\"l-cluster\">\n  <span class=\"c-badge\">Design</span>\n  <span class=\"c-badge\">Research</span>\n  <span class=\"c-badge\">Accessibility</span>\n</div>"
+            },
+            "dont": {
+              "text": "Don't space items with margins.",
+              "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" style=\"margin-right: 8px\">Back</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Next</button>\n</div>",
+              "rule": "golden-rule"
+            }
+          }
         ]
       },
+      "tokens": [
+        "--space-3"
+      ],
       "related": [
         "c-button",
         "c-badge"
@@ -100,6 +235,16 @@
           "file": "components/layouts.html",
           "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
+      ],
+      "sources": [
+        {
+          "title": "Every Layout: The Cluster",
+          "url": "https://every-layout.dev/layouts/cluster/"
+        },
+        {
+          "title": "LogRocket: CSS gap vs margin",
+          "url": "https://blog.logrocket.com/css-gap-vs-margin/"
+        }
       ]
     },
     {
@@ -107,6 +252,7 @@
       "block": "l-container",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Centers page content horizontally with a max width and side gutters.",
       "modifiers": [
         {
@@ -120,19 +266,39 @@
           ]
         }
       ],
-      "tokens": [
-        "--container-max-width",
-        "--container-narrow",
-        "--space-4"
-      ],
       "guidelines": {
+        "whenToUse": [
+          "The outermost wrapper of each page region: header, main content, footer."
+        ],
+        "whenNotToUse": [
+          "Narrowing text inside a region: use `l-center`.",
+          "Inside another container."
+        ],
         "use": [
           "Use once per page region, as the outermost wrapper of the content."
         ],
         "avoid": [
           "Nesting containers."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Use one container per region.",
+              "html": "<header>\n  <div class=\"l-container\">\n    <p class=\"u-margin-0\">Acme</p>\n  </div>\n</header>"
+            },
+            "dont": {
+              "text": "Don't invent width modifiers.",
+              "html": "<div class=\"l-container l-container--wide\">\n  <p class=\"u-margin-0\">Acme</p>\n</div>",
+              "rule": "unknown-class"
+            }
+          }
         ]
       },
+      "tokens": [
+        "--container-max-width",
+        "--container-narrow",
+        "--space-4"
+      ],
       "related": [
         "l-section",
         "l-center"
@@ -149,6 +315,7 @@
       "block": "l-grid",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.",
       "modifiers": [
         {
@@ -174,17 +341,41 @@
           ]
         }
       ],
-      "tokens": [
-        "--space-6"
-      ],
       "guidelines": {
+        "whenToUse": [
+          "Card collections of unknown length: l-grid--responsive fits as many columns as there is room for.",
+          "Dashboards with a fixed number of equal columns: l-grid--2-col, --3-col or --4-col."
+        ],
+        "whenNotToUse": [
+          "A main area with a narrower side column: use `l-sidebar`.",
+          "A row of equal items that should all stack at once: use `l-switcher`."
+        ],
         "use": [
           "Prefer l-grid--responsive for card collections of unknown length."
         ],
         "avoid": [
           "Adding margins to grid children; the gap already spaces them."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Keep the source order the same as the visual order.",
+              "html": "<div class=\"l-grid l-grid--3-col\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 1</p></section>\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 2</p></section>\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 3</p></section>\n</div>"
+            },
+            "dont": {
+              "text": "Don't combine column modifiers.",
+              "html": "<div class=\"l-grid l-grid--2-col l-grid--responsive\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Step 1</p></section>\n</div>",
+              "rule": "exclusive-modifiers"
+            }
+          }
+        ],
+        "content": [
+          "If you reorder items visually with CSS, keyboard and screen reader users still get the source order, so change the markup instead."
         ]
       },
+      "tokens": [
+        "--space-6"
+      ],
       "related": [
         "c-card",
         "l-switcher"
@@ -194,6 +385,16 @@
           "file": "components/layouts.html",
           "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
+      ],
+      "sources": [
+        {
+          "title": "Defensive CSS: auto-fit vs auto-fill",
+          "url": "https://defensivecss.dev/tip/auto-fit-fill/"
+        },
+        {
+          "title": "MDN: Grid layout and accessibility",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Grid_layout_and_accessibility"
+        }
       ]
     },
     {
@@ -201,6 +402,7 @@
       "block": "l-section",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Vertical padding for a full-width page section.",
       "modifiers": [
         {
@@ -214,6 +416,28 @@
           ]
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "Full-width bands of a page that need vertical breathing room, such as a hero or a feature row."
+        ],
+        "whenNotToUse": [
+          "Spacing between components inside a section: use `l-stack`.",
+          "A bordered group of content: use `c-card`."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Put a container inside the section for the side gutters.",
+              "html": "<section class=\"l-section\">\n  <div class=\"l-container\">\n    <h2 class=\"u-margin-0\">Features</h2>\n  </div>\n</section>"
+            },
+            "dont": {
+              "text": "Don't invent size modifiers; use l-section--sm for a tighter band.",
+              "html": "<section class=\"l-section l-section--xl\">\n  <h2 class=\"u-margin-0\">Features</h2>\n</section>",
+              "rule": "unknown-class"
+            }
+          }
+        ]
+      },
       "tokens": [
         "--space-10",
         "--space-16"
@@ -236,6 +460,7 @@
       "block": "l-sidebar",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "A sidebar next to main content that stacks when the content would get narrower than 50%.",
       "elements": [
         {
@@ -249,6 +474,29 @@
           "required": true
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "Filters next to results, a form label next to its field, an avatar next to text.",
+          "Any side column that should drop below the content when space runs out."
+        ],
+        "whenNotToUse": [
+          "Equal columns: use `l-grid` or `l-switcher`.",
+          "Page-level navigation that must stay fixed while scrolling: that is app chrome, outside this layout."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Put the side column first in the source only if it should also be read first.",
+              "html": "<div class=\"l-sidebar\">\n  <aside class=\"l-sidebar__sidebar\"><p class=\"u-margin-0\">Filters</p></aside>\n  <div class=\"l-sidebar__content\"><p class=\"u-margin-0\">42 results</p></div>\n</div>"
+            },
+            "dont": {
+              "text": "Don't use the sidebar elements on their own.",
+              "html": "<aside class=\"l-sidebar__sidebar\"><p class=\"u-margin-0\">Filters</p></aside>",
+              "rule": "element-outside-block"
+            }
+          }
+        ]
+      },
       "children": [
         "Exactly two children: l-sidebar__sidebar and l-sidebar__content, in either order."
       ],
@@ -264,6 +512,16 @@
           "file": "components/layouts.html",
           "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
+      ],
+      "sources": [
+        {
+          "title": "Every Layout: The Sidebar",
+          "url": "https://every-layout.dev/layouts/sidebar/"
+        },
+        {
+          "title": "Josh Comeau: Container queries",
+          "url": "https://www.joshwcomeau.com/css/container-queries-introduction/"
+        }
       ]
     },
     {
@@ -271,6 +529,7 @@
       "block": "l-stack",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Vertical flow: adds space between consecutive children, which keep their own width. Bare inline children (links, spans) stack too. The default way to space components vertically.",
       "modifiers": [
         {
@@ -288,19 +547,51 @@
           ]
         }
       ],
-      "tokens": [
-        "--space-2",
-        "--space-4",
-        "--space-8"
-      ],
       "guidelines": {
+        "whenToUse": [
+          "Anything that flows top to bottom: form fields, paragraphs, a card body, a page column.",
+          "Changing rhythm: nest a smaller stack (l-stack--sm) inside a larger one."
+        ],
+        "whenNotToUse": [
+          "Items in a row that wrap: use `l-cluster`.",
+          "Two-dimensional layouts: use `l-grid`."
+        ],
         "use": [
           "Nest stacks with different gaps to build rhythm."
         ],
         "avoid": [
           "Adding margins to children to fix spacing; change the stack modifier instead."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Let the stack own the space between its children.",
+              "html": "<div class=\"l-stack\">\n  <h2 class=\"u-margin-0\">Billing</h2>\n  <p class=\"u-margin-0\">Your plan renews on 1 March.</p>\n  <div class=\"l-cluster\">\n    <button type=\"button\" class=\"c-button\">Change plan</button>\n  </div>\n</div>"
+            },
+            "dont": {
+              "text": "Don't fix spacing with margins on the children.",
+              "html": "<div class=\"l-stack\">\n  <section class=\"c-card\" style=\"margin-top: 32px\"><p class=\"u-margin-0\">Plan</p></section>\n</div>",
+              "rule": "golden-rule"
+            }
+          },
+          {
+            "do": {
+              "text": "Pick the gap with a modifier.",
+              "html": "<div class=\"l-stack l-stack--sm\">\n  <p class=\"u-margin-0\">Line one</p>\n  <p class=\"u-margin-0\">Line two</p>\n</div>"
+            },
+            "dont": {
+              "text": "Don't combine two gap modifiers.",
+              "html": "<div class=\"l-stack l-stack--sm l-stack--lg\">\n  <p class=\"u-margin-0\">Line one</p>\n</div>",
+              "rule": "exclusive-modifiers"
+            }
+          }
         ]
       },
+      "tokens": [
+        "--space-2",
+        "--space-4",
+        "--space-8"
+      ],
       "related": [
         "l-cluster",
         "c-form-field"
@@ -310,6 +601,16 @@
           "file": "components/layouts.html",
           "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
+      ],
+      "sources": [
+        {
+          "title": "Every Layout: The Stack",
+          "url": "https://every-layout.dev/layouts/stack/"
+        },
+        {
+          "title": "LogRocket: CSS gap vs margin",
+          "url": "https://blog.logrocket.com/css-gap-vs-margin/"
+        }
       ]
     },
     {
@@ -317,6 +618,7 @@
       "block": "l-switcher",
       "layer": "layout",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Children sit side by side until the container is narrower than a threshold, then all stack at once.",
       "customProperties": [
         {
@@ -325,6 +627,28 @@
           "description": "Container width below which children stack. Set inline, e.g. style=\"--switcher-threshold: 40rem\"."
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "Two to four items of equal importance, such as pricing tiers or steps, that should switch from a row to a column all at once."
+        ],
+        "whenNotToUse": [
+          "Items of unequal importance: use `l-sidebar`.",
+          "Five or more items, or a list of unknown length: use `l-grid` with l-grid--responsive."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Set the threshold with the custom property.",
+              "html": "<div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Free</p></section>\n  <section class=\"c-card\"><p class=\"u-margin-0\">Team</p></section>\n</div>"
+            },
+            "dont": {
+              "text": "Don't invent size modifiers.",
+              "html": "<div class=\"l-switcher l-switcher--wide\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Free</p></section>\n</div>",
+              "rule": "unknown-class"
+            }
+          }
+        ]
+      },
       "tokens": [
         "--space-4"
       ],
@@ -337,6 +661,12 @@
           "file": "components/layouts.html",
           "html": "<section class=\"l-section l-section--sm\">\n  <div class=\"l-container\">\n    <div class=\"l-stack l-stack--lg\">\n      <h3>Projects</h3>\n\n      <div class=\"l-sidebar\">\n        <nav class=\"l-sidebar__sidebar\" aria-label=\"Filters\">\n          <div class=\"l-stack l-stack--sm\">\n            <a href=\"#all\">All</a>\n            <a href=\"#mine\">Mine</a>\n          </div>\n        </nav>\n        <div class=\"l-sidebar__content\">\n          <div class=\"l-grid l-grid--3-col\">\n            <div class=\"c-card\">One</div>\n            <div class=\"c-card\">Two</div>\n            <div class=\"c-card\">Three</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n        <div class=\"c-card\">Side by side on wide screens</div>\n        <div class=\"c-card\">Stacked on narrow screens</div>\n      </div>\n\n      <div class=\"l-center\">\n        <p class=\"u-text-center\">Centered at reading width.</p>\n      </div>\n    </div>\n  </div>\n</section>"
         }
+      ],
+      "sources": [
+        {
+          "title": "Every Layout: The Switcher",
+          "url": "https://every-layout.dev/layouts/switcher/"
+        }
       ]
     },
     {
@@ -344,6 +674,7 @@
       "block": "c-badge",
       "layer": "component",
       "status": "stable",
+      "since": "0.1.0",
       "description": "A short, non-interactive label for status or category, such as \"Beta\" or \"Paid\".",
       "tags": [
         "span"
@@ -376,13 +707,16 @@
           ]
         }
       ],
-      "tokens": [
-        "--badge-background",
-        "--badge-text",
-        "--color-action-primary",
-        "--color-text-on-action"
-      ],
       "guidelines": {
+        "whenToUse": [
+          "Showing the status of an item: Draft, Active, Failed.",
+          "A short category or plan label: Beta, Pro."
+        ],
+        "whenNotToUse": [
+          "Anything clickable, removable or filterable: use `c-button` with c-button--sm.",
+          "A count on a navigation item: badges here are for status words, not numbers.",
+          "A sentence: use body text or an alert."
+        ],
         "use": [
           "Keep badge text to one or two words.",
           "Group several badges with l-cluster."
@@ -390,8 +724,31 @@
         "avoid": [
           "Making a badge clickable; use c-button--sm instead.",
           "Relying on badge color alone to convey meaning; the text must carry the status."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Say the status in words; the tone only supports it.",
+              "html": "<div class=\"l-cluster\">\n  <span class=\"c-badge c-badge--error\">Failed</span>\n  <span class=\"c-badge c-badge--success\">Passed</span>\n</div>"
+            },
+            "dont": {
+              "text": "Don't make a badge clickable or invent tones.",
+              "html": "<span class=\"c-badge c-badge--danger\">Failed</span>",
+              "rule": "unknown-class"
+            }
+          }
+        ],
+        "content": [
+          "One or two words, sentence case: \"In review\", not \"IN REVIEW\".",
+          "Each tone keeps one meaning across the product: error always means something failed."
         ]
       },
+      "tokens": [
+        "--badge-background",
+        "--badge-text",
+        "--color-action-primary",
+        "--color-text-on-action"
+      ],
       "a11y": [
         "Color is decorative; the badge text must describe the status on its own."
       ],
@@ -404,6 +761,20 @@
           "file": "components/badge.html",
           "html": "<div class=\"l-cluster\">\n  <span class=\"c-badge\">Draft</span>\n  <span class=\"c-badge c-badge--primary\">New</span>\n  <span class=\"c-badge c-badge--success\">Active</span>\n  <span class=\"c-badge c-badge--warning\">Expiring</span>\n  <span class=\"c-badge c-badge--error\">Failed</span>\n  <span class=\"c-badge c-badge--info\">Beta</span>\n</div>"
         }
+      ],
+      "sources": [
+        {
+          "title": "GitLab Pajamas: Badge",
+          "url": "https://design.gitlab.com/components/badge/"
+        },
+        {
+          "title": "Atlassian: Badge",
+          "url": "https://atlassian.design/components/badge"
+        },
+        {
+          "title": "Smart Interface Design Patterns: Badges, chips, tags, pills",
+          "url": "https://smart-interface-design-patterns.com/articles/badges-chips-tags-pills/"
+        }
       ]
     },
     {
@@ -411,6 +782,7 @@
       "block": "c-button",
       "layer": "component",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.",
       "tags": [
         "button",
@@ -457,8 +829,8 @@
       "states": [
         {
           "name": "disabled",
-          "description": "The action is unavailable. Rendered ghosted with a dashed keyline.",
-          "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href."
+          "description": "The action cannot run right now. Rendered ghosted with a dashed keyline.",
+          "pair": "Prefer aria-disabled=\"true\": the button stays focusable, so link a visible reason with aria-describedby and ignore activation in your handler. The disabled attribute also works on <button> but removes it from the tab order. On <a>, set aria-disabled=\"true\" and remove href."
         },
         {
           "name": "loading",
@@ -466,6 +838,72 @@
           "pair": "Set aria-busy=\"true\" and aria-disabled=\"true\", keep the visible label (for example \"Saving…\"), and ignore activation in your handler."
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "The control does something on this page: submits a form, saves, deletes, opens a dialog, toggles a setting.",
+          "A confirming or cancelling action in a form or `c-modal` footer.",
+          "An on/off toolbar control such as Bold or Mute, with aria-pressed."
+        ],
+        "whenNotToUse": [
+          "The control goes to another page or URL: use a plain link. Apply c-button to an <a> only when a link must look like a button, such as a start-page call to action.",
+          "Showing a status that does nothing when clicked: use `c-badge`.",
+          "Filtering or removing items in a list of tags: that is a chip, which MCSS-Lite does not ship yet."
+        ],
+        "use": [
+          "Group buttons with l-cluster; it provides the gap.",
+          "Order a button group as secondary or ghost actions first, then the primary action last.",
+          "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
+          "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
+          "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
+        ],
+        "avoid": [
+          "Adding margin to .c-button. Spacing belongs to the layout parent.",
+          "Combining two variant modifiers (for example c-button--primary c-button--ghost).",
+          "Using c-button on a <div> or <span>."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Use one primary button per region, placed last in its group.",
+              "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"submit\" class=\"c-button c-button--primary\">Save changes</button>\n</div>"
+            },
+            "dont": {
+              "text": "Don't combine two variants on one button to make it stand out more.",
+              "html": "<button type=\"submit\" class=\"c-button c-button--primary c-button--danger\">Save changes</button>",
+              "rule": "exclusive-modifiers"
+            }
+          },
+          {
+            "do": {
+              "text": "Keep an unavailable action focusable and say why it can't run, with aria-disabled and a linked reason.",
+              "html": "<div class=\"l-stack l-stack--sm\">\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"disabled\" aria-disabled=\"true\" aria-describedby=\"publish-why\">Publish</button>\n  <p id=\"publish-why\" class=\"u-margin-0\">Add a title before you publish.</p>\n</div>"
+            },
+            "dont": {
+              "text": "Don't grey out a button without saying why, or set the state without its native pair.",
+              "html": "<button type=\"button\" class=\"c-button\" data-state=\"disabled\">Publish</button>",
+              "rule": "state-pair"
+            }
+          },
+          {
+            "do": {
+              "text": "Invent nothing: a warning-style action is c-button--danger or a plain button.",
+              "html": "<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
+            },
+            "dont": {
+              "text": "Don't guess a modifier that isn't in the contract.",
+              "html": "<button type=\"button\" class=\"c-button c-button--warning\">Delete project</button>",
+              "rule": "unknown-class"
+            }
+          }
+        ],
+        "content": [
+          "Write a verb plus the thing it acts on: \"Save changes\", \"Delete project\". Never \"OK\", \"Submit\" or \"Click here\".",
+          "Use sentence case: \"Create account\", not \"Create Account\".",
+          "Keep the label the same when a toggle changes state; aria-pressed carries the state.",
+          "A danger button names what is destroyed: \"Delete account\", not \"Confirm\".",
+          "No full stop at the end of a label."
+        ]
+      },
       "tokens": [
         "--button-background",
         "--button-background-hover",
@@ -489,25 +927,26 @@
         "--button-danger-border",
         "--button-primary-background-active"
       ],
-      "guidelines": {
-        "use": [
-          "Group buttons with l-cluster; it provides the gap.",
-          "Order a button group as secondary or ghost actions first, then the primary action last.",
-          "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
-          "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
-          "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
-        ],
-        "avoid": [
-          "Adding margin to .c-button. Spacing belongs to the layout parent.",
-          "Combining two variant modifiers (for example c-button--primary c-button--ghost).",
-          "Using c-button on a <div> or <span>."
-        ]
-      },
       "a11y": [
         "A button needs a visible text label, or aria-label when it only contains an icon.",
         "Do not remove the :focus-visible outline.",
         "Use type=\"button\" unless the button submits a form.",
-        "c-button--sm looks compact but keeps a 44px tall hit area."
+        "c-button--sm looks compact but keeps a 44px tall hit area.",
+        "Don't disable a submit button until the form is valid. Let people submit, then show what is missing."
+      ],
+      "keyboard": [
+        {
+          "key": "Enter",
+          "action": "Activates the button."
+        },
+        {
+          "key": "Space",
+          "action": "Activates the button (not links)."
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus to the button, including one marked aria-disabled."
+        }
       ],
       "related": [
         "l-cluster",
@@ -518,6 +957,36 @@
           "file": "components/button.html",
           "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
         }
+      ],
+      "sources": [
+        {
+          "title": "GOV.UK Design System: Button",
+          "url": "https://design-system.service.gov.uk/components/button/"
+        },
+        {
+          "title": "Primer: Button guidelines",
+          "url": "https://primer.style/product/components/button/guidelines/"
+        },
+        {
+          "title": "NN/g: Why disabled buttons hurt UX",
+          "url": "https://www.nngroup.com/videos/why-disabled-buttons-hurt-ux-and-how-to-fix-them/"
+        },
+        {
+          "title": "Axess Lab: Disabled buttons suck",
+          "url": "https://axesslab.com/disabled-buttons-suck/"
+        },
+        {
+          "title": "Bekk: Accessible loading button",
+          "url": "https://www.bekk.christmas/post/2023/24/accessible-loading-button"
+        },
+        {
+          "title": "Sara Soueidan: Accessible icon buttons",
+          "url": "https://www.sarasoueidan.com/blog/accessible-icon-buttons/"
+        },
+        {
+          "title": "Adrian Roselli: Be careful with dynamic accessible names",
+          "url": "https://adrianroselli.com/2020/12/be-careful-with-dynamic-accessible-names.html"
+        }
       ]
     },
     {
@@ -525,6 +994,7 @@
       "block": "c-card",
       "layer": "component",
       "status": "stable",
+      "since": "0.1.0",
       "description": "A raised surface that groups related content, such as a summary, a settings group or a list item.",
       "tags": [
         "article",
@@ -596,6 +1066,55 @@
           ]
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "A collection of similar items people browse and open one at a time: projects, articles, plans.",
+          "A dashboard summary that groups a figure with its actions.",
+          "A group of related settings."
+        ],
+        "whenNotToUse": [
+          "People compare items side by side or scan dense data: use a list or table.",
+          "Grouping inside another card: use `l-stack` and a heading instead of a card in a card.",
+          "A page section with no border of its own: use `l-section`."
+        ],
+        "use": [
+          "Place cards in l-grid or l-stack; the layout sets the gap between cards.",
+          "For c-card--interactive, make the card an <a> or put one link inside whose area covers the card."
+        ],
+        "avoid": [
+          "Nesting cards inside cards.",
+          "Adding margin to .c-card.",
+          "Putting several competing links inside a c-card--interactive."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Put the link on the title and add c-card--interactive; the link covers the card and other actions stay clickable.",
+              "html": "<article class=\"c-card c-card--interactive\">\n  <div class=\"c-card__header\">\n    <h3 class=\"c-card__title\"><a href=\"#atlas\">Atlas</a></h3>\n  </div>\n  <div class=\"c-card__body\">\n    <p class=\"u-margin-0\">Updated 2 hours ago</p>\n  </div>\n</article>"
+            },
+            "dont": {
+              "text": "Don't wrap the whole card in a link: screen readers read the entire card as one long link name.",
+              "html": "<a class=\"c-card c-card--interactive\" href=\"#atlas\">\n  <h3 class=\"c-card__title\">Atlas</h3>\n  <p class=\"u-margin-0\">Updated 2 hours ago</p>\n</a>",
+              "rule": "card-link"
+            }
+          },
+          {
+            "do": {
+              "text": "Let the grid space the cards.",
+              "html": "<div class=\"l-grid l-grid--responsive\">\n  <section class=\"c-card c-card--bordered\"><p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p></section>\n  <section class=\"c-card c-card--bordered\"><p class=\"u-margin-0\">Seats: 12 of 20</p></section>\n</div>"
+            },
+            "dont": {
+              "text": "Don't space cards with their own margin.",
+              "html": "<section class=\"c-card\" style=\"margin-block-end: 16px\"><p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p></section>",
+              "rule": "golden-rule"
+            }
+          }
+        ],
+        "content": [
+          "The title names the thing, not the action: \"Atlas\", not \"View Atlas\".",
+          "Keep the body to one or two lines of summary; details belong on the page the card opens."
+        ]
+      },
       "children": [
         "Elements appear in the order header, body, footer. All are optional.",
         "c-card__title goes inside c-card__header."
@@ -609,20 +1128,15 @@
         "--card-shadow",
         "--card-shadow-elevated"
       ],
-      "guidelines": {
-        "use": [
-          "Place cards in l-grid or l-stack; the layout sets the gap between cards.",
-          "For c-card--interactive, make the card an <a> or put one link inside whose area covers the card."
-        ],
-        "avoid": [
-          "Nesting cards inside cards.",
-          "Adding margin to .c-card.",
-          "Putting several competing links inside a c-card--interactive."
-        ]
-      },
       "a11y": [
         "An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.",
         "Keep the title a real heading so screen reader users can navigate by headings."
+      ],
+      "keyboard": [
+        {
+          "key": "Tab",
+          "action": "Focuses the title link (the card shows the focus ring), then any other actions in the card."
+        }
       ],
       "related": [
         "l-grid",
@@ -633,7 +1147,21 @@
       "examples": [
         {
           "file": "components/card.html",
-          "html": "<div class=\"l-grid l-grid--responsive\">\n  <article class=\"c-card\">\n    <header class=\"c-card__header\">\n      <div class=\"l-cluster\">\n        <h3 class=\"c-card__title\">Team plan</h3>\n        <span class=\"c-badge c-badge--success\">Active</span>\n      </div>\n    </header>\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">12 of 20 seats used. Renews on 1 March.</p>\n    </div>\n    <footer class=\"c-card__footer\">\n      <div class=\"l-cluster\">\n        <button type=\"button\" class=\"c-button c-button--sm\">Manage seats</button>\n      </div>\n    </footer>\n  </article>\n\n  <a class=\"c-card c-card--interactive\" href=\"/projects/atlas\">\n    <div class=\"c-card__header\">\n      <h3 class=\"c-card__title\">Atlas</h3>\n    </div>\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">Updated 2 hours ago</p>\n    </div>\n  </a>\n\n  <section class=\"c-card c-card--bordered\">\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">Bordered cards suit dense, flat layouts.</p>\n    </div>\n  </section>\n</div>"
+          "html": "<div class=\"l-grid l-grid--responsive\">\n  <article class=\"c-card\">\n    <header class=\"c-card__header\">\n      <div class=\"l-cluster\">\n        <h3 class=\"c-card__title\">Team plan</h3>\n        <span class=\"c-badge c-badge--success\">Active</span>\n      </div>\n    </header>\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">12 of 20 seats used. Renews on 1 March.</p>\n    </div>\n    <footer class=\"c-card__footer\">\n      <div class=\"l-cluster\">\n        <button type=\"button\" class=\"c-button c-button--sm\">Manage seats</button>\n      </div>\n    </footer>\n  </article>\n\n  <article class=\"c-card c-card--interactive\">\n    <div class=\"c-card__header\">\n      <h3 class=\"c-card__title\"><a href=\"/projects/atlas\">Atlas</a></h3>\n    </div>\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">Updated 2 hours ago</p>\n    </div>\n  </article>\n\n  <section class=\"c-card c-card--bordered\">\n    <div class=\"c-card__body\">\n      <p class=\"u-margin-0\">Bordered cards suit dense, flat layouts.</p>\n    </div>\n  </section>\n</div>"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Adrian Roselli: Block links, cards, clickable regions",
+          "url": "https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html"
+        },
+        {
+          "title": "Inclusive Components: Cards",
+          "url": "https://inclusive-components.design/cards/"
+        },
+        {
+          "title": "NN/g: Cards component",
+          "url": "https://www.nngroup.com/articles/cards-component/"
         }
       ]
     },
@@ -642,6 +1170,7 @@
       "block": "c-form-field",
       "layer": "component",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Wraps one form control with its label, help text and error message.",
       "tags": [
         "div",
@@ -676,6 +1205,51 @@
           ]
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "Any form control that needs a label, help text or an error message.",
+          "Each field of a form; stack the fields with `l-stack`."
+        ],
+        "whenNotToUse": [
+          "A search box in a toolbar with a visible button: a labelled `c-input` inside `l-cluster` is enough, with a visually hidden label."
+        ],
+        "use": [
+          "Stack several c-form-field blocks with l-stack."
+        ],
+        "avoid": [
+          "Adding margin to .c-form-field; the layout parent spaces fields."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Link help and error text to the control with aria-describedby.",
+              "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"phone\">Phone number (optional)</label>\n  <p class=\"c-form-field__help\" id=\"phone-help\">For delivery updates only.</p>\n  <input class=\"c-input\" id=\"phone\" type=\"tel\" autocomplete=\"tel\" aria-describedby=\"phone-help\">\n</div>"
+            },
+            "dont": {
+              "text": "Don't use the elements outside their block: the help text loses its spacing and link.",
+              "html": "<p class=\"c-form-field__help\">For delivery updates only.</p>",
+              "rule": "element-outside-block"
+            }
+          },
+          {
+            "do": {
+              "text": "Space fields with l-stack.",
+              "html": "<form class=\"l-stack\">\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"first\">First name</label>\n    <input class=\"c-input\" id=\"first\" autocomplete=\"given-name\">\n  </div>\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"last\">Last name</label>\n    <input class=\"c-input\" id=\"last\" autocomplete=\"family-name\">\n  </div>\n</form>"
+            },
+            "dont": {
+              "text": "Don't push fields apart with margins on the field.",
+              "html": "<div class=\"c-form-field\" style=\"margin-bottom: 24px\">\n  <label class=\"c-form-field__label\" for=\"first2\">First name</label>\n  <input class=\"c-input\" id=\"first2\">\n</div>",
+              "rule": "golden-rule"
+            }
+          }
+        ],
+        "content": [
+          "Labels are short nouns in sentence case: \"Email address\", not \"Please Enter Your Email\".",
+          "Help text explains format or why you ask; keep it to one sentence.",
+          "Mark optional fields \"(optional)\" and ask only for what you need.",
+          "After a failed submit, list every error at the top of the form, each linked to its field."
+        ]
+      },
       "children": [
         "Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error."
       ],
@@ -684,14 +1258,6 @@
         "--color-text-subtle",
         "--color-text-error"
       ],
-      "guidelines": {
-        "use": [
-          "Stack several c-form-field blocks with l-stack."
-        ],
-        "avoid": [
-          "Adding margin to .c-form-field; the layout parent spaces fields."
-        ]
-      },
       "a11y": [
         "Connect label and control with for/id.",
         "Give help and error elements ids and list them in the control's aria-describedby.",
@@ -706,6 +1272,24 @@
           "file": "components/form-field.html",
           "html": "<form class=\"l-stack\" novalidate>\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"email\">Work email</label>\n    <input class=\"c-input\" id=\"email\" type=\"email\" autocomplete=\"email\" aria-describedby=\"email-help\">\n    <p class=\"c-form-field__help\" id=\"email-help\">We'll send the invite here.</p>\n  </div>\n\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"password\">Password</label>\n    <input class=\"c-input\" id=\"password\" type=\"password\" data-state=\"error\" aria-invalid=\"true\" aria-describedby=\"password-error\">\n    <p class=\"c-form-field__error\" id=\"password-error\">Use at least 12 characters.</p>\n  </div>\n\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"org\">Organization</label>\n    <input class=\"c-input\" id=\"org\" type=\"text\" value=\"Acme Inc.\" data-state=\"disabled\" disabled>\n  </div>\n\n  <div class=\"l-cluster\">\n    <button type=\"submit\" class=\"c-button c-button--primary\">Create account</button>\n  </div>\n</form>"
         }
+      ],
+      "sources": [
+        {
+          "title": "GOV.UK Design System: Error message",
+          "url": "https://design-system.service.gov.uk/components/error-message"
+        },
+        {
+          "title": "GOV.UK Design System: Validation",
+          "url": "https://design-system.service.gov.uk/patterns/validation"
+        },
+        {
+          "title": "NN/g: Error-message guidelines for forms",
+          "url": "https://www.nngroup.com/articles/errors-forms-design-guidelines/"
+        },
+        {
+          "title": "NN/g: Marking required fields in forms",
+          "url": "https://www.nngroup.com/articles/required-fields/"
+        }
       ]
     },
     {
@@ -713,6 +1297,7 @@
       "block": "c-input",
       "layer": "component",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Single-line text entry. Also styles <textarea> and <select>.",
       "tags": [
         "input",
@@ -735,6 +1320,53 @@
           "pair": "Also set the disabled attribute."
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "One line of free text: a name, an email address, a search query, a number.",
+          "Multi-line text on a <textarea>, or a choice from many options on a <select>."
+        ],
+        "whenNotToUse": [
+          "Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).",
+          "A yes/no setting: a checkbox (coming in 0.4.0).",
+          "Showing a value that cannot change: plain text, not a read-only input."
+        ],
+        "use": [
+          "Always wrap in c-form-field with a c-form-field__label.",
+          "Use the right type attribute (email, tel, number, search) so mobile keyboards match."
+        ],
+        "avoid": [
+          "Using placeholder text as the only label.",
+          "Setting a width on .c-input; it fills its container. Constrain the container instead."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Give every input a visible label that stays visible while typing.",
+              "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"email\">Email address</label>\n  <input class=\"c-input\" id=\"email\" type=\"email\" autocomplete=\"email\">\n</div>"
+            },
+            "dont": {
+              "text": "Don't use the placeholder as the label: it disappears as soon as someone types.",
+              "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">"
+            }
+          },
+          {
+            "do": {
+              "text": "Pair the error state with aria-invalid and link the message with aria-describedby.",
+              "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"start\">Start date</label>\n  <input class=\"c-input\" id=\"start\" data-state=\"error\" aria-invalid=\"true\" aria-describedby=\"start-error\">\n  <p class=\"c-form-field__error\" id=\"start-error\">Enter a start date after 1 January 2020.</p>\n</div>"
+            },
+            "dont": {
+              "text": "Don't show an error with a red border alone.",
+              "html": "<input class=\"c-input\" data-state=\"error\">",
+              "rule": "state-pair"
+            }
+          }
+        ],
+        "content": [
+          "Error messages say what went wrong and how to fix it: \"Enter a date after 1 January 2020\", not \"Invalid date\".",
+          "Show errors when the person leaves the field or submits, not while they type the first value. Once a field is in error, clear the message as soon as it is fixed.",
+          "Mark the few optional fields with \"(optional)\" in the label; don't add asterisks to required ones."
+        ]
+      },
       "tokens": [
         "--input-background",
         "--input-border",
@@ -745,19 +1377,15 @@
         "--color-focus-ring",
         "--color-focus-ring-error"
       ],
-      "guidelines": {
-        "use": [
-          "Always wrap in c-form-field with a c-form-field__label.",
-          "Use the right type attribute (email, tel, number, search) so mobile keyboards match."
-        ],
-        "avoid": [
-          "Using placeholder text as the only label.",
-          "Setting a width on .c-input; it fills its container. Constrain the container instead."
-        ]
-      },
       "a11y": [
         "Every input needs a programmatic label: <label for> on c-form-field__label.",
         "Error text must be linked with aria-describedby, not only shown in red."
+      ],
+      "keyboard": [
+        {
+          "key": "Tab",
+          "action": "Moves focus into and out of the field."
+        }
       ],
       "related": [
         "c-form-field",
@@ -768,6 +1396,32 @@
           "file": "components/input.html",
           "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"search\">Search projects</label>\n  <input class=\"c-input\" id=\"search\" type=\"search\" placeholder=\"Name or ID\">\n</div>"
         }
+      ],
+      "sources": [
+        {
+          "title": "GOV.UK Design System: Error message",
+          "url": "https://design-system.service.gov.uk/components/error-message"
+        },
+        {
+          "title": "GOV.UK Design System: Validation",
+          "url": "https://design-system.service.gov.uk/patterns/validation"
+        },
+        {
+          "title": "NN/g: Error-message guidelines for forms",
+          "url": "https://www.nngroup.com/articles/errors-forms-design-guidelines/"
+        },
+        {
+          "title": "Smashing: Inline validation in web forms",
+          "url": "https://www.smashingmagazine.com/2022/09/inline-validation-web-forms-ux/"
+        },
+        {
+          "title": "NN/g: Marking required fields in forms",
+          "url": "https://www.nngroup.com/articles/required-fields/"
+        },
+        {
+          "title": "NN/g: Placeholders in form fields are harmful",
+          "url": "https://www.nngroup.com/articles/form-design-placeholders/"
+        }
       ]
     },
     {
@@ -776,10 +1430,32 @@
       "layer": "component",
       "status": "deprecated",
       "replacement": "c-form-field__label",
+      "since": "0.1.0",
       "description": "Deprecated standalone label. Use c-form-field__label inside c-form-field instead; c-label will be removed in 1.0.",
       "tags": [
         "label"
       ],
+      "guidelines": {
+        "whenToUse": [
+          "Never in new code. Existing c-label markup keeps working until 1.0."
+        ],
+        "whenNotToUse": [
+          "Labelling any form control: use `c-form-field` with c-form-field__label."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Use the form-field label.",
+              "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"name\">Name</label>\n  <input class=\"c-input\" id=\"name\">\n</div>"
+            },
+            "dont": {
+              "text": "Don't use the deprecated block.",
+              "html": "<label class=\"c-label\" for=\"name2\">Name</label>",
+              "rule": "deprecated"
+            }
+          }
+        ]
+      },
       "tokens": [
         "--color-text-muted"
       ],
@@ -793,6 +1469,7 @@
       "block": "c-modal",
       "layer": "component",
       "status": "stable",
+      "since": "0.1.0",
       "description": "A dialog over the page that blocks interaction until dismissed. Works on <dialog> (preferred, opened with showModal()) or on a <div role=\"dialog\">.",
       "tags": [
         "dialog",
@@ -862,6 +1539,55 @@
           "pair": "When closed, return focus to the control that opened the modal."
         }
       ],
+      "guidelines": {
+        "whenToUse": [
+          "Confirming a destructive or irreversible action, such as deleting a project.",
+          "A short task that must not lose the page behind it, such as renaming an item.",
+          "Warning that unsaved work will be lost."
+        ],
+        "whenNotToUse": [
+          "Long or scrolling content, or anything with its own navigation: make it a page.",
+          "Success messages and tips: show them inline on the page.",
+          "Opening a dialog from a dialog: keep it to one level where you can, two at most."
+        ],
+        "use": [
+          "Use for short, focused tasks: confirmations, small forms.",
+          "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
+        ],
+        "avoid": [
+          "Opening a modal from another modal.",
+          "Long, scrolling content; use a page instead."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Use <dialog> opened with showModal(), named by its title, with verb buttons.",
+              "html": "<dialog class=\"c-modal\" aria-labelledby=\"leave-title\">\n  <div class=\"c-modal__container\">\n    <div class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"leave-title\">Discard your changes?</h2>\n    </div>\n    <div class=\"c-modal__footer\">\n      <div class=\"l-cluster\">\n        <button type=\"button\" class=\"c-button c-button--ghost\">Keep editing</button>\n        <button type=\"button\" class=\"c-button c-button--danger\">Discard changes</button>\n      </div>\n    </div>\n  </div>\n</dialog>"
+            },
+            "dont": {
+              "text": "Don't build a dialog from a bare <div>: no focus handling, no Escape, nothing announced.",
+              "html": "<div class=\"c-modal\">\n  <div class=\"c-modal__container\">Discard your changes?</div>\n</div>",
+              "rule": "a11y"
+            }
+          },
+          {
+            "do": {
+              "text": "Label the close button.",
+              "html": "<dialog class=\"c-modal\" aria-labelledby=\"share-title\">\n  <div class=\"c-modal__container\">\n    <div class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"share-title\">Share project</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 4l8 8M12 4l-8 8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></button>\n    </div>\n  </div>\n</dialog>"
+            },
+            "dont": {
+              "text": "Don't leave an icon-only close button without a name.",
+              "html": "<dialog class=\"c-modal\" aria-labelledby=\"share-title2\">\n  <div class=\"c-modal__container\">\n    <h2 class=\"c-modal__title\" id=\"share-title2\">Share project</h2>\n    <button type=\"button\" class=\"c-modal__close\">×</button>\n  </div>\n</dialog>",
+              "rule": "a11y"
+            }
+          }
+        ],
+        "content": [
+          "Title the dialog with the question or task: \"Delete this project?\"",
+          "Button labels repeat the verb: \"Delete project\" and \"Keep project\", never \"OK\" and \"Cancel\".",
+          "Say what happens next in one or two sentences in the body."
+        ]
+      },
       "children": [
         "c-modal contains c-modal__backdrop and c-modal__container as siblings.",
         "c-modal__container contains header, body and footer in that order."
@@ -875,21 +1601,21 @@
         "--z-index-modal",
         "--z-index-modal-backdrop"
       ],
-      "guidelines": {
-        "use": [
-          "Use for short, focused tasks: confirmations, small forms.",
-          "Buttons in c-modal__footer are c-button; the footer provides the gap. Use c-button--danger for destructive confirmations."
-        ],
-        "avoid": [
-          "Opening a modal from another modal.",
-          "Long, scrolling content; use a page instead."
-        ]
-      },
       "a11y": [
         "Prefer <dialog class=\"c-modal\"> opened with showModal(): the browser then handles focus, Escape and inertness. With a <div>, set role=\"dialog\", aria-modal=\"true\" and manage focus yourself.",
         "Reference the title with aria-labelledby.",
         "With the <div> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.",
         "c-modal__close needs aria-label=\"Close\" and an SVG icon, not a text glyph."
+      ],
+      "keyboard": [
+        {
+          "key": "Escape",
+          "action": "Closes the dialog and returns focus to the control that opened it."
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus between controls inside the dialog only."
+        }
       ],
       "related": [
         "c-button"
@@ -899,6 +1625,28 @@
           "file": "components/modal.html",
           "html": "<div class=\"c-modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"delete-title\">\n  <div class=\"c-modal__backdrop\"></div>\n  <div class=\"c-modal__container\">\n    <header class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"delete-title\">Delete project?</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 5l10 10M15 5L5 15\"/></svg></button>\n    </header>\n    <div class=\"c-modal__body\">\n      <p class=\"u-margin-0\">Atlas and its 42 files will be deleted. This can't be undone.</p>\n    </div>\n    <footer class=\"c-modal__footer\">\n      <button type=\"button\" class=\"c-button c-button--ghost\">Keep project</button>\n      <button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>\n    </footer>\n  </div>\n</div>"
         }
+      ],
+      "sources": [
+        {
+          "title": "NN/g: Overuse of overlays",
+          "url": "https://www.nngroup.com/articles/overuse-of-overlays/"
+        },
+        {
+          "title": "NN/g: Modal and nonmodal dialogs",
+          "url": "https://www.nngroup.com/articles/modal-nonmodal-dialog/"
+        },
+        {
+          "title": "Scott O'Hara: Use the dialog element (reasonably)",
+          "url": "https://www.scottohara.me/blog/2023/01/26/use-the-dialog-element.html"
+        },
+        {
+          "title": "Primer: Dialog guidelines",
+          "url": "https://primer.style/product/components/dialog/guidelines/"
+        },
+        {
+          "title": "Frontend Masters: Scroll-locked dialogs",
+          "url": "https://frontendmasters.com/blog/scroll-locked-dialogs/"
+        }
       ]
     },
     {
@@ -906,6 +1654,7 @@
       "block": "u-*",
       "layer": "utility",
       "status": "stable",
+      "since": "0.1.0",
       "description": "Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.",
       "classes": [
         {
@@ -970,11 +1719,32 @@
         }
       ],
       "guidelines": {
+        "whenToUse": [
+          "A single, local override that no layout or component covers, such as removing a paragraph margin inside a card.",
+          "u-sr-only for text that screen readers need but the layout already shows visually, such as an icon-only label."
+        ],
+        "whenNotToUse": [
+          "Spacing between components: use `l-stack` or `l-cluster`.",
+          "Restyling a component everywhere: set its component token on :root."
+        ],
         "use": [
           "u-sr-only for accessible labels on icon-only controls."
         ],
         "avoid": [
           "Stacking several utilities to restyle a component; add a modifier to its contract instead."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Remove a paragraph margin inside a component.",
+              "html": "<section class=\"c-card\">\n  <p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p>\n</section>"
+            },
+            "dont": {
+              "text": "Don't guess a utility that doesn't exist.",
+              "html": "<p class=\"u-mt-4\">Storage: 4 GB of 10 GB</p>",
+              "rule": "unknown-class"
+            }
+          }
         ]
       },
       "examples": [
