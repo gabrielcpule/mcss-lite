@@ -53,13 +53,13 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 5">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 4">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">5: Fits with</span><span aria-hidden="true">5</span></a></li>
     </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
 
   <main id="main">
@@ -67,7 +67,7 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">l-section</span> Section</h1>
+          <h1 class="demo-sheet__title">Section <span class="demo-sheet__id">l-section</span></h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Layout · since 0.1.0</span></div>
           <p class="demo-hero__lede">Vertical padding for a full-width page section.</p>
         </div>
@@ -113,7 +113,7 @@
   </figure>
 </div>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">5 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">5 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-13">&lt;section class=&quot;<span class="demo-code__token">l-section</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">l-container</span>&quot;&gt;
@@ -148,7 +148,7 @@
   </section>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">5 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">5 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-14">&lt;section class=&quot;<span class="demo-code__token">l-section</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">l-container</span>&quot;&gt;
@@ -163,12 +163,9 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't invent size modifiers; use l-section--sm for a tighter band.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-15">&lt;section class=&quot;<span class="demo-code__token">l-section</span> <span class="demo-code__token">l-section--xl</span>&quot;&gt;
+<pre class="demo-code"><code>&lt;section class=&quot;<span class="demo-code__token">l-section</span> <span class="demo-code__token">l-section--xl</span>&quot;&gt;
   &lt;h2 class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Features&lt;/h2&gt;
 &lt;/section&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-15" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--error"><strong>error</strong> Unknown class &quot;<span class="demo-code__token">l-section--xl</span>&quot;. Did you mean &quot;<span class="demo-code__token">l-section--sm</span>&quot;? Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li></ul>
   </div>
@@ -185,7 +182,7 @@
           <p class="demo-step__numeral" aria-hidden="true">4</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Modifiers" tabindex="0">
   <table>
     <caption>Modifiers</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">Group</th><th scope="col">What it does</th></tr></thead>
@@ -199,18 +196,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">5</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="container.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="M6 4v16M18 4v16"/></svg><code>l-container</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="container.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="M6 4v16M18 4v16"/></svg><code>l-container</code></a></li></ul>
     </section>
-
     <nav class="demo-sheet__pager l-container" aria-label="Part sheets">
       <a class="demo-sheet__prev" href="grid.html"><span aria-hidden="true">←</span> <code>l-grid</code></a>
       <a href="../status.html">All parts</a>

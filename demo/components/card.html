@@ -53,15 +53,15 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
       <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
       <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
     </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
 
   <main id="main">
@@ -69,7 +69,7 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-card</span> Card</h1>
+          <h1 class="demo-sheet__title">Card <span class="demo-sheet__id">c-card</span></h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">A raised surface that groups related content, such as a summary, a settings group or a list item.</p>
         </div>
@@ -136,14 +136,14 @@
 
       <section class="c-card c-card--bordered">
         <div class="c-card__body">
-          <p class="u-margin-0">Bordered cards suit dense, flat layouts.</p>
+          <p class="u-margin-0">Invoices go to finance@example.com on the 1st of each month.</p>
         </div>
       </section>
     </div>
   </figure>
 </div>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">33 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">33 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-46">&lt;div class=&quot;<span class="demo-code__token">l-grid</span> <span class="demo-code__token">l-grid--responsive</span>&quot;&gt;
   &lt;article class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
@@ -174,7 +174,7 @@
 
   &lt;section class=&quot;<span class="demo-code__token">c-card</span> <span class="demo-code__token">c-card--bordered</span>&quot;&gt;
     &lt;div class=&quot;<span class="demo-code__token">c-card__body</span>&quot;&gt;
-      &lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Bordered cards suit dense, flat layouts.&lt;/p&gt;
+      &lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Invoices go to finance@example.com on the 1st of each month.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;</code></pre>
@@ -209,7 +209,7 @@
   </article>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">8 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">8 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-47">&lt;article class=&quot;<span class="demo-code__token">c-card</span> <span class="demo-code__token">c-card--interactive</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-card__header</span>&quot;&gt;
@@ -227,13 +227,10 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't wrap the whole card in a link: screen readers read the entire card as one long link name.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-48">&lt;a class=&quot;<span class="demo-code__token">c-card</span> <span class="demo-code__token">c-card--interactive</span>&quot; href=&quot;#atlas&quot;&gt;
+<pre class="demo-code"><code>&lt;a class=&quot;<span class="demo-code__token">c-card</span> <span class="demo-code__token">c-card--interactive</span>&quot; href=&quot;#atlas&quot;&gt;
   &lt;h3 class=&quot;<span class="demo-code__token">c-card__title</span>&quot;&gt;Atlas&lt;/h3&gt;
   &lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Updated 2 hours ago&lt;/p&gt;
 &lt;/a&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-48" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> Don't wrap a card in a link. Add <span class="demo-code__token">c-card--interactive</span> and put the link on the <span class="demo-code__token">c-card__title</span>; its hit area covers the card. <code>[card-link]</code></li></ul>
   </div>
@@ -249,7 +246,7 @@
   </div>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">4 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">4 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-49">&lt;div class=&quot;<span class="demo-code__token">l-grid</span> <span class="demo-code__token">l-grid--responsive</span>&quot;&gt;
   &lt;section class=&quot;<span class="demo-code__token">c-card</span> <span class="demo-code__token">c-card--bordered</span>&quot;&gt;&lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Storage: 4 GB of 10 GB&lt;/p&gt;&lt;/section&gt;
@@ -263,10 +260,7 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't space cards with their own margin.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-50">&lt;section class=&quot;<span class="demo-code__token">c-card</span>&quot; style=&quot;<span class="demo-code__token">margin-block-end:</span> 16px&quot;&gt;&lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Storage: 4 GB of 10 GB&lt;/p&gt;&lt;/section&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-50" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
+<pre class="demo-code"><code>&lt;section class=&quot;<span class="demo-code__token">c-card</span>&quot; style=&quot;<span class="demo-code__token">margin-block-end:</span> 16px&quot;&gt;&lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Storage: 4 GB of 10 GB&lt;/p&gt;&lt;/section&gt;</code></pre>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> Components must not set their own margin. Wrap them in a layout primitive (<span class="demo-code__token">l-stack</span>, <span class="demo-code__token">l-cluster</span>…) instead. <code>[golden-rule]</code></li></ul>
   </div>
@@ -285,7 +279,7 @@
   </article>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">7 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">7 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-51">&lt;article class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
   &lt;h3 class=&quot;<span class="demo-code__token">c-card__title</span>&quot;&gt;Billing&lt;/h3&gt;
@@ -302,15 +296,12 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't put a card inside a card: the nested keylines read as clutter and flatten the hierarchy.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-52">&lt;article class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
+<pre class="demo-code"><code>&lt;article class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
   &lt;h3 class=&quot;<span class="demo-code__token">c-card__title</span>&quot;&gt;Billing&lt;/h3&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
     &lt;p&gt;Team plan, 12 of 20 seats.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/article&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-52" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> A card inside a card. Group the inner content with a heading and <span class="demo-code__token">l-stack</span>, or use a list; nested keylines read as clutter. <code>[card-nesting]</code></li></ul>
   </div>
@@ -328,7 +319,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;article&gt;</code> <code>&lt;section&gt;</code> <code>&lt;div&gt;</code> <code>&lt;li&gt;</code> <code>&lt;a&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Modifiers" tabindex="0">
   <table>
     <caption>Modifiers</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">Group</th><th scope="col">What it does</th></tr></thead>
@@ -339,7 +330,7 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -352,8 +343,8 @@
   </table>
 </div>
 <details class="demo-details">
-<summary>Tokens <span class="demo-details__count">7</span></summary>
-<div class="demo-spec">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">7</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -380,8 +371,8 @@
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Safe building</h2>
-<ul class="demo-safe__list"><li>An interactive card must be reachable with the keyboard: use a real &lt;a&gt; or &lt;button&gt;, never a click handler on a &lt;div&gt;.</li><li>Keep the title a real heading so screen reader users can navigate by headings.</li></ul>
-<div class="demo-spec">
+<ul class="demo-safe__list"><li>An interactive card must be reachable with the keyboard: use a real <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code>, never a click handler on a <code>&lt;div&gt;</code>.</li><li>Keep the title a real heading so screen reader users can navigate by headings.</li></ul>
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -408,18 +399,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="grid.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code></a></li><li class="demo-bag__part"><a href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li><li class="demo-bag__part"><a href="badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="grid.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html">Adrian Roselli: Block links, cards, clickable regions</a></li><li><a href="https://inclusive-components.design/cards/">Inclusive Components: Cards</a></li><li><a href="https://www.nngroup.com/articles/cards-component/">NN/g: Cards component</a></li></ul>

@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, demoBar, codeTokens } from './demo.mjs';
+import { glyph, esc, indent, demoBar, codeTokens, realDialog } from './demo.mjs';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
 
@@ -62,7 +62,8 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
   const content = JSON.parse(readFileSync(join(root, 'guidelines', 'content.json'), 'utf8'));
 
   // Inline `code` in guidance text; known blocks link to their sheet.
-  const rich = (text, rel = '') => esc(text).replace(/`([^`]+)`/g, (_, name) => {
+  const rich = (text, rel = '') => esc(text.replace(/(^|[^`])(<[a-z]+>)(?!`)/g, '$1`$2`')).replace(/`([^`]+)`/g, (_, raw) => {
+    const name = raw.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
     const c = byBlock.get(name);
     return c ? `<a href="${rel}${sheetFile(c)}"><code>${esc(name)}</code></a>` : `<code>${esc(name)}</code>`;
   });
@@ -76,12 +77,13 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
 
   // ---------- shell ----------
 
-  function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>' }) {
+  function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>', extra = '' }) {
     const railHtml = rail.length
       ? `\n  <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
 ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(label)}"><span class="u-sr-only">${n + 1}: ${esc(label)}</span><span aria-hidden="true">${n + 1}</span></a></li>`).join('\n')}
     </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>\n`
       : '';
     return `<!doctype html>
@@ -112,7 +114,7 @@ ${main}
     </div>
   </footer>
 
-  <p class="u-sr-only" role="status" data-copy-status></p>
+  <p class="u-sr-only" role="status" data-copy-status></p>${extra ? `\n\n  ${indent(extra, 2).trim()}\n` : ''}
   <script src="${rel}demo.js" defer></script>
 </body>
 </html>
@@ -178,13 +180,18 @@ ${indent(body, 2)}
 
   // Code blocks wrap at spaces only (class names stay whole) and carry a Copy button.
   // fold: the stage above already shows the result, so the markup opens on request.
-  function code(html, { fold = false } = {}) {
+  // copy: false for markup that doesn't fit, so nobody copies the wrong piece.
+  function code(html, { fold = false, copy = true } = {}) {
     const id = `code-${++codeId}`;
-    const block = `<div class="demo-code-block">
+    const block = copy ? `<div class="demo-code-block">
   <pre class="demo-code"><code id="${id}">${codeTokens(html)}</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="${id}" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>`;
-    return fold ? `<details class="demo-details">\n<summary>Markup <span class="demo-details__count">${html.split('\n').length} lines</span></summary>\n${block}\n</details>` : block;
+</div>` : `<pre class="demo-code"><code>${codeTokens(html)}</code></pre>`;
+    return fold ? disclosure(`Show markup <span class="demo-details__count">${html.split('\n').length} lines</span>`, block) : block;
+  }
+
+  function disclosure(summary, body) {
+    return `<details class="demo-details">\n<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#${ICON_PREFIX}chevron-down"></use></svg>${summary}</summary>\n${body}\n</details>`;
   }
 
   function checkPanels(c) {
@@ -201,7 +208,7 @@ ${indent(body, 2)}
         const verdict = pair.dont.rule
           ? `<p class="demo-check__label">validate</p>\n${list}`
           : '<p class="demo-checks__guidance">Guidance only: the validator can\'t catch this one yet, so review for it.</p>';
-        dontHtml = `${code(pair.dont.html)}\n${verdict}`;
+        dontHtml = `${code(pair.dont.html, { copy: false })}\n${verdict}`;
       }
       return `<div class="demo-checks__pair">
   <div class="demo-checks__card demo-checks__card--do">
@@ -230,7 +237,7 @@ ${dontHtml}
 
   function specTables(c) {
     const out = [];
-    const table = (caption, head, rows) => rows.length ? `<div class="demo-spec">
+    const table = (caption, head, rows) => rows.length ? `<div class="demo-spec" role="region" aria-label="${esc(caption)}" tabindex="0">
   <table>
     <caption>${caption}</caption>
     <thead><tr>${head.map((h) => `<th scope="col">${h}</th>`).join('')}</tr></thead>
@@ -250,7 +257,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     if (c.layer !== 'layout') {
       out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), esc(s.pair ?? '–')])));
       const tokenTable = table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)]));
-      if (tokenTable) out.push(`<details class="demo-details">\n<summary>Tokens <span class="demo-details__count">${c.tokens.length}</span></summary>\n${tokenTable}\n</details>`);
+      if (tokenTable) out.push(disclosure(`Show tokens <span class="demo-details__count">${c.tokens.length}</span>`, tokenTable));
     }
     return out.filter(Boolean).join('\n');
   }
@@ -278,7 +285,10 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     }
 
     const steps = buildSteps(c);
-    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example, { fold: true })}` : ''}`);
+    const openReal = c.block === 'c-modal'
+      ? '\n<div class="l-cluster demo-stage-actions">\n  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>\n</div>'
+      : '';
+    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>${openReal}\n${code(example, { fold: true })}` : ''}`);
 
     // The icon sheet shows the whole set, each with the id to reference.
     if (c.block === 'c-icon') {
@@ -300,7 +310,7 @@ ${checkPanels(c)}
     const safe = [];
     if (c.a11y?.length) safe.push(`<ul class="demo-safe__list">${c.a11y.map((x) => `<li>${rich(x)}</li>`).join('')}</ul>`);
     if (c.keyboard?.length) {
-      safe.push(`<div class="demo-spec">
+      safe.push(`<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -315,7 +325,12 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
     if (g.content?.length) add('words', 'Words on this part', `<ol class="demo-notices demo-notices--compact">${g.content.map((x) => `<li>${rich(x)}</li>`).join('')}</ol>\n<p><a href="${rel}content.html">All content rules</a></p>`);
 
     const related = (c.related ?? []).map((b) => byBlock.get(b)).filter(Boolean);
-    if (related.length) add('fits', 'Fits with', `<ul class="demo-bag__list demo-fits" role="list">${related.map((r) => `<li class="demo-bag__part"><a href="${sheetFile(r)}">${glyph(r.block)}<code>${esc(r.block)}</code></a></li>`).join('')}</ul>`);
+    const fits = related.length
+      ? `\n    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list">${related.map((r) => `<li class="demo-bag__part"><a class="demo-bag__link" href="${sheetFile(r)}">${glyph(r.block)}<code>${esc(r.block)}</code></a></li>`).join('')}</ul>
+    </section>`
+      : '';
 
     const prev = sheets[index - 1];
     const next = sheets[index + 1];
@@ -339,7 +354,7 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate">${glyph(c.block)}</div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">${esc(c.block)}</span> ${esc(c.name)}</h1>
+          <h1 class="demo-sheet__title">${esc(c.name)} <span class="demo-sheet__id">${esc(c.block)}</span></h1>
           <div class="l-cluster">${sticker(c.status)}<span class="demo-sheet__since">${layerName}${c.since ? ` · since ${esc(c.since)}` : ''}</span></div>
           <p class="demo-hero__lede">${rich(autoCode(c.description))}</p>${deprecated}
         </div>
@@ -347,7 +362,7 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
     </header>
 
 ${parts.join('\n\n')}
-${sources}
+${fits}${sources}
     <nav class="demo-sheet__pager l-container" aria-label="Part sheets">
       ${prev ? `<a class="demo-sheet__prev" href="${sheetFile(prev)}"><span aria-hidden="true">←</span> <code>${esc(prev.block)}</code></a>` : '<span></span>'}
       <a href="${rel}status.html">All parts</a>
@@ -360,6 +375,7 @@ ${sources}
       rel,
       rail,
       main,
+      extra: c.block === 'c-modal' ? realDialog(readFileSync(join(root, 'components', 'modal.html'), 'utf8').trim()) : '',
     });
   }
 
@@ -367,13 +383,13 @@ ${sources}
 
   function inventoryPage() {
     const bag = (n, title, list) => `<div class="demo-bag demo-bag--wide">
-  <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">${n}</span> ${title} <span class="demo-bag__count">${partCount(list)}</span></p>
+  <h2 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">${n}</span> ${title} <span class="demo-bag__count">${partCount(list)}</span></h2>
   <div class="demo-spec demo-inventory-table">
     <table>
       <caption class="u-sr-only">${title}</caption>
-      <thead><tr><th scope="col">Part</th><th scope="col">Name</th><th scope="col">Status</th><th scope="col">Since</th><th scope="col">Notes</th></tr></thead>
+      <thead><tr><th scope="col">Part</th><th scope="col">Status</th><th scope="col">Since</th><th scope="col">Notes</th></tr></thead>
       <tbody>
-${list.map((c) => `        <tr><th scope="row"><a class="demo-inventory-table__part" href="components/${sheetFile(c)}">${glyph(c.block)}<code>${esc(c.block)}</code></a></th><td data-label="Name">${esc(c.name)}</td><td data-label="Status">${sticker(c.status)}</td><td data-label="Since">${esc(c.since ?? '–')}</td><td data-label="Notes">${c.status === 'deprecated' ? `Use ${rich(`\`${c.replacement}\``, 'components/')}` : esc(firstSentence(c.description))}</td></tr>`).join('\n')}
+${list.map((c) => `        <tr><th scope="row"><a class="demo-bag__link demo-inventory-table__part" href="components/${sheetFile(c)}">${glyph(c.block)}<code>${esc(c.block)}</code></a></th><td data-label="Status">${sticker(c.status)}</td><td data-label="Since">${esc(c.since ?? '–')}</td><td data-label="Notes">${c.status === 'deprecated' ? `Use ${rich(`\`${c.replacement}\``, 'components/')}` : esc(firstSentence(c.description))}</td></tr>`).join('\n')}
       </tbody>
     </table>
   </div>
@@ -390,9 +406,8 @@ ${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)
         </ul>
       </div>
     </header>
-    <section class="demo-step demo-sheet__section" aria-labelledby="inventory-title">
+    <section class="demo-step demo-sheet__section" aria-label="All parts">
       <div class="l-container l-stack">
-        <h2 class="u-sr-only" id="inventory-title">All parts</h2>
 ${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, 'Utilities', utilities)].join('\n'), 8)}
       </div>
     </section>`;

@@ -53,15 +53,15 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
       <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
       <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
     </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
 
   <main id="main">
@@ -69,7 +69,7 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-radio</span> Radio</h1>
+          <h1 class="demo-sheet__title">Radio <span class="demo-sheet__id">c-radio</span></h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">A native radio button with its label: pick exactly one option from a short, visible list.</p>
         </div>
@@ -89,7 +89,7 @@
   </div>
   <div class="demo-pick__col demo-pick__col--other">
     <p class="demo-check__label">Pick another part for</p>
-    <ul class="demo-pick__list"><li>Any number of options may be chosen: use <a href="checkbox.html"><code>c-checkbox</code></a>.</li><li>An on/off setting that applies immediately: use <a href="toggle.html"><code>c-toggle</code></a>.</li><li>More than about 7 options: use a <a href="input.html"><code>c-input</code></a> on a &lt;select&gt;.</li></ul>
+    <ul class="demo-pick__list"><li>Any number of options may be chosen: use <a href="checkbox.html"><code>c-checkbox</code></a>.</li><li>An on/off setting that applies immediately: use <a href="toggle.html"><code>c-toggle</code></a>.</li><li>More than about 7 options: use a <a href="input.html"><code>c-input</code></a> on a <code>&lt;select&gt;</code>.</li></ul>
   </div>
 </div>
           </div>
@@ -129,7 +129,7 @@
   </figure>
 </div>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">19 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">19 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-81">&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
   &lt;legend class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot;&gt;Delivery speed&lt;/legend&gt;
@@ -187,7 +187,7 @@
   </fieldset>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">14 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">14 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-82">&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
   &lt;legend class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot;&gt;Delivery speed&lt;/legend&gt;
@@ -211,16 +211,13 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't mark a group error with aria-invalid on each radio; ARIA doesn't allow it there. Put the error on the fieldset.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-83">&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot; <span class="demo-code__token">data-state</span>=&quot;error&quot;&gt;
+<pre class="demo-code"><code>&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot; <span class="demo-code__token">data-state</span>=&quot;error&quot;&gt;
   &lt;legend class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot;&gt;Delivery speed&lt;/legend&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
     &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">speed-x</span>&quot; name=&quot;<span class="demo-code__token">speed-x</span>&quot; value=&quot;standard&quot;&gt;
     &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">speed-x</span>&quot;&gt;Standard&lt;/label&gt;
   &lt;/div&gt;
 &lt;/fieldset&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-83" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">data-state</span>=&quot;error&quot; on a &lt;fieldset&gt; also needs <span class="demo-code__token">aria-describedby</span> pointing at the <span class="demo-code__token">c-form-field__error</span> message. <code>[state-pair]</code></li></ul>
   </div>
@@ -238,7 +235,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;div&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -249,7 +246,7 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="States" tabindex="0">
   <table>
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
@@ -260,8 +257,8 @@
   </table>
 </div>
 <details class="demo-details">
-<summary>Tokens <span class="demo-details__count">4</span></summary>
-<div class="demo-spec">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">4</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -286,7 +283,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Safe building</h2>
 <ul class="demo-safe__list"><li>Keep native &lt;input type=&quot;radio&quot;&gt; elements sharing one name: the browser handles arrow keys and single selection.</li><li>Wrap the group in fieldset + legend so the question is read with every option.</li><li>Link hints with aria-describedby on the input.</li></ul>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -315,18 +312,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a href="toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code>c-toggle</code></a></li><li class="demo-bag__part"><a href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code>c-toggle</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://design-system.service.gov.uk/components/radios">GOV.UK Design System: Radios</a></li><li><a href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/">NN/g: Checkboxes vs. radio buttons</a></li><li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">WAI-ARIA APG: Radio group pattern</a></li><li><a href="https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/">Sara Soueidan: Inclusively hiding and styling checkboxes and radio buttons</a></li></ul>

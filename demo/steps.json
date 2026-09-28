@@ -39,10 +39,11 @@
     },
     {
       "title": "Place cards on the grid",
-      "text": "l-grid sets the gap. Cards group related content; an interactive card is one real link.",
+      "text": "l-grid sets the gap. Cards group related content; an interactive card is one real link. A utility such as u-margin-0 is the last resort, for the one override no part covers.",
       "blocks": [
         "l-grid",
-        "c-card"
+        "c-card",
+        "u-*"
       ],
       "example": "card.html"
     },
@@ -83,14 +84,6 @@
         "c-modal"
       ],
       "example": "modal.html"
-    },
-    {
-      "title": "Finishing touches",
-      "text": "Utilities are single-purpose overrides. Reach for them last.",
-      "blocks": [
-        "u-*"
-      ],
-      "example": "utilities.html"
     }
   ]
 }

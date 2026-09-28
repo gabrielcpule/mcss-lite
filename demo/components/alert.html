@@ -53,15 +53,15 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
       <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
       <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
     </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
 
   <main id="main">
@@ -69,7 +69,7 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-alert</span> Alert</h1>
+          <h1 class="demo-sheet__title">Alert <span class="demo-sheet__id">c-alert</span></h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.</p>
         </div>
@@ -144,7 +144,7 @@
   </figure>
 </div>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">34 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">34 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-27">&lt;div class=&quot;<span class="demo-code__token">l-stack</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--info</span>&quot;&gt;
@@ -210,7 +210,7 @@
   </div>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">7 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">7 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-28">&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--warning</span>&quot;&gt;
   &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-warning</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
@@ -227,14 +227,11 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-29">&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--warning</span>&quot;&gt;
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--warning</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
     &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;Your trial ends on 12 October 2026&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-29" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-alert--warning</span> shows its severity by color alone. Add a <span class="demo-code__token">c-alert__icon</span> and start the title with &lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Warning: &lt;/span&gt;. <code>[alert-severity]</code></li></ul>
   </div>
@@ -256,7 +253,7 @@
   </div>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">10 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">10 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-30">&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--error</span>&quot; tabindex=&quot;<span class="demo-code__token">-1</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">summary-title</span>&quot;&gt;
   &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-error</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
@@ -276,12 +273,9 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't build an alert from elements outside the block: the tile and edge lose their shape.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-31">&lt;div class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
   &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;There is a problem&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-31" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> &quot;<span class="demo-code__token">c-alert__title</span>&quot; should be inside an element with class &quot;<span class="demo-code__token">c-alert</span>&quot;. <code>[element-outside-block]</code></li></ul>
   </div>
@@ -299,7 +293,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;div&gt;</code> <code>&lt;section&gt;</code> <code>&lt;aside&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Modifiers" tabindex="0">
   <table>
     <caption>Modifiers</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">Group</th><th scope="col">What it does</th></tr></thead>
@@ -311,7 +305,7 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -325,8 +319,8 @@
   </table>
 </div>
 <details class="demo-details">
-<summary>Tokens <span class="demo-details__count">6</span></summary>
-<div class="demo-spec">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">6</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -353,7 +347,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Safe building</h2>
 <ul class="demo-safe__list"><li>Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.</li><li>role=&quot;alert&quot; interrupts the screen reader: only for urgent messages that appear after an action.</li><li>An error summary gets tabindex=&quot;-1&quot; and focus after a failed submit; its links move focus to each field.</li><li>c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert.</li></ul>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -381,18 +375,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-icon</code></a></li><li class="demo-bag__part"><a href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a href="modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code>c-modal</code></a></li><li class="demo-bag__part"><a href="badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-icon</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code>c-modal</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://design-system.service.gov.uk/components/error-summary">GOV.UK Design System: Error summary</a></li><li><a href="https://design-system.service.gov.uk/components/notification-banner">GOV.UK Design System: Notification banner</a></li><li><a href="https://design.gitlab.com/components/alert">GitLab Pajamas: Alert</a></li><li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">WAI-ARIA APG: Alert pattern</a></li><li><a href="https://www.scottohara.me/blog/2022/02/05/are-we-live.html">Scott O'Hara: Are we live? (live regions)</a></li></ul>

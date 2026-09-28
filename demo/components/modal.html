@@ -53,15 +53,15 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
       <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
       <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
     </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
 
   <main id="main">
@@ -69,9 +69,9 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-modal</span> Modal</h1>
+          <h1 class="demo-sheet__title">Modal <span class="demo-sheet__id">c-modal</span></h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
-          <p class="demo-hero__lede">A dialog over the page that blocks interaction until dismissed. Works on &lt;dialog&gt; (preferred, opened with showModal()) or on a &lt;div role=&quot;dialog&quot;&gt;.</p>
+          <p class="demo-hero__lede">A dialog over the page that blocks interaction until dismissed. Works on <code>&lt;dialog&gt;</code> (preferred, opened with showModal()) or on a &lt;div role=&quot;dialog&quot;&gt;.</p>
         </div>
       </div>
     </header>
@@ -125,8 +125,11 @@
     </div>
   </figure>
 </div>
+<div class="l-cluster demo-stage-actions">
+  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>
+</div>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">16 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">16 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-76">&lt;div class=&quot;<span class="demo-code__token">c-modal</span>&quot; role=&quot;dialog&quot; <span class="demo-code__token">aria-modal</span>=&quot;true&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">delete-title</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-modal__backdrop</span>&quot;&gt;&lt;/div&gt;
@@ -163,7 +166,7 @@
 <div class="demo-checks__pair">
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
-    <p>Use &lt;dialog&gt; opened with showModal(), named by its title, with verb buttons.</p>
+    <p>Use <code>&lt;dialog&gt;</code> opened with showModal(), named by its title, with verb buttons.</p>
 <figure class="demo-stage demo-stage--contain" inert aria-hidden="true">
   <div class="c-modal" role="dialog" aria-labelledby="leave-title-do1">
     <div class="c-modal__container">
@@ -180,7 +183,7 @@
   </div>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">13 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">13 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-77">&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">leave-title</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
@@ -202,13 +205,10 @@
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
-    <p>Don't build a dialog from a bare &lt;div&gt;: no focus handling, no Escape, nothing announced.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-78">&lt;div class=&quot;<span class="demo-code__token">c-modal</span>&quot;&gt;
+    <p>Don't build a dialog from a bare <code>&lt;div&gt;</code>: no focus handling, no Escape, nothing announced.</p>
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-modal</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;Discard your changes?&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-78" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-modal</span> needs role=&quot;dialog&quot; (or use &lt;dialog&gt;), <span class="demo-code__token">aria-modal</span>=&quot;true&quot; and <span class="demo-code__token">aria-labelledby.</span> <code>[a11y]</code></li></ul>
   </div>
@@ -228,7 +228,7 @@
   </div>
 </figure>
 <details class="demo-details">
-<summary>Markup <span class="demo-details__count">8 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">8 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-79">&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">share-title</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
@@ -246,15 +246,12 @@
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't leave an icon-only close button without a name.</p>
-<div class="demo-code-block">
-  <pre class="demo-code"><code id="code-80">&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">share-title2</span>&quot;&gt;
+<pre class="demo-code"><code>&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">share-title2</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
     &lt;h2 class=&quot;<span class="demo-code__token">c-modal__title</span>&quot; id=&quot;<span class="demo-code__token">share-title2</span>&quot;&gt;Share project&lt;/h2&gt;
     &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-modal__close</span>&quot;&gt;×&lt;/button&gt;
   &lt;/div&gt;
 &lt;/dialog&gt;</code></pre>
-  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-80" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
-</div>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-modal__close</span> needs an accessible name, e.g. <span class="demo-code__token">aria-label</span>=&quot;Close&quot; or &quot;Dismiss&quot;. <code>[a11y]</code></li></ul>
   </div>
@@ -272,7 +269,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;dialog&gt;</code> <code>&lt;div&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -287,7 +284,7 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="States" tabindex="0">
   <table>
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
@@ -297,8 +294,8 @@
   </table>
 </div>
 <details class="demo-details">
-<summary>Tokens <span class="demo-details__count">7</span></summary>
-<div class="demo-spec">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">7</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -325,8 +322,8 @@
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Safe building</h2>
-<ul class="demo-safe__list"><li>Prefer &lt;dialog class=&quot;c-modal&quot;&gt; opened with showModal(): the browser then handles focus, Escape and inertness. With a &lt;div&gt;, set role=&quot;dialog&quot;, aria-modal=&quot;true&quot; and manage focus yourself.</li><li>Reference the title with aria-labelledby.</li><li>With the &lt;div&gt; form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.</li><li>c-modal__close needs aria-label=&quot;Close&quot; and an SVG icon, not a text glyph.</li></ul>
-<div class="demo-spec">
+<ul class="demo-safe__list"><li>Prefer &lt;dialog class=&quot;c-modal&quot;&gt; opened with showModal(): the browser then handles focus, Escape and inertness. With a <code>&lt;div&gt;</code>, set role=&quot;dialog&quot;, aria-modal=&quot;true&quot; and manage focus yourself.</li><li>Reference the title with aria-labelledby.</li><li>With the <code>&lt;div&gt;</code> form, make the page behind inert and lock scrolling while open, trap focus, close on Escape, and return focus to the opener.</li><li>c-modal__close needs aria-label=&quot;Close&quot; and an SVG icon, not a text glyph.</li></ul>
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -354,18 +351,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://www.nngroup.com/articles/overuse-of-overlays/">NN/g: Overuse of overlays</a></li><li><a href="https://www.nngroup.com/articles/modal-nonmodal-dialog/">NN/g: Modal and nonmodal dialogs</a></li><li><a href="https://www.scottohara.me/blog/2023/01/26/use-the-dialog-element.html">Scott O'Hara: Use the dialog element (reasonably)</a></li><li><a href="https://primer.style/product/components/dialog/guidelines/">Primer: Dialog guidelines</a></li><li><a href="https://frontendmasters.com/blog/scroll-locked-dialogs/">Frontend Masters: Scroll-locked dialogs</a></li></ul>
@@ -385,6 +374,24 @@
   </footer>
 
   <p class="u-sr-only" role="status" data-copy-status></p>
+
+  <dialog class="c-modal" id="demo-dialog" aria-labelledby="demo-dialog-title">
+    
+    <div class="c-modal__container">
+      <header class="c-modal__header">
+        <h2 class="c-modal__title" id="demo-dialog-title">Delete project?</h2>
+        <button type="button" class="c-modal__close" data-close-dialog aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </header>
+      <div class="c-modal__body">
+        <p class="u-margin-0">Atlas and its 42 files will be deleted. This can't be undone.</p>
+      </div>
+      <footer class="c-modal__footer">
+        <button type="button" class="c-button c-button--ghost" data-close-dialog>Keep project</button>
+        <button type="button" class="c-button c-button--danger" data-close-dialog>Delete project</button>
+      </footer>
+    </div>
+  </dialog>
+
   <script src="../demo.js" defer></script>
 </body>
 </html>

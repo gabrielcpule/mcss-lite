@@ -48,10 +48,23 @@
 
   // Step rail: mark the step currently in view with aria-current="step".
   const studs = new Map([...document.querySelectorAll('[data-rail]')].map((a) => [a.dataset.rail, a]));
+  // Under the studs, name the step in view, or the stud being pointed at or focused.
+  const now = document.querySelector('[data-rail-now]');
+  let currentId = null;
+  const name = (a) => a?.dataset.label ?? '';
+  const show = (a) => { if (now) now.textContent = name(a); };
+  studs.forEach((a) => {
+    ['mouseenter', 'focus'].forEach((type) => a.addEventListener(type, () => show(a)));
+    ['mouseleave', 'blur'].forEach((type) => a.addEventListener(type, () => show(studs.get(currentId))));
+  });
   if (studs.size && 'IntersectionObserver' in window) {
-    const setCurrent = (id) => studs.forEach((a, key) => {
-      if (key === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
-    });
+    const setCurrent = (id) => {
+      currentId = id;
+      studs.forEach((a, key) => {
+        if (key === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
+      });
+      if (!document.activeElement?.matches('[data-rail]')) show(studs.get(id));
+    };
     const railIo = new IntersectionObserver((entries) => {
       entries.filter((e) => e.isIntersecting).forEach((e) => setCurrent(e.target.id));
     }, { rootMargin: '-45% 0px -50% 0px' });
