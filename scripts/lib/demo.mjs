@@ -90,7 +90,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const steps = loadSteps(root);
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const example = (file) => readFileSync(join(root, 'components', file), 'utf8').trim();
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const wrongIssues = validate(WRONG_PIECE).filter((i) => i.level === 'error');
 
   const layouts = contracts.filter((c) => c.layer === 'layout');
@@ -171,9 +171,9 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
       </div>
       <div class="demo-step__build">
         <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div class="${stageClass}"${isModal ? ' inert aria-hidden="true"' : ''}>
+        <figure class="${stageClass}"${isModal ? ' inert aria-hidden="true"' : ''}>
 ${indent(stage, 10)}
-        </div>${indent(extra, 8)}
+        </figure>${indent(extra, 8)}
       </div>
     </div>
   </div>

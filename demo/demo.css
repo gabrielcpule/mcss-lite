@@ -387,6 +387,8 @@
 }
 
 .demo-stage {
+  /* A <figure>: each stage is one self-contained build, so the validator counts it as its own region. */
+  margin: 0;
   padding: var(--space-6);
   background-color: var(--color-background-default);
   /* The stud grid carries on inside the build area. */

@@ -107,8 +107,9 @@
           "html": "<div class=\"c-form-field\">\n  <div class=\"c-checkbox\">\n    <input class=\"c-checkbox__input\" type=\"checkbox\" id=\"terms\" aria-invalid=\"true\" aria-describedby=\"terms-error\">\n    <label class=\"c-checkbox__label\" for=\"terms\">I agree to the terms of service</label>\n  </div>\n  <p class=\"c-form-field__error\" id=\"terms-error\">Agree to the terms of service to create an account.</p>\n</div>"
         },
         "dont": {
-          "text": "Don't leave the input without its element class: it keeps the browser's default look and misses every state.",
-          "html": "<div class=\"c-checkbox\">\n  <input type=\"checkbox\" id=\"plain\">\n  <span class=\"c-checkbox__hint\">Hint without a label</span>\n</div>"
+          "text": "Don't leave a checkbox without its label: \"on\" and \"off\" mean nothing without the statement they answer.",
+          "html": "<div class=\"c-checkbox\">\n  <input class=\"c-checkbox__input\" type=\"checkbox\" id=\"news-alone\">\n  <p class=\"c-checkbox__hint\">Weekly, no ads.</p>\n</div>",
+          "rule": "label-missing"
         }
       }
     ],

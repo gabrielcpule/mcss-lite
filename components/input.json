@@ -53,7 +53,8 @@
         },
         "dont": {
           "text": "Don't use the placeholder as the label: it disappears as soon as someone types.",
-          "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">"
+          "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">",
+          "rule": "label-missing"
         }
       },
       {

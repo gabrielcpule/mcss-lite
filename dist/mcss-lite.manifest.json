@@ -60,7 +60,8 @@
       "title": "Write in sentence case",
       "text": "Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels.",
       "do": "Create account",
-      "dont": "Create Account"
+      "dont": "Create Account",
+      "enforcedBy": "content-case"
     },
     {
       "id": "button-verbs",
@@ -74,7 +75,8 @@
       "title": "No vague labels",
       "text": "\"Submit\", \"Click here\", \"Yes\" and \"More\" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text.",
       "do": "Download the invoice",
-      "dont": "Click here"
+      "dont": "Click here",
+      "enforcedBy": "content-vague"
     },
     {
       "id": "error-messages",
@@ -96,6 +98,20 @@
       "text": "Ask only for what you need, then add \"(optional)\" to the few fields people may skip. Rows of asterisks add noise and need a legend.",
       "do": "Phone number (optional)",
       "dont": "Phone number *"
+    },
+    {
+      "id": "positive-choices",
+      "title": "Write choices as positive statements",
+      "text": "A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong.",
+      "do": "Email me about new releases",
+      "dont": "Don't email me about new releases"
+    },
+    {
+      "id": "setting-names",
+      "title": "Name the setting, not the action",
+      "text": "A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like \"Turn on\" leave people guessing which state is current.",
+      "do": "Dark mode",
+      "dont": "Enable dark mode"
     },
     {
       "id": "punctuation",
@@ -812,7 +828,8 @@
             },
             "dont": {
               "text": "Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.",
-              "html": "<div class=\"c-alert c-alert--warning\">\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\">Your trial ends on 12 October 2026</p>\n  </div>\n</div>"
+              "html": "<div class=\"c-alert c-alert--warning\">\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\">Your trial ends on 12 October 2026</p>\n  </div>\n</div>",
+              "rule": "alert-severity"
             }
           },
           {
@@ -1117,6 +1134,28 @@
               "html": "<button type=\"button\" class=\"c-button c-button--warning\">Delete project</button>",
               "rule": "unknown-class"
             }
+          },
+          {
+            "do": {
+              "text": "Label the button with what happens: a verb and the thing it acts on.",
+              "html": "<button type=\"submit\" class=\"c-button c-button--primary\">Create account</button>"
+            },
+            "dont": {
+              "text": "Don't use vague labels: \"OK\" or \"Submit\" say nothing when a screen reader lists every button on the page.",
+              "html": "<button type=\"submit\" class=\"c-button c-button--primary\">Submit</button>",
+              "rule": "content-vague"
+            }
+          },
+          {
+            "do": {
+              "text": "Use a real <button> for actions; it brings focus, Enter and Space for free.",
+              "html": "<button type=\"button\" class=\"c-button\" hx-post=\"/projects/42/archive\">Archive project</button>"
+            },
+            "dont": {
+              "text": "Don't make a div clickable: it has no role, no focus and no keyboard, even with the button classes.",
+              "html": "<div class=\"c-button\" hx-post=\"/projects/42/archive\">Archive project</div>",
+              "rule": "clickable-div"
+            }
           }
         ],
         "content": [
@@ -1178,7 +1217,7 @@
       "examples": [
         {
           "file": "components/button.html",
-          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n  <!-- mcss-lite-ignore primary-count: this sheet shows every variant side by side -->\n  <button type=\"button\" class=\"c-button c-button--primary c-button--lg\">Start free trial</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <!-- mcss-lite-ignore primary-count -->\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"Theme\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">Light</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Dark</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
         }
       ],
       "sources": [
@@ -1330,6 +1369,17 @@
               "text": "Don't space cards with their own margin.",
               "html": "<section class=\"c-card\" style=\"margin-block-end: 16px\"><p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p></section>",
               "rule": "golden-rule"
+            }
+          },
+          {
+            "do": {
+              "text": "Group content inside a card with headings and l-stack.",
+              "html": "<article class=\"c-card\">\n  <h3 class=\"c-card__title\">Billing</h3>\n  <div class=\"c-card__body l-stack l-stack--sm\">\n    <p class=\"u-margin-0\">Team plan, 12 of 20 seats.</p>\n    <p class=\"u-margin-0\">Next invoice on 1 November 2026.</p>\n  </div>\n</article>"
+            },
+            "dont": {
+              "text": "Don't put a card inside a card: the nested keylines read as clutter and flatten the hierarchy.",
+              "html": "<article class=\"c-card\">\n  <h3 class=\"c-card__title\">Billing</h3>\n  <div class=\"c-card\">\n    <p>Team plan, 12 of 20 seats.</p>\n  </div>\n</article>",
+              "rule": "card-nesting"
             }
           }
         ],
@@ -1496,8 +1546,9 @@
               "html": "<div class=\"c-form-field\">\n  <div class=\"c-checkbox\">\n    <input class=\"c-checkbox__input\" type=\"checkbox\" id=\"terms\" aria-invalid=\"true\" aria-describedby=\"terms-error\">\n    <label class=\"c-checkbox__label\" for=\"terms\">I agree to the terms of service</label>\n  </div>\n  <p class=\"c-form-field__error\" id=\"terms-error\">Agree to the terms of service to create an account.</p>\n</div>"
             },
             "dont": {
-              "text": "Don't leave the input without its element class: it keeps the browser's default look and misses every state.",
-              "html": "<div class=\"c-checkbox\">\n  <input type=\"checkbox\" id=\"plain\">\n  <span class=\"c-checkbox__hint\">Hint without a label</span>\n</div>"
+              "text": "Don't leave a checkbox without its label: \"on\" and \"off\" mean nothing without the statement they answer.",
+              "html": "<div class=\"c-checkbox\">\n  <input class=\"c-checkbox__input\" type=\"checkbox\" id=\"news-alone\">\n  <p class=\"c-checkbox__hint\">Weekly, no ads.</p>\n</div>",
+              "rule": "label-missing"
             }
           }
         ],
@@ -1753,7 +1804,8 @@
             },
             "dont": {
               "text": "Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.",
-              "html": "<svg class=\"c-icon\"><use href=\"#mcss-icon-download\"></use></svg>"
+              "html": "<svg class=\"c-icon\"><use href=\"#mcss-icon-download\"></use></svg>",
+              "rule": "a11y"
             }
           },
           {
@@ -1763,7 +1815,8 @@
             },
             "dont": {
               "text": "Don't invent icon names: an unknown symbol draws nothing.",
-              "html": "<svg class=\"c-icon\" aria-hidden=\"true\"><use href=\"#mcss-icon-rocket\"></use></svg>"
+              "html": "<svg class=\"c-icon\" aria-hidden=\"true\"><use href=\"#mcss-icon-rocket\"></use></svg>",
+              "rule": "unknown-icon"
             }
           }
         ]
@@ -1853,7 +1906,8 @@
             },
             "dont": {
               "text": "Don't use the placeholder as the label: it disappears as soon as someone types.",
-              "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">"
+              "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">",
+              "rule": "label-missing"
             }
           },
           {

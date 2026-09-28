@@ -107,7 +107,7 @@
 <ol class="demo-build-steps"><li><span>Start with <code>&lt;div&gt;</code> and add <code>class="c-toggle"</code>.</span></li><li><span>Add the required parts: <code>c-toggle__input</code>, <code>c-toggle__label</code>.</span></li><li><span>Add the parts you need: <code>c-toggle__hint</code>.</span></li><li><span>Set state on the native control, never with data-state: <code>checked</code>, <code>disabled</code>.</span></li><li><span>Set a state with <code>data-state</code> and add its paired attribute: <code>loading</code>.</span></li></ol>
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <div class="demo-stage">
+  <figure class="demo-stage">
     <div class="l-stack l-stack--sm">
       <div class="c-toggle">
         <input class="c-toggle__input" type="checkbox" role="switch" id="setting-email-ex" checked aria-describedby="setting-email-hint-ex">
@@ -123,7 +123,7 @@
         <label class="c-toggle__label" for="setting-beta-ex">Beta features</label>
       </div>
     </div>
-  </div>
+  </figure>
 </div>
 <pre class="demo-code"><code>&lt;div class=&quot;l-stack l-stack--sm&quot;&gt;
   &lt;div class=&quot;c-toggle&quot;&gt;
@@ -176,13 +176,13 @@
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
     <p>Build the switch on a real checkbox with role=&quot;switch&quot; and a fixed noun label.</p>
-<div class="demo-stage">
+<figure class="demo-stage">
   <div class="c-toggle">
     <input class="c-toggle__input" type="checkbox" role="switch" id="notify-do1" checked aria-describedby="notify-hint-do1">
     <label class="c-toggle__label" for="notify-do1">Email notifications</label>
     <p class="c-toggle__hint" id="notify-hint-do1">Applies straight away.</p>
   </div>
-</div>
+</figure>
 <pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot;&gt;
   &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;notify&quot; checked aria-describedby=&quot;notify-hint&quot;&gt;
   &lt;label class=&quot;c-toggle__label&quot; for=&quot;notify&quot;&gt;Email notifications&lt;/label&gt;
@@ -205,12 +205,12 @@
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
     <p>While a change saves, mark the switch busy and disable the input.</p>
-<div class="demo-stage">
+<figure class="demo-stage">
   <div class="c-toggle" data-state="loading" aria-busy="true">
     <input class="c-toggle__input" type="checkbox" role="switch" id="beta-do2" checked disabled>
     <label class="c-toggle__label" for="beta-do2">Beta features</label>
   </div>
-</div>
+</figure>
 <pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot; data-state=&quot;loading&quot; aria-busy=&quot;true&quot;&gt;
   &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;beta&quot; checked disabled&gt;
   &lt;label class=&quot;c-toggle__label&quot; for=&quot;beta&quot;&gt;Beta features&lt;/label&gt;

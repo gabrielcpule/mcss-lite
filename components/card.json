@@ -118,6 +118,17 @@
           "html": "<section class=\"c-card\" style=\"margin-block-end: 16px\"><p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p></section>",
           "rule": "golden-rule"
         }
+      },
+      {
+        "do": {
+          "text": "Group content inside a card with headings and l-stack.",
+          "html": "<article class=\"c-card\">\n  <h3 class=\"c-card__title\">Billing</h3>\n  <div class=\"c-card__body l-stack l-stack--sm\">\n    <p class=\"u-margin-0\">Team plan, 12 of 20 seats.</p>\n    <p class=\"u-margin-0\">Next invoice on 1 November 2026.</p>\n  </div>\n</article>"
+        },
+        "dont": {
+          "text": "Don't put a card inside a card: the nested keylines read as clutter and flatten the hierarchy.",
+          "html": "<article class=\"c-card\">\n  <h3 class=\"c-card__title\">Billing</h3>\n  <div class=\"c-card\">\n    <p>Team plan, 12 of 20 seats.</p>\n  </div>\n</article>",
+          "rule": "card-nesting"
+        }
       }
     ],
     "content": [

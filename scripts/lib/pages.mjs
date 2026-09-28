@@ -50,7 +50,7 @@ const dialogPreview = (html) => html
   .replace(/<\/dialog>/g, '</div>');
 
 export function buildPages({ root, pkg, contracts, tokenRows }) {
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const tokens = new Map(tokenRows.map((t) => [t.name, t]));
   const sheets = contracts;
@@ -176,9 +176,9 @@ ${body}
     const isModal = html.includes('c-modal');
     const body = localLinks(namespaceIds(isModal ? dialogPreview(html) : html, suffix), anchor)
       .replace(' aria-modal="true"', '');
-    return `<div class="demo-stage${isModal ? ' demo-stage--contain' : ''}"${isModal ? ' inert aria-hidden="true"' : ''}>
+    return `<figure class="demo-stage${isModal ? ' demo-stage--contain' : ''}"${isModal ? ' inert aria-hidden="true"' : ''}>
 ${indent(body, 2)}
-</div>`;
+</figure>`;
   }
 
   function code(html) { return `<pre class="demo-code"><code>${esc(html)}</code></pre>`; }
@@ -418,8 +418,8 @@ const autoCode = (s) => s.replace(/(^|[\s(])([clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-
 const firstSentence = (s) => s.split(/(?<=\.)\s/)[0];
 
 // Checks the guidance examples: every "do" validates cleanly, every "don't" that names a rule triggers it.
-export function checkGuidance(contracts) {
-  const validate = createValidator(contracts);
+export function checkGuidance(contracts, root) {
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const errors = [];
   for (const c of contracts) {
     (c.guidelines?.doDont ?? []).forEach((pair, i) => {

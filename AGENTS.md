@@ -98,15 +98,46 @@ Icons take the text color. A decorative icon gets aria-hidden="true"; an icon th
 
 Labels, messages and help text follow the same rules everywhere.
 
-- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account".
+- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account". Checked by `[content-case]`.
 - **Buttons say what happens.** Start with a verb and name the thing it acts on. A person should know the result before they click. Do: "Save changes". Don't: "OK".
-- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here".
+- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here". Checked by `[content-vague]`.
 - **Errors say what went wrong and how to fix it.** Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say "invalid". Do: "Enter a date after 1 January 2020". Don't: "Invalid input".
 - **Show errors at the right moment.** Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field. Do: "There is a problem: Enter your email address". Don't: "Email is invalid (shown after the first keystroke)".
 - **Mark optional fields, not required ones.** Ask only for what you need, then add "(optional)" to the few fields people may skip. Rows of asterisks add noise and need a legend. Do: "Phone number (optional)". Don't: "Phone number *".
+- **Write choices as positive statements.** A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong. Do: "Email me about new releases". Don't: "Don't email me about new releases".
+- **Name the setting, not the action.** A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like "Turn on" leave people guessing which state is current. Do: "Dark mode". Don't: "Enable dark mode".
 - **Keep punctuation light.** No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks. Do: "Delete project". Don't: "Delete project!".
 - **Write numbers and dates the same way everywhere.** Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04. Do: "1 March 2026, 12 of 20 seats". Don't: "03/01/26, twelve of twenty seats".
 - **Write for everyone.** Use plain words, active voice and "you". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks ("select", not "click the blue button"). Do: "Choose a plan to continue". Don't: "Just hit the big blue button, guys".
+
+## Validator rules
+
+`mcss-lite validate` reports these. Errors fail the run and can't be ignored. Warnings can be silenced for a whole run with `--ignore rule,rule`, or for one element with `<!-- mcss-lite-ignore rule: reason -->` right before it.
+
+| Rule | Level | Catches |
+|---|---|---|
+| `unknown-class` | error | A c-, l- or u- class that no contract defines. |
+| `modifier-without-block` | error | A modifier class without its block class on the same element. |
+| `exclusive-modifiers` | error | Two modifiers from the same exclusive group, such as two sizes. |
+| `invalid-state` | error | A data-state value the block does not define, or a native state (checked) written as data-state. |
+| `unknown-icon` | error | A <use href="#mcss-icon-…"> that names no icon in the sprite. |
+| `state-pair` | warning | A data-state without its native or ARIA pair (disabled, aria-invalid, aria-busy). |
+| `deprecated` | warning | A deprecated class; the message names the replacement. |
+| `element-outside-block` | warning | A block__element used outside its block. |
+| `raw-color` | warning | A raw color in an inline style instead of a token. |
+| `golden-rule` | warning | A component that sets its own outer margin. |
+| `a11y` | warning | A missing accessibility requirement from a contract: dialog roles, named close buttons, hidden or labelled icons, switch roles, radio groups. |
+| `card-link` | warning | A card wrapped in a link instead of a stretched title link. |
+| `nested-interactive` | warning | A link or control inside a link. |
+| `card-nesting` | warning | A card inside another card. |
+| `label-missing` | warning | A form control with no label; a placeholder is not a label. |
+| `primary-count` | warning | More than one primary button in one region (form, dialog, card, alert, figure, landmark or group). |
+| `clickable-div` | warning | A div or span that reacts to clicks (onclick, @click, hx-post…) instead of a button or link. |
+| `toggle-in-form` | warning | A toggle in a form that is saved with a submit button; use a checkbox there. |
+| `alert-severity` | warning | A toned alert with neither a severity icon nor a text prefix, so its severity rests on color. |
+| `content-case` | warning | Title Case on a button, label, title or badge; write in sentence case. |
+| `content-vague` | warning | A vague button or link label such as "Submit", "Click here" or "OK". |
+| `content-missing` | warning | A button or link with no text and no accessible name. |
 
 ## More detail
 

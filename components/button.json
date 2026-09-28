@@ -116,6 +116,28 @@
           "html": "<button type=\"button\" class=\"c-button c-button--warning\">Delete project</button>",
           "rule": "unknown-class"
         }
+      },
+      {
+        "do": {
+          "text": "Label the button with what happens: a verb and the thing it acts on.",
+          "html": "<button type=\"submit\" class=\"c-button c-button--primary\">Create account</button>"
+        },
+        "dont": {
+          "text": "Don't use vague labels: \"OK\" or \"Submit\" say nothing when a screen reader lists every button on the page.",
+          "html": "<button type=\"submit\" class=\"c-button c-button--primary\">Submit</button>",
+          "rule": "content-vague"
+        }
+      },
+      {
+        "do": {
+          "text": "Use a real <button> for actions; it brings focus, Enter and Space for free.",
+          "html": "<button type=\"button\" class=\"c-button\" hx-post=\"/projects/42/archive\">Archive project</button>"
+        },
+        "dont": {
+          "text": "Don't make a div clickable: it has no role, no focus and no keyboard, even with the button classes.",
+          "html": "<div class=\"c-button\" hx-post=\"/projects/42/archive\">Archive project</div>",
+          "rule": "clickable-div"
+        }
       }
     ],
     "content": [

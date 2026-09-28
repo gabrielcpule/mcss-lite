@@ -11,6 +11,7 @@ import { buildPages } from './pages.mjs';
 import { loadIcons, buildSprite, ICON_PREFIX } from './icons.mjs';
 import { cdnUrl, gitSpec } from './release.mjs';
 import { buildFigmaScript, figmaScopes, px } from './figma-script.mjs';
+import { RULES as VALIDATOR_RULES } from './validate.mjs';
 
 export const RULES = [
   {
@@ -345,6 +346,17 @@ function buildDocs(pkg, tokenRows, contracts, examples, content, icons) {
     '',
   ].join('\n') : '';
 
+  const validatorMd = [
+    '## Validator rules',
+    '',
+    `\`mcss-lite validate\` reports these. Errors fail the run and can't be ignored. Warnings can be silenced for a whole run with \`--ignore rule,rule\`, or for one element with \`<!-- mcss-lite-ignore rule: reason -->\` right before it.`,
+    '',
+    '| Rule | Level | Catches |',
+    '|---|---|---|',
+    ...VALIDATOR_RULES.map((r) => `| \`${r.id}\` | ${r.level} | ${r.description} |`),
+    '',
+  ].join('\n');
+
   const blockDetail = (c) => {
     const out = [`### ${c.name} — \`${c.block}\``, ''];
     if (c.status === 'deprecated') out.push(`**Deprecated.** Use \`${c.replacement}\` instead.`, '');
@@ -483,6 +495,7 @@ function buildDocs(pkg, tokenRows, contracts, examples, content, icons) {
     utilitiesMd,
     iconsMd,
     contentMd,
+    validatorMd,
     '## More detail',
     '',
     '- `llms-components.txt`: every block with modifiers, elements, states, accessibility rules and a canonical example.',
@@ -496,7 +509,7 @@ function buildDocs(pkg, tokenRows, contracts, examples, content, icons) {
 
   const components = [header('MCSS-Lite components', 'Every layout primitive, component and utility, with canonical examples.'), rulesMd, contentMd, componentsMd, iconsMd].join('\n');
   const tokens = [header('MCSS-Lite tokens', 'Every design token with light and dark values.'), tokensMd].join('\n');
-  const full = [header('MCSS-Lite (full)', 'Rules, components and tokens in one file.'), rulesMd, setupMd, blocksTable, contentMd, componentsMd, iconsMd, tokensMd].join('\n');
+  const full = [header('MCSS-Lite (full)', 'Rules, components and tokens in one file.'), rulesMd, setupMd, blocksTable, contentMd, validatorMd, componentsMd, iconsMd, tokensMd].join('\n');
 
   const index = [
     '# MCSS-Lite',

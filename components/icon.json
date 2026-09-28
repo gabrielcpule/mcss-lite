@@ -54,7 +54,8 @@
         },
         "dont": {
           "text": "Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.",
-          "html": "<svg class=\"c-icon\"><use href=\"#mcss-icon-download\"></use></svg>"
+          "html": "<svg class=\"c-icon\"><use href=\"#mcss-icon-download\"></use></svg>",
+          "rule": "a11y"
         }
       },
       {
@@ -64,7 +65,8 @@
         },
         "dont": {
           "text": "Don't invent icon names: an unknown symbol draws nothing.",
-          "html": "<svg class=\"c-icon\" aria-hidden=\"true\"><use href=\"#mcss-icon-rocket\"></use></svg>"
+          "html": "<svg class=\"c-icon\" aria-hidden=\"true\"><use href=\"#mcss-icon-rocket\"></use></svg>",
+          "rule": "unknown-icon"
         }
       }
     ]

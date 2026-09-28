@@ -7,10 +7,12 @@ import { loadContracts } from '../scripts/lib/contracts.mjs';
 import { createValidator } from '../scripts/lib/validate.mjs';
 import { validateSchema } from '../scripts/lib/schema.mjs';
 import { namespaceIds } from '../scripts/lib/pages.mjs';
+import { loadIcons } from '../scripts/lib/icons.mjs';
 import { root } from './helpers.mjs';
 
 const files = generate(root);
 const contracts = loadContracts(join(root, 'components'));
+const icons = loadIcons(root).map((i) => i.name);
 const pages = [...files].filter(([rel]) => rel.startsWith('demo/') && rel.endsWith('.html'));
 
 test('every contract has a part sheet, and the inventory lists every block', () => {
@@ -23,7 +25,7 @@ test('every contract has a part sheet, and the inventory lists every block', () 
 });
 
 test('generated pages have no duplicate ids and pass the validator', () => {
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons });
   for (const [rel, html] of pages) {
     const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
     const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
@@ -61,7 +63,7 @@ test('snippet ids are namespaced together with their references', () => {
 });
 
 test('a "don\'t" that names a rule really triggers it', () => {
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons });
   for (const c of contracts) {
     for (const pair of c.guidelines?.doDont ?? []) {
       if (pair.dont.rule) assert.ok(validate(pair.dont.html).some((i) => i.rule === pair.dont.rule), `${c.block}: ${pair.dont.text}`);

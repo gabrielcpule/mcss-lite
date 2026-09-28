@@ -111,7 +111,8 @@
         },
         "dont": {
           "text": "Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.",
-          "html": "<div class=\"c-alert c-alert--warning\">\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\">Your trial ends on 12 October 2026</p>\n  </div>\n</div>"
+          "html": "<div class=\"c-alert c-alert--warning\">\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\">Your trial ends on 12 October 2026</p>\n  </div>\n</div>",
+          "rule": "alert-severity"
         }
       },
       {

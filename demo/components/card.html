@@ -107,7 +107,7 @@
 <ol class="demo-build-steps"><li><span>Start with <code>&lt;article&gt;</code> and add <code>class="c-card"</code>.</span></li><li><span>Add the parts you need: <code>c-card__header</code>, <code>c-card__title</code>, <code>c-card__body</code>, <code>c-card__footer</code>.</span></li><li><span>Pick at most one surface modifier: <code>--elevated</code>, <code>--bordered</code>.</span></li><li><span>Add any behavior modifier: <code>--interactive</code>.</span></li></ol>
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <div class="demo-stage">
+  <figure class="demo-stage">
     <div class="l-grid l-grid--responsive">
       <article class="c-card">
         <header class="c-card__header">
@@ -141,7 +141,7 @@
         </div>
       </section>
     </div>
-  </div>
+  </figure>
 </div>
 <pre class="demo-code"><code>&lt;div class=&quot;l-grid l-grid--responsive&quot;&gt;
   &lt;article class=&quot;c-card&quot;&gt;
@@ -212,7 +212,7 @@
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
     <p>Put the link on the title and add c-card--interactive; the link covers the card and other actions stay clickable.</p>
-<div class="demo-stage">
+<figure class="demo-stage">
   <article class="c-card c-card--interactive">
     <div class="c-card__header">
       <h3 class="c-card__title"><a href="#check">Atlas</a></h3>
@@ -221,7 +221,7 @@
       <p class="u-margin-0">Updated 2 hours ago</p>
     </div>
   </article>
-</div>
+</figure>
 <pre class="demo-code"><code>&lt;article class=&quot;c-card c-card--interactive&quot;&gt;
   &lt;div class=&quot;c-card__header&quot;&gt;
     &lt;h3 class=&quot;c-card__title&quot;&gt;&lt;a href=&quot;#atlas&quot;&gt;Atlas&lt;/a&gt;&lt;/h3&gt;
@@ -247,12 +247,12 @@
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
     <p>Let the grid space the cards.</p>
-<div class="demo-stage">
+<figure class="demo-stage">
   <div class="l-grid l-grid--responsive">
     <section class="c-card c-card--bordered"><p class="u-margin-0">Storage: 4 GB of 10 GB</p></section>
     <section class="c-card c-card--bordered"><p class="u-margin-0">Seats: 12 of 20</p></section>
   </div>
-</div>
+</figure>
 <pre class="demo-code"><code>&lt;div class=&quot;l-grid l-grid--responsive&quot;&gt;
   &lt;section class=&quot;c-card c-card--bordered&quot;&gt;&lt;p class=&quot;u-margin-0&quot;&gt;Storage: 4 GB of 10 GB&lt;/p&gt;&lt;/section&gt;
   &lt;section class=&quot;c-card c-card--bordered&quot;&gt;&lt;p class=&quot;u-margin-0&quot;&gt;Seats: 12 of 20&lt;/p&gt;&lt;/section&gt;
@@ -265,6 +265,41 @@
 <pre class="demo-code"><code>&lt;section class=&quot;c-card&quot; style=&quot;margin-block-end: 16px&quot;&gt;&lt;p class=&quot;u-margin-0&quot;&gt;Storage: 4 GB of 10 GB&lt;/p&gt;&lt;/section&gt;</code></pre>
 <p class="demo-check__label">validate</p>
 <ul class="demo-check__issues" role="list"><li><strong>warning</strong> Components must not set their own margin. Wrap them in a layout primitive (l-stack, l-cluster…) instead. <code>[golden-rule]</code></li></ul>
+  </div>
+</div>
+<div class="demo-checks__pair">
+  <div class="demo-checks__card demo-checks__card--do">
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
+    <p>Group content inside a card with headings and l-stack.</p>
+<figure class="demo-stage">
+  <article class="c-card">
+    <h3 class="c-card__title">Billing</h3>
+    <div class="c-card__body l-stack l-stack--sm">
+      <p class="u-margin-0">Team plan, 12 of 20 seats.</p>
+      <p class="u-margin-0">Next invoice on 1 November 2026.</p>
+    </div>
+  </article>
+</figure>
+<pre class="demo-code"><code>&lt;article class=&quot;c-card&quot;&gt;
+  &lt;h3 class=&quot;c-card__title&quot;&gt;Billing&lt;/h3&gt;
+  &lt;div class=&quot;c-card__body l-stack l-stack--sm&quot;&gt;
+    &lt;p class=&quot;u-margin-0&quot;&gt;Team plan, 12 of 20 seats.&lt;/p&gt;
+    &lt;p class=&quot;u-margin-0&quot;&gt;Next invoice on 1 November 2026.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+<p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
+  </div>
+  <div class="demo-checks__card demo-checks__card--dont">
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p>Don't put a card inside a card: the nested keylines read as clutter and flatten the hierarchy.</p>
+<pre class="demo-code"><code>&lt;article class=&quot;c-card&quot;&gt;
+  &lt;h3 class=&quot;c-card__title&quot;&gt;Billing&lt;/h3&gt;
+  &lt;div class=&quot;c-card&quot;&gt;
+    &lt;p&gt;Team plan, 12 of 20 seats.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+<p class="demo-check__label">validate</p>
+<ul class="demo-check__issues" role="list"><li><strong>warning</strong> A card inside a card. Group the inner content with a heading and l-stack, or use a list; nested keylines read as clutter. <code>[card-nesting]</code></li></ul>
   </div>
 </div>
 </div>
