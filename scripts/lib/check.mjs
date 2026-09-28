@@ -8,6 +8,7 @@ import { createValidator, RAW_COLOR } from './validate.mjs';
 import { generate } from './generate.mjs';
 import { loadSteps, uncoveredBlocks } from './demo.mjs';
 import { checkGuidance } from './pages.mjs';
+import { loadIcons, checkIcons } from './icons.mjs';
 
 const HAND_WRITTEN_CSS = ['global.css', 'layout.css', 'components.css', 'utilities.css'];
 
@@ -114,6 +115,9 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
   const contentSchema = JSON.parse(readFileSync(join(root, 'schemas/content.schema.json'), 'utf8'));
   const content = JSON.parse(readFileSync(join(root, 'guidelines/content.json'), 'utf8'));
   for (const e of validateSchema(contentSchema, content)) errors.push(`guidelines/content.json: ${e}`);
+
+  // 4d. Icons are clean 24-unit line drawings.
+  errors.push(...checkIcons(loadIcons(root)));
 
   // 5. The demo booklet introduces every stable block.
   for (const block of uncoveredBlocks(contracts, loadSteps(root))) errors.push(`demo/steps.json: no step introduces ${block}`);

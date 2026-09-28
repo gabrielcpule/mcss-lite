@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { classInventory, stateLabel } from './contracts.mjs';
 import { cdnUrl, gitSpec } from './release.mjs';
+import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
 
 // Authored part glyphs: one per block, drawn in the 2px ink keyline (24px grid).
 const GLYPHS = {
@@ -145,7 +146,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     const isModal = s.blocks.includes('c-modal');
     const stageClass = ['demo-stage', isModal && 'demo-stage--contain', s.wide && 'demo-stage--baseplate'].filter(Boolean).join(' ');
     // Stage links point back to this step so the demo never leads to a 404.
-    const stage = (isModal ? inlinePreview(example(s.example)) : example(s.example)).replace(/href="[^"]*"/g, `href="#step-${n}"`);
+    const stage = (isModal ? inlinePreview(example(s.example)) : example(s.example)).replace(new RegExp(`href="(?!#${ICON_PREFIX})[^"]*"`, 'g'), `href="#step-${n}"`);
     const present = partsIn(example(s.example));
     const declared = new Set(s.blocks.flatMap((b) => (b === 'u-*' ? byBlock.get('u-*').classes.map((u) => u.name) : [b])));
     const also = [...present].filter(([k]) => !declared.has(k));
@@ -202,6 +203,7 @@ ${indent(stage, 10)}
   <link rel="stylesheet" href="demo.css">
 </head>
 <body class="demo">
+${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#step-1">Skip to the build</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">

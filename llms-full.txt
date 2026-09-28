@@ -49,11 +49,13 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `l-sidebar` | layout | — | __sidebar __content | — | A sidebar next to main content that stacks when the content would get narrower than 50%. |
 | `l-stack` | layout | --sm --lg | — | — | Vertical flow: adds space between consecutive children, which keep their own width. |
 | `l-switcher` | layout | — | — | — | Children sit side by side until the container is narrower than a threshold, then all stack at once. |
+| `c-alert` | component | --info --success --warning --error | __icon __body __title __actions __close | — | A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge. |
 | `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
 | `c-button` | component | --primary --secondary --ghost --danger · --sm --lg | — | disabled loading | Triggers an action. |
 | `c-card` | component | --elevated --bordered · --interactive | __header __title __body __footer | — | A raised surface that groups related content, such as a summary, a settings group or a list item. |
 | `c-checkbox` | component | — | __input __label __hint | :checked :indeterminate :disabled [aria-invalid="true"] | A native checkbox with its label: pick any number of options, or confirm one statement. |
 | `c-form-field` | component | — | __label __help __error | error | Wraps one form control with its label, help text and error message. |
+| `c-icon` | component | --sm --lg | — | — | A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color. |
 | `c-input` | component | — | — | error success disabled | Single-line text entry. |
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
@@ -697,6 +699,152 @@ Children sit side by side until the container is narrower than a threshold, then
 
 ## Components
 
+### Alert — `c-alert`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.
+
+**When to use:**
+- Something on this page needs attention: a failed save, an expiring plan, a limit reached.
+- The error summary at the top of a form after a failed submit, with a link to each field.
+- Confirming that an action finished, when the page stays where it is.
+
+**When not to use:**
+- An error about one field: use its `c-form-field` error message.
+- A decision the person must make before going on: use `c-modal`.
+- A status label on an item: use `c-badge`.
+
+**Apply to:** `<div>`, `<section>`, `<aside>`
+
+**Modifiers — tone** (pick at most one):
+- `c-alert--info`: Neutral information. Circle icon, "Information:" prefix.
+- `c-alert--success`: Something finished well. Square check icon, "Success:" prefix.
+- `c-alert--warning`: Something may go wrong unless the person acts. Triangle icon, "Warning:" prefix.
+- `c-alert--error`: Something went wrong; also the error summary at the top of a form. Octagon icon, "Error:" prefix.
+
+**Elements:**
+- `c-alert__icon`: The keylined tile that holds the severity icon (a c-icon, aria-hidden). On `<span>`/`<div>`.
+- `c-alert__body` (required): Title, text and actions. On `<div>`.
+- `c-alert__title`: One short line. Starts with the visually hidden severity prefix. On `<p>`/`<h2>`/`<h3>`/`<h4>`/`<strong>`.
+- `c-alert__actions`: Buttons or links that resolve the alert, in an l-cluster. On `<div>`.
+- `c-alert__close`: Dismiss button, 44px, with aria-label. The app sets hidden on the alert when it is pressed. On `<button>`.
+
+**Structure:**
+- Order: c-alert__icon, c-alert__body (c-alert__title, text, c-alert__actions), then an optional c-alert__close.
+- Start c-alert__title with <span class="u-sr-only">Error: </span> (or Warning, Success, Information), so severity never relies on the icon or the edge.
+
+**Do:**
+- Say what happened and what to do next, in that order.
+- Keep alerts in the page flow near what they are about, spaced by a layout primitive.
+- Give role="alert" only to urgent messages that appear after something the person just did. Leave it off alerts that are there when the page loads.
+
+**Don't:**
+- More than one alert of the same tone at once; combine them.
+- A dismiss button on a warning about data loss or cost; it must stay until resolved.
+- Moving focus to a success alert; move focus only to an error summary after a failed submit.
+
+**Do (example):** Give every toned alert its icon and a hidden severity prefix, so it never relies on color.
+
+```html
+<div class="c-alert c-alert--warning">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+  <div class="c-alert__body">
+    <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+    <p>Choose a plan to keep your projects.</p>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.
+
+```html
+<div class="c-alert c-alert--warning">
+  <div class="c-alert__body">
+    <p class="c-alert__title">Your trial ends on 12 October 2026</p>
+  </div>
+</div>
+```
+
+**Do (example):** After a failed submit, list every error in an error alert, each linked to its field, and move focus to it.
+
+```html
+<div class="c-alert c-alert--error" tabindex="-1" aria-labelledby="summary-title">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+  <div class="c-alert__body">
+    <h2 class="c-alert__title" id="summary-title"><span class="u-sr-only">Error: </span>There is a problem</h2>
+    <ul>
+      <li><a href="#email">Enter your email address</a></li>
+      <li><a href="#terms">Agree to the terms of service</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't build an alert from elements outside the block: the tile and edge lose their shape. (`mcss-lite validate` reports `[element-outside-block]`)
+
+```html
+<div class="c-card">
+  <p class="c-alert__title">There is a problem</p>
+</div>
+```
+
+**Content:**
+- Titles say what happened in plain words, in sentence case, with no exclamation mark.
+- The text says what to do next. Name the action: "Choose a plan", not "Click here".
+- Keep the hidden prefix to one word and a colon: "Error:", "Warning:", "Success:", "Information:".
+
+**Accessibility:**
+- Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.
+- role="alert" interrupts the screen reader: only for urgent messages that appear after an action.
+- An error summary gets tabindex="-1" and focus after a failed submit; its links move focus to each field.
+- c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert.
+
+**Keyboard:**
+- Tab: Moves through the links and buttons inside the alert, then the close button.
+- Enter: Follows a link in an error summary to its field.
+
+**Tokens:** `--alert-background`, `--alert-border`, `--alert-edge-info`, `--alert-edge-success`, `--alert-edge-warning`, `--alert-edge-error`
+
+**Example** (`components/alert.html`):
+
+```html
+<div class="l-stack">
+  <div class="c-alert c-alert--info">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
+      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
+    </div>
+  </div>
+  <div class="c-alert c-alert--success">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+      <p>Acme Inc. will get it by email in a few minutes.</p>
+    </div>
+  </div>
+  <div class="c-alert c-alert--warning">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+      <p>Choose a plan to keep your 4 projects.</p>
+      <div class="c-alert__actions l-cluster">
+        <a class="c-button c-button--primary c-button--sm" href="#plans">Choose a plan</a>
+      </div>
+    </div>
+  </div>
+  <div class="c-alert c-alert--error">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
+      <p>The connection dropped. Check your network and save again.</p>
+    </div>
+    <button type="button" class="c-alert__close" aria-label="Dismiss"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+  </div>
+</div>
+```
+
 ### Badge — `c-badge`
 
 A short, non-interactive label for status or category, such as "Beta" or "Paid".
@@ -1267,6 +1415,92 @@ Wraps one form control with its label, help text and error message.
 </form>
 ```
 
+### Icon — `c-icon`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.
+
+**When to use:**
+- Next to a label, to help people scan: a download button, an external link.
+- Inside a severity tile in `c-alert`, where each tone has its own shape.
+- An icon-only button, with an accessible name on the button.
+
+**When not to use:**
+- As the only way to show meaning when a word would do: write the word.
+- For decoration that repeats a nearby label; leave it out.
+
+**Apply to:** `<svg>`
+
+**Modifiers — size** (pick at most one):
+- `c-icon--sm`: 16px, for dense text and small buttons.
+- `c-icon--lg`: 24px, for alerts and empty states.
+
+**Structure:**
+- Exactly one <use href="#mcss-icon-<name>">; the names are listed under Icons in AGENTS.md.
+
+**Do:**
+- Inline the sprite once per page, then reference symbols by id.
+- Let the icon inherit the text color; change color on the parent.
+
+**Don't:**
+- Linking the sprite from a CDN: browsers block <use> across origins.
+- Coloring icons blue for decoration: blue means "act".
+
+**Do (example):** Hide a decorative icon from screen readers; the button text names the action.
+
+```html
+<button type="button" class="c-button">
+  <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+  Download the invoice
+</button>
+```
+
+**Don't (example):** Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.
+
+```html
+<svg class="c-icon"><use href="#mcss-icon-download"></use></svg>
+```
+
+**Do (example):** Give an icon-only button its name with aria-label.
+
+```html
+<button type="button" class="c-button" aria-label="Copy the API key">
+  <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+</button>
+```
+
+**Don't (example):** Don't invent icon names: an unknown symbol draws nothing.
+
+```html
+<svg class="c-icon" aria-hidden="true"><use href="#mcss-icon-rocket"></use></svg>
+```
+
+**Accessibility:**
+- Decorative icons: aria-hidden="true" and focusable="false".
+- Meaningful icons with no visible text: role="img" and aria-label on the <svg>.
+- Severity must never rely on an icon alone; pair it with text.
+
+**Tokens:** `--icon-size`, `--icon-size-sm`, `--icon-size-lg`
+
+**Example** (`components/icon.html`):
+
+```html
+<div class="l-cluster">
+  <button type="button" class="c-button">
+    <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+    Download the invoice
+  </button>
+  <a class="c-button c-button--ghost" href="https://design.gitlab.com/">
+    Pajamas docs
+    <svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-external-link"></use></svg>
+  </a>
+  <button type="button" class="c-button" aria-label="Copy the API key">
+    <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+  </button>
+</div>
+```
+
 ### Input — `c-input`
 
 Single-line text entry. Also styles <textarea> and <select>.
@@ -1748,6 +1982,18 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 - `u-truncate`: Single line with an ellipsis.
 - `u-sr-only`: Visually hidden but read by screen readers.
 
+## Icons
+
+20 line icons on a 24-unit grid, drawn with a 2px stroke at every size. They ship as one sprite, `dist/mcss-lite.icons.svg`. Inline it once near the top of <body> (a sprite linked from another origin, such as a CDN, doesn't render), then reference a symbol by id:
+
+```html
+<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg>
+```
+
+Names (id `#mcss-icon-<name>`): `arrow-right`, `check`, `chevron-down`, `chevron-left`, `chevron-right`, `chevron-up`, `close`, `copy`, `download`, `edit`, `error`, `external-link`, `info`, `menu`, `minus`, `plus`, `search`, `success`, `trash`, `warning`.
+
+Icons take the text color. A decorative icon gets aria-hidden="true"; an icon that carries meaning on its own gets role="img" and aria-label. Never invent an icon name.
+
 ## Themes
 
 Set `data-theme` on `<html>` or any subtree: `light` (default when absent), `dark`, or `auto` (follows the OS). Only semantic tokens change between themes. Component tokens are unset by default and fall back to semantic tokens, so components follow the theme. If you override a component token with a raw color, set it per theme (see below); a themed subtree also sets its own text and background colors.
@@ -1851,8 +2097,8 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
-| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
+| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 
@@ -1880,7 +2126,7 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--button-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
 | `--button-text` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--button-radius` | `--border-radius-base` | 0.25rem |
-| `--button-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
+| `--button-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) |
 | `--button-primary-background` | `--color-action-primary` | #005a9c / #2576cc |
 | `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #185da6 |
 | `--button-primary-text` | `--color-text-on-action` | #ffffff |
@@ -1907,15 +2153,15 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--card-border-hover` | `--color-action-primary` | #005a9c / #2576cc |
 | `--card-radius` | `--border-radius-lg` | 0.5rem |
 | `--card-padding` | `--space-6` | 1.5rem |
-| `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
-| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) |
+| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
 | `--badge-background` | `--color-background-muted` | #e9ecef / #27436f |
 | `--badge-text` | `--color-text-muted` | #343a40 / #cfdae5 |
 | `--modal-background` | `--color-background-raised` | #ffffff / #14294d |
 | `--modal-backdrop` | `--color-background-overlay` | rgb(15 33 64 / 0.55) / rgb(0 0 0 / 0.72) |
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
-| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
 | `--checkbox-size` | `--space-6` | 1.5rem |
 | `--checkbox-background` | `--color-background-interactive` | #ffffff / #14294d |
 | `--checkbox-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
@@ -1928,6 +2174,15 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--toggle-thumb` | `--color-background-interactive` | #ffffff / #14294d |
 | `--toggle-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--toggle-mark` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--icon-size` | `--space-5` | 1.25rem |
+| `--icon-size-sm` | `--space-4` | 1rem |
+| `--icon-size-lg` | `--space-6` | 1.5rem |
+| `--alert-background` | `--color-background-raised` | #ffffff / #14294d |
+| `--alert-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--alert-edge-info` | `--color-border-info` | #0c5460 / #9ad4df |
+| `--alert-edge-success` | `--color-border-success` | #1e5631 / #a3d9b1 |
+| `--alert-edge-warning` | `--color-border-warning` | #856404 / #f5d77a |
+| `--alert-edge-error` | `--color-border-error` | #c91a09 / #f4a9b0 |
 
 ## Primitive colors (do not use in components)
 

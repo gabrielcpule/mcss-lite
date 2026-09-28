@@ -119,6 +119,32 @@
       "dont": "Just hit the big blue button, guys"
     }
   ],
+  "icons": {
+    "sprite": "dist/mcss-lite.icons.svg",
+    "idPrefix": "mcss-icon-",
+    "names": [
+      "arrow-right",
+      "check",
+      "chevron-down",
+      "chevron-left",
+      "chevron-right",
+      "chevron-up",
+      "close",
+      "copy",
+      "download",
+      "edit",
+      "error",
+      "external-link",
+      "info",
+      "menu",
+      "minus",
+      "plus",
+      "search",
+      "success",
+      "trash",
+      "warning"
+    ]
+  },
   "pages": [
     "demo/index.html",
     "demo/status.html",
@@ -131,11 +157,13 @@
     "demo/components/sidebar.html",
     "demo/components/stack.html",
     "demo/components/switcher.html",
+    "demo/components/alert.html",
     "demo/components/badge.html",
     "demo/components/button.html",
     "demo/components/card.html",
     "demo/components/checkbox.html",
     "demo/components/form-field.html",
+    "demo/components/icon.html",
     "demo/components/input.html",
     "demo/components/label.html",
     "demo/components/modal.html",
@@ -669,6 +697,198 @@
         {
           "title": "Every Layout: The Switcher",
           "url": "https://every-layout.dev/layouts/switcher/"
+        }
+      ]
+    },
+    {
+      "name": "Alert",
+      "block": "c-alert",
+      "layer": "component",
+      "status": "beta",
+      "since": "0.4.0",
+      "description": "A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.",
+      "tags": [
+        "div",
+        "section",
+        "aside"
+      ],
+      "modifiers": [
+        {
+          "group": "tone",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "info",
+              "description": "Neutral information. Circle icon, \"Information:\" prefix."
+            },
+            {
+              "name": "success",
+              "description": "Something finished well. Square check icon, \"Success:\" prefix."
+            },
+            {
+              "name": "warning",
+              "description": "Something may go wrong unless the person acts. Triangle icon, \"Warning:\" prefix."
+            },
+            {
+              "name": "error",
+              "description": "Something went wrong; also the error summary at the top of a form. Octagon icon, \"Error:\" prefix."
+            }
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "name": "icon",
+          "description": "The keylined tile that holds the severity icon (a c-icon, aria-hidden).",
+          "tags": [
+            "span",
+            "div"
+          ]
+        },
+        {
+          "name": "body",
+          "description": "Title, text and actions.",
+          "tags": [
+            "div"
+          ],
+          "required": true
+        },
+        {
+          "name": "title",
+          "description": "One short line. Starts with the visually hidden severity prefix.",
+          "tags": [
+            "p",
+            "h2",
+            "h3",
+            "h4",
+            "strong"
+          ]
+        },
+        {
+          "name": "actions",
+          "description": "Buttons or links that resolve the alert, in an l-cluster.",
+          "tags": [
+            "div"
+          ]
+        },
+        {
+          "name": "close",
+          "description": "Dismiss button, 44px, with aria-label. The app sets hidden on the alert when it is pressed.",
+          "tags": [
+            "button"
+          ]
+        }
+      ],
+      "children": [
+        "Order: c-alert__icon, c-alert__body (c-alert__title, text, c-alert__actions), then an optional c-alert__close.",
+        "Start c-alert__title with <span class=\"u-sr-only\">Error: </span> (or Warning, Success, Information), so severity never relies on the icon or the edge."
+      ],
+      "guidelines": {
+        "whenToUse": [
+          "Something on this page needs attention: a failed save, an expiring plan, a limit reached.",
+          "The error summary at the top of a form after a failed submit, with a link to each field.",
+          "Confirming that an action finished, when the page stays where it is."
+        ],
+        "whenNotToUse": [
+          "An error about one field: use its `c-form-field` error message.",
+          "A decision the person must make before going on: use `c-modal`.",
+          "A status label on an item: use `c-badge`."
+        ],
+        "use": [
+          "Say what happened and what to do next, in that order.",
+          "Keep alerts in the page flow near what they are about, spaced by a layout primitive.",
+          "Give role=\"alert\" only to urgent messages that appear after something the person just did. Leave it off alerts that are there when the page loads."
+        ],
+        "avoid": [
+          "More than one alert of the same tone at once; combine them.",
+          "A dismiss button on a warning about data loss or cost; it must stay until resolved.",
+          "Moving focus to a success alert; move focus only to an error summary after a failed submit."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Give every toned alert its icon and a hidden severity prefix, so it never relies on color.",
+              "html": "<div class=\"c-alert c-alert--warning\">\n  <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-warning\"></use></svg></span>\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\"><span class=\"u-sr-only\">Warning: </span>Your trial ends on 12 October 2026</p>\n    <p>Choose a plan to keep your projects.</p>\n  </div>\n</div>"
+            },
+            "dont": {
+              "text": "Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.",
+              "html": "<div class=\"c-alert c-alert--warning\">\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\">Your trial ends on 12 October 2026</p>\n  </div>\n</div>"
+            }
+          },
+          {
+            "do": {
+              "text": "After a failed submit, list every error in an error alert, each linked to its field, and move focus to it.",
+              "html": "<div class=\"c-alert c-alert--error\" tabindex=\"-1\" aria-labelledby=\"summary-title\">\n  <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-error\"></use></svg></span>\n  <div class=\"c-alert__body\">\n    <h2 class=\"c-alert__title\" id=\"summary-title\"><span class=\"u-sr-only\">Error: </span>There is a problem</h2>\n    <ul>\n      <li><a href=\"#email\">Enter your email address</a></li>\n      <li><a href=\"#terms\">Agree to the terms of service</a></li>\n    </ul>\n  </div>\n</div>"
+            },
+            "dont": {
+              "text": "Don't build an alert from elements outside the block: the tile and edge lose their shape.",
+              "html": "<div class=\"c-card\">\n  <p class=\"c-alert__title\">There is a problem</p>\n</div>",
+              "rule": "element-outside-block"
+            }
+          }
+        ],
+        "content": [
+          "Titles say what happened in plain words, in sentence case, with no exclamation mark.",
+          "The text says what to do next. Name the action: \"Choose a plan\", not \"Click here\".",
+          "Keep the hidden prefix to one word and a colon: \"Error:\", \"Warning:\", \"Success:\", \"Information:\"."
+        ]
+      },
+      "tokens": [
+        "--alert-background",
+        "--alert-border",
+        "--alert-edge-info",
+        "--alert-edge-success",
+        "--alert-edge-warning",
+        "--alert-edge-error"
+      ],
+      "a11y": [
+        "Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.",
+        "role=\"alert\" interrupts the screen reader: only for urgent messages that appear after an action.",
+        "An error summary gets tabindex=\"-1\" and focus after a failed submit; its links move focus to each field.",
+        "c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert."
+      ],
+      "keyboard": [
+        {
+          "key": "Tab",
+          "action": "Moves through the links and buttons inside the alert, then the close button."
+        },
+        {
+          "key": "Enter",
+          "action": "Follows a link in an error summary to its field."
+        }
+      ],
+      "related": [
+        "c-icon",
+        "c-form-field",
+        "c-modal",
+        "c-badge"
+      ],
+      "examples": [
+        {
+          "file": "components/alert.html",
+          "html": "<div class=\"l-stack\">\n  <div class=\"c-alert c-alert--info\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-info\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Information: </span>Maintenance on 3 October 2026</p>\n      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--success\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-success\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Success: </span>Invoice sent</p>\n      <p>Acme Inc. will get it by email in a few minutes.</p>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--warning\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-warning\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Warning: </span>Your trial ends on 12 October 2026</p>\n      <p>Choose a plan to keep your 4 projects.</p>\n      <div class=\"c-alert__actions l-cluster\">\n        <a class=\"c-button c-button--primary c-button--sm\" href=\"#plans\">Choose a plan</a>\n      </div>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--error\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-error\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Error: </span>The changes weren't saved</p>\n      <p>The connection dropped. Check your network and save again.</p>\n    </div>\n    <button type=\"button\" class=\"c-alert__close\" aria-label=\"Dismiss\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-close\"></use></svg></button>\n  </div>\n</div>"
+        }
+      ],
+      "sources": [
+        {
+          "title": "GOV.UK Design System: Error summary",
+          "url": "https://design-system.service.gov.uk/components/error-summary"
+        },
+        {
+          "title": "GOV.UK Design System: Notification banner",
+          "url": "https://design-system.service.gov.uk/components/notification-banner"
+        },
+        {
+          "title": "GitLab Pajamas: Alert",
+          "url": "https://design.gitlab.com/components/alert"
+        },
+        {
+          "title": "WAI-ARIA APG: Alert pattern",
+          "url": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/"
+        },
+        {
+          "title": "Scott O'Hara: Are we live? (live regions)",
+          "url": "https://www.scottohara.me/blog/2022/02/05/are-we-live.html"
         }
       ]
     },
@@ -1475,6 +1695,107 @@
           "name": "error",
           "description": "A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline.",
           "pair": "Set aria-describedby on the fieldset pointing at its c-form-field__error; ARIA doesn't allow aria-invalid on a fieldset or a radio."
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "block": "c-icon",
+      "layer": "component",
+      "status": "beta",
+      "since": "0.4.0",
+      "description": "A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.",
+      "tags": [
+        "svg"
+      ],
+      "modifiers": [
+        {
+          "group": "size",
+          "exclusive": true,
+          "values": [
+            {
+              "name": "sm",
+              "description": "16px, for dense text and small buttons."
+            },
+            {
+              "name": "lg",
+              "description": "24px, for alerts and empty states."
+            }
+          ]
+        }
+      ],
+      "children": [
+        "Exactly one <use href=\"#mcss-icon-<name>\">; the names are listed under Icons in AGENTS.md."
+      ],
+      "guidelines": {
+        "whenToUse": [
+          "Next to a label, to help people scan: a download button, an external link.",
+          "Inside a severity tile in `c-alert`, where each tone has its own shape.",
+          "An icon-only button, with an accessible name on the button."
+        ],
+        "whenNotToUse": [
+          "As the only way to show meaning when a word would do: write the word.",
+          "For decoration that repeats a nearby label; leave it out."
+        ],
+        "use": [
+          "Inline the sprite once per page, then reference symbols by id.",
+          "Let the icon inherit the text color; change color on the parent."
+        ],
+        "avoid": [
+          "Linking the sprite from a CDN: browsers block <use> across origins.",
+          "Coloring icons blue for decoration: blue means \"act\"."
+        ],
+        "doDont": [
+          {
+            "do": {
+              "text": "Hide a decorative icon from screen readers; the button text names the action.",
+              "html": "<button type=\"button\" class=\"c-button\">\n  <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-download\"></use></svg>\n  Download the invoice\n</button>"
+            },
+            "dont": {
+              "text": "Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.",
+              "html": "<svg class=\"c-icon\"><use href=\"#mcss-icon-download\"></use></svg>"
+            }
+          },
+          {
+            "do": {
+              "text": "Give an icon-only button its name with aria-label.",
+              "html": "<button type=\"button\" class=\"c-button\" aria-label=\"Copy the API key\">\n  <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-copy\"></use></svg>\n</button>"
+            },
+            "dont": {
+              "text": "Don't invent icon names: an unknown symbol draws nothing.",
+              "html": "<svg class=\"c-icon\" aria-hidden=\"true\"><use href=\"#mcss-icon-rocket\"></use></svg>"
+            }
+          }
+        ]
+      },
+      "tokens": [
+        "--icon-size",
+        "--icon-size-sm",
+        "--icon-size-lg"
+      ],
+      "a11y": [
+        "Decorative icons: aria-hidden=\"true\" and focusable=\"false\".",
+        "Meaningful icons with no visible text: role=\"img\" and aria-label on the <svg>.",
+        "Severity must never rely on an icon alone; pair it with text."
+      ],
+      "related": [
+        "c-button",
+        "c-alert"
+      ],
+      "examples": [
+        {
+          "file": "components/icon.html",
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\">\n    <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-download\"></use></svg>\n    Download the invoice\n  </button>\n  <a class=\"c-button c-button--ghost\" href=\"https://design.gitlab.com/\">\n    Pajamas docs\n    <svg class=\"c-icon c-icon--sm\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-external-link\"></use></svg>\n  </a>\n  <button type=\"button\" class=\"c-button\" aria-label=\"Copy the API key\">\n    <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-copy\"></use></svg>\n  </button>\n</div>"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Sara Soueidan: Accessible icon buttons",
+          "url": "https://www.sarasoueidan.com/blog/accessible-icon-buttons/"
+        },
+        {
+          "title": "GitLab Pajamas: Icons",
+          "url": "https://design.gitlab.com/product-foundations/iconography"
         }
       ]
     },
@@ -4111,7 +4432,7 @@
       "type": "shadow",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
-        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+        "dark": "0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35)"
       },
       "description": "Brick-edge depth for raised parts: a 2px edge plus a soft blur.",
       "figma": false
@@ -4123,7 +4444,7 @@
       "type": "shadow",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
-        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+        "dark": "0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
       },
       "description": "Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible.",
       "figma": false
@@ -4193,7 +4514,7 @@
       "alias": "--shadow-raised",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
-        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+        "dark": "0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35)"
       },
       "figma": false
     },
@@ -4499,7 +4820,7 @@
       "alias": "--shadow-raised",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)",
-        "dark": "0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35)"
+        "dark": "0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35)"
       },
       "figma": false
     },
@@ -4511,7 +4832,7 @@
       "alias": "--shadow-elevated",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
-        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+        "dark": "0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
       },
       "figma": false
     },
@@ -4592,7 +4913,7 @@
       "alias": "--shadow-elevated",
       "value": {
         "light": "0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22)",
-        "dark": "0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
+        "dark": "0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6)"
       },
       "figma": false
     },
@@ -4738,6 +5059,108 @@
         "dark": "#e6edf4"
       },
       "description": "Tick (on) or bar (off) drawn on the thumb.",
+      "figma": true
+    },
+    {
+      "name": "--icon-size",
+      "path": "icon.size",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--space-5",
+      "value": "1.25rem",
+      "description": "Default icon size (20px).",
+      "figma": true
+    },
+    {
+      "name": "--icon-size-sm",
+      "path": "icon.size-sm",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--space-4",
+      "value": "1rem",
+      "figma": true
+    },
+    {
+      "name": "--icon-size-lg",
+      "path": "icon.size-lg",
+      "tier": "component",
+      "type": "dimension",
+      "alias": "--space-6",
+      "value": "1.5rem",
+      "figma": true
+    },
+    {
+      "name": "--alert-background",
+      "path": "alert.background",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-background-raised",
+      "value": {
+        "light": "#ffffff",
+        "dark": "#14294d"
+      },
+      "description": "Every tone sits on paper; tone comes from the edge, the icon and the hidden prefix.",
+      "figma": true
+    },
+    {
+      "name": "--alert-border",
+      "path": "alert.border",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-keyline",
+      "value": {
+        "light": "#1a1d20",
+        "dark": "#cfdae5"
+      },
+      "figma": true
+    },
+    {
+      "name": "--alert-edge-info",
+      "path": "alert.edge-info",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-info",
+      "value": {
+        "light": "#0c5460",
+        "dark": "#9ad4df"
+      },
+      "description": "4px bottom edge and icon color for info.",
+      "figma": true
+    },
+    {
+      "name": "--alert-edge-success",
+      "path": "alert.edge-success",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-success",
+      "value": {
+        "light": "#1e5631",
+        "dark": "#a3d9b1"
+      },
+      "figma": true
+    },
+    {
+      "name": "--alert-edge-warning",
+      "path": "alert.edge-warning",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-warning",
+      "value": {
+        "light": "#856404",
+        "dark": "#f5d77a"
+      },
+      "figma": true
+    },
+    {
+      "name": "--alert-edge-error",
+      "path": "alert.edge-error",
+      "tier": "component",
+      "type": "color",
+      "alias": "--color-border-error",
+      "value": {
+        "light": "#c91a09",
+        "dark": "#f4a9b0"
+      },
       "figma": true
     }
   ]

@@ -194,5 +194,39 @@
       "$value": "{color.text.default}",
       "$description": "Tick (on) or bar (off) drawn on the thumb."
     }
+  },
+  "icon": {
+    "size": {
+      "$value": "{space.5}",
+      "$description": "Default icon size (20px)."
+    },
+    "size-sm": {
+      "$value": "{space.4}"
+    },
+    "size-lg": {
+      "$value": "{space.6}"
+    }
+  },
+  "alert": {
+    "background": {
+      "$value": "{color.background.raised}",
+      "$description": "Every tone sits on paper; tone comes from the edge, the icon and the hidden prefix."
+    },
+    "border": {
+      "$value": "{color.border.keyline}"
+    },
+    "edge-info": {
+      "$value": "{color.border.info}",
+      "$description": "4px bottom edge and icon color for info."
+    },
+    "edge-success": {
+      "$value": "{color.border.success}"
+    },
+    "edge-warning": {
+      "$value": "{color.border.warning}"
+    },
+    "edge-error": {
+      "$value": "{color.border.error}"
+    }
   }
 }

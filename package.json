@@ -19,7 +19,8 @@
     "./tokens/*": "./tokens/*",
     "./figma/*": "./dist/figma/*",
     "./*": "./*",
-    "./min": "./dist/mcss-lite.min.css"
+    "./min": "./dist/mcss-lite.min.css",
+    "./icons.svg": "./dist/mcss-lite.icons.svg"
   },
   "bin": {
     "mcss-lite": "bin/mcss-lite.mjs"
@@ -29,6 +30,7 @@
     "src/",
     "tokens/",
     "components/",
+    "icons/",
     "schemas/",
     "dist/",
     "skills/",

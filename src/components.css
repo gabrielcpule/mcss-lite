@@ -615,6 +615,142 @@
     }
   }
 
+  /* === Icon ===
+     A symbol from the sprite. The sprite's shapes keep a 2px stroke at every size (vector-effect),
+     so icons match the keyline. They take the text color. */
+  .c-icon {
+    display: inline-block;
+    flex: none;
+    inline-size: var(--icon-size, var(--space-5));
+    block-size: var(--icon-size, var(--space-5));
+    vertical-align: -0.25em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .c-icon--sm {
+    inline-size: var(--icon-size-sm, var(--space-4));
+    block-size: var(--icon-size-sm, var(--space-4));
+  }
+
+  .c-icon--lg {
+    inline-size: var(--icon-size-lg, var(--space-6));
+    block-size: var(--icon-size-lg, var(--space-6));
+  }
+
+  /* Arrows and chevrons point along the reading direction. */
+  .c-icon:dir(rtl):has(use[href$="-icon-arrow-right"], use[href$="-icon-chevron-left"], use[href$="-icon-chevron-right"]) {
+    transform: scaleX(-1);
+  }
+
+  /* === Alert ===
+     A printed notice, not a brick: paper, an ink keyline, no shadow. Severity shows three ways at once:
+     a shaped icon in a keylined tile, a hidden text prefix, and a heavier bottom edge in the tone color. */
+  .c-alert {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: var(--border-width-thick) solid var(--alert-border, var(--color-border-keyline));
+    border-block-end-width: var(--border-width-thicker);
+    border-radius: var(--border-radius-base);
+    background-color: var(--alert-background, var(--color-background-raised));
+    color: var(--color-text-default);
+  }
+
+  .c-alert--info {
+    border-block-end-color: var(--alert-edge-info, var(--color-border-info));
+  }
+
+  .c-alert--success {
+    border-block-end-color: var(--alert-edge-success, var(--color-border-success));
+  }
+
+  .c-alert--warning {
+    border-block-end-color: var(--alert-edge-warning, var(--color-border-warning));
+  }
+
+  .c-alert--error {
+    border-block-end-color: var(--alert-edge-error, var(--color-border-error));
+  }
+
+  .c-alert__icon {
+    display: grid;
+    place-items: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    border: var(--border-width-thick) solid var(--alert-border, var(--color-border-keyline));
+    border-radius: var(--border-radius-base);
+  }
+
+  .c-alert--info .c-alert__icon {
+    color: var(--alert-edge-info, var(--color-border-info));
+  }
+
+  .c-alert--success .c-alert__icon {
+    color: var(--alert-edge-success, var(--color-border-success));
+  }
+
+  .c-alert--warning .c-alert__icon {
+    color: var(--alert-edge-warning, var(--color-border-warning));
+  }
+
+  .c-alert--error .c-alert__icon {
+    color: var(--alert-edge-error, var(--color-border-error));
+  }
+
+  .c-alert__body {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-inline-size: 0;
+    padding-block-start: var(--space-1);
+  }
+
+  .c-alert:not(:has(.c-alert__icon)) .c-alert__body {
+    grid-column: 1 / 3;
+  }
+
+  .c-alert__body > * {
+    margin: 0;
+  }
+
+  .c-alert__title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-normal);
+  }
+
+  .c-alert__actions {
+    padding-block-start: var(--space-1);
+  }
+
+  .c-alert__close {
+    grid-column: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    margin: calc(-1 * var(--space-2));
+    border: var(--border-width-thick) solid transparent;
+    border-radius: var(--border-radius-base);
+    background: transparent;
+    color: var(--color-text-subtle);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .c-alert__close:hover {
+    background-color: var(--color-action-neutral-hover);
+    color: var(--color-text-default);
+  }
+
   /* === Badge / Tag === */
   .c-badge {
     display: inline-flex;

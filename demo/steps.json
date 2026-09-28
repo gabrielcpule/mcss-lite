@@ -61,6 +61,15 @@
       "example": "choices.html"
     },
     {
+      "title": "Raise the signals",
+      "text": "Alerts are printed notices, not bricks: paper and a keyline, no shadow. Severity shows three ways at once, as a shaped icon, a hidden word and a heavier bottom edge, so it never rests on color.",
+      "blocks": [
+        "c-alert",
+        "c-icon"
+      ],
+      "example": "alert.html"
+    },
+    {
       "title": "Fit the dialog",
       "text": "Prefer a native dialog opened with showModal(). The preview below is contained; the button opens the real thing.",
       "blocks": [

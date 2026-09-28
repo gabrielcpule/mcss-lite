@@ -49,11 +49,13 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `l-sidebar` | layout | — | __sidebar __content | — | A sidebar next to main content that stacks when the content would get narrower than 50%. |
 | `l-stack` | layout | --sm --lg | — | — | Vertical flow: adds space between consecutive children, which keep their own width. |
 | `l-switcher` | layout | — | — | — | Children sit side by side until the container is narrower than a threshold, then all stack at once. |
+| `c-alert` | component | --info --success --warning --error | __icon __body __title __actions __close | — | A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge. |
 | `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
 | `c-button` | component | --primary --secondary --ghost --danger · --sm --lg | — | disabled loading | Triggers an action. |
 | `c-card` | component | --elevated --bordered · --interactive | __header __title __body __footer | — | A raised surface that groups related content, such as a summary, a settings group or a list item. |
 | `c-checkbox` | component | — | __input __label __hint | :checked :indeterminate :disabled [aria-invalid="true"] | A native checkbox with its label: pick any number of options, or confirm one statement. |
 | `c-form-field` | component | — | __label __help __error | error | Wraps one form control with its label, help text and error message. |
+| `c-icon` | component | --sm --lg | — | — | A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color. |
 | `c-input` | component | — | — | error success disabled | Single-line text entry. |
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
@@ -79,6 +81,18 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 - `u-font-mono`: Monospace font.
 - `u-truncate`: Single line with an ellipsis.
 - `u-sr-only`: Visually hidden but read by screen readers.
+
+## Icons
+
+20 line icons on a 24-unit grid, drawn with a 2px stroke at every size. They ship as one sprite, `dist/mcss-lite.icons.svg`. Inline it once near the top of <body> (a sprite linked from another origin, such as a CDN, doesn't render), then reference a symbol by id:
+
+```html
+<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg>
+```
+
+Names (id `#mcss-icon-<name>`): `arrow-right`, `check`, `chevron-down`, `chevron-left`, `chevron-right`, `chevron-up`, `close`, `copy`, `download`, `edit`, `error`, `external-link`, `info`, `menu`, `minus`, `plus`, `search`, `success`, `trash`, `warning`.
+
+Icons take the text color. A decorative icon gets aria-hidden="true"; an icon that carries meaning on its own gets role="img" and aria-label. Never invent an icon name.
 
 ## Content rules
 
@@ -203,8 +217,8 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
-| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
+| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 

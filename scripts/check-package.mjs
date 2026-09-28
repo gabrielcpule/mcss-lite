@@ -3,7 +3,7 @@
 import { execFileSync } from 'node:child_process';
 import { appendFileSync } from 'node:fs';
 
-const REQUIRED = ['index.css', 'dist/mcss-lite.min.css', 'dist/mcss-lite.manifest.json', 'bin/mcss-lite.mjs', 'AGENTS.md', 'llms.txt'];
+const REQUIRED = ['index.css', 'dist/mcss-lite.min.css', 'dist/mcss-lite.manifest.json', 'dist/mcss-lite.icons.svg', 'bin/mcss-lite.mjs', 'AGENTS.md', 'llms.txt'];
 
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const [pack] = JSON.parse(execFileSync(npm, ['pack', '--dry-run', '--json', '--ignore-scripts'], { encoding: 'utf8' }));

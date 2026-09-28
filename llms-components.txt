@@ -649,6 +649,152 @@ Children sit side by side until the container is narrower than a threshold, then
 
 ## Components
 
+### Alert — `c-alert`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.
+
+**When to use:**
+- Something on this page needs attention: a failed save, an expiring plan, a limit reached.
+- The error summary at the top of a form after a failed submit, with a link to each field.
+- Confirming that an action finished, when the page stays where it is.
+
+**When not to use:**
+- An error about one field: use its `c-form-field` error message.
+- A decision the person must make before going on: use `c-modal`.
+- A status label on an item: use `c-badge`.
+
+**Apply to:** `<div>`, `<section>`, `<aside>`
+
+**Modifiers — tone** (pick at most one):
+- `c-alert--info`: Neutral information. Circle icon, "Information:" prefix.
+- `c-alert--success`: Something finished well. Square check icon, "Success:" prefix.
+- `c-alert--warning`: Something may go wrong unless the person acts. Triangle icon, "Warning:" prefix.
+- `c-alert--error`: Something went wrong; also the error summary at the top of a form. Octagon icon, "Error:" prefix.
+
+**Elements:**
+- `c-alert__icon`: The keylined tile that holds the severity icon (a c-icon, aria-hidden). On `<span>`/`<div>`.
+- `c-alert__body` (required): Title, text and actions. On `<div>`.
+- `c-alert__title`: One short line. Starts with the visually hidden severity prefix. On `<p>`/`<h2>`/`<h3>`/`<h4>`/`<strong>`.
+- `c-alert__actions`: Buttons or links that resolve the alert, in an l-cluster. On `<div>`.
+- `c-alert__close`: Dismiss button, 44px, with aria-label. The app sets hidden on the alert when it is pressed. On `<button>`.
+
+**Structure:**
+- Order: c-alert__icon, c-alert__body (c-alert__title, text, c-alert__actions), then an optional c-alert__close.
+- Start c-alert__title with <span class="u-sr-only">Error: </span> (or Warning, Success, Information), so severity never relies on the icon or the edge.
+
+**Do:**
+- Say what happened and what to do next, in that order.
+- Keep alerts in the page flow near what they are about, spaced by a layout primitive.
+- Give role="alert" only to urgent messages that appear after something the person just did. Leave it off alerts that are there when the page loads.
+
+**Don't:**
+- More than one alert of the same tone at once; combine them.
+- A dismiss button on a warning about data loss or cost; it must stay until resolved.
+- Moving focus to a success alert; move focus only to an error summary after a failed submit.
+
+**Do (example):** Give every toned alert its icon and a hidden severity prefix, so it never relies on color.
+
+```html
+<div class="c-alert c-alert--warning">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+  <div class="c-alert__body">
+    <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+    <p>Choose a plan to keep your projects.</p>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.
+
+```html
+<div class="c-alert c-alert--warning">
+  <div class="c-alert__body">
+    <p class="c-alert__title">Your trial ends on 12 October 2026</p>
+  </div>
+</div>
+```
+
+**Do (example):** After a failed submit, list every error in an error alert, each linked to its field, and move focus to it.
+
+```html
+<div class="c-alert c-alert--error" tabindex="-1" aria-labelledby="summary-title">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+  <div class="c-alert__body">
+    <h2 class="c-alert__title" id="summary-title"><span class="u-sr-only">Error: </span>There is a problem</h2>
+    <ul>
+      <li><a href="#email">Enter your email address</a></li>
+      <li><a href="#terms">Agree to the terms of service</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't build an alert from elements outside the block: the tile and edge lose their shape. (`mcss-lite validate` reports `[element-outside-block]`)
+
+```html
+<div class="c-card">
+  <p class="c-alert__title">There is a problem</p>
+</div>
+```
+
+**Content:**
+- Titles say what happened in plain words, in sentence case, with no exclamation mark.
+- The text says what to do next. Name the action: "Choose a plan", not "Click here".
+- Keep the hidden prefix to one word and a colon: "Error:", "Warning:", "Success:", "Information:".
+
+**Accessibility:**
+- Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.
+- role="alert" interrupts the screen reader: only for urgent messages that appear after an action.
+- An error summary gets tabindex="-1" and focus after a failed submit; its links move focus to each field.
+- c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert.
+
+**Keyboard:**
+- Tab: Moves through the links and buttons inside the alert, then the close button.
+- Enter: Follows a link in an error summary to its field.
+
+**Tokens:** `--alert-background`, `--alert-border`, `--alert-edge-info`, `--alert-edge-success`, `--alert-edge-warning`, `--alert-edge-error`
+
+**Example** (`components/alert.html`):
+
+```html
+<div class="l-stack">
+  <div class="c-alert c-alert--info">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
+      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
+    </div>
+  </div>
+  <div class="c-alert c-alert--success">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+      <p>Acme Inc. will get it by email in a few minutes.</p>
+    </div>
+  </div>
+  <div class="c-alert c-alert--warning">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+      <p>Choose a plan to keep your 4 projects.</p>
+      <div class="c-alert__actions l-cluster">
+        <a class="c-button c-button--primary c-button--sm" href="#plans">Choose a plan</a>
+      </div>
+    </div>
+  </div>
+  <div class="c-alert c-alert--error">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
+      <p>The connection dropped. Check your network and save again.</p>
+    </div>
+    <button type="button" class="c-alert__close" aria-label="Dismiss"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+  </div>
+</div>
+```
+
 ### Badge — `c-badge`
 
 A short, non-interactive label for status or category, such as "Beta" or "Paid".
@@ -1219,6 +1365,92 @@ Wraps one form control with its label, help text and error message.
 </form>
 ```
 
+### Icon — `c-icon`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.
+
+**When to use:**
+- Next to a label, to help people scan: a download button, an external link.
+- Inside a severity tile in `c-alert`, where each tone has its own shape.
+- An icon-only button, with an accessible name on the button.
+
+**When not to use:**
+- As the only way to show meaning when a word would do: write the word.
+- For decoration that repeats a nearby label; leave it out.
+
+**Apply to:** `<svg>`
+
+**Modifiers — size** (pick at most one):
+- `c-icon--sm`: 16px, for dense text and small buttons.
+- `c-icon--lg`: 24px, for alerts and empty states.
+
+**Structure:**
+- Exactly one <use href="#mcss-icon-<name>">; the names are listed under Icons in AGENTS.md.
+
+**Do:**
+- Inline the sprite once per page, then reference symbols by id.
+- Let the icon inherit the text color; change color on the parent.
+
+**Don't:**
+- Linking the sprite from a CDN: browsers block <use> across origins.
+- Coloring icons blue for decoration: blue means "act".
+
+**Do (example):** Hide a decorative icon from screen readers; the button text names the action.
+
+```html
+<button type="button" class="c-button">
+  <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+  Download the invoice
+</button>
+```
+
+**Don't (example):** Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.
+
+```html
+<svg class="c-icon"><use href="#mcss-icon-download"></use></svg>
+```
+
+**Do (example):** Give an icon-only button its name with aria-label.
+
+```html
+<button type="button" class="c-button" aria-label="Copy the API key">
+  <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+</button>
+```
+
+**Don't (example):** Don't invent icon names: an unknown symbol draws nothing.
+
+```html
+<svg class="c-icon" aria-hidden="true"><use href="#mcss-icon-rocket"></use></svg>
+```
+
+**Accessibility:**
+- Decorative icons: aria-hidden="true" and focusable="false".
+- Meaningful icons with no visible text: role="img" and aria-label on the <svg>.
+- Severity must never rely on an icon alone; pair it with text.
+
+**Tokens:** `--icon-size`, `--icon-size-sm`, `--icon-size-lg`
+
+**Example** (`components/icon.html`):
+
+```html
+<div class="l-cluster">
+  <button type="button" class="c-button">
+    <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+    Download the invoice
+  </button>
+  <a class="c-button c-button--ghost" href="https://design.gitlab.com/">
+    Pajamas docs
+    <svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-external-link"></use></svg>
+  </a>
+  <button type="button" class="c-button" aria-label="Copy the API key">
+    <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+  </button>
+</div>
+```
+
 ### Input — `c-input`
 
 Single-line text entry. Also styles <textarea> and <select>.
@@ -1699,3 +1931,15 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 - `u-font-mono`: Monospace font.
 - `u-truncate`: Single line with an ellipsis.
 - `u-sr-only`: Visually hidden but read by screen readers.
+
+## Icons
+
+20 line icons on a 24-unit grid, drawn with a 2px stroke at every size. They ship as one sprite, `dist/mcss-lite.icons.svg`. Inline it once near the top of <body> (a sprite linked from another origin, such as a CDN, doesn't render), then reference a symbol by id:
+
+```html
+<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg>
+```
+
+Names (id `#mcss-icon-<name>`): `arrow-right`, `check`, `chevron-down`, `chevron-left`, `chevron-right`, `chevron-up`, `close`, `copy`, `download`, `edit`, `error`, `external-link`, `info`, `menu`, `minus`, `plus`, `search`, `success`, `trash`, `warning`.
+
+Icons take the text color. A decorative icon gets aria-hidden="true"; an icon that carries meaning on its own gets role="img" and aria-label. Never invent an icon name.

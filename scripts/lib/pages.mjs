@@ -5,6 +5,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
+import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
 import { glyph, esc, indent, MISFIT_SVG } from './demo.mjs';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
@@ -40,8 +41,8 @@ export function namespaceIds(html, suffix) {
     .replace(/(\shref="#)([^"]*)"/g, (_, a, v) => `${a}${map(v)}"`);
 }
 
-// Stage links never lead off the page.
-const localLinks = (html, anchor) => html.replace(/href="[^"]*"/g, `href="#${anchor}"`);
+// Stage links never lead off the page. Icon references (<use href="#mcss-icon-…">) stay as they are.
+const localLinks = (html, anchor) => html.replace(new RegExp(`href="(?!#${ICON_PREFIX})[^"]*"`, 'g'), `href="#${anchor}"`);
 
 // A <dialog> is invisible until opened. On a sheet the preview is a contained, inert copy.
 const dialogPreview = (html) => html
@@ -92,6 +93,7 @@ ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id
   <link rel="stylesheet" href="${rel}demo.css">
 </head>
 <body class="demo">
+${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">

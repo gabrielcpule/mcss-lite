@@ -236,7 +236,16 @@ const DATA = {
     {"name":"toggle/track-on","type":"COLOR","css":"--toggle-track-on","description":"On: an ink track, like a pressed piece.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
     {"name":"toggle/thumb","type":"COLOR","css":"--toggle-thumb","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/interactive"}}},
     {"name":"toggle/border","type":"COLOR","css":"--toggle-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/keyline"}}},
-    {"name":"toggle/mark","type":"COLOR","css":"--toggle-mark","description":"Tick (on) or bar (off) drawn on the thumb.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}}
+    {"name":"toggle/mark","type":"COLOR","css":"--toggle-mark","description":"Tick (on) or bar (off) drawn on the thumb.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
+    {"name":"icon/size","type":"FLOAT","css":"--icon-size","description":"Default icon size (20px).","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/5"}}},
+    {"name":"icon/size-sm","type":"FLOAT","css":"--icon-size-sm","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/4"}}},
+    {"name":"icon/size-lg","type":"FLOAT","css":"--icon-size-lg","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/6"}}},
+    {"name":"alert/background","type":"COLOR","css":"--alert-background","description":"Every tone sits on paper; tone comes from the edge, the icon and the hidden prefix.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/raised"}}},
+    {"name":"alert/border","type":"COLOR","css":"--alert-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/keyline"}}},
+    {"name":"alert/edge-info","type":"COLOR","css":"--alert-edge-info","description":"4px bottom edge and icon color for info.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/info"}}},
+    {"name":"alert/edge-success","type":"COLOR","css":"--alert-edge-success","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/success"}}},
+    {"name":"alert/edge-warning","type":"COLOR","css":"--alert-edge-warning","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/warning"}}},
+    {"name":"alert/edge-error","type":"COLOR","css":"--alert-edge-error","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/error"}}}
   ]}
 ],
 "effectStyles":[
@@ -247,9 +256,9 @@ const DATA = {
     {"name":"MCSS-Lite/shadow/lg","description":"var(--shadow-lg)","effects":[{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.15},"offset":{"x":0,"y":25},"radius":50,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
     {"name":"MCSS-Lite/shadow/xl","description":"var(--shadow-xl)","effects":[{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.25},"offset":{"x":0,"y":25},"radius":50,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
     {"name":"MCSS-Lite/shadow/raised (light)","description":"var(--shadow-raised)","effects":[{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":1},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":0.12},"offset":{"x":0,"y":3},"radius":8,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
-    {"name":"MCSS-Lite/shadow/raised (dark)","description":"var(--shadow-raised)","effects":[{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.6},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.35},"offset":{"x":0,"y":4},"radius":10,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
+    {"name":"MCSS-Lite/shadow/raised (dark)","description":"var(--shadow-raised)","effects":[{"type":"DROP_SHADOW","color":{"r":0.812,"g":0.855,"b":0.898,"a":0.45},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.35},"offset":{"x":0,"y":4},"radius":10,"spread":0,"visible":true,"blendMode":"NORMAL"}]},
     {"name":"MCSS-Lite/shadow/elevated (light)","description":"var(--shadow-elevated)","effects":[{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":1},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0.102,"g":0.1137,"b":0.1255,"a":0.22},"offset":{"x":0,"y":10},"radius":24,"spread":-4,"visible":true,"blendMode":"NORMAL"}]},
-    {"name":"MCSS-Lite/shadow/elevated (dark)","description":"var(--shadow-elevated)","effects":[{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.7},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.6},"offset":{"x":0,"y":12},"radius":28,"spread":-4,"visible":true,"blendMode":"NORMAL"}]}
+    {"name":"MCSS-Lite/shadow/elevated (dark)","description":"var(--shadow-elevated)","effects":[{"type":"DROP_SHADOW","color":{"r":0.812,"g":0.855,"b":0.898,"a":0.5},"offset":{"x":0,"y":2},"radius":0,"spread":0,"visible":true,"blendMode":"NORMAL"},{"type":"DROP_SHADOW","color":{"r":0,"g":0,"b":0,"a":0.6},"offset":{"x":0,"y":12},"radius":28,"spread":-4,"visible":true,"blendMode":"NORMAL"}]}
   ]
 };
 

@@ -512,5 +512,93 @@
         ]
       }
     }
+  },
+  "icon": {
+    "size": {
+      "$type": "dimension",
+      "$value": "{space.5}",
+      "$description": "Default icon size (20px).",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "size-sm": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "size-lg": {
+      "$type": "dimension",
+      "$value": "{space.6}",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    }
+  },
+  "alert": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.raised}",
+      "$description": "Every tone sits on paper; tone comes from the edge, the icon and the hidden prefix.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.keyline}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-info": {
+      "$type": "color",
+      "$value": "{color.border.info}",
+      "$description": "4px bottom edge and icon color for info.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-success": {
+      "$type": "color",
+      "$value": "{color.border.success}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-warning": {
+      "$type": "color",
+      "$value": "{color.border.warning}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-error": {
+      "$type": "color",
+      "$value": "{color.border.error}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    }
   }
 }
