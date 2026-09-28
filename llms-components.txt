@@ -2,26 +2,28 @@
 
 > Every layout primitive, component and utility, with canonical examples.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.3.1
+> Package: @gabrielpule/mcss-lite@0.4.0
 
 ## Rules
 
 1. **Components never set their own outer margin.** Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing.
 2. **Layout, then component, then utility, then token.** Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only.
 3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning.
-4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).
+4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy). Checkboxes, radios and toggles are the exception: their states are native (checked, disabled, aria-invalid) and never use data-state.
 5. **Theme with semantic tokens, never raw values.** Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode.
 
 ## Content rules
 
 Labels, messages and help text follow the same rules everywhere.
 
-- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account".
+- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account". Checked by `[content-case]`.
 - **Buttons say what happens.** Start with a verb and name the thing it acts on. A person should know the result before they click. Do: "Save changes". Don't: "OK".
-- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here".
+- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here". Checked by `[content-vague]`.
 - **Errors say what went wrong and how to fix it.** Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say "invalid". Do: "Enter a date after 1 January 2020". Don't: "Invalid input".
 - **Show errors at the right moment.** Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field. Do: "There is a problem: Enter your email address". Don't: "Email is invalid (shown after the first keystroke)".
 - **Mark optional fields, not required ones.** Ask only for what you need, then add "(optional)" to the few fields people may skip. Rows of asterisks add noise and need a legend. Do: "Phone number (optional)". Don't: "Phone number *".
+- **Write choices as positive statements.** A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong. Do: "Email me about new releases". Don't: "Don't email me about new releases".
+- **Name the setting, not the action.** A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like "Turn on" leave people guessing which state is current. Do: "Dark mode". Don't: "Enable dark mode".
 - **Keep punctuation light.** No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks. Do: "Delete project". Don't: "Delete project!".
 - **Write numbers and dates the same way everywhere.** Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04. Do: "1 March 2026, 12 of 20 seats". Don't: "03/01/26, twelve of twenty seats".
 - **Write for everyone.** Use plain words, active voice and "you". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks ("select", not "click the blue button"). Do: "Choose a plan to continue". Don't: "Just hit the big blue button, guys".
@@ -649,6 +651,152 @@ Children sit side by side until the container is narrower than a threshold, then
 
 ## Components
 
+### Alert — `c-alert`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.
+
+**When to use:**
+- Something on this page needs attention: a failed save, an expiring plan, a limit reached.
+- The error summary at the top of a form after a failed submit, with a link to each field.
+- Confirming that an action finished, when the page stays where it is.
+
+**When not to use:**
+- An error about one field: use its `c-form-field` error message.
+- A decision the person must make before going on: use `c-modal`.
+- A status label on an item: use `c-badge`.
+
+**Apply to:** `<div>`, `<section>`, `<aside>`
+
+**Modifiers — tone** (pick at most one):
+- `c-alert--info`: Neutral information. Circle icon, "Information:" prefix.
+- `c-alert--success`: Something finished well. Square check icon, "Success:" prefix.
+- `c-alert--warning`: Something may go wrong unless the person acts. Triangle icon, "Warning:" prefix.
+- `c-alert--error`: Something went wrong; also the error summary at the top of a form. Octagon icon, "Error:" prefix.
+
+**Elements:**
+- `c-alert__icon`: The keylined tile that holds the severity icon (a c-icon, aria-hidden). On `<span>`/`<div>`.
+- `c-alert__body` (required): Title, text and actions. On `<div>`.
+- `c-alert__title`: One short line. Starts with the visually hidden severity prefix. On `<p>`/`<h2>`/`<h3>`/`<h4>`/`<strong>`.
+- `c-alert__actions`: Buttons or links that resolve the alert, in an l-cluster. On `<div>`.
+- `c-alert__close`: Dismiss button, 44px, with aria-label. The app sets hidden on the alert when it is pressed. On `<button>`.
+
+**Structure:**
+- Order: c-alert__icon, c-alert__body (c-alert__title, text, c-alert__actions), then an optional c-alert__close.
+- Start c-alert__title with <span class="u-sr-only">Error: </span> (or Warning, Success, Information), so severity never relies on the icon or the edge.
+
+**Do:**
+- Say what happened and what to do next, in that order.
+- Keep alerts in the page flow near what they are about, spaced by a layout primitive.
+- Give role="alert" only to urgent messages that appear after something the person just did. Leave it off alerts that are there when the page loads.
+
+**Don't:**
+- More than one alert of the same tone at once; combine them.
+- A dismiss button on a warning about data loss or cost; it must stay until resolved.
+- Moving focus to a success alert; move focus only to an error summary after a failed submit.
+
+**Do (example):** Give every toned alert its icon and a hidden severity prefix, so it never relies on color.
+
+```html
+<div class="c-alert c-alert--warning">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+  <div class="c-alert__body">
+    <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+    <p>Choose a plan to keep your projects.</p>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it. (`mcss-lite validate` reports `[alert-severity]`)
+
+```html
+<div class="c-alert c-alert--warning">
+  <div class="c-alert__body">
+    <p class="c-alert__title">Your trial ends on 12 October 2026</p>
+  </div>
+</div>
+```
+
+**Do (example):** After a failed submit, list every error in an error alert, each linked to its field, and move focus to it.
+
+```html
+<div class="c-alert c-alert--error" tabindex="-1" aria-labelledby="summary-title">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+  <div class="c-alert__body">
+    <h2 class="c-alert__title" id="summary-title"><span class="u-sr-only">Error: </span>There is a problem</h2>
+    <ul>
+      <li><a href="#email">Enter your email address</a></li>
+      <li><a href="#terms">Agree to the terms of service</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+**Don't (example):** Don't build an alert from elements outside the block: the tile and edge lose their shape. (`mcss-lite validate` reports `[element-outside-block]`)
+
+```html
+<div class="c-card">
+  <p class="c-alert__title">There is a problem</p>
+</div>
+```
+
+**Content:**
+- Titles say what happened in plain words, in sentence case, with no exclamation mark.
+- The text says what to do next. Name the action: "Choose a plan", not "Click here".
+- Keep the hidden prefix to one word and a colon: "Error:", "Warning:", "Success:", "Information:".
+
+**Accessibility:**
+- Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.
+- role="alert" interrupts the screen reader: only for urgent messages that appear after an action.
+- An error summary gets tabindex="-1" and focus after a failed submit; its links move focus to each field.
+- c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert.
+
+**Keyboard:**
+- Tab: Moves through the links and buttons inside the alert, then the close button.
+- Enter: Follows a link in an error summary to its field.
+
+**Tokens:** `--alert-background`, `--alert-border`, `--alert-edge-info`, `--alert-edge-success`, `--alert-edge-warning`, `--alert-edge-error`
+
+**Example** (`components/alert.html`):
+
+```html
+<div class="l-stack">
+  <div class="c-alert c-alert--info">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
+      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
+    </div>
+  </div>
+  <div class="c-alert c-alert--success">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+      <p>Acme Inc. will get it by email in a few minutes.</p>
+    </div>
+  </div>
+  <div class="c-alert c-alert--warning">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+      <p>Choose a plan to keep your 4 projects.</p>
+      <div class="c-alert__actions l-cluster">
+        <a class="c-button c-button--primary c-button--sm" href="#plans">Choose a plan</a>
+      </div>
+    </div>
+  </div>
+  <div class="c-alert c-alert--error">
+    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+    <div class="c-alert__body">
+      <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
+      <p>The connection dropped. Check your network and save again.</p>
+    </div>
+    <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+  </div>
+</div>
+```
+
 ### Badge — `c-badge`
 
 A short, non-interactive label for status or category, such as "Beta" or "Paid".
@@ -800,6 +948,30 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 <button type="button" class="c-button c-button--warning">Delete project</button>
 ```
 
+**Do (example):** Label the button with what happens: a verb and the thing it acts on.
+
+```html
+<button type="submit" class="c-button c-button--primary">Create account</button>
+```
+
+**Don't (example):** Don't use vague labels: "OK" or "Submit" say nothing when a screen reader lists every button on the page. (`mcss-lite validate` reports `[content-vague]`)
+
+```html
+<button type="submit" class="c-button c-button--primary">Submit</button>
+```
+
+**Do (example):** Use a real <button> for actions; it brings focus, Enter and Space for free.
+
+```html
+<button type="button" class="c-button" hx-post="/projects/42/archive">Archive project</button>
+```
+
+**Don't (example):** Don't make a div clickable: it has no role, no focus and no keyboard, even with the button classes. (`mcss-lite validate` reports `[clickable-div]`)
+
+```html
+<div class="c-button" hx-post="/projects/42/archive">Archive project</div>
+```
+
 **Content:**
 - Write a verb plus the thing it acts on: "Save changes", "Delete project". Never "OK", "Submit" or "Click here".
 - Use sentence case: "Create account", not "Create Account".
@@ -833,11 +1005,13 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 <div class="l-cluster">
   <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
   <a class="c-button c-button--secondary" href="/docs">Read the docs</a>
+  <!-- mcss-lite-ignore primary-count: this sheet shows every variant side by side -->
   <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
 </div>
 
 <div class="l-cluster">
   <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
+  <!-- mcss-lite-ignore primary-count -->
   <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
 </div>
 
@@ -928,6 +1102,29 @@ A raised surface that groups related content, such as a summary, a settings grou
 <section class="c-card" style="margin-block-end: 16px"><p class="u-margin-0">Storage: 4 GB of 10 GB</p></section>
 ```
 
+**Do (example):** Group content inside a card with headings and l-stack.
+
+```html
+<article class="c-card">
+  <h3 class="c-card__title">Billing</h3>
+  <div class="c-card__body l-stack l-stack--sm">
+    <p class="u-margin-0">Team plan, 12 of 20 seats.</p>
+    <p class="u-margin-0">Next invoice on 1 November 2026.</p>
+  </div>
+</article>
+```
+
+**Don't (example):** Don't put a card inside a card: the nested keylines read as clutter and flatten the hierarchy. (`mcss-lite validate` reports `[card-nesting]`)
+
+```html
+<article class="c-card">
+  <h3 class="c-card__title">Billing</h3>
+  <div class="c-card">
+    <p>Team plan, 12 of 20 seats.</p>
+  </div>
+</article>
+```
+
 **Content:**
 - The title names the thing, not the action: "Atlas", not "View Atlas".
 - Keep the body to one or two lines of summary; details belong on the page the card opens.
@@ -979,6 +1176,136 @@ A raised surface that groups related content, such as a summary, a settings grou
 </div>
 ```
 
+### Checkbox — `c-checkbox`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A native checkbox with its label: pick any number of options, or confirm one statement.
+
+**When to use:**
+- Choosing any number of options from a short list, including none.
+- Confirming one statement before submitting, such as agreeing to terms.
+- A setting that is saved when the form is submitted, not straight away.
+
+**When not to use:**
+- Exactly one option must be chosen: use `c-radio`.
+- The setting takes effect the moment it changes, with no submit button: use `c-toggle`.
+- More than about 7 options: use a `c-input` on a <select multiple> or a searchable list.
+
+**Apply to:** `<div>`
+
+**Elements:**
+- `c-checkbox__input` (required): The native control. Carries every state: checked, disabled, aria-invalid. On `<input>`.
+- `c-checkbox__label` (required): The visible label, linked with for/id. Clicking it toggles the control and pads the hit area. On `<label>`.
+- `c-checkbox__hint`: Optional one-line hint under the label, linked with aria-describedby. On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `:checked` (native): Selected: the box seats and fills with ink, with a paper tick. Use the checked attribute, never data-state.
+- `:indeterminate` (native): Mixed: some, not all, of the options below it are selected. Drawn as a flat bar. Set input.indeterminate = true from JavaScript; HTML has no attribute for it. It is a display state, never a submitted value.
+- `:disabled` (native): Cannot be changed. Dashed keyline, ghosted label. Use the disabled attribute, and say nearby why it is unavailable.
+- `[aria-invalid="true"]` (native): Needs attention, e.g. an unticked agreement on submit. Red keyline with a heavier bottom edge. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
+
+**Structure:**
+- Order: c-checkbox__input, then c-checkbox__label, then an optional c-checkbox__hint.
+- Group related checkboxes in fieldset.c-form-field with a legend.c-form-field__label, stacked with l-stack--sm.
+
+**Do:**
+- Write labels as positive statements: "Email me about new releases".
+- Put the group question in the legend and keep each label short.
+
+**Don't:**
+- Negative labels such as "Don't email me": people tick them wrongly.
+- Using a checkbox to trigger an action immediately; that is a toggle or a button.
+
+**Do (example):** Group related checkboxes in a fieldset with a legend that asks the question.
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Which updates do you want?</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="news-releases" name="news" value="releases" checked>
+      <label class="c-checkbox__label" for="news-releases">New releases</label>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="news-security" name="news" value="security">
+      <label class="c-checkbox__label" for="news-security">Security notices</label>
+    </div>
+  </div>
+</fieldset>
+```
+
+**Don't (example):** Don't fake the checked state with data-state: it isn't submitted and screen readers never hear it. (`mcss-lite validate` reports `[invalid-state]`)
+
+```html
+<div class="c-checkbox" data-state="checked">
+  <input class="c-checkbox__input" type="checkbox" id="terms-fake">
+  <label class="c-checkbox__label" for="terms-fake">I agree to the terms</label>
+</div>
+```
+
+**Do (example):** Show an unticked agreement as an error with aria-invalid and a linked message.
+
+```html
+<div class="c-form-field">
+  <div class="c-checkbox">
+    <input class="c-checkbox__input" type="checkbox" id="terms" aria-invalid="true" aria-describedby="terms-error">
+    <label class="c-checkbox__label" for="terms">I agree to the terms of service</label>
+  </div>
+  <p class="c-form-field__error" id="terms-error">Agree to the terms of service to create an account.</p>
+</div>
+```
+
+**Don't (example):** Don't leave a checkbox without its label: "on" and "off" mean nothing without the statement they answer. (`mcss-lite validate` reports `[label-missing]`)
+
+```html
+<div class="c-checkbox">
+  <input class="c-checkbox__input" type="checkbox" id="news-alone">
+  <p class="c-checkbox__hint">Weekly, no ads.</p>
+</div>
+```
+
+**Content:**
+- Labels are positive statements in sentence case, with no full stop.
+- The legend asks the question; the labels are the answers.
+- Mark an optional group "(optional)" in the legend.
+
+**Accessibility:**
+- Keep the native <input type="checkbox">: it brings the role, the checked state, Space to toggle and form submission for free.
+- Every checkbox needs a <label for> on c-checkbox__label; a group needs fieldset + legend.
+- The box is 24px and the label extends the hit area; never hide the input with display: none.
+- aria-invalid is allowed on a checkbox; on a group, put data-state="error" on the fieldset instead.
+
+**Keyboard:**
+- Tab: Moves focus to the next checkbox.
+- Space: Ticks or clears the focused checkbox.
+
+**Tokens:** `--checkbox-size`, `--checkbox-background`, `--checkbox-border`, `--checkbox-checked-background`, `--checkbox-mark`, `--checkbox-radius`
+
+**Example** (`components/checkbox.html`):
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Which updates do you want? (optional)</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-releases" name="updates" value="releases" checked>
+      <label class="c-checkbox__label" for="updates-releases">New releases</label>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-security" name="updates" value="security" aria-describedby="updates-security-hint">
+      <label class="c-checkbox__label" for="updates-security">Security notices</label>
+      <p class="c-checkbox__hint" id="updates-security-hint">Sent within a day of a fix.</p>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-digest" name="updates" value="digest" disabled aria-describedby="updates-digest-hint">
+      <label class="c-checkbox__label" for="updates-digest">Monthly digest</label>
+      <p class="c-checkbox__hint" id="updates-digest-hint">Coming in March 2027.</p>
+    </div>
+  </div>
+</fieldset>
+```
+
 ### Form field — `c-form-field`
 
 Wraps one form control with its label, help text and error message.
@@ -996,6 +1323,9 @@ Wraps one form control with its label, help text and error message.
 - `c-form-field__label` (required): The field label. On `<label>`/`<legend>`.
 - `c-form-field__help`: Hint shown below the control. On `<p>`/`<div>`/`<span>`.
 - `c-form-field__error`: Error message shown when the control has data-state="error". On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `data-state="error"`: A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline. Set aria-describedby on the fieldset pointing at its c-form-field__error; ARIA doesn't allow aria-invalid on a fieldset or a radio.
 
 **Structure:**
 - Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error.
@@ -1086,6 +1416,92 @@ Wraps one form control with its label, help text and error message.
 </form>
 ```
 
+### Icon — `c-icon`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.
+
+**When to use:**
+- Next to a label, to help people scan: a download button, an external link.
+- Inside a severity tile in `c-alert`, where each tone has its own shape.
+- An icon-only button, with an accessible name on the button.
+
+**When not to use:**
+- As the only way to show meaning when a word would do: write the word.
+- For decoration that repeats a nearby label; leave it out.
+
+**Apply to:** `<svg>`
+
+**Modifiers — size** (pick at most one):
+- `c-icon--sm`: 16px, for dense text and small buttons.
+- `c-icon--lg`: 24px, for alerts and empty states.
+
+**Structure:**
+- Exactly one <use href="#mcss-icon-<name>">; the names are listed under Icons in AGENTS.md.
+
+**Do:**
+- Inline the sprite once per page, then reference symbols by id.
+- Let the icon inherit the text color; change color on the parent.
+
+**Don't:**
+- Linking the sprite from a CDN: browsers block <use> across origins.
+- Coloring icons blue for decoration: blue means "act".
+
+**Do (example):** Hide a decorative icon from screen readers; the button text names the action.
+
+```html
+<button type="button" class="c-button">
+  <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+  Download the invoice
+</button>
+```
+
+**Don't (example):** Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing. (`mcss-lite validate` reports `[a11y]`)
+
+```html
+<svg class="c-icon"><use href="#mcss-icon-download"></use></svg>
+```
+
+**Do (example):** Give an icon-only button its name with aria-label.
+
+```html
+<button type="button" class="c-button" aria-label="Copy the API key">
+  <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+</button>
+```
+
+**Don't (example):** Don't invent icon names: an unknown symbol draws nothing. (`mcss-lite validate` reports `[unknown-icon]`)
+
+```html
+<svg class="c-icon" aria-hidden="true"><use href="#mcss-icon-rocket"></use></svg>
+```
+
+**Accessibility:**
+- Decorative icons: aria-hidden="true" and focusable="false".
+- Meaningful icons with no visible text: role="img" and aria-label on the <svg>.
+- Severity must never rely on an icon alone; pair it with text.
+
+**Tokens:** `--icon-size`, `--icon-size-sm`, `--icon-size-lg`
+
+**Example** (`components/icon.html`):
+
+```html
+<div class="l-cluster">
+  <button type="button" class="c-button">
+    <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+    Download the invoice
+  </button>
+  <a class="c-button c-button--ghost" href="https://design.gitlab.com/">
+    Pajamas docs
+    <svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-external-link"></use></svg>
+  </a>
+  <button type="button" class="c-button" aria-label="Copy the API key">
+    <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+  </button>
+</div>
+```
+
 ### Input — `c-input`
 
 Single-line text entry. Also styles <textarea> and <select>.
@@ -1095,8 +1511,8 @@ Single-line text entry. Also styles <textarea> and <select>.
 - Multi-line text on a <textarea>, or a choice from many options on a <select>.
 
 **When not to use:**
-- Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).
-- A yes/no setting: a checkbox (coming in 0.4.0).
+- Choosing among 2 to 6 visible options: `c-radio` buttons read faster than a select.
+- A yes/no choice: `c-checkbox`, or `c-toggle` when it applies straight away.
 - Showing a value that cannot change: plain text, not a read-only input.
 
 **Apply to:** `<input>`, `<textarea>`, `<select>`
@@ -1123,7 +1539,7 @@ Single-line text entry. Also styles <textarea> and <select>.
 </div>
 ```
 
-**Don't (example):** Don't use the placeholder as the label: it disappears as soon as someone types.
+**Don't (example):** Don't use the placeholder as the label: it disappears as soon as someone types. (`mcss-lite validate` reports `[label-missing]`)
 
 ```html
 <input class="c-input" type="email" placeholder="Email address">
@@ -1327,6 +1743,226 @@ A dialog over the page that blocks interaction until dismissed. Works on <dialog
 </div>
 ```
 
+### Radio — `c-radio`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A native radio button with its label: pick exactly one option from a short, visible list.
+
+**When to use:**
+- Exactly one choice from 2 to 6 options that people should compare side by side.
+- A choice where seeing every option helps the decision, such as a delivery speed or a plan.
+
+**When not to use:**
+- Any number of options may be chosen: use `c-checkbox`.
+- An on/off setting that applies immediately: use `c-toggle`.
+- More than about 7 options: use a `c-input` on a <select>.
+
+**Apply to:** `<div>`
+
+**Elements:**
+- `c-radio__input` (required): The native control. Carries every state: checked, disabled. On `<input>`.
+- `c-radio__label` (required): The visible label, linked with for/id. Clicking it toggles the control and pads the hit area. On `<label>`.
+- `c-radio__hint`: Optional one-line hint under the label, linked with aria-describedby. On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `:checked` (native): Selected: an ink stud seated in the ring. Use the checked attribute, never data-state.
+- `:disabled` (native): Cannot be chosen. Dashed ring, ghosted label. Use the disabled attribute, and say nearby why it is unavailable.
+
+**Structure:**
+- Order: c-radio__input, then c-radio__label, then an optional c-radio__hint.
+- Every radio group lives in fieldset.c-form-field with a legend.c-form-field__label; all radios in it share one name.
+- Show a group error with data-state="error" on the fieldset, aria-describedby pointing at its c-form-field__error.
+
+**Do:**
+- Preselect the safest or most common option when there is one; leave the group empty when every answer needs a conscious choice.
+- Order options logically: by size, frequency or time, not alphabetically by accident.
+
+**Don't:**
+- A single radio button on its own: it can never be cleared.
+- Radios that trigger navigation or reveal large sections without warning.
+
+**Do (example):** Put the group in a fieldset with a legend, and give every radio the same name.
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Delivery speed</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="speed-standard" name="speed" value="standard" checked aria-describedby="speed-standard-hint">
+      <label class="c-radio__label" for="speed-standard">Standard</label>
+      <p class="c-radio__hint" id="speed-standard-hint">3 to 5 working days, free.</p>
+    </div>
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="speed-next" name="speed" value="next-day">
+      <label class="c-radio__label" for="speed-next">Next day</label>
+    </div>
+  </div>
+</fieldset>
+```
+
+**Don't (example):** Don't mark a group error with aria-invalid on each radio; ARIA doesn't allow it there. Put the error on the fieldset. (`mcss-lite validate` reports `[state-pair]`)
+
+```html
+<fieldset class="c-form-field" data-state="error">
+  <legend class="c-form-field__label">Delivery speed</legend>
+  <div class="c-radio">
+    <input class="c-radio__input" type="radio" id="speed-x" name="speed-x" value="standard">
+    <label class="c-radio__label" for="speed-x">Standard</label>
+  </div>
+</fieldset>
+```
+
+**Content:**
+- The legend asks the question; each label is a short answer in sentence case.
+- Use a hint for the detail that decides the choice: price, time, consequence.
+
+**Accessibility:**
+- Keep native <input type="radio"> elements sharing one name: the browser handles arrow keys and single selection.
+- Wrap the group in fieldset + legend so the question is read with every option.
+- Link hints with aria-describedby on the input.
+
+**Keyboard:**
+- Tab: Moves focus into the group, to the checked radio (or the first), and out again.
+- Arrow keys: Move to and select the next or previous radio.
+- Space: Selects the focused radio if nothing is selected.
+
+**Tokens:** `--checkbox-size`, `--checkbox-background`, `--checkbox-border`, `--radio-dot`
+
+**Example** (`components/radio.html`):
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Delivery speed</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="delivery-standard" name="delivery" value="standard" checked aria-describedby="delivery-standard-hint">
+      <label class="c-radio__label" for="delivery-standard">Standard</label>
+      <p class="c-radio__hint" id="delivery-standard-hint">3 to 5 working days, free.</p>
+    </div>
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="delivery-next" name="delivery" value="next-day" aria-describedby="delivery-next-hint">
+      <label class="c-radio__label" for="delivery-next">Next day</label>
+      <p class="c-radio__hint" id="delivery-next-hint">Order by 4pm, £4.99.</p>
+    </div>
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="delivery-same" name="delivery" value="same-day" disabled>
+      <label class="c-radio__label" for="delivery-same">Same day (not available in your area)</label>
+    </div>
+  </div>
+</fieldset>
+```
+
+### Toggle — `c-toggle`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+An on/off switch built on a native checkbox with role="switch": the setting applies as soon as it changes.
+
+**When to use:**
+- A setting that takes effect immediately, with no save or submit button: notifications, dark mode, a feature flag.
+- A system state people expect to flip back and forth.
+
+**When not to use:**
+- A choice inside a form that is saved on submit: use `c-checkbox`.
+- Choosing between two named options that are not on/off, such as "Monthly" and "Yearly": use `c-radio`.
+- Triggering an action, such as "Export": use `c-button`.
+
+**Apply to:** `<div>`
+
+**Elements:**
+- `c-toggle__input` (required): The native control: <input type="checkbox" role="switch">. Carries checked and disabled. On `<input>`.
+- `c-toggle__label` (required): The name of the setting, linked with for/id. It stays the same when the switch flips. On `<label>`.
+- `c-toggle__hint`: Optional one-line hint under the label, linked with aria-describedby. On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `:checked` (native): On: the thumb slides to the end on an ink track and shows a tick. Use the checked attribute; role="switch" makes screen readers say on and off.
+- `:disabled` (native): Cannot be changed. Dashed track, ghosted label. Use the disabled attribute, and say nearby why it is unavailable.
+- `data-state="loading"`: The change is being saved. The track turns neutral with moving stripes. Set aria-busy="true" on the c-toggle and disable the input until the save finishes.
+
+**Structure:**
+- Order: c-toggle__input, then c-toggle__label, then an optional c-toggle__hint.
+
+**Do:**
+- Save the change straight away and show that it saved; if it can fail, use the loading state and report errors next to the switch.
+- Label the setting, not the action: "Email notifications", and let the switch say on or off.
+
+**Don't:**
+- Labels that change with the state ("Turn on" / "Turn off"): people can't tell which is current.
+- A div with a click handler drawn to look like a switch; it has no role, no keyboard and no state.
+
+**Do (example):** Build the switch on a real checkbox with role="switch" and a fixed noun label.
+
+```html
+<div class="c-toggle">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="notify" checked aria-describedby="notify-hint">
+  <label class="c-toggle__label" for="notify">Email notifications</label>
+  <p class="c-toggle__hint" id="notify-hint">Applies straight away.</p>
+</div>
+```
+
+**Don't (example):** Don't fake the on state with data-state: the control has to carry it. (`mcss-lite validate` reports `[invalid-state]`)
+
+```html
+<div class="c-toggle" data-state="checked">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="notify-fake">
+  <label class="c-toggle__label" for="notify-fake">Email notifications</label>
+</div>
+```
+
+**Do (example):** While a change saves, mark the switch busy and disable the input.
+
+```html
+<div class="c-toggle" data-state="loading" aria-busy="true">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="beta" checked disabled>
+  <label class="c-toggle__label" for="beta">Beta features</label>
+</div>
+```
+
+**Don't (example):** Don't show the loading stripes without aria-busy; screen readers can't tell the save is still running. (`mcss-lite validate` reports `[state-pair]`)
+
+```html
+<div class="c-toggle" data-state="loading">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="beta-x" checked disabled>
+  <label class="c-toggle__label" for="beta-x">Beta features</label>
+</div>
+```
+
+**Content:**
+- Toggle labels are nouns naming the setting, in sentence case: "Dark mode", not "Enable dark mode".
+- Never change the label when the state changes.
+
+**Accessibility:**
+- Use <input type="checkbox" role="switch">: screen readers that know switches say "on" and "off", and the rest still say "checked".
+- The thumb shows a tick when on and stays empty when off, so state never relies on position or color alone.
+- Movement stops under prefers-reduced-motion.
+
+**Keyboard:**
+- Tab: Moves focus to the switch.
+- Space: Turns the setting on or off.
+
+**Tokens:** `--toggle-track-off`, `--toggle-track-on`, `--toggle-thumb`, `--toggle-border`, `--toggle-mark`, `--color-action-loading-stripe`
+
+**Example** (`components/toggle.html`):
+
+```html
+<div class="l-stack l-stack--sm">
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="setting-email" checked aria-describedby="setting-email-hint">
+    <label class="c-toggle__label" for="setting-email">Email notifications</label>
+    <p class="c-toggle__hint" id="setting-email-hint">Applies straight away.</p>
+  </div>
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="setting-digest">
+    <label class="c-toggle__label" for="setting-digest">Weekly digest</label>
+  </div>
+  <div class="c-toggle" data-state="loading" aria-busy="true">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="setting-beta" checked disabled>
+    <label class="c-toggle__label" for="setting-beta">Beta features</label>
+  </div>
+</div>
+```
+
 ## Utilities
 
 Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.
@@ -1346,3 +1982,15 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 - `u-font-mono`: Monospace font.
 - `u-truncate`: Single line with an ellipsis.
 - `u-sr-only`: Visually hidden but read by screen readers.
+
+## Icons
+
+20 line icons on a 24-unit grid, drawn with a 2px stroke at every size. They ship as one sprite, `dist/mcss-lite.icons.svg`. Inline it once near the top of <body> (a sprite linked from another origin, such as a CDN, doesn't render), then reference a symbol by id:
+
+```html
+<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg>
+```
+
+Names (id `#mcss-icon-<name>`): `arrow-right`, `check`, `chevron-down`, `chevron-left`, `chevron-right`, `chevron-up`, `close`, `copy`, `download`, `edit`, `error`, `external-link`, `info`, `menu`, `minus`, `plus`, `search`, `success`, `trash`, `warning`.
+
+Icons take the text color. A decorative icon gets aria-hidden="true"; an icon that carries meaning on its own gets role="img" and aria-label. Never invent an icon name.

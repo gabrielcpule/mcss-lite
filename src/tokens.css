@@ -260,8 +260,8 @@
   --color-focus-ring: var(--color-yellow-400);
   --color-focus-ring-error: var(--color-red-300);
   --color-focus-halo: var(--color-navy-950);
-  --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
-  --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
+  --shadow-raised: 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35);
+  --shadow-elevated: 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -313,8 +313,8 @@
     --color-focus-ring: var(--color-yellow-400);
     --color-focus-ring-error: var(--color-red-300);
     --color-focus-halo: var(--color-navy-950);
-    --shadow-raised: 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35);
-    --shadow-elevated: 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6);
+    --shadow-raised: 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35);
+    --shadow-elevated: 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6);
   }
 }
 

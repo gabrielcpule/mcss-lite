@@ -33,3 +33,14 @@ test('check fails when a contract class has no CSS', () => {
   const errors = runChecks(root, { css: { 'components.css': css }, skipFreshness: true });
   assert.ok(errors.some((e) => /c-badge--info has no CSS/.test(e)), errors.join('\n'));
 });
+
+test('check fails when a native state has no selector in the CSS', () => {
+  const css = components.replaceAll('.c-checkbox__input:indeterminate', '.c-checkbox__input:unused');
+  const errors = runChecks(root, { css: { 'components.css': css }, skipFreshness: true });
+  assert.ok(errors.some((e) => /native state indeterminate has no \.c-checkbox…:indeterminate rule/.test(e)), errors.join('\n'));
+});
+
+test('a native state can\'t be styled as data-state', () => {
+  const errors = runChecks(root, withExtra('.c-checkbox[data-state="checked"] { color: var(--color-text-default); }'));
+  assert.ok(errors.some((e) => /c-checkbox\[data-state="checked"\] is not in the c-checkbox contract/.test(e)), errors.join('\n'));
+});

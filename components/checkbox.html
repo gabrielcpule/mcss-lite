@@ -1,0 +1,19 @@
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Which updates do you want? (optional)</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-releases" name="updates" value="releases" checked>
+      <label class="c-checkbox__label" for="updates-releases">New releases</label>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-security" name="updates" value="security" aria-describedby="updates-security-hint">
+      <label class="c-checkbox__label" for="updates-security">Security notices</label>
+      <p class="c-checkbox__hint" id="updates-security-hint">Sent within a day of a fix.</p>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-digest" name="updates" value="digest" disabled aria-describedby="updates-digest-hint">
+      <label class="c-checkbox__label" for="updates-digest">Monthly digest</label>
+      <p class="c-checkbox__hint" id="updates-digest-hint">Coming in March 2027.</p>
+    </div>
+  </div>
+</fieldset>

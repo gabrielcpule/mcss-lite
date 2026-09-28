@@ -5,11 +5,13 @@ import { join } from 'node:path';
 import {
   loadTokens, tokensForMode, tokenToCss, resolvedCss, isAlias, aliasPath, isFigmaExcluded, MODES,
 } from './tokens.mjs';
-import { loadContracts, loadExamples } from './contracts.mjs';
+import { loadContracts, loadExamples, stateLabel } from './contracts.mjs';
 import { buildDemo } from './demo.mjs';
 import { buildPages } from './pages.mjs';
+import { loadIcons, buildSprite, ICON_PREFIX } from './icons.mjs';
 import { cdnUrl, gitSpec } from './release.mjs';
 import { buildFigmaScript, figmaScopes, px } from './figma-script.mjs';
+import { RULES as VALIDATOR_RULES } from './validate.mjs';
 
 export const RULES = [
   {
@@ -30,7 +32,7 @@ export const RULES = [
   {
     id: 'states',
     title: 'States use data-state plus the native or ARIA pair',
-    text: 'Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).',
+    text: 'Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy). Checkboxes, radios and toggles are the exception: their states are native (checked, disabled, aria-invalid) and never use data-state.',
   },
   {
     id: 'theming',
@@ -60,7 +62,8 @@ export function generate(root) {
 
   const tokenRows = buildTokenRows(sets, byMode);
   const content = JSON.parse(readFileSync(join(root, 'guidelines', 'content.json'), 'utf8'));
-  const manifest = buildManifest(pkg, tokenRows, contracts, examples, content);
+  const icons = loadIcons(root);
+  const manifest = buildManifest(pkg, tokenRows, contracts, examples, content, icons);
 
   const files = new Map();
   const tokensCss = buildCss(sets, byMode);
@@ -70,9 +73,10 @@ export function generate(root) {
   files.set('dist/mcss-lite.min.css', minify(bundle));
   for (const [name, content] of buildFigma(sets)) files.set(`dist/figma/${name}`, content);
   files.set('dist/figma/push-variables.js', buildFigmaScript(pkg, sets));
+  files.set('dist/mcss-lite.icons.svg', buildSprite(icons, pkg));
   files.set('dist/mcss-lite.manifest.json', JSON.stringify(manifest, null, 2) + '\n');
 
-  const docs = buildDocs(pkg, tokenRows, contracts, examples, content);
+  const docs = buildDocs(pkg, tokenRows, contracts, examples, content, icons);
   files.set('AGENTS.md', docs.agents);
   files.set('llms.txt', docs.index);
   files.set('llms-components.txt', docs.components);
@@ -191,7 +195,7 @@ function resolveType(t, byPath) {
 
 // ---------- Manifest ----------
 
-function buildManifest(pkg, tokenRows, contracts, examples, content) {
+function buildManifest(pkg, tokenRows, contracts, examples, content, icons) {
   return {
     name: pkg.name,
     version: pkg.version,
@@ -203,6 +207,7 @@ function buildManifest(pkg, tokenRows, contracts, examples, content) {
     themes: THEMES,
     rules: RULES,
     contentRules: content.rules,
+    icons: { sprite: 'dist/mcss-lite.icons.svg', idPrefix: ICON_PREFIX, names: icons.map((i) => i.name) },
     // The booklet's generated pages, so hosts can mirror them without a directory listing.
     pages: ['demo/index.html', 'demo/status.html', 'demo/content.html', ...contracts.map((c) => `demo/components/${c.file.replace(/\.json$/, '.html')}`)],
     blocks: contracts.map(({ file, $schema, ...c }) => ({
@@ -265,7 +270,7 @@ function buildFigma(sets) {
 const fence = (lang, s) => '```' + lang + '\n' + s + '\n```';
 const fmtValue = (v) => (typeof v === 'object' ? `${v.light} / ${v.dark}` : v);
 
-function buildDocs(pkg, tokenRows, contracts, examples, content) {
+function buildDocs(pkg, tokenRows, contracts, examples, content, icons) {
   const header = (title, what) => [
     `# ${title}`,
     '',
@@ -304,12 +309,12 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     '',
     'Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).',
     '',
-    '| Class | Layer | Modifiers | Elements | data-state | Use for |',
+    '| Class | Layer | Modifiers | Elements | States | Use for |',
     '|---|---|---|---|---|---|',
     ...contracts.filter((c) => c.layer !== 'utility').map((c) => {
       const mods = (c.modifiers ?? []).map((m) => m.values.map((v) => `--${v.name}`).join(' ')).join(' · ') || '—';
       const els = (c.elements ?? []).map((e) => `__${e.name}`).join(' ') || '—';
-      const states = (c.states ?? []).map((s) => s.name).join(' ') || '—';
+      const states = (c.states ?? []).map((s) => (s.native ? s.selector : s.name)).join(' ') || '—';
       const status = c.status === 'deprecated' ? ` **Deprecated → \`${c.replacement}\`.**` : '';
       return `| \`${c.block}\` | ${c.layer} | ${mods} | ${els} | ${states} | ${firstSentence(c.description)}${status} |`;
     }),
@@ -325,6 +330,32 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     ...utilities.classes.map((u) => `- \`${u.name}\`: ${u.description}`),
     '',
   ].join('\n') : '';
+
+  const iconsMd = icons.length ? [
+    '## Icons',
+    '',
+    `${icons.length} line icons on a 24-unit grid, drawn with a 2px stroke at every size. They ship as one sprite, \`dist/mcss-lite.icons.svg\`. Inline it once near the top of <body> (a sprite linked from another origin, such as a CDN, doesn't render), then reference a symbol by id:`,
+    '',
+    '```html',
+    `<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#${ICON_PREFIX}check"></use></svg>`,
+    '```',
+    '',
+    `Names (id \`#${ICON_PREFIX}<name>\`): ${icons.map((i) => `\`${i.name}\``).join(', ')}.`,
+    '',
+    'Icons take the text color. A decorative icon gets aria-hidden="true"; an icon that carries meaning on its own gets role="img" and aria-label. Never invent an icon name.',
+    '',
+  ].join('\n') : '';
+
+  const validatorMd = [
+    '## Validator rules',
+    '',
+    `\`mcss-lite validate\` reports these. Errors fail the run and can't be ignored. Warnings can be silenced for a whole run with \`--ignore rule,rule\`, or for one element with \`<!-- mcss-lite-ignore rule: reason -->\` right before it.`,
+    '',
+    '| Rule | Level | Catches |',
+    '|---|---|---|',
+    ...VALIDATOR_RULES.map((r) => `| \`${r.id}\` | ${r.level} | ${r.description} |`),
+    '',
+  ].join('\n');
 
   const blockDetail = (c) => {
     const out = [`### ${c.name} — \`${c.block}\``, ''];
@@ -347,7 +378,7 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     }
     if (c.states?.length) {
       out.push('**States:**');
-      for (const s of c.states) out.push(`- \`data-state="${s.name}"\`: ${s.description}${s.pair ? ` ${s.pair}` : ''}`);
+      for (const s of c.states) out.push(`- \`${stateLabel(s)}\`${s.native ? ' (native)' : ''}: ${s.description}${s.pair ? ` ${s.pair}` : ''}`);
       out.push('');
     }
     if (c.customProperties?.length) {
@@ -462,7 +493,9 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     setupMd,
     blocksTable,
     utilitiesMd,
+    iconsMd,
     contentMd,
+    validatorMd,
     '## More detail',
     '',
     '- `llms-components.txt`: every block with modifiers, elements, states, accessibility rules and a canonical example.',
@@ -474,9 +507,9 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     scalesMd,
   ].join('\n');
 
-  const components = [header('MCSS-Lite components', 'Every layout primitive, component and utility, with canonical examples.'), rulesMd, contentMd, componentsMd].join('\n');
+  const components = [header('MCSS-Lite components', 'Every layout primitive, component and utility, with canonical examples.'), rulesMd, contentMd, componentsMd, iconsMd].join('\n');
   const tokens = [header('MCSS-Lite tokens', 'Every design token with light and dark values.'), tokensMd].join('\n');
-  const full = [header('MCSS-Lite (full)', 'Rules, components and tokens in one file.'), rulesMd, setupMd, blocksTable, contentMd, componentsMd, tokensMd].join('\n');
+  const full = [header('MCSS-Lite (full)', 'Rules, components and tokens in one file.'), rulesMd, setupMd, blocksTable, contentMd, validatorMd, componentsMd, iconsMd, tokensMd].join('\n');
 
   const index = [
     '# MCSS-Lite',

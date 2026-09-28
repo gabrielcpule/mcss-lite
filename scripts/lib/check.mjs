@@ -4,10 +4,11 @@ import { join } from 'node:path';
 import { loadTokens, MODES, tokensForMode } from './tokens.mjs';
 import { loadContracts, classInventory, localCustomProperties } from './contracts.mjs';
 import { validateSchema } from './schema.mjs';
-import { createValidator, RAW_COLOR } from './validate.mjs';
+import { createValidator, RAW_COLOR, RULES } from './validate.mjs';
 import { generate } from './generate.mjs';
 import { loadSteps, uncoveredBlocks } from './demo.mjs';
 import { checkGuidance } from './pages.mjs';
+import { loadIcons, checkIcons } from './icons.mjs';
 
 const HAND_WRITTEN_CSS = ['global.css', 'layout.css', 'components.css', 'utilities.css'];
 
@@ -61,7 +62,7 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
     for (const m of css.matchAll(/\.([cl]-[a-z0-9-]+)\[data-state="([a-z-]+)"\]/g)) {
       cssStates.add(`${m[1]}:${m[2]}`);
       const contract = contracts.find((c) => c.block === m[1]);
-      if (!contract?.states?.some((s) => s.name === m[2])) {
+      if (!contract?.states?.some((s) => s.name === m[2] && !s.native)) {
         errors.push(`src/${file}:${lineOf(css, m.index)}: state ${m[1]}[data-state="${m[2]}"] is not in the ${m[1]} contract`);
       }
     }
@@ -84,14 +85,23 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
   for (const [name, info] of inventory) {
     if (!cssClasses.has(name)) errors.push(`components/${info.contract.file}: ${name} has no CSS in src/`);
   }
+  const allCss = HAND_WRITTEN_CSS.map((f) => stripComments(cssOverrides[f] ?? readFileSync(join(root, 'src', f), 'utf8'))).join('\n');
   for (const c of contracts) {
     for (const s of c.states ?? []) {
-      if (!cssStates.has(`${c.block}:${s.name}`)) errors.push(`components/${c.file}: state ${s.name} has no ${c.block}[data-state="${s.name}"] rule`);
+      if (s.native) {
+        // A native state is styled on the block or one of its elements, e.g. .c-checkbox__input:checked.
+        const sel = s.selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (!new RegExp(`\\.${c.block}(?:__[a-z0-9-]+)?${sel}`).test(allCss)) {
+          errors.push(`components/${c.file}: native state ${s.name} has no .${c.block}…${s.selector} rule`);
+        }
+      } else if (!cssStates.has(`${c.block}:${s.name}`)) {
+        errors.push(`components/${c.file}: state ${s.name} has no ${c.block}[data-state="${s.name}"] rule`);
+      }
     }
   }
 
   // 4. Canonical examples validate cleanly.
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   for (const f of readdirSync(join(root, 'components')).filter((f) => f.endsWith('.html'))) {
     for (const i of validate(readFileSync(join(root, 'components', f), 'utf8'))) {
       errors.push(`components/${f}:${i.line}: ${i.level}: ${i.message}`);
@@ -99,12 +109,22 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
   }
 
   // 4b. Guidance examples: every "do" validates cleanly, every "don't" triggers the rule it names.
-  errors.push(...checkGuidance(contracts));
+  errors.push(...checkGuidance(contracts, root));
 
   // 4c. The content guide matches its schema.
   const contentSchema = JSON.parse(readFileSync(join(root, 'schemas/content.schema.json'), 'utf8'));
   const content = JSON.parse(readFileSync(join(root, 'guidelines/content.json'), 'utf8'));
   for (const e of validateSchema(contentSchema, content)) errors.push(`guidelines/content.json: ${e}`);
+  // A content rule that says it is checked must name a real rule, and its "don't" example must trip it.
+  for (const r of content.rules.filter((x) => x.enforcedBy)) {
+    if (!RULES.some((x) => x.id === r.enforcedBy)) errors.push(`guidelines/content.json: ${r.id} is enforcedBy unknown rule "${r.enforcedBy}"`);
+    else if (!validate(`<button type="button" class="c-button">${r.dont}</button>`).some((x) => x.rule === r.enforcedBy)) {
+      errors.push(`guidelines/content.json: ${r.id}: the don't example "${r.dont}" doesn't trigger [${r.enforcedBy}]`);
+    }
+  }
+
+  // 4d. Icons are clean 24-unit line drawings.
+  errors.push(...checkIcons(loadIcons(root)));
 
   // 5. The demo booklet introduces every stable block.
   for (const block of uncoveredBlocks(contracts, loadSteps(root))) errors.push(`demo/steps.json: no step introduces ${block}`);

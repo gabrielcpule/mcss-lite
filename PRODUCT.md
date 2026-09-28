@@ -41,6 +41,7 @@ Contract-first for AI. Where Tailwind, Bootstrap or Pico leave agents to infer c
 - Themes: light (default), dark and auto via `data-theme`, opt-in so existing sites do not change.
 - Every custom property name from 0.1.0 is preserved.
 - Parts carry a status: stable, beta (API may change in a minor version) or deprecated, plus `since`.
+- Checkbox, radio and toggle keep the native input: their states are native attributes, never `data-state`. Icons ship as one inline SVG sprite (20 names, listed in the manifest).
 - Out of scope for now: an MCP server, Figma components, Code Connect, template partials (Nunjucks/Jinja), complex JS widgets.
 
 ## Brand Commitments

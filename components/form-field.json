@@ -66,7 +66,7 @@
     "Give help and error elements ids and list them in the control's aria-describedby.",
     "Use role=\"alert\" or a live region on the error when it appears after submit."
   ],
-  "related": ["c-input", "l-stack"],
+  "related": ["c-input", "l-stack", "c-checkbox", "c-radio"],
   "examples": ["form-field.html"],
   "sources": [
     {
@@ -84,6 +84,13 @@
     {
       "title": "NN/g: Marking required fields in forms",
       "url": "https://www.nngroup.com/articles/required-fields/"
+    }
+  ],
+  "states": [
+    {
+      "name": "error",
+      "description": "A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline.",
+      "pair": "Set aria-describedby on the fieldset pointing at its c-form-field__error; ARIA doesn't allow aria-invalid on a fieldset or a radio."
     }
   ]
 }

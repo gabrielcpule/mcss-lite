@@ -384,5 +384,221 @@
         ]
       }
     }
+  },
+  "checkbox": {
+    "size": {
+      "$type": "dimension",
+      "$value": "{space.6}",
+      "$description": "Box and ring size for checkbox and radio (24px).",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "checked-background": {
+      "$type": "color",
+      "$value": "{color.text.default}",
+      "$description": "Checked fill: the ink of a seated piece, not action blue.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "mark": {
+      "$type": "color",
+      "$value": "{color.text.inverse}",
+      "$description": "Tick and bar drawn on the checked fill.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{border-radius.base}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    }
+  },
+  "radio": {
+    "dot": {
+      "$type": "color",
+      "$value": "{color.text.default}",
+      "$description": "The ink stud seated in a checked radio.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    }
+  },
+  "toggle": {
+    "track-off": {
+      "$type": "color",
+      "$value": "{color.background.muted}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "track-on": {
+      "$type": "color",
+      "$value": "{color.text.default}",
+      "$description": "On: an ink track, like a pressed piece.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "thumb": {
+      "$type": "color",
+      "$value": "{color.background.interactive}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.keyline}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "mark": {
+      "$type": "color",
+      "$value": "{color.text.default}",
+      "$description": "Tick drawn on the thumb when on.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    }
+  },
+  "icon": {
+    "size": {
+      "$type": "dimension",
+      "$value": "{space.5}",
+      "$description": "Default icon size (20px).",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "size-sm": {
+      "$type": "dimension",
+      "$value": "{space.4}",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "size-lg": {
+      "$type": "dimension",
+      "$value": "{space.6}",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    }
+  },
+  "alert": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.background.raised}",
+      "$description": "Every tone sits on paper; tone comes from the edge, the icon and the hidden prefix.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.border.keyline}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-info": {
+      "$type": "color",
+      "$value": "{color.border.info}",
+      "$description": "4px bottom edge and icon color for info.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-success": {
+      "$type": "color",
+      "$value": "{color.border.success}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-warning": {
+      "$type": "color",
+      "$value": "{color.border.warning}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    },
+    "edge-error": {
+      "$type": "color",
+      "$value": "{color.border.error}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_FILLS",
+          "STROKE_COLOR"
+        ]
+      }
+    }
   }
 }

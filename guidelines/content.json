@@ -8,7 +8,8 @@
       "title": "Write in sentence case",
       "text": "Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels.",
       "do": "Create account",
-      "dont": "Create Account"
+      "dont": "Create Account",
+      "enforcedBy": "content-case"
     },
     {
       "id": "button-verbs",
@@ -22,7 +23,8 @@
       "title": "No vague labels",
       "text": "\"Submit\", \"Click here\", \"Yes\" and \"More\" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text.",
       "do": "Download the invoice",
-      "dont": "Click here"
+      "dont": "Click here",
+      "enforcedBy": "content-vague"
     },
     {
       "id": "error-messages",
@@ -44,6 +46,20 @@
       "text": "Ask only for what you need, then add \"(optional)\" to the few fields people may skip. Rows of asterisks add noise and need a legend.",
       "do": "Phone number (optional)",
       "dont": "Phone number *"
+    },
+    {
+      "id": "positive-choices",
+      "title": "Write choices as positive statements",
+      "text": "A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong.",
+      "do": "Email me about new releases",
+      "dont": "Don't email me about new releases"
+    },
+    {
+      "id": "setting-names",
+      "title": "Name the setting, not the action",
+      "text": "A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like \"Turn on\" leave people guessing which state is current.",
+      "do": "Dark mode",
+      "dont": "Enable dark mode"
     },
     {
       "id": "punctuation",

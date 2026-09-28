@@ -1,0 +1,101 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Icon",
+  "block": "c-icon",
+  "layer": "component",
+  "status": "beta",
+  "since": "0.4.0",
+  "description": "A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.",
+  "tags": [
+    "svg"
+  ],
+  "modifiers": [
+    {
+      "group": "size",
+      "exclusive": true,
+      "values": [
+        {
+          "name": "sm",
+          "description": "16px, for dense text and small buttons."
+        },
+        {
+          "name": "lg",
+          "description": "24px, for alerts and empty states."
+        }
+      ]
+    }
+  ],
+  "children": [
+    "Exactly one <use href=\"#mcss-icon-<name>\">; the names are listed under Icons in AGENTS.md."
+  ],
+  "guidelines": {
+    "whenToUse": [
+      "Next to a label, to help people scan: a download button, an external link.",
+      "Inside a severity tile in `c-alert`, where each tone has its own shape.",
+      "An icon-only button, with an accessible name on the button."
+    ],
+    "whenNotToUse": [
+      "As the only way to show meaning when a word would do: write the word.",
+      "For decoration that repeats a nearby label; leave it out."
+    ],
+    "use": [
+      "Inline the sprite once per page, then reference symbols by id.",
+      "Let the icon inherit the text color; change color on the parent."
+    ],
+    "avoid": [
+      "Linking the sprite from a CDN: browsers block <use> across origins.",
+      "Coloring icons blue for decoration: blue means \"act\"."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Hide a decorative icon from screen readers; the button text names the action.",
+          "html": "<button type=\"button\" class=\"c-button\">\n  <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-download\"></use></svg>\n  Download the invoice\n</button>"
+        },
+        "dont": {
+          "text": "Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.",
+          "html": "<svg class=\"c-icon\"><use href=\"#mcss-icon-download\"></use></svg>",
+          "rule": "a11y"
+        }
+      },
+      {
+        "do": {
+          "text": "Give an icon-only button its name with aria-label.",
+          "html": "<button type=\"button\" class=\"c-button\" aria-label=\"Copy the API key\">\n  <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-copy\"></use></svg>\n</button>"
+        },
+        "dont": {
+          "text": "Don't invent icon names: an unknown symbol draws nothing.",
+          "html": "<svg class=\"c-icon\" aria-hidden=\"true\"><use href=\"#mcss-icon-rocket\"></use></svg>",
+          "rule": "unknown-icon"
+        }
+      }
+    ]
+  },
+  "tokens": [
+    "--icon-size",
+    "--icon-size-sm",
+    "--icon-size-lg"
+  ],
+  "a11y": [
+    "Decorative icons: aria-hidden=\"true\" and focusable=\"false\".",
+    "Meaningful icons with no visible text: role=\"img\" and aria-label on the <svg>.",
+    "Severity must never rely on an icon alone; pair it with text."
+  ],
+  "related": [
+    "c-button",
+    "c-alert"
+  ],
+  "examples": [
+    "icon.html"
+  ],
+  "sources": [
+    {
+      "title": "Sara Soueidan: Accessible icon buttons",
+      "url": "https://www.sarasoueidan.com/blog/accessible-icon-buttons/"
+    },
+    {
+      "title": "GitLab Pajamas: Icons",
+      "url": "https://design.gitlab.com/product-foundations/iconography"
+    }
+  ]
+}

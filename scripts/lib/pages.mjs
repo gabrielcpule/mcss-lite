@@ -4,7 +4,9 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
-import { glyph, esc, indent, MISFIT_SVG } from './demo.mjs';
+import { stateLabel } from './contracts.mjs';
+import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
+import { glyph, esc, indent } from './demo.mjs';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
 
@@ -18,6 +20,9 @@ const STATUS_ICON = {
   beta: '<path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/>',
   deprecated: '<path d="M4 4l8 8M12 4l-8 8"/>',
 };
+// A small tilted brick that misses its studs, drawn in the keyline: the booklet's "wrong piece" mark on every ✗ panel.
+const MISFIT_MINI = '<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg>';
+
 export const sticker = (status) => `<span class="demo-sticker demo-sticker--${status}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">${STATUS_ICON[status]}</svg>${STATUS_TEXT[status]}</span>`;
 
 const LEGEND = {
@@ -39,8 +44,8 @@ export function namespaceIds(html, suffix) {
     .replace(/(\shref="#)([^"]*)"/g, (_, a, v) => `${a}${map(v)}"`);
 }
 
-// Stage links never lead off the page.
-const localLinks = (html, anchor) => html.replace(/href="[^"]*"/g, `href="#${anchor}"`);
+// Stage links never lead off the page. Icon references (<use href="#mcss-icon-…">) stay as they are.
+const localLinks = (html, anchor) => html.replace(new RegExp(`href="(?!#${ICON_PREFIX})[^"]*"`, 'g'), `href="#${anchor}"`);
 
 // A <dialog> is invisible until opened. On a sheet the preview is a contained, inert copy.
 const dialogPreview = (html) => html
@@ -48,7 +53,7 @@ const dialogPreview = (html) => html
   .replace(/<\/dialog>/g, '</div>');
 
 export function buildPages({ root, pkg, contracts, tokenRows }) {
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const tokens = new Map(tokenRows.map((t) => [t.name, t]));
   const sheets = contracts;
@@ -73,7 +78,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
   function shell({ title, description, rel, rail, main }) {
     const railHtml = rail.length
       ? `\n  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
 ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(label)}"><span class="u-sr-only">${n + 1}: ${esc(label)}</span><span aria-hidden="true">${n + 1}</span></a></li>`).join('\n')}
     </ol>
   </nav>\n`
@@ -91,6 +96,7 @@ ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id
   <link rel="stylesheet" href="${rel}demo.css">
 </head>
 <body class="demo">
+${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
@@ -154,7 +160,10 @@ ${body}
       steps.push(`${m.exclusive ? 'Pick at most one' : 'Add any'} ${esc(m.group)} modifier: ${m.values.map((v) => `<code>--${esc(v.name)}</code>`).join(', ')}.`);
     }
     for (const p of c.customProperties ?? []) steps.push(`Tune <code>${esc(p.name)}</code> inline if the default (<code>${esc(p.default)}</code>) doesn't fit.`);
-    if (c.states?.length) steps.push(`Set a state with <code>data-state</code> and add its paired attribute: ${c.states.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
+    const dataStates = (c.states ?? []).filter((s) => !s.native);
+    const nativeStates = (c.states ?? []).filter((s) => s.native);
+    if (nativeStates.length) steps.push(`Set state on the native control, never with data-state: ${nativeStates.map((s) => `<code>${esc(s.selector)}</code>`).join(', ')}.`);
+    if (dataStates.length) steps.push(`Set a state with <code>data-state</code> and add its paired attribute: ${dataStates.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
     if (c.layer === 'layout') steps.push('Put the parts inside. The layout sets the space between them, so they need no margins.');
     return steps;
   }
@@ -170,9 +179,9 @@ ${body}
     const isModal = html.includes('c-modal');
     const body = localLinks(namespaceIds(isModal ? dialogPreview(html) : html, suffix), anchor)
       .replace(' aria-modal="true"', '');
-    return `<div class="demo-stage${isModal ? ' demo-stage--contain' : ''}"${isModal ? ' inert aria-hidden="true"' : ''}>
+    return `<figure class="demo-stage${isModal ? ' demo-stage--contain' : ''}"${isModal ? ' inert aria-hidden="true"' : ''}>
 ${indent(body, 2)}
-</div>`;
+</figure>`;
   }
 
   function code(html) { return `<pre class="demo-code"><code>${esc(html)}</code></pre>`; }
@@ -200,7 +209,7 @@ ${indent(body, 2)}
 ${doHtml}
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head">${CROSS_ICON}Doesn't fit</p>
+    <p class="demo-checks__head">${CROSS_ICON}Doesn't fit${MISFIT_MINI}</p>
     <p>${rich(pair.dont.text)}</p>
 ${dontHtml}
   </div>
@@ -212,7 +221,10 @@ ${dontHtml}
     const t = tokens.get(name);
     if (!t) return '<span class="demo-spec__muted">local</span>';
     const v = t.value;
-    return typeof v === 'object' ? `<code>${esc(v.light)}</code> / <code>${esc(v.dark)}</code>` : `<code>${esc(v)}</code>`;
+    // A color token shows a live chip: it follows the page's theme. Component tokens are unset, so fall back to their alias.
+    const live = t.tier === 'component' && typeof t.alias === 'string' ? `var(${t.name}, var(${t.alias}))` : `var(${t.name})`;
+    const chip = t.type === 'color' ? `<span class="demo-swatch" style="background-color: ${live}" aria-hidden="true"></span>` : '';
+    return `${chip}${typeof v === 'object' ? `<code>${esc(v.light)}</code> / <code>${esc(v.dark)}</code>` : `<code>${esc(v)}</code>`}`;
   }
 
   function specTables(c) {
@@ -235,7 +247,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     out.push(table('Elements', ['Class', 'On', 'What it does'], (c.elements ?? []).map((e) => [`<code>${esc(c.block)}__${esc(e.name)}</code>${e.required ? ' <span class="demo-spec__muted">required</span>' : ''}`, (e.tags ?? []).map((t) => `<code>&lt;${esc(t)}&gt;</code>`).join(' ') || '–', esc(e.description)])));
     out.push(table('Custom properties', ['Property', 'Default', 'What it does'], (c.customProperties ?? []).map((p) => [`<code>${esc(p.name)}</code>`, `<code>${esc(p.default)}</code>`, esc(p.description)])));
     if (c.layer !== 'layout') {
-      out.push(table('States', ['data-state', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(s.name)}</code>`, esc(s.description), esc(s.pair ?? '–')])));
+      out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), esc(s.pair ?? '–')])));
       out.push(table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)])));
     }
     return out.filter(Boolean).join('\n');
@@ -266,9 +278,16 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     const steps = buildSteps(c);
     add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example)}` : ''}`);
 
+    // The icon sheet shows the whole set, each with the id to reference.
+    if (c.block === 'c-icon') {
+      add('set', 'The set', `<p class="demo-step__text">Every icon in <code>dist/mcss-lite.icons.svg</code>, at the large size (<code>c-icon--lg</code>). Reference one with <code>&lt;use href="#${ICON_PREFIX}name"&gt;</code>.</p>
+<ul class="demo-icon-set" role="list">
+${loadIcons(root).map((i) => `  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#${ICON_PREFIX}${i.name}"></use></svg><code>${esc(i.name)}</code></li>`).join('\n')}
+</ul>`);
+    }
+
     if (g.doDont?.length) {
       add('check', 'Check your build', `<p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>
-<div class="demo-misfit-row">${MISFIT_SVG.replace(/misfit-title/g, 'misfit-title-sheet')}</div>
 <div class="demo-checks">
 ${checkPanels(c)}
 </div>`);
@@ -312,9 +331,8 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate">${glyph(c.block)}</div>
         <div class="l-stack l-stack--sm">
-          <p class="demo-sheet__kicker">Part sheet ${index + 1} of ${sheets.length} · ${layerName}</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">${esc(c.block)}</span> ${esc(c.name)}</h1>
-          <div class="l-cluster">${sticker(c.status)}${c.since ? `<span class="demo-sheet__since">Since ${esc(c.since)}</span>` : ''}</div>
+          <div class="l-cluster">${sticker(c.status)}<span class="demo-sheet__since">${layerName}${c.since ? ` · since ${esc(c.since)}` : ''}</span></div>
           <p class="demo-hero__lede">${rich(autoCode(c.description))}</p>${deprecated}
         </div>
       </div>
@@ -357,9 +375,8 @@ ${list.map((c) => `        <tr><th scope="row"><a class="demo-inventory-table__p
     const utilities = contracts.filter((c) => c.layer === 'utility');
     const main = `    <header class="demo-sheet__head">
       <div class="l-container l-stack l-stack--sm">
-        <p class="demo-sheet__kicker">Back of the booklet</p>
         <h1 class="demo-sheet__title">Parts inventory</h1>
-        <p class="demo-hero__lede">Every part MCSS-Lite ships, with its status. Anything not listed here doesn't exist, and <code>mcss-lite validate</code> rejects it.</p>
+        <p class="demo-hero__lede">The back of the booklet: every part MCSS-Lite ships, with its status. Anything not listed here doesn't exist, and <code>mcss-lite validate</code> rejects it.</p>
         <ul class="l-cluster demo-legend" role="list">
 ${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)).map(([st, text]) => `          <li>${sticker(st)} ${text}</li>`).join('\n')}
         </ul>
@@ -379,7 +396,6 @@ ${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, '
   function contentPage() {
     const main = `    <header class="demo-sheet__head">
       <div class="l-container l-stack l-stack--sm">
-        <p class="demo-sheet__kicker">Front of the booklet</p>
         <h1 class="demo-sheet__title">${esc(content.title)}</h1>
         <p class="demo-hero__lede">${rich(content.intro, 'components/')}</p>
       </div>
@@ -412,8 +428,8 @@ const autoCode = (s) => s.replace(/(^|[\s(])([clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-
 const firstSentence = (s) => s.split(/(?<=\.)\s/)[0];
 
 // Checks the guidance examples: every "do" validates cleanly, every "don't" that names a rule triggers it.
-export function checkGuidance(contracts) {
-  const validate = createValidator(contracts);
+export function checkGuidance(contracts, root) {
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const errors = [];
   for (const c of contracts) {
     (c.guidelines?.doDont ?? []).forEach((pair, i) => {

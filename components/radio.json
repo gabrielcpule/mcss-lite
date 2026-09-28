@@ -1,0 +1,148 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Radio",
+  "block": "c-radio",
+  "layer": "component",
+  "status": "beta",
+  "since": "0.4.0",
+  "description": "A native radio button with its label: pick exactly one option from a short, visible list.",
+  "tags": [
+    "div"
+  ],
+  "elements": [
+    {
+      "name": "input",
+      "description": "The native control. Carries every state: checked, disabled.",
+      "tags": [
+        "input"
+      ],
+      "required": true
+    },
+    {
+      "name": "label",
+      "description": "The visible label, linked with for/id. Clicking it toggles the control and pads the hit area.",
+      "tags": [
+        "label"
+      ],
+      "required": true
+    },
+    {
+      "name": "hint",
+      "description": "Optional one-line hint under the label, linked with aria-describedby.",
+      "tags": [
+        "p",
+        "div",
+        "span"
+      ]
+    }
+  ],
+  "states": [
+    {
+      "name": "checked",
+      "native": true,
+      "selector": ":checked",
+      "description": "Selected: an ink stud seated in the ring.",
+      "pair": "Use the checked attribute, never data-state."
+    },
+    {
+      "name": "disabled",
+      "native": true,
+      "selector": ":disabled",
+      "description": "Cannot be chosen. Dashed ring, ghosted label.",
+      "pair": "Use the disabled attribute, and say nearby why it is unavailable."
+    }
+  ],
+  "children": [
+    "Order: c-radio__input, then c-radio__label, then an optional c-radio__hint.",
+    "Every radio group lives in fieldset.c-form-field with a legend.c-form-field__label; all radios in it share one name.",
+    "Show a group error with data-state=\"error\" on the fieldset, aria-describedby pointing at its c-form-field__error."
+  ],
+  "guidelines": {
+    "whenToUse": [
+      "Exactly one choice from 2 to 6 options that people should compare side by side.",
+      "A choice where seeing every option helps the decision, such as a delivery speed or a plan."
+    ],
+    "whenNotToUse": [
+      "Any number of options may be chosen: use `c-checkbox`.",
+      "An on/off setting that applies immediately: use `c-toggle`.",
+      "More than about 7 options: use a `c-input` on a <select>."
+    ],
+    "use": [
+      "Preselect the safest or most common option when there is one; leave the group empty when every answer needs a conscious choice.",
+      "Order options logically: by size, frequency or time, not alphabetically by accident."
+    ],
+    "avoid": [
+      "A single radio button on its own: it can never be cleared.",
+      "Radios that trigger navigation or reveal large sections without warning."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Put the group in a fieldset with a legend, and give every radio the same name.",
+          "html": "<fieldset class=\"c-form-field\">\n  <legend class=\"c-form-field__label\">Delivery speed</legend>\n  <div class=\"l-stack l-stack--sm\">\n    <div class=\"c-radio\">\n      <input class=\"c-radio__input\" type=\"radio\" id=\"speed-standard\" name=\"speed\" value=\"standard\" checked aria-describedby=\"speed-standard-hint\">\n      <label class=\"c-radio__label\" for=\"speed-standard\">Standard</label>\n      <p class=\"c-radio__hint\" id=\"speed-standard-hint\">3 to 5 working days, free.</p>\n    </div>\n    <div class=\"c-radio\">\n      <input class=\"c-radio__input\" type=\"radio\" id=\"speed-next\" name=\"speed\" value=\"next-day\">\n      <label class=\"c-radio__label\" for=\"speed-next\">Next day</label>\n    </div>\n  </div>\n</fieldset>"
+        },
+        "dont": {
+          "text": "Don't mark a group error with aria-invalid on each radio; ARIA doesn't allow it there. Put the error on the fieldset.",
+          "html": "<fieldset class=\"c-form-field\" data-state=\"error\">\n  <legend class=\"c-form-field__label\">Delivery speed</legend>\n  <div class=\"c-radio\">\n    <input class=\"c-radio__input\" type=\"radio\" id=\"speed-x\" name=\"speed-x\" value=\"standard\">\n    <label class=\"c-radio__label\" for=\"speed-x\">Standard</label>\n  </div>\n</fieldset>",
+          "rule": "state-pair"
+        }
+      }
+    ],
+    "content": [
+      "The legend asks the question; each label is a short answer in sentence case.",
+      "Use a hint for the detail that decides the choice: price, time, consequence."
+    ]
+  },
+  "tokens": [
+    "--checkbox-size",
+    "--checkbox-background",
+    "--checkbox-border",
+    "--radio-dot"
+  ],
+  "a11y": [
+    "Keep native <input type=\"radio\"> elements sharing one name: the browser handles arrow keys and single selection.",
+    "Wrap the group in fieldset + legend so the question is read with every option.",
+    "Link hints with aria-describedby on the input."
+  ],
+  "keyboard": [
+    {
+      "key": "Tab",
+      "action": "Moves focus into the group, to the checked radio (or the first), and out again."
+    },
+    {
+      "key": "Arrow keys",
+      "action": "Move to and select the next or previous radio."
+    },
+    {
+      "key": "Space",
+      "action": "Selects the focused radio if nothing is selected."
+    }
+  ],
+  "related": [
+    "c-checkbox",
+    "c-toggle",
+    "c-form-field",
+    "l-stack"
+  ],
+  "examples": [
+    "radio.html"
+  ],
+  "sources": [
+    {
+      "title": "GOV.UK Design System: Radios",
+      "url": "https://design-system.service.gov.uk/components/radios"
+    },
+    {
+      "title": "NN/g: Checkboxes vs. radio buttons",
+      "url": "https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/"
+    },
+    {
+      "title": "WAI-ARIA APG: Radio group pattern",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/"
+    },
+    {
+      "title": "Sara Soueidan: Inclusively hiding and styling checkboxes and radio buttons",
+      "url": "https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/"
+    }
+  ]
+}

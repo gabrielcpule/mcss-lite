@@ -1,0 +1,155 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Toggle",
+  "block": "c-toggle",
+  "layer": "component",
+  "status": "beta",
+  "since": "0.4.0",
+  "description": "An on/off switch built on a native checkbox with role=\"switch\": the setting applies as soon as it changes.",
+  "tags": [
+    "div"
+  ],
+  "elements": [
+    {
+      "name": "input",
+      "description": "The native control: <input type=\"checkbox\" role=\"switch\">. Carries checked and disabled.",
+      "tags": [
+        "input"
+      ],
+      "required": true
+    },
+    {
+      "name": "label",
+      "description": "The name of the setting, linked with for/id. It stays the same when the switch flips.",
+      "tags": [
+        "label"
+      ],
+      "required": true
+    },
+    {
+      "name": "hint",
+      "description": "Optional one-line hint under the label, linked with aria-describedby.",
+      "tags": [
+        "p",
+        "div",
+        "span"
+      ]
+    }
+  ],
+  "states": [
+    {
+      "name": "checked",
+      "native": true,
+      "selector": ":checked",
+      "description": "On: the thumb slides to the end on an ink track and shows a tick.",
+      "pair": "Use the checked attribute; role=\"switch\" makes screen readers say on and off."
+    },
+    {
+      "name": "disabled",
+      "native": true,
+      "selector": ":disabled",
+      "description": "Cannot be changed. Dashed track, ghosted label.",
+      "pair": "Use the disabled attribute, and say nearby why it is unavailable."
+    },
+    {
+      "name": "loading",
+      "description": "The change is being saved. The track turns neutral with moving stripes.",
+      "pair": "Set aria-busy=\"true\" on the c-toggle and disable the input until the save finishes."
+    }
+  ],
+  "children": [
+    "Order: c-toggle__input, then c-toggle__label, then an optional c-toggle__hint."
+  ],
+  "guidelines": {
+    "whenToUse": [
+      "A setting that takes effect immediately, with no save or submit button: notifications, dark mode, a feature flag.",
+      "A system state people expect to flip back and forth."
+    ],
+    "whenNotToUse": [
+      "A choice inside a form that is saved on submit: use `c-checkbox`.",
+      "Choosing between two named options that are not on/off, such as \"Monthly\" and \"Yearly\": use `c-radio`.",
+      "Triggering an action, such as \"Export\": use `c-button`."
+    ],
+    "use": [
+      "Save the change straight away and show that it saved; if it can fail, use the loading state and report errors next to the switch.",
+      "Label the setting, not the action: \"Email notifications\", and let the switch say on or off."
+    ],
+    "avoid": [
+      "Labels that change with the state (\"Turn on\" / \"Turn off\"): people can't tell which is current.",
+      "A div with a click handler drawn to look like a switch; it has no role, no keyboard and no state."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Build the switch on a real checkbox with role=\"switch\" and a fixed noun label.",
+          "html": "<div class=\"c-toggle\">\n  <input class=\"c-toggle__input\" type=\"checkbox\" role=\"switch\" id=\"notify\" checked aria-describedby=\"notify-hint\">\n  <label class=\"c-toggle__label\" for=\"notify\">Email notifications</label>\n  <p class=\"c-toggle__hint\" id=\"notify-hint\">Applies straight away.</p>\n</div>"
+        },
+        "dont": {
+          "text": "Don't fake the on state with data-state: the control has to carry it.",
+          "html": "<div class=\"c-toggle\" data-state=\"checked\">\n  <input class=\"c-toggle__input\" type=\"checkbox\" role=\"switch\" id=\"notify-fake\">\n  <label class=\"c-toggle__label\" for=\"notify-fake\">Email notifications</label>\n</div>",
+          "rule": "invalid-state"
+        }
+      },
+      {
+        "do": {
+          "text": "While a change saves, mark the switch busy and disable the input.",
+          "html": "<div class=\"c-toggle\" data-state=\"loading\" aria-busy=\"true\">\n  <input class=\"c-toggle__input\" type=\"checkbox\" role=\"switch\" id=\"beta\" checked disabled>\n  <label class=\"c-toggle__label\" for=\"beta\">Beta features</label>\n</div>"
+        },
+        "dont": {
+          "text": "Don't show the loading stripes without aria-busy; screen readers can't tell the save is still running.",
+          "html": "<div class=\"c-toggle\" data-state=\"loading\">\n  <input class=\"c-toggle__input\" type=\"checkbox\" role=\"switch\" id=\"beta-x\" checked disabled>\n  <label class=\"c-toggle__label\" for=\"beta-x\">Beta features</label>\n</div>",
+          "rule": "state-pair"
+        }
+      }
+    ],
+    "content": [
+      "Toggle labels are nouns naming the setting, in sentence case: \"Dark mode\", not \"Enable dark mode\".",
+      "Never change the label when the state changes."
+    ]
+  },
+  "tokens": [
+    "--toggle-track-off",
+    "--toggle-track-on",
+    "--toggle-thumb",
+    "--toggle-border",
+    "--toggle-mark",
+    "--color-action-loading-stripe"
+  ],
+  "a11y": [
+    "Use <input type=\"checkbox\" role=\"switch\">: screen readers that know switches say \"on\" and \"off\", and the rest still say \"checked\".",
+    "The thumb shows a tick when on and stays empty when off, so state never relies on position or color alone.",
+    "Movement stops under prefers-reduced-motion."
+  ],
+  "keyboard": [
+    {
+      "key": "Tab",
+      "action": "Moves focus to the switch."
+    },
+    {
+      "key": "Space",
+      "action": "Turns the setting on or off."
+    }
+  ],
+  "related": [
+    "c-checkbox",
+    "c-radio",
+    "c-button"
+  ],
+  "examples": [
+    "toggle.html"
+  ],
+  "sources": [
+    {
+      "title": "NN/g: Toggle-switch guidelines",
+      "url": "https://www.nngroup.com/articles/toggle-switch-guidelines/"
+    },
+    {
+      "title": "WAI-ARIA APG: Switch pattern",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/switch/"
+    },
+    {
+      "title": "GitLab Pajamas: Toggle",
+      "url": "https://design.gitlab.com/components/toggle"
+    }
+  ]
+}

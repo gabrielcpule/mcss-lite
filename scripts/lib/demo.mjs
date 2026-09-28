@@ -3,8 +3,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
-import { classInventory } from './contracts.mjs';
+import { classInventory, stateLabel } from './contracts.mjs';
 import { cdnUrl, gitSpec } from './release.mjs';
+import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
 
 // Authored part glyphs: one per block, drawn in the 2px ink keyline (24px grid).
 const GLYPHS = {
@@ -23,6 +24,11 @@ const GLYPHS = {
   'c-input': '<rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/>',
   'c-modal': '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/>',
   'c-label': '<path d="M4 8h10"/><path d="M4 15h16" stroke-dasharray="3 3"/>',
+  'c-checkbox': '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/>',
+  'c-radio': '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+  'c-toggle': '<rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/>',
+  'c-alert': '<rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/>',
+  'c-icon': '<rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/>',
   'u-*': '<rect x="4" y="10" width="16" height="6" rx="1"/><path d="M7 10V7h3v3M14 10V7h3v3"/>',
 };
 export const glyph = (block) => (GLYPHS[block]
@@ -89,7 +95,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const steps = loadSteps(root);
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const example = (file) => readFileSync(join(root, 'components', file), 'utf8').trim();
-  const validate = createValidator(contracts);
+  const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const wrongIssues = validate(WRONG_PIECE).filter((i) => i.level === 'error');
 
   const layouts = contracts.filter((c) => c.layer === 'layout');
@@ -132,7 +138,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     }
     const mods = (c.modifiers ?? []).flatMap((m) => m.values.map((v) => `<code>--${esc(v.name)}</code>`)).join(' ');
     const els = (c.elements ?? []).map((e) => `<code>__${esc(e.name)}</code>`).join(' ');
-    const states = (c.states ?? []).map((s) => `<code>data-state="${esc(s.name)}"</code>`).join(' ');
+    const states = (c.states ?? []).map((s) => `<code>${esc(stateLabel(s))}</code>`).join(' ');
     const meta = [
       mods && `<span class="demo-part__row"><span class="demo-part__key">Modifiers</span> ${mods}</span>`,
       els && `<span class="demo-part__row"><span class="demo-part__key">Elements</span> ${els}</span>`,
@@ -145,7 +151,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     const isModal = s.blocks.includes('c-modal');
     const stageClass = ['demo-stage', isModal && 'demo-stage--contain', s.wide && 'demo-stage--baseplate'].filter(Boolean).join(' ');
     // Stage links point back to this step so the demo never leads to a 404.
-    const stage = (isModal ? inlinePreview(example(s.example)) : example(s.example)).replace(/href="[^"]*"/g, `href="#step-${n}"`);
+    const stage = (isModal ? inlinePreview(example(s.example)) : example(s.example)).replace(new RegExp(`href="(?!#${ICON_PREFIX})[^"]*"`, 'g'), `href="#step-${n}"`);
     const present = partsIn(example(s.example));
     const declared = new Set(s.blocks.flatMap((b) => (b === 'u-*' ? byBlock.get('u-*').classes.map((u) => u.name) : [b])));
     const also = [...present].filter(([k]) => !declared.has(k));
@@ -155,7 +161,9 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     const extra = isModal
       ? `\n<div class="l-cluster demo-stage-actions">\n  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>\n</div>`
       : '';
-    return `<section class="demo-step${s.wide ? ' demo-step--wide' : ''}" id="step-${n}" aria-labelledby="step-${n}-title">
+    // wide: the stage spans the page with the call-out beside the text. inset: the same, with the call-out set onto the stage.
+    const stepClass = ['demo-step', (s.wide || s.layout === 'inset') && 'demo-step--wide', s.layout === 'inset' && 'demo-step--inset'].filter(Boolean).join(' ');
+    return `<section class="${stepClass}" id="step-${n}" aria-labelledby="step-${n}-title">
   <div class="l-container">
     <div class="demo-step__grid">
       <div class="demo-step__head">
@@ -170,9 +178,9 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
       </div>
       <div class="demo-step__build">
         <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div class="${stageClass}"${isModal ? ' inert aria-hidden="true"' : ''}>
+        <figure class="${stageClass}"${isModal ? ' inert aria-hidden="true"' : ''}>
 ${indent(stage, 10)}
-        </div>${indent(extra, 8)}
+        </figure>${indent(extra, 8)}
       </div>
     </div>
   </div>
@@ -202,6 +210,7 @@ ${indent(stage, 10)}
   <link rel="stylesheet" href="demo.css">
 </head>
 <body class="demo">
+${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#step-1">Skip to the build</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
@@ -215,7 +224,7 @@ ${indent(stage, 10)}
   </header>
 
   <nav class="demo-rail" aria-label="Build steps">
-    <ol class="demo-rail__list" role="list">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: ${steps.length + 1}">
 ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
       <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
     </ol>

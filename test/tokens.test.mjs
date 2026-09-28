@@ -72,6 +72,16 @@ const PAIRS = [
   // The ring is drawn with a 2px offset, so it sits on the surrounding background, not on the button fill.
   ['color.border.interactive', 'color.background.interactive', 3],
   ['color.border.interactive', 'color.background.interactive-hover', 3],
+  // Checkbox, radio and toggle (0.4.0): the ink fill against the page, its mark, and the toggle thumb's edge on both tracks.
+  ['color.text.inverse', 'color.text.default', 3],
+  ['color.text.default', 'color.background.raised', 3],
+  ['color.border.interactive', 'color.background.default', 3],
+  ['color.border.interactive', 'color.background.raised', 3],
+  ['color.border.keyline', 'color.background.muted', 3],
+  ['color.text.default', 'color.background.interactive', 4.5],
+  ['color.border.error', 'color.background.raised', 3],
+  // Alert (0.4.0): the tone edge and the severity icon sit on paper.
+  ...['info', 'success', 'warning', 'error'].map((tone) => [`color.border.${tone}`, 'color.background.raised', 3]),
 ];
 
 for (const mode of MODES) {
@@ -87,3 +97,22 @@ for (const mode of MODES) {
     assert.deepEqual(failures, []);
   });
 }
+
+// The brick edge is the first layer of each shadow: a hard 2px line under the part. In the night build it must
+// still read against the surface the part sits on, so blend it over that surface and check 3:1 (WCAG 1.4.11).
+test('the brick edge stays visible in dark mode', () => {
+  const byPath = tokensForMode(sets, 'dark');
+  const hex = (c) => c.components.map((v) => Math.round(v * 255));
+  const failures = [];
+  for (const shadow of ['shadow.raised', 'shadow.elevated']) {
+    const edge = byPath.get(shadow).value[0].color;
+    for (const bg of ['color.background.default', 'color.background.raised', 'color.background.canvas']) {
+      const surface = resolvedCss(byPath.get(bg), byPath);
+      const s = [1, 3, 5].map((i) => parseInt(surface.slice(i, i + 2), 16));
+      const mixed = hex(edge).map((v, i) => Math.round(v * edge.alpha + s[i] * (1 - edge.alpha)));
+      const ratio = contrast(`#${mixed.map((v) => v.toString(16).padStart(2, '0')).join('')}`, surface);
+      if (ratio < 3) failures.push(`${shadow} edge on ${bg}: ${ratio.toFixed(2)}`);
+    }
+  }
+  assert.deepEqual(failures, []);
+});

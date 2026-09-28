@@ -15,3 +15,21 @@
     </div>
   </div>
 </main>
+<form class="l-stack" hx-post="/settings" hx-trigger="change">
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="g-dark">
+    <label class="c-toggle__label" for="g-dark">Dark mode</label>
+  </div>
+  <fieldset class="c-form-field">
+    <legend class="c-form-field__label">Export format</legend>
+    <div class="c-radio"><input class="c-radio__input" type="radio" id="g-pdf" name="fmt" checked><label class="c-radio__label" for="g-pdf">PDF</label></div>
+  </fieldset>
+  <label>Search <input class="c-input" type="search"></label>
+</form>
+<div class="c-alert c-alert--success">
+  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+  <div class="c-alert__body"><p class="c-alert__title"><span class="u-sr-only">Success: </span>Sign in with GitHub worked</p></div>
+  <button type="button" class="c-alert__close" aria-label="Dismiss"><svg class="c-icon" aria-hidden="true"><use href="#mcss-icon-close"></use></svg></button>
+</div>
+<button type="button" class="c-button">{{ t('Save Changes') }}</button>
+<div hx-get="/feed" hx-trigger="load">Loading the feed</div>

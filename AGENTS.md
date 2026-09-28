@@ -2,14 +2,14 @@
 
 > How to build UI with MCSS-Lite: the rules, every class, every token. Read this before writing markup or CSS.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.3.1
+> Package: @gabrielpule/mcss-lite@0.4.0
 
 ## Rules
 
 1. **Components never set their own outer margin.** Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing.
 2. **Layout, then component, then utility, then token.** Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only.
 3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning.
-4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).
+4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy). Checkboxes, radios and toggles are the exception: their states are native (checked, disabled, aria-invalid) and never use data-state.
 5. **Theme with semantic tokens, never raw values.** Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode.
 
 ## Setup
@@ -17,12 +17,12 @@
 MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.3.1/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
 ```
 
 ```sh
-npm install github:gabrielcpule/mcss-lite#v0.3.1   # or pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.0   # or pnpm add / yarn add / bun add
 # then: <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
@@ -32,14 +32,14 @@ Before finishing, check your markup:
 
 ```sh
 npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output
-npx github:gabrielcpule/mcss-lite#v0.3.1 validate path/to/file.html   # without installing
+npx github:gabrielcpule/mcss-lite#v0.4.0 validate path/to/file.html   # without installing
 ```
 
 ## Blocks at a glance
 
 Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).
 
-| Class | Layer | Modifiers | Elements | data-state | Use for |
+| Class | Layer | Modifiers | Elements | States | Use for |
 |---|---|---|---|---|---|
 | `l-center` | layout | — | — | — | Centers a block horizontally at reading width without side gutters. |
 | `l-cluster` | layout | — | — | — | Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags. |
@@ -49,13 +49,18 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `l-sidebar` | layout | — | __sidebar __content | — | A sidebar next to main content that stacks when the content would get narrower than 50%. |
 | `l-stack` | layout | --sm --lg | — | — | Vertical flow: adds space between consecutive children, which keep their own width. |
 | `l-switcher` | layout | — | — | — | Children sit side by side until the container is narrower than a threshold, then all stack at once. |
+| `c-alert` | component | --info --success --warning --error | __icon __body __title __actions __close | — | A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge. |
 | `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
 | `c-button` | component | --primary --secondary --ghost --danger · --sm --lg | — | disabled loading | Triggers an action. |
 | `c-card` | component | --elevated --bordered · --interactive | __header __title __body __footer | — | A raised surface that groups related content, such as a summary, a settings group or a list item. |
-| `c-form-field` | component | — | __label __help __error | — | Wraps one form control with its label, help text and error message. |
+| `c-checkbox` | component | — | __input __label __hint | :checked :indeterminate :disabled [aria-invalid="true"] | A native checkbox with its label: pick any number of options, or confirm one statement. |
+| `c-form-field` | component | — | __label __help __error | error | Wraps one form control with its label, help text and error message. |
+| `c-icon` | component | --sm --lg | — | — | A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color. |
 | `c-input` | component | — | — | error success disabled | Single-line text entry. |
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
+| `c-radio` | component | — | __input __label __hint | :checked :disabled | A native radio button with its label: pick exactly one option from a short, visible list. |
+| `c-toggle` | component | — | __input __label __hint | :checked :disabled loading | An on/off switch built on a native checkbox with role="switch": the setting applies as soon as it changes. |
 
 ## Utilities
 
@@ -77,19 +82,62 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 - `u-truncate`: Single line with an ellipsis.
 - `u-sr-only`: Visually hidden but read by screen readers.
 
+## Icons
+
+20 line icons on a 24-unit grid, drawn with a 2px stroke at every size. They ship as one sprite, `dist/mcss-lite.icons.svg`. Inline it once near the top of <body> (a sprite linked from another origin, such as a CDN, doesn't render), then reference a symbol by id:
+
+```html
+<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg>
+```
+
+Names (id `#mcss-icon-<name>`): `arrow-right`, `check`, `chevron-down`, `chevron-left`, `chevron-right`, `chevron-up`, `close`, `copy`, `download`, `edit`, `error`, `external-link`, `info`, `menu`, `minus`, `plus`, `search`, `success`, `trash`, `warning`.
+
+Icons take the text color. A decorative icon gets aria-hidden="true"; an icon that carries meaning on its own gets role="img" and aria-label. Never invent an icon name.
+
 ## Content rules
 
 Labels, messages and help text follow the same rules everywhere.
 
-- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account".
+- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account". Checked by `[content-case]`.
 - **Buttons say what happens.** Start with a verb and name the thing it acts on. A person should know the result before they click. Do: "Save changes". Don't: "OK".
-- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here".
+- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here". Checked by `[content-vague]`.
 - **Errors say what went wrong and how to fix it.** Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say "invalid". Do: "Enter a date after 1 January 2020". Don't: "Invalid input".
 - **Show errors at the right moment.** Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field. Do: "There is a problem: Enter your email address". Don't: "Email is invalid (shown after the first keystroke)".
 - **Mark optional fields, not required ones.** Ask only for what you need, then add "(optional)" to the few fields people may skip. Rows of asterisks add noise and need a legend. Do: "Phone number (optional)". Don't: "Phone number *".
+- **Write choices as positive statements.** A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong. Do: "Email me about new releases". Don't: "Don't email me about new releases".
+- **Name the setting, not the action.** A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like "Turn on" leave people guessing which state is current. Do: "Dark mode". Don't: "Enable dark mode".
 - **Keep punctuation light.** No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks. Do: "Delete project". Don't: "Delete project!".
 - **Write numbers and dates the same way everywhere.** Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04. Do: "1 March 2026, 12 of 20 seats". Don't: "03/01/26, twelve of twenty seats".
 - **Write for everyone.** Use plain words, active voice and "you". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks ("select", not "click the blue button"). Do: "Choose a plan to continue". Don't: "Just hit the big blue button, guys".
+
+## Validator rules
+
+`mcss-lite validate` reports these. Errors fail the run and can't be ignored. Warnings can be silenced for a whole run with `--ignore rule,rule`, or for one element with `<!-- mcss-lite-ignore rule: reason -->` right before it.
+
+| Rule | Level | Catches |
+|---|---|---|
+| `unknown-class` | error | A c-, l- or u- class that no contract defines. |
+| `modifier-without-block` | error | A modifier class without its block class on the same element. |
+| `exclusive-modifiers` | error | Two modifiers from the same exclusive group, such as two sizes. |
+| `invalid-state` | error | A data-state value the block does not define, or a native state (checked) written as data-state. |
+| `unknown-icon` | error | A <use href="#mcss-icon-…"> that names no icon in the sprite. |
+| `state-pair` | warning | A data-state without its native or ARIA pair (disabled, aria-invalid, aria-busy). |
+| `deprecated` | warning | A deprecated class; the message names the replacement. |
+| `element-outside-block` | warning | A block__element used outside its block. |
+| `raw-color` | warning | A raw color in an inline style instead of a token. |
+| `golden-rule` | warning | A component that sets its own outer margin. |
+| `a11y` | warning | A missing accessibility requirement from a contract: dialog roles, named close buttons, hidden or labelled icons, switch roles, radio groups. |
+| `card-link` | warning | A card wrapped in a link instead of a stretched title link. |
+| `nested-interactive` | warning | A link or control inside a link. |
+| `card-nesting` | warning | A card inside another card. |
+| `label-missing` | warning | A form control with no label; a placeholder is not a label. |
+| `primary-count` | warning | More than one primary button in one region (form, dialog, card, alert, figure, landmark or group). |
+| `clickable-div` | warning | A div or span that reacts to clicks (onclick, @click, hx-post…) instead of a button or link. |
+| `toggle-in-form` | warning | A toggle in a form that is saved with a submit button; use a checkbox there. |
+| `alert-severity` | warning | A toned alert with neither a severity icon nor a text prefix, so its severity rests on color. |
+| `content-case` | warning | Title Case on a button, label, title or badge; write in sentence case. |
+| `content-vague` | warning | A vague button or link label such as "Submit", "Click here" or "OK". |
+| `content-missing` | warning | A button or link with no text and no accessible name. |
 
 ## More detail
 
@@ -200,8 +248,8 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
-| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
+| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 

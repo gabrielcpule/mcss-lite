@@ -57,11 +57,24 @@
     studs.forEach((_, id) => { const el = document.getElementById(id); if (el) railIo.observe(el); });
   }
 
+  // Alert dismiss, as the c-alert contract describes: the app hides the alert and moves focus somewhere sensible.
+  document.addEventListener('click', (event) => {
+    const close = event.target.closest('.c-alert__close');
+    if (!close) return;
+    const alert = close.closest('.c-alert');
+    alert.hidden = true;
+    const next = alert.closest('.demo-stage, figure') ?? document.getElementById('main');
+    if (next) { next.setAttribute('tabindex', '-1'); next.focus(); }
+  });
+
   // Step-in motion: parts drop into place along the arrow. Content is visible without it.
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+        // Parts in an inset step seat one after another.
+        entry.target.querySelectorAll('.demo-step--inset .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert)')
+          .forEach((part, i) => part.style.setProperty('--demo-i', i));
         entry.target.classList.add('is-seating');
         io.unobserve(entry.target);
       });

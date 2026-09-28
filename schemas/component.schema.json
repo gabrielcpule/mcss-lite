@@ -67,8 +67,18 @@
         "properties": {
           "name": { "type": "string", "pattern": "^[a-z-]+$" },
           "description": { "type": "string" },
-          "pair": { "type": "string", "description": "Native attribute or ARIA that must accompany data-state." }
-        }
+          "pair": { "type": "string", "description": "Native attribute or ARIA that must accompany data-state." },
+          "native": {
+            "type": "boolean",
+            "description": "The state is a native attribute or ARIA (checked, disabled, aria-invalid), not data-state. Its selector must appear in the CSS, and data-state with this name is invalid."
+          },
+          "selector": {
+            "type": "string",
+            "description": "CSS selector suffix that styles a native state, e.g. :checked or [aria-invalid=\"true\"]."
+          }
+        },
+        "if": { "type": "object", "properties": { "native": { "const": true } }, "required": ["native"] },
+        "then": { "type": "object", "required": ["selector"] }
       }
     },
     "classes": {

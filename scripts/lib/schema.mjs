@@ -1,11 +1,15 @@
 // Minimal JSON Schema validator covering the keywords used in schemas/component.schema.json:
-// type, required, properties, additionalProperties:false, items, enum, pattern.
+// type, required, properties, additionalProperties:false, items, enum, const, pattern, if/then.
 export function validateSchema(schema, value, path = '$') {
   const errors = [];
   const typeOf = (v) => (Array.isArray(v) ? 'array' : v === null ? 'null' : typeof v === 'number' ? 'number' : typeof v);
 
   if (schema.type && typeOf(value) !== schema.type && !(schema.type === 'integer' && Number.isInteger(value))) {
     return [`${path}: expected ${schema.type}, got ${typeOf(value)}`];
+  }
+  if ('const' in schema && value !== schema.const) errors.push(`${path}: must be ${JSON.stringify(schema.const)}`);
+  if (schema.if && schema.then && validateSchema(schema.if, value, path).length === 0) {
+    errors.push(...validateSchema(schema.then, value, path));
   }
   if (schema.enum && !schema.enum.includes(value)) errors.push(`${path}: must be one of ${schema.enum.join(', ')}`);
   if (schema.pattern && typeof value === 'string' && !new RegExp(schema.pattern).test(value)) {

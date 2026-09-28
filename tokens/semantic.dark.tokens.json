@@ -485,12 +485,12 @@
           "color": {
             "colorSpace": "srgb",
             "components": [
-              0,
-              0,
-              0
+              0.812,
+              0.855,
+              0.898
             ],
-            "alpha": 0.6,
-            "hex": "#000000"
+            "alpha": 0.45,
+            "hex": "#cfdae5"
           },
           "offsetX": {
             "value": 0,
@@ -541,7 +541,7 @@
       "$extensions": {
         "mcss.figma": false
       },
-      "$description": "Brick-edge depth for raised parts: a 2px edge plus a soft blur."
+      "$description": "Brick edge in the night build: a pale 2px edge (the keyline at 45%) plus a soft blur, so parts still read as seated bricks on navy."
     },
     "elevated": {
       "$type": "shadow",
@@ -550,12 +550,12 @@
           "color": {
             "colorSpace": "srgb",
             "components": [
-              0.0,
-              0.0,
-              0.0
+              0.812,
+              0.855,
+              0.898
             ],
-            "hex": "#000000",
-            "alpha": 0.7
+            "hex": "#cfdae5",
+            "alpha": 0.5
           },
           "offsetX": {
             "value": 0,

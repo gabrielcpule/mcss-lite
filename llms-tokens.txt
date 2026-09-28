@@ -2,7 +2,7 @@
 
 > Every design token with light and dark values.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.3.1
+> Package: @gabrielpule/mcss-lite@0.4.0
 
 ## Themes
 
@@ -107,8 +107,8 @@ Values are shown as light / dark.
 
 | Token | Value | Use for |
 |---|---|---|
-| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
-| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
+| `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) | Brick-edge depth for raised parts: a 2px edge plus a soft blur. |
+| `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) | Lifted parts (elevated cards, modals). In dark mode a light rim keeps the edge visible. |
 
 ## Scales (primitives safe to use anywhere)
 
@@ -136,7 +136,7 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--button-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
 | `--button-text` | `--color-text-default` | #1a1d20 / #e6edf4 |
 | `--button-radius` | `--border-radius-base` | 0.25rem |
-| `--button-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
+| `--button-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) |
 | `--button-primary-background` | `--color-action-primary` | #005a9c / #2576cc |
 | `--button-primary-background-hover` | `--color-action-primary-hover` | #004a80 / #185da6 |
 | `--button-primary-text` | `--color-text-on-action` | #ffffff |
@@ -163,15 +163,36 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--card-border-hover` | `--color-action-primary` | #005a9c / #2576cc |
 | `--card-radius` | `--border-radius-lg` | 0.5rem |
 | `--card-padding` | `--space-6` | 1.5rem |
-| `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.35) |
-| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--card-shadow` | `--shadow-raised` | 0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12) / 0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35) |
+| `--card-shadow-elevated` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
 | `--badge-background` | `--color-background-muted` | #e9ecef / #27436f |
 | `--badge-text` | `--color-text-muted` | #343a40 / #cfdae5 |
 | `--modal-background` | `--color-background-raised` | #ffffff / #14294d |
 | `--modal-backdrop` | `--color-background-overlay` | rgb(15 33 64 / 0.55) / rgb(0 0 0 / 0.72) |
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
-| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(207 218 229 / 0.5), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--checkbox-size` | `--space-6` | 1.5rem |
+| `--checkbox-background` | `--color-background-interactive` | #ffffff / #14294d |
+| `--checkbox-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
+| `--checkbox-checked-background` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--checkbox-mark` | `--color-text-inverse` | #ffffff / #0f2140 |
+| `--checkbox-radius` | `--border-radius-base` | 0.25rem |
+| `--radio-dot` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--toggle-track-off` | `--color-background-muted` | #e9ecef / #27436f |
+| `--toggle-track-on` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--toggle-thumb` | `--color-background-interactive` | #ffffff / #14294d |
+| `--toggle-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--toggle-mark` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--icon-size` | `--space-5` | 1.25rem |
+| `--icon-size-sm` | `--space-4` | 1rem |
+| `--icon-size-lg` | `--space-6` | 1.5rem |
+| `--alert-background` | `--color-background-raised` | #ffffff / #14294d |
+| `--alert-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--alert-edge-info` | `--color-border-info` | #0c5460 / #9ad4df |
+| `--alert-edge-success` | `--color-border-success` | #1e5631 / #a3d9b1 |
+| `--alert-edge-warning` | `--color-border-warning` | #856404 / #f5d77a |
+| `--alert-edge-error` | `--color-border-error` | #c91a09 / #f4a9b0 |
 
 ## Primitive colors (do not use in components)
 

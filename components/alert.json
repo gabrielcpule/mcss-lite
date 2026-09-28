@@ -1,0 +1,191 @@
+{
+  "$schema": "../schemas/component.schema.json",
+  "name": "Alert",
+  "block": "c-alert",
+  "layer": "component",
+  "status": "beta",
+  "since": "0.4.0",
+  "description": "A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.",
+  "tags": [
+    "div",
+    "section",
+    "aside"
+  ],
+  "modifiers": [
+    {
+      "group": "tone",
+      "exclusive": true,
+      "values": [
+        {
+          "name": "info",
+          "description": "Neutral information. Circle icon, \"Information:\" prefix."
+        },
+        {
+          "name": "success",
+          "description": "Something finished well. Square check icon, \"Success:\" prefix."
+        },
+        {
+          "name": "warning",
+          "description": "Something may go wrong unless the person acts. Triangle icon, \"Warning:\" prefix."
+        },
+        {
+          "name": "error",
+          "description": "Something went wrong; also the error summary at the top of a form. Octagon icon, \"Error:\" prefix."
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "icon",
+      "description": "The keylined tile that holds the severity icon (a c-icon, aria-hidden).",
+      "tags": [
+        "span",
+        "div"
+      ]
+    },
+    {
+      "name": "body",
+      "description": "Title, text and actions.",
+      "tags": [
+        "div"
+      ],
+      "required": true
+    },
+    {
+      "name": "title",
+      "description": "One short line. Starts with the visually hidden severity prefix.",
+      "tags": [
+        "p",
+        "h2",
+        "h3",
+        "h4",
+        "strong"
+      ]
+    },
+    {
+      "name": "actions",
+      "description": "Buttons or links that resolve the alert, in an l-cluster.",
+      "tags": [
+        "div"
+      ]
+    },
+    {
+      "name": "close",
+      "description": "Dismiss button, 44px, with aria-label. The app sets hidden on the alert when it is pressed.",
+      "tags": [
+        "button"
+      ]
+    }
+  ],
+  "children": [
+    "Order: c-alert__icon, c-alert__body (c-alert__title, text, c-alert__actions), then an optional c-alert__close.",
+    "Start c-alert__title with <span class=\"u-sr-only\">Error: </span> (or Warning, Success, Information), so severity never relies on the icon or the edge."
+  ],
+  "guidelines": {
+    "whenToUse": [
+      "Something on this page needs attention: a failed save, an expiring plan, a limit reached.",
+      "The error summary at the top of a form after a failed submit, with a link to each field.",
+      "Confirming that an action finished, when the page stays where it is."
+    ],
+    "whenNotToUse": [
+      "An error about one field: use its `c-form-field` error message.",
+      "A decision the person must make before going on: use `c-modal`.",
+      "A status label on an item: use `c-badge`."
+    ],
+    "use": [
+      "Say what happened and what to do next, in that order.",
+      "Keep alerts in the page flow near what they are about, spaced by a layout primitive.",
+      "Give role=\"alert\" only to urgent messages that appear after something the person just did. Leave it off alerts that are there when the page loads."
+    ],
+    "avoid": [
+      "More than one alert of the same tone at once; combine them.",
+      "A dismiss button on a warning about data loss or cost; it must stay until resolved.",
+      "Moving focus to a success alert; move focus only to an error summary after a failed submit."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Give every toned alert its icon and a hidden severity prefix, so it never relies on color.",
+          "html": "<div class=\"c-alert c-alert--warning\">\n  <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-warning\"></use></svg></span>\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\"><span class=\"u-sr-only\">Warning: </span>Your trial ends on 12 October 2026</p>\n    <p>Choose a plan to keep your projects.</p>\n  </div>\n</div>"
+        },
+        "dont": {
+          "text": "Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.",
+          "html": "<div class=\"c-alert c-alert--warning\">\n  <div class=\"c-alert__body\">\n    <p class=\"c-alert__title\">Your trial ends on 12 October 2026</p>\n  </div>\n</div>",
+          "rule": "alert-severity"
+        }
+      },
+      {
+        "do": {
+          "text": "After a failed submit, list every error in an error alert, each linked to its field, and move focus to it.",
+          "html": "<div class=\"c-alert c-alert--error\" tabindex=\"-1\" aria-labelledby=\"summary-title\">\n  <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-error\"></use></svg></span>\n  <div class=\"c-alert__body\">\n    <h2 class=\"c-alert__title\" id=\"summary-title\"><span class=\"u-sr-only\">Error: </span>There is a problem</h2>\n    <ul>\n      <li><a href=\"#email\">Enter your email address</a></li>\n      <li><a href=\"#terms\">Agree to the terms of service</a></li>\n    </ul>\n  </div>\n</div>"
+        },
+        "dont": {
+          "text": "Don't build an alert from elements outside the block: the tile and edge lose their shape.",
+          "html": "<div class=\"c-card\">\n  <p class=\"c-alert__title\">There is a problem</p>\n</div>",
+          "rule": "element-outside-block"
+        }
+      }
+    ],
+    "content": [
+      "Titles say what happened in plain words, in sentence case, with no exclamation mark.",
+      "The text says what to do next. Name the action: \"Choose a plan\", not \"Click here\".",
+      "Keep the hidden prefix to one word and a colon: \"Error:\", \"Warning:\", \"Success:\", \"Information:\"."
+    ]
+  },
+  "tokens": [
+    "--alert-background",
+    "--alert-border",
+    "--alert-edge-info",
+    "--alert-edge-success",
+    "--alert-edge-warning",
+    "--alert-edge-error"
+  ],
+  "a11y": [
+    "Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.",
+    "role=\"alert\" interrupts the screen reader: only for urgent messages that appear after an action.",
+    "An error summary gets tabindex=\"-1\" and focus after a failed submit; its links move focus to each field.",
+    "c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert."
+  ],
+  "keyboard": [
+    {
+      "key": "Tab",
+      "action": "Moves through the links and buttons inside the alert, then the close button."
+    },
+    {
+      "key": "Enter",
+      "action": "Follows a link in an error summary to its field."
+    }
+  ],
+  "related": [
+    "c-icon",
+    "c-form-field",
+    "c-modal",
+    "c-badge"
+  ],
+  "examples": [
+    "alert.html"
+  ],
+  "sources": [
+    {
+      "title": "GOV.UK Design System: Error summary",
+      "url": "https://design-system.service.gov.uk/components/error-summary"
+    },
+    {
+      "title": "GOV.UK Design System: Notification banner",
+      "url": "https://design-system.service.gov.uk/components/notification-banner"
+    },
+    {
+      "title": "GitLab Pajamas: Alert",
+      "url": "https://design.gitlab.com/components/alert"
+    },
+    {
+      "title": "WAI-ARIA APG: Alert pattern",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/"
+    },
+    {
+      "title": "Scott O'Hara: Are we live? (live regions)",
+      "url": "https://www.scottohara.me/blog/2022/02/05/are-we-live.html"
+    }
+  ]
+}

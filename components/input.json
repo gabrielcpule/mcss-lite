@@ -33,8 +33,8 @@
       "Multi-line text on a <textarea>, or a choice from many options on a <select>."
     ],
     "whenNotToUse": [
-      "Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).",
-      "A yes/no setting: a checkbox (coming in 0.4.0).",
+      "Choosing among 2 to 6 visible options: `c-radio` buttons read faster than a select.",
+      "A yes/no choice: `c-checkbox`, or `c-toggle` when it applies straight away.",
       "Showing a value that cannot change: plain text, not a read-only input."
     ],
     "use": [
@@ -53,7 +53,8 @@
         },
         "dont": {
           "text": "Don't use the placeholder as the label: it disappears as soon as someone types.",
-          "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">"
+          "html": "<input class=\"c-input\" type=\"email\" placeholder=\"Email address\">",
+          "rule": "label-missing"
         }
       },
       {
