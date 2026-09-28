@@ -1,5 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { stripAttribution, hasAttribution } from '../scripts/strip-attribution.mjs';
 
 const PR_BODY = `## What changed
@@ -33,7 +35,30 @@ test('keeps other co-authors, links and rules', () => {
   assert.equal(hasAttribution(text), false);
 });
 
+test('keeps a human co-author named Claude', () => {
+  const text = 'Pair work\n\nCo-Authored-By: Claude Smith <claude@example.com>\n';
+  assert.equal(hasAttribution(text), false);
+  assert.equal(stripAttribution(text), text);
+});
+
+test('leaves text without attribution untouched, trailing rule included', () => {
+  assert.equal(stripAttribution('Body\n\n---\n'), 'Body\n\n---\n');
+});
+
+test('keeps a rule that is not directly above the removed footer', () => {
+  const text = 'Intro\n\n---\n\nNotes\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n<!-- bot summary -->\n';
+  assert.equal(stripAttribution(text), 'Intro\n\n---\n\nNotes\n\n<!-- bot summary -->\n');
+});
+
 test('is idempotent and handles an empty body', () => {
   assert.equal(stripAttribution(stripAttribution(PR_BODY)), stripAttribution(PR_BODY));
   assert.equal(stripAttribution(''), '');
+});
+
+test('CLI rejects unknown options and missing files with exit 2', () => {
+  const script = fileURLToPath(new URL('../scripts/strip-attribution.mjs', import.meta.url));
+  for (const args of [['--chek', 'body.md'], [], ['--check'], ['a.md', 'b.md']]) {
+    const { status } = spawnSync(process.execPath, [script, ...args]);
+    assert.equal(status, 2, `args: ${args.join(' ')}`);
+  }
 });
