@@ -18,7 +18,7 @@ checks:
     - npm test
     - npm run check
     - node bin/mcss-lite.mjs validate components demo
-    - npm pack --dry-run
+    - npm run check:package
 
 compat:
   image: node:${NODE}-alpine
