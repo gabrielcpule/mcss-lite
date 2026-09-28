@@ -4,13 +4,62 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to the same PR cancels the run it replaces.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
+  # The full gate, on the current LTS. Problem matchers turn check and
+  # validate output into inline annotations on the PR's "Files changed" tab.
+  checks:
+    name: Contracts, tokens and package
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: echo "::add-matcher::.github/matchers/mcss-lite.json"
+
+      - name: Tests (back-compat, WCAG contrast, validator, build)
+        run: npm test
+
+      - name: Contracts, CSS and tokens agree; generated files are fresh
+        run: npm run check
+
+      - name: Canonical examples and demo validate
+        run: node bin/mcss-lite.mjs validate components demo
+
+      - name: Package contents
+        run: |
+          npm pack --dry-run --json > pack.json
+          node -e '
+            const [p] = require("./pack.json");
+            const files = new Set(p.files.map((f) => f.path));
+            const need = ["index.css", "dist/mcss-lite.min.css", "dist/mcss-lite.manifest.json", "bin/mcss-lite.mjs", "AGENTS.md", "llms.txt"];
+            const missing = need.filter((f) => !files.has(f));
+            if (missing.length) { console.error("::error::npm package is missing " + missing.join(", ")); process.exit(1); }
+            const line = `${p.name}@${p.version}: ${p.entryCount} files, ${(p.size / 1024).toFixed(1)} kB packed`;
+            console.log(line);
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Package\n\n${line}\n`);
+          '
+
+  # Runs the tests on every Node version package.json supports.
+  compat:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
+      fail-fast: false
       matrix:
-        node: [18, 20, 22]
+        node: [18, 20, 24]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
