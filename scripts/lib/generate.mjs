@@ -8,6 +8,7 @@ import {
 import { loadContracts, loadExamples } from './contracts.mjs';
 import { buildDemo } from './demo.mjs';
 import { buildPages } from './pages.mjs';
+import { cdnUrl, gitSpec } from './release.mjs';
 import { buildFigmaScript, figmaScopes, px } from './figma-script.mjs';
 
 export const RULES = [
@@ -284,13 +285,17 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
   const setupMd = [
     '## Setup',
     '',
-    fence('html', `<link rel="stylesheet" href="node_modules/${pkg.name}/dist/mcss-lite.min.css">\n<!-- or index.css (readable, loads src/*.css via @import) -->\n<html data-theme="auto"> <!-- optional: light (default) | dark | auto -->`),
+    'MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:',
+    '',
+    fence('html', `<link rel="stylesheet" href="${cdnUrl(pkg)}">\n<html data-theme="auto"> <!-- optional: light (default) | dark | auto -->`),
+    '',
+    fence('sh', `npm install ${gitSpec(pkg)}   # or pnpm add / yarn add / bun add\n# then: <link rel="stylesheet" href="node_modules/${pkg.name}/dist/mcss-lite.min.css">`),
     '',
     'Cascade layers, lowest to highest: `@layer global, layout, component, utility;`. Prefixes: `l-` layout primitive, `c-` component, `u-` utility. Naming is BEM: `c-block`, `c-block__element`, `c-block--modifier`; state is `data-state="value"` on the block.',
     '',
     'Before finishing, check your markup:',
     '',
-    fence('sh', 'npx mcss-lite validate path/to/file.html   # or a directory; add --json for machine output'),
+    fence('sh', `npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output\nnpx ${gitSpec(pkg)} validate path/to/file.html   # without installing`),
     '',
   ].join('\n');
 
@@ -478,7 +483,7 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     '',
     `> ${pkg.description} Pure CSS: design tokens, l-* layout primitives, c-* BEM components with data-state, u-* utilities. Light, dark and auto themes.`,
     '',
-    'Key rules: components never set outer margin (layouts space them); never invent class or token names; states are data-state plus ARIA; use semantic tokens, never raw colors. Validate markup with `npx mcss-lite validate <path>`.',
+    `Key rules: components never set outer margin (layouts space them); never invent class or token names; states are data-state plus ARIA; use semantic tokens, never raw colors. Validate markup with \`npx mcss-lite validate <path>\` once installed (\`npm install ${gitSpec(pkg)}\`), or \`npx ${gitSpec(pkg)} validate <path>\` without installing.`,
     '',
     '## Docs',
     '',

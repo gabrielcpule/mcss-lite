@@ -2,7 +2,7 @@
 
 > Every layout primitive, component and utility, with canonical examples.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.3.0
+> Package: @gabrielpule/mcss-lite@0.3.1
 
 ## Rules
 

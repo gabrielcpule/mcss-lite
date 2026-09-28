@@ -121,13 +121,19 @@
 
 .demo .demo-install__cmd {
   min-width: 0;
-  overflow-x: auto;
-  white-space: nowrap;
-  overflow-wrap: normal;
+  white-space: normal;
+  overflow-wrap: anywhere;
   padding: 0;
   background: none;
   box-shadow: none;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
+}
+
+.demo-install__alt {
+  max-width: 48ch;
+  margin-block: calc(var(--space-3) * -1) var(--space-6);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .demo-links {

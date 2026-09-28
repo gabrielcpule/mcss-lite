@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { classInventory } from './contracts.mjs';
+import { cdnUrl, gitSpec } from './release.mjs';
 
 // Authored part glyphs: one per block, drawn in the 2px ink keyline (24px grid).
 const GLYPHS = {
@@ -227,10 +228,11 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
           <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts.</h1>
           <p class="demo-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
           <div class="demo-install">
-            <code class="demo-install__cmd" id="install-cmd">npm install ${esc(pkg.name)}</code>
+            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="${esc(cdnUrl(pkg))}"&gt;</code>
             <button type="button" class="c-button c-button--sm" data-copy="install-cmd">Copy</button>
             <span class="u-sr-only" role="status" data-copy-status></span>
           </div>
+          <p class="demo-install__alt">Or install it from GitHub: <code>npm install ${esc(gitSpec(pkg))}</code>. MCSS-Lite is not on the npm registry.</p>
           <ul class="demo-links" role="list">
             <li><a href="status.html">Parts inventory: a sheet for every part</a></li>
             <li><a href="content.html">Read before you build: content rules</a></li>

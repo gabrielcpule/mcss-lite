@@ -2,7 +2,7 @@
 
 > Rules, components and tokens in one file.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.3.0
+> Package: @gabrielpule/mcss-lite@0.3.1
 
 ## Rules
 
@@ -14,10 +14,16 @@
 
 ## Setup
 
+MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:
+
 ```html
-<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
-<!-- or index.css (readable, loads src/*.css via @import) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.3.1/dist/mcss-lite.min.css">
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
+```
+
+```sh
+npm install github:gabrielcpule/mcss-lite#v0.3.1   # or pnpm add / yarn add / bun add
+# then: <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
 Cascade layers, lowest to highest: `@layer global, layout, component, utility;`. Prefixes: `l-` layout primitive, `c-` component, `u-` utility. Naming is BEM: `c-block`, `c-block__element`, `c-block--modifier`; state is `data-state="value"` on the block.
@@ -25,7 +31,8 @@ Cascade layers, lowest to highest: `@layer global, layout, component, utility;`.
 Before finishing, check your markup:
 
 ```sh
-npx mcss-lite validate path/to/file.html   # or a directory; add --json for machine output
+npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output
+npx github:gabrielcpule/mcss-lite#v0.3.1 validate path/to/file.html   # without installing
 ```
 
 ## Blocks at a glance

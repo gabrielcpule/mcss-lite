@@ -21,7 +21,7 @@
       try {
         await navigator.clipboard.writeText(text);
         button.textContent = 'Copied';
-        if (status) status.textContent = 'Install command copied.';
+        if (status) status.textContent = 'Stylesheet link copied.';
       } catch {
         button.textContent = 'Select and copy';
       }
