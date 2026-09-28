@@ -53,7 +53,7 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
@@ -67,11 +67,10 @@
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"></div>
+        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <p class="demo-sheet__kicker">Part sheet 20 of 21 · Component</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-toggle</span> Toggle</h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Since 0.4.0</span></div>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">An on/off switch built on a native checkbox with role=&quot;switch&quot;: the setting applies as soon as it changes.</p>
         </div>
       </div>
@@ -152,25 +151,6 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="check-title">Check your build</h2>
 <p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>
-<div class="demo-misfit-row"><svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title-sheet" focusable="false">
-  <title id="misfit-title-sheet">A brick tilted off its baseplate next to a brick seated flush</title>
-  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="8" y="92" width="136" height="16" rx="3"/>
-    <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
-    <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
-      <g class="demo-misfit__wobble">
-        <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
-        <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
-      </g>
-    </g>
-    <rect x="176" y="92" width="136" height="16" rx="3"/>
-    <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
-    <g class="demo-misfit__good">
-      <rect x="186" y="56" width="112" height="30" rx="3"/>
-      <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
-    </g>
-  </g>
-</svg></div>
 <div class="demo-checks">
 <div class="demo-checks__pair">
   <div class="demo-checks__card demo-checks__card--do">
@@ -191,7 +171,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't fake the on state with data-state: the control has to carry it.</p>
 <pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot; data-state=&quot;checked&quot;&gt;
   &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;notify-fake&quot;&gt;
@@ -218,7 +198,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't show the loading stripes without aria-busy; screen readers can't tell the save is still running.</p>
 <pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot; data-state=&quot;loading&quot;&gt;
   &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;beta-x&quot; checked disabled&gt;
@@ -268,12 +248,12 @@
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><code>--toggle-track-off</code></th><td data-label="Value (light / dark)"><code>#e9ecef</code> / <code>#27436f</code></td></tr>
-      <tr><th scope="row"><code>--toggle-track-on</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
-      <tr><th scope="row"><code>--toggle-thumb</code></th><td data-label="Value (light / dark)"><code>#ffffff</code> / <code>#14294d</code></td></tr>
-      <tr><th scope="row"><code>--toggle-border</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
-      <tr><th scope="row"><code>--toggle-mark</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
-      <tr><th scope="row"><code>--color-action-loading-stripe</code></th><td data-label="Value (light / dark)"><code>rgb(0 0 0 / 0.14)</code> / <code>rgb(0 0 0 / 0.22)</code></td></tr>
+      <tr><th scope="row"><code>--toggle-track-off</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--toggle-track-off, var(--color-background-muted))" aria-hidden="true"></span><code>#e9ecef</code> / <code>#27436f</code></td></tr>
+      <tr><th scope="row"><code>--toggle-track-on</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--toggle-track-on, var(--color-text-default))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
+      <tr><th scope="row"><code>--toggle-thumb</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--toggle-thumb, var(--color-background-interactive))" aria-hidden="true"></span><code>#ffffff</code> / <code>#14294d</code></td></tr>
+      <tr><th scope="row"><code>--toggle-border</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--toggle-border, var(--color-border-keyline))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
+      <tr><th scope="row"><code>--toggle-mark</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--toggle-mark, var(--color-text-default))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
+      <tr><th scope="row"><code>--color-action-loading-stripe</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--color-action-loading-stripe)" aria-hidden="true"></span><code>rgb(0 0 0 / 0.14)</code> / <code>rgb(0 0 0 / 0.22)</code></td></tr>
     </tbody>
   </table>
 </div>
@@ -323,7 +303,7 @@
           <p class="demo-step__numeral" aria-hidden="true">7</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="checkbox.html"><code>c-checkbox</code></a></li><li class="demo-bag__part"><a href="radio.html"><code>c-radio</code></a></li><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
+<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a href="radio.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg><code>c-radio</code></a></li><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
           </div>
         </div>
       </div>

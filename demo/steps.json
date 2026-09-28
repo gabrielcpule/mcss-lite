@@ -58,7 +58,8 @@
         "c-radio",
         "c-toggle"
       ],
-      "example": "choices.html"
+      "example": "choices.html",
+      "layout": "inset"
     },
     {
       "title": "Raise the signals",
@@ -67,7 +68,8 @@
         "c-alert",
         "c-icon"
       ],
-      "example": "alert.html"
+      "example": "alert.html",
+      "layout": "inset"
     },
     {
       "title": "Fit the dialog",

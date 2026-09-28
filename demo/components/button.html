@@ -53,7 +53,7 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
@@ -69,9 +69,8 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <p class="demo-sheet__kicker">Part sheet 11 of 21 · Component</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-button</span> Button</h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Since 0.1.0</span></div>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">Triggers an action. Apply to &lt;button&gt;. Apply to &lt;a&gt; only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.</p>
         </div>
       </div>
@@ -172,25 +171,6 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="check-title">Check your build</h2>
 <p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>
-<div class="demo-misfit-row"><svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title-sheet" focusable="false">
-  <title id="misfit-title-sheet">A brick tilted off its baseplate next to a brick seated flush</title>
-  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="8" y="92" width="136" height="16" rx="3"/>
-    <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
-    <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
-      <g class="demo-misfit__wobble">
-        <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
-        <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
-      </g>
-    </g>
-    <rect x="176" y="92" width="136" height="16" rx="3"/>
-    <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
-    <g class="demo-misfit__good">
-      <rect x="186" y="56" width="112" height="30" rx="3"/>
-      <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
-    </g>
-  </g>
-</svg></div>
 <div class="demo-checks">
 <div class="demo-checks__pair">
   <div class="demo-checks__card demo-checks__card--do">
@@ -209,7 +189,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't combine two variants on one button to make it stand out more.</p>
 <pre class="demo-code"><code>&lt;button type=&quot;submit&quot; class=&quot;c-button c-button--primary c-button--danger&quot;&gt;Save changes&lt;/button&gt;</code></pre>
 <p class="demo-check__label">validate</p>
@@ -233,7 +213,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't grey out a button without saying why, or set the state without its native pair.</p>
 <pre class="demo-code"><code>&lt;button type=&quot;button&quot; class=&quot;c-button&quot; data-state=&quot;disabled&quot;&gt;Publish&lt;/button&gt;</code></pre>
 <p class="demo-check__label">validate</p>
@@ -251,7 +231,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't guess a modifier that isn't in the contract.</p>
 <pre class="demo-code"><code>&lt;button type=&quot;button&quot; class=&quot;c-button c-button--warning&quot;&gt;Delete project&lt;/button&gt;</code></pre>
 <p class="demo-check__label">validate</p>
@@ -269,7 +249,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't use vague labels: &quot;OK&quot; or &quot;Submit&quot; say nothing when a screen reader lists every button on the page.</p>
 <pre class="demo-code"><code>&lt;button type=&quot;submit&quot; class=&quot;c-button c-button--primary&quot;&gt;Submit&lt;/button&gt;</code></pre>
 <p class="demo-check__label">validate</p>
@@ -287,7 +267,7 @@
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit</p>
+    <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't make a div clickable: it has no role, no focus and no keyboard, even with the button classes.</p>
 <pre class="demo-code"><code>&lt;div class=&quot;c-button&quot; hx-post=&quot;/projects/42/archive&quot;&gt;Archive project&lt;/div&gt;</code></pre>
 <p class="demo-check__label">validate</p>
@@ -336,27 +316,27 @@
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><code>--button-background</code></th><td data-label="Value (light / dark)"><code>#ffffff</code> / <code>#14294d</code></td></tr>
-      <tr><th scope="row"><code>--button-background-hover</code></th><td data-label="Value (light / dark)"><code>#eef6fc</code> / <code>#1b335c</code></td></tr>
-      <tr><th scope="row"><code>--button-border</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#a9bacb</code></td></tr>
-      <tr><th scope="row"><code>--button-text</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
+      <tr><th scope="row"><code>--button-background</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-background, var(--color-background-interactive))" aria-hidden="true"></span><code>#ffffff</code> / <code>#14294d</code></td></tr>
+      <tr><th scope="row"><code>--button-background-hover</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-background-hover, var(--color-background-interactive-hover))" aria-hidden="true"></span><code>#eef6fc</code> / <code>#1b335c</code></td></tr>
+      <tr><th scope="row"><code>--button-border</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-border, var(--color-border-interactive))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#a9bacb</code></td></tr>
+      <tr><th scope="row"><code>--button-text</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-text, var(--color-text-default))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
       <tr><th scope="row"><code>--button-radius</code></th><td data-label="Value (light / dark)"><code>0.25rem</code></td></tr>
       <tr><th scope="row"><code>--button-shadow</code></th><td data-label="Value (light / dark)"><code>0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)</code> / <code>0 2px 0 rgb(207 218 229 / 0.45), 0 4px 10px rgb(0 0 0 / 0.35)</code></td></tr>
-      <tr><th scope="row"><code>--button-primary-background</code></th><td data-label="Value (light / dark)"><code>#005a9c</code> / <code>#2576cc</code></td></tr>
-      <tr><th scope="row"><code>--button-primary-background-hover</code></th><td data-label="Value (light / dark)"><code>#004a80</code> / <code>#185da6</code></td></tr>
-      <tr><th scope="row"><code>--button-primary-text</code></th><td data-label="Value (light / dark)"><code>#ffffff</code></td></tr>
-      <tr><th scope="row"><code>--button-secondary-text</code></th><td data-label="Value (light / dark)"><code>#005a9c</code> / <code>#6cb4ee</code></td></tr>
-      <tr><th scope="row"><code>--button-secondary-border</code></th><td data-label="Value (light / dark)"><code>#005a9c</code> / <code>#2576cc</code></td></tr>
-      <tr><th scope="row"><code>--button-ghost-background-hover</code></th><td data-label="Value (light / dark)"><code>#e9ecef</code> / <code>#27436f</code></td></tr>
-      <tr><th scope="row"><code>--button-danger-background</code></th><td data-label="Value (light / dark)"><code>#c91a09</code></td></tr>
-      <tr><th scope="row"><code>--button-danger-background-hover</code></th><td data-label="Value (light / dark)"><code>#a01408</code></td></tr>
-      <tr><th scope="row"><code>--button-danger-text</code></th><td data-label="Value (light / dark)"><code>#ffffff</code></td></tr>
-      <tr><th scope="row"><code>--button-pressed-background</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
-      <tr><th scope="row"><code>--button-pressed-border</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
-      <tr><th scope="row"><code>--button-pressed-text</code></th><td data-label="Value (light / dark)"><code>#ffffff</code> / <code>#0f2140</code></td></tr>
-      <tr><th scope="row"><code>--button-primary-border</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
-      <tr><th scope="row"><code>--button-danger-border</code></th><td data-label="Value (light / dark)"><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
-      <tr><th scope="row"><code>--button-primary-background-active</code></th><td data-label="Value (light / dark)"><code>#003860</code> / <code>#144d8a</code></td></tr>
+      <tr><th scope="row"><code>--button-primary-background</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-primary-background, var(--color-action-primary))" aria-hidden="true"></span><code>#005a9c</code> / <code>#2576cc</code></td></tr>
+      <tr><th scope="row"><code>--button-primary-background-hover</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-primary-background-hover, var(--color-action-primary-hover))" aria-hidden="true"></span><code>#004a80</code> / <code>#185da6</code></td></tr>
+      <tr><th scope="row"><code>--button-primary-text</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-primary-text, var(--color-text-on-action))" aria-hidden="true"></span><code>#ffffff</code></td></tr>
+      <tr><th scope="row"><code>--button-secondary-text</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-secondary-text, var(--color-text-link))" aria-hidden="true"></span><code>#005a9c</code> / <code>#6cb4ee</code></td></tr>
+      <tr><th scope="row"><code>--button-secondary-border</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-secondary-border, var(--color-action-primary))" aria-hidden="true"></span><code>#005a9c</code> / <code>#2576cc</code></td></tr>
+      <tr><th scope="row"><code>--button-ghost-background-hover</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-ghost-background-hover, var(--color-action-neutral-hover))" aria-hidden="true"></span><code>#e9ecef</code> / <code>#27436f</code></td></tr>
+      <tr><th scope="row"><code>--button-danger-background</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-danger-background, var(--color-action-danger))" aria-hidden="true"></span><code>#c91a09</code></td></tr>
+      <tr><th scope="row"><code>--button-danger-background-hover</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-danger-background-hover, var(--color-action-danger-hover))" aria-hidden="true"></span><code>#a01408</code></td></tr>
+      <tr><th scope="row"><code>--button-danger-text</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-danger-text, var(--color-text-on-danger))" aria-hidden="true"></span><code>#ffffff</code></td></tr>
+      <tr><th scope="row"><code>--button-pressed-background</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-pressed-background, var(--color-text-default))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#e6edf4</code></td></tr>
+      <tr><th scope="row"><code>--button-pressed-border</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-pressed-border, var(--color-border-keyline))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
+      <tr><th scope="row"><code>--button-pressed-text</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-pressed-text, var(--color-text-inverse))" aria-hidden="true"></span><code>#ffffff</code> / <code>#0f2140</code></td></tr>
+      <tr><th scope="row"><code>--button-primary-border</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-primary-border, var(--color-border-keyline))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
+      <tr><th scope="row"><code>--button-danger-border</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-danger-border, var(--color-border-keyline))" aria-hidden="true"></span><code>#1a1d20</code> / <code>#cfdae5</code></td></tr>
+      <tr><th scope="row"><code>--button-primary-background-active</code></th><td data-label="Value (light / dark)"><span class="demo-swatch" style="background-color: var(--button-primary-background-active, var(--color-action-primary-active))" aria-hidden="true"></span><code>#003860</code> / <code>#144d8a</code></td></tr>
     </tbody>
   </table>
 </div>

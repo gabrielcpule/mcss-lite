@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, MISFIT_SVG } from './demo.mjs';
+import { glyph, esc, indent } from './demo.mjs';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
 
@@ -20,6 +20,9 @@ const STATUS_ICON = {
   beta: '<path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/>',
   deprecated: '<path d="M4 4l8 8M12 4l-8 8"/>',
 };
+// A small tilted brick that misses its studs, drawn in the keyline: the booklet's "wrong piece" mark on every ✗ panel.
+const MISFIT_MINI = '<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg>';
+
 export const sticker = (status) => `<span class="demo-sticker demo-sticker--${status}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">${STATUS_ICON[status]}</svg>${STATUS_TEXT[status]}</span>`;
 
 const LEGEND = {
@@ -75,7 +78,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
   function shell({ title, description, rel, rail, main }) {
     const railHtml = rail.length
       ? `\n  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
 ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(label)}"><span class="u-sr-only">${n + 1}: ${esc(label)}</span><span aria-hidden="true">${n + 1}</span></a></li>`).join('\n')}
     </ol>
   </nav>\n`
@@ -206,7 +209,7 @@ ${indent(body, 2)}
 ${doHtml}
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
-    <p class="demo-checks__head">${CROSS_ICON}Doesn't fit</p>
+    <p class="demo-checks__head">${CROSS_ICON}Doesn't fit${MISFIT_MINI}</p>
     <p>${rich(pair.dont.text)}</p>
 ${dontHtml}
   </div>
@@ -218,7 +221,10 @@ ${dontHtml}
     const t = tokens.get(name);
     if (!t) return '<span class="demo-spec__muted">local</span>';
     const v = t.value;
-    return typeof v === 'object' ? `<code>${esc(v.light)}</code> / <code>${esc(v.dark)}</code>` : `<code>${esc(v)}</code>`;
+    // A color token shows a live chip: it follows the page's theme. Component tokens are unset, so fall back to their alias.
+    const live = t.tier === 'component' && typeof t.alias === 'string' ? `var(${t.name}, var(${t.alias}))` : `var(${t.name})`;
+    const chip = t.type === 'color' ? `<span class="demo-swatch" style="background-color: ${live}" aria-hidden="true"></span>` : '';
+    return `${chip}${typeof v === 'object' ? `<code>${esc(v.light)}</code> / <code>${esc(v.dark)}</code>` : `<code>${esc(v)}</code>`}`;
   }
 
   function specTables(c) {
@@ -274,7 +280,6 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
 
     if (g.doDont?.length) {
       add('check', 'Check your build', `<p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>
-<div class="demo-misfit-row">${MISFIT_SVG.replace(/misfit-title/g, 'misfit-title-sheet')}</div>
 <div class="demo-checks">
 ${checkPanels(c)}
 </div>`);
@@ -318,9 +323,8 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate">${glyph(c.block)}</div>
         <div class="l-stack l-stack--sm">
-          <p class="demo-sheet__kicker">Part sheet ${index + 1} of ${sheets.length} · ${layerName}</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">${esc(c.block)}</span> ${esc(c.name)}</h1>
-          <div class="l-cluster">${sticker(c.status)}${c.since ? `<span class="demo-sheet__since">Since ${esc(c.since)}</span>` : ''}</div>
+          <div class="l-cluster">${sticker(c.status)}<span class="demo-sheet__since">${layerName}${c.since ? ` · since ${esc(c.since)}` : ''}</span></div>
           <p class="demo-hero__lede">${rich(autoCode(c.description))}</p>${deprecated}
         </div>
       </div>
@@ -363,9 +367,8 @@ ${list.map((c) => `        <tr><th scope="row"><a class="demo-inventory-table__p
     const utilities = contracts.filter((c) => c.layer === 'utility');
     const main = `    <header class="demo-sheet__head">
       <div class="l-container l-stack l-stack--sm">
-        <p class="demo-sheet__kicker">Back of the booklet</p>
         <h1 class="demo-sheet__title">Parts inventory</h1>
-        <p class="demo-hero__lede">Every part MCSS-Lite ships, with its status. Anything not listed here doesn't exist, and <code>mcss-lite validate</code> rejects it.</p>
+        <p class="demo-hero__lede">The back of the booklet: every part MCSS-Lite ships, with its status. Anything not listed here doesn't exist, and <code>mcss-lite validate</code> rejects it.</p>
         <ul class="l-cluster demo-legend" role="list">
 ${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)).map(([st, text]) => `          <li>${sticker(st)} ${text}</li>`).join('\n')}
         </ul>
@@ -385,7 +388,6 @@ ${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, '
   function contentPage() {
     const main = `    <header class="demo-sheet__head">
       <div class="l-container l-stack l-stack--sm">
-        <p class="demo-sheet__kicker">Front of the booklet</p>
         <h1 class="demo-sheet__title">${esc(content.title)}</h1>
         <p class="demo-hero__lede">${rich(content.intro, 'components/')}</p>
       </div>

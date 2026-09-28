@@ -24,6 +24,11 @@ const GLYPHS = {
   'c-input': '<rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/>',
   'c-modal': '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/>',
   'c-label': '<path d="M4 8h10"/><path d="M4 15h16" stroke-dasharray="3 3"/>',
+  'c-checkbox': '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/>',
+  'c-radio': '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+  'c-toggle': '<rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/>',
+  'c-alert': '<rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/>',
+  'c-icon': '<rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/>',
   'u-*': '<rect x="4" y="10" width="16" height="6" rx="1"/><path d="M7 10V7h3v3M14 10V7h3v3"/>',
 };
 export const glyph = (block) => (GLYPHS[block]
@@ -156,7 +161,9 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     const extra = isModal
       ? `\n<div class="l-cluster demo-stage-actions">\n  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>\n</div>`
       : '';
-    return `<section class="demo-step${s.wide ? ' demo-step--wide' : ''}" id="step-${n}" aria-labelledby="step-${n}-title">
+    // wide: the stage spans the page with the call-out beside the text. inset: the same, with the call-out set onto the stage.
+    const stepClass = ['demo-step', (s.wide || s.layout === 'inset') && 'demo-step--wide', s.layout === 'inset' && 'demo-step--inset'].filter(Boolean).join(' ');
+    return `<section class="${stepClass}" id="step-${n}" aria-labelledby="step-${n}-title">
   <div class="l-container">
     <div class="demo-step__grid">
       <div class="demo-step__head">
@@ -217,7 +224,7 @@ ${inlineSprite(loadIcons(root), pkg)}
   </header>
 
   <nav class="demo-rail" aria-label="Build steps">
-    <ol class="demo-rail__list" role="list">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: ${steps.length + 1}">
 ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
       <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
     </ol>

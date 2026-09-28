@@ -489,8 +489,9 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: min(2.5rem, calc((100vw - var(--space-12)) / 8));
-  height: min(2.5rem, calc((100vw - var(--space-12)) / 8));
+  /* Every stud fits one row down to 320px: the generator sets --demo-studs to the number of studs. */
+  width: min(2.5rem, calc((100vw - var(--space-12) - var(--space-1) * var(--demo-studs, 8)) / var(--demo-studs, 8)));
+  height: min(2.5rem, calc((100vw - var(--space-12) - var(--space-1) * var(--demo-studs, 8)) / var(--demo-studs, 8)));
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-full);
   background-color: var(--color-background-raised);
@@ -732,6 +733,58 @@
   }
 }
 
+/* Inset steps: the call-out is set onto the stage one stud deep, like an inset on a booklet page,
+   and the parts seat one after another. Showcase only. */
+@media (min-width: 60rem) {
+  .demo-step--inset .demo-callout {
+    position: relative;
+    z-index: 1;
+    margin-block-end: calc((var(--space-8) + var(--space-4)) * -1);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .demo-step--inset .demo-stage {
+    padding: var(--space-10) var(--space-8) var(--space-8);
+  }
+
+  /* Signals step down one stud each, so their tone edges read as a column. */
+  .demo-step--inset .demo-stage > .l-stack > .c-alert:nth-child(2) { margin-inline-start: var(--space-4); }
+  .demo-step--inset .demo-stage > .l-stack > .c-alert:nth-child(3) { margin-inline-start: var(--space-8); }
+  .demo-step--inset .demo-stage > .l-stack > .c-alert:nth-child(4) { margin-inline-start: var(--space-12); }
+}
+
+.demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert) {
+  animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--demo-i, 0) * 70ms + var(--duration-base));
+}
+
+/* The switch flips once, after it has seated: the thumb slides, then its tick appears. */
+@keyframes demo-slide {
+  from { inset-inline-start: 0.125rem; }
+}
+
+@keyframes demo-appear {
+  from { opacity: 0; }
+}
+
+.demo-step--inset.is-seating .c-toggle__input:checked::before {
+  animation: demo-slide var(--duration-slow) var(--ease-out) both;
+  animation-delay: calc(var(--duration-slower) * 2);
+}
+
+.demo-step--inset.is-seating .c-toggle__input:checked::after {
+  animation: demo-appear var(--duration-fast) var(--ease-out) both;
+  animation-delay: calc(var(--duration-slower) * 2 + var(--duration-slow));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert),
+  .demo-step--inset.is-seating .c-toggle__input:checked::before,
+  .demo-step--inset.is-seating .c-toggle__input:checked::after {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .demo-rail__stud { transition: none; }
   .demo-step.is-seating .demo-stage,
@@ -790,12 +843,6 @@
   height: 4.5rem;
 }
 
-.demo-sheet__kicker {
-  margin: 0;
-  font-weight: var(--font-weight-bold);
-  font-variant-numeric: tabular-nums;
-  color: var(--color-text-subtle);
-}
 
 .demo-sheet__title {
   margin: 0;
@@ -873,7 +920,8 @@
 }
 
 .demo-sticker--beta {
-  border-style: dashed;
+  /* Solid, like stable: dashed already means disabled in this system. The wrench says "beta". */
+  border-style: solid;
 }
 
 .demo-sticker--deprecated {
@@ -949,9 +997,7 @@
 }
 
 /* Check your build: ✓ fits / ✗ doesn't fit, side by side. */
-.demo-misfit-row .demo-misfit {
-  max-width: 20rem;
-}
+
 
 .demo-checks {
   display: grid;
@@ -980,9 +1026,33 @@
 }
 
 .demo-checks__card--dont {
+  /* Sized to its own content, not stretched to the height of the ✓ beside it. */
+  align-self: start;
   border-color: var(--color-border-error);
   border-style: dashed;
   box-shadow: none;
+}
+
+.demo-misfit-mini {
+  inline-size: 3rem;
+  block-size: 2rem;
+  margin-inline-start: auto;
+  color: var(--color-border-error);
+}
+
+.demo-checks__card--dont .demo-checks__head {
+  display: flex;
+}
+
+/* A live chip of the token's color in the current theme. */
+.demo-swatch {
+  display: inline-block;
+  inline-size: 1rem;
+  block-size: 1rem;
+  margin-inline-end: var(--space-2);
+  vertical-align: -0.2em;
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--border-radius-sm);
 }
 
 .demo-checks__head {

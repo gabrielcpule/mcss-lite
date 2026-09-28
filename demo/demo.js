@@ -62,6 +62,9 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+        // Parts in an inset step seat one after another.
+        entry.target.querySelectorAll('.demo-step--inset .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert)')
+          .forEach((part, i) => part.style.setProperty('--demo-i', i));
         entry.target.classList.add('is-seating');
         io.unobserve(entry.target);
       });
