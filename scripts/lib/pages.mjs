@@ -223,7 +223,7 @@ ${dontHtml}
     const v = t.value;
     // A color token shows a live chip: it follows the page's theme. Component tokens are unset, so fall back to their alias.
     const live = t.tier === 'component' && typeof t.alias === 'string' ? `var(${t.name}, var(${t.alias}))` : `var(${t.name})`;
-    const chip = t.type === 'color' ? `<span class="demo-swatch" style="background-color: ${live}" aria-hidden="true"></span>` : '';
+    const chip = t.type === 'color' ? `<span class="demo-spec__swatch" style="background-color: ${live}" aria-hidden="true"></span>` : '';
     return `${chip}${typeof v === 'object' ? `<code>${esc(v.light)}</code> / <code>${esc(v.dark)}</code>` : `<code>${esc(v)}</code>`}`;
   }
 
