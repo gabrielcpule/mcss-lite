@@ -46,6 +46,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
+    "check:package": "node scripts/check-package.mjs",
     "test": "node --test",
     "validate": "node bin/mcss-lite.mjs validate"
   },
