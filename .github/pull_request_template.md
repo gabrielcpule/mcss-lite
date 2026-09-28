@@ -1,6 +1,8 @@
 ## What changed
 
-<!-- One or two sentences. Link the issue if there is one. -->
+<!-- One or two sentences. -->
+
+Linear: <!-- "Fixes ABC-123" closes the issue on merge; "Refs ABC-123" only links it. -->
 
 ## Why
 
