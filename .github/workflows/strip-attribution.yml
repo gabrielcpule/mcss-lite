@@ -1,0 +1,65 @@
+name: Strip attribution
+
+# Removes Claude Code attribution from PR descriptions ("Generated with Claude
+# Code", the claude.ai session link, Co-Authored-By: Claude and Claude-Session
+# lines) and flags commits that still carry those trailers. Commits are never
+# rewritten; .claude/settings.json turns the attribution off at the source.
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: strip-attribution-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  strip:
+    name: Remove Claude attribution
+    # Fork PRs get a read-only token and can't edit their description.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Clean the PR description
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR" --jq '.body // ""' > "$RUNNER_TEMP/body.md"
+          if node scripts/strip-attribution.mjs --check "$RUNNER_TEMP/body.md"; then
+            echo "PR description has no Claude attribution."
+          else
+            node scripts/strip-attribution.mjs "$RUNNER_TEMP/body.md" > "$RUNNER_TEMP/clean.md"
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/pulls/$PR" -F "body=@$RUNNER_TEMP/clean.md" --silent
+            echo "::notice::Removed Claude attribution from the PR description."
+          fi
+
+      - name: Flag commits with attribution trailers
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          found=0
+          for sha in $(git rev-list "$BASE..$HEAD"); do
+            git log -1 --format=%B "$sha" > "$RUNNER_TEMP/msg.txt"
+            if ! node scripts/strip-attribution.mjs --check "$RUNNER_TEMP/msg.txt"; then
+              echo "::warning::Commit ${sha:0:7} has a Claude attribution trailer. Squash-merge with the PR title and description as the message to keep it out of main."
+              found=1
+            fi
+          done
+          [ "$found" = 0 ] && echo "No commits carry Claude attribution."
+          exit 0
