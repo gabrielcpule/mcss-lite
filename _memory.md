@@ -2,6 +2,8 @@
 
 Working memory for AI sessions on this repo. Read it at the start of a session; update it when a decision is made or the state changes. Newest state first.
 
+**Start here:** [`docs/HANDOFF.md`](docs/HANDOFF.md) has the current state, the working rules, how the code fits together and what's next.
+
 ## Owner
 
 - **Gabriel Pule**: author of MCSS and MCSS-Lite; product designer focused on AI UX and design systems.
