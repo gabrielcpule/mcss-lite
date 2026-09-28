@@ -4,23 +4,54 @@
   "block": "l-cluster",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.",
-  "tokens": [
-    "--space-3"
-  ],
   "guidelines": {
+    "whenToUse": [
+      "Button groups, badge lists, tags and metadata rows that should wrap on narrow screens."
+    ],
+    "whenNotToUse": [
+      "Two columns of page content: use `l-sidebar` or `l-grid`.",
+      "Items that must stay equal width: use `l-switcher`."
+    ],
     "use": [
       "Group inline items such as buttons and badges."
     ],
     "avoid": [
       "Using l-cluster for two-column page layouts; use l-sidebar or l-grid."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Let items wrap; the gap holds on every row.",
+          "html": "<div class=\"l-cluster\">\n  <span class=\"c-badge\">Design</span>\n  <span class=\"c-badge\">Research</span>\n  <span class=\"c-badge\">Accessibility</span>\n</div>"
+        },
+        "dont": {
+          "text": "Don't space items with margins.",
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" style=\"margin-right: 8px\">Back</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Next</button>\n</div>",
+          "rule": "golden-rule"
+        }
+      }
     ]
   },
+  "tokens": [
+    "--space-3"
+  ],
   "related": [
     "c-button",
     "c-badge"
   ],
   "examples": [
     "layouts.html"
+  ],
+  "sources": [
+    {
+      "title": "Every Layout: The Cluster",
+      "url": "https://every-layout.dev/layouts/cluster/"
+    },
+    {
+      "title": "LogRocket: CSS gap vs margin",
+      "url": "https://blog.logrocket.com/css-gap-vs-margin/"
+    }
   ]
 }

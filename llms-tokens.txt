@@ -2,7 +2,7 @@
 
 > Every design token with light and dark values.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.2.0
+> Package: @gabrielpule/mcss-lite@0.3.0
 
 ## Themes
 

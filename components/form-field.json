@@ -4,26 +4,86 @@
   "block": "c-form-field",
   "layer": "component",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Wraps one form control with its label, help text and error message.",
   "tags": ["div", "fieldset"],
   "elements": [
     { "name": "label", "description": "The field label.", "tags": ["label", "legend"], "required": true },
     { "name": "help", "description": "Hint shown below the control.", "tags": ["p", "div", "span"] },
-    { "name": "error", "description": "Error message shown when the control has data-state=\"error\".", "tags": ["p", "div", "span"] }
+    {
+      "name": "error",
+      "description": "Error message shown when the control has data-state=\"error\".",
+      "tags": ["p", "div", "span"]
+    }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "Any form control that needs a label, help text or an error message.",
+      "Each field of a form; stack the fields with `l-stack`."
+    ],
+    "whenNotToUse": [
+      "A search box in a toolbar with a visible button: a labelled `c-input` inside `l-cluster` is enough, with a visually hidden label."
+    ],
+    "use": ["Stack several c-form-field blocks with l-stack."],
+    "avoid": ["Adding margin to .c-form-field; the layout parent spaces fields."],
+    "doDont": [
+      {
+        "do": {
+          "text": "Link help and error text to the control with aria-describedby.",
+          "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"phone\">Phone number (optional)</label>\n  <p class=\"c-form-field__help\" id=\"phone-help\">For delivery updates only.</p>\n  <input class=\"c-input\" id=\"phone\" type=\"tel\" autocomplete=\"tel\" aria-describedby=\"phone-help\">\n</div>"
+        },
+        "dont": {
+          "text": "Don't use the elements outside their block: the help text loses its spacing and link.",
+          "html": "<p class=\"c-form-field__help\">For delivery updates only.</p>",
+          "rule": "element-outside-block"
+        }
+      },
+      {
+        "do": {
+          "text": "Space fields with l-stack.",
+          "html": "<form class=\"l-stack\">\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"first\">First name</label>\n    <input class=\"c-input\" id=\"first\" autocomplete=\"given-name\">\n  </div>\n  <div class=\"c-form-field\">\n    <label class=\"c-form-field__label\" for=\"last\">Last name</label>\n    <input class=\"c-input\" id=\"last\" autocomplete=\"family-name\">\n  </div>\n</form>"
+        },
+        "dont": {
+          "text": "Don't push fields apart with margins on the field.",
+          "html": "<div class=\"c-form-field\" style=\"margin-bottom: 24px\">\n  <label class=\"c-form-field__label\" for=\"first2\">First name</label>\n  <input class=\"c-input\" id=\"first2\">\n</div>",
+          "rule": "golden-rule"
+        }
+      }
+    ],
+    "content": [
+      "Labels are short nouns in sentence case: \"Email address\", not \"Please Enter Your Email\".",
+      "Help text explains format or why you ask; keep it to one sentence.",
+      "Mark optional fields \"(optional)\" and ask only for what you need.",
+      "After a failed submit, list every error at the top of the form, each linked to its field."
+    ]
+  },
   "children": [
     "Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error."
   ],
   "tokens": ["--color-text-muted", "--color-text-subtle", "--color-text-error"],
-  "guidelines": {
-    "use": ["Stack several c-form-field blocks with l-stack."],
-    "avoid": ["Adding margin to .c-form-field; the layout parent spaces fields."]
-  },
   "a11y": [
     "Connect label and control with for/id.",
     "Give help and error elements ids and list them in the control's aria-describedby.",
     "Use role=\"alert\" or a live region on the error when it appears after submit."
   ],
   "related": ["c-input", "l-stack"],
-  "examples": ["form-field.html"]
+  "examples": ["form-field.html"],
+  "sources": [
+    {
+      "title": "GOV.UK Design System: Error message",
+      "url": "https://design-system.service.gov.uk/components/error-message"
+    },
+    {
+      "title": "GOV.UK Design System: Validation",
+      "url": "https://design-system.service.gov.uk/patterns/validation"
+    },
+    {
+      "title": "NN/g: Error-message guidelines for forms",
+      "url": "https://www.nngroup.com/articles/errors-forms-design-guidelines/"
+    },
+    {
+      "title": "NN/g: Marking required fields in forms",
+      "url": "https://www.nngroup.com/articles/required-fields/"
+    }
+  ]
 }

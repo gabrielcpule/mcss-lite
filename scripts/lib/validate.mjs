@@ -3,6 +3,7 @@ import { classInventory, stateInventory } from './contracts.mjs';
 
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
 const PREFIXED = /^[clu]-[a-z0-9]/;
+const INTERACTIVE = new Set(['a', 'button', 'input', 'select', 'textarea', 'details', 'summary']);
 export const RAW_COLOR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/i;
 
 const attr = (attrs, name) => {
@@ -123,6 +124,15 @@ export function createValidator(contracts) {
         report('warning', 'a11y', at, 'c-modal__close needs aria-label="Close".');
       }
 
+      // Links must not wrap cards or other controls: screen readers read the whole region as one link name.
+      const inLink = stack.some((e) => e.tag === 'a');
+      if (own.has('c-card') && (tag === 'a' || inLink)) {
+        report('warning', 'card-link', at, 'Don\'t wrap a card in a link. Add c-card--interactive and put the link on the c-card__title; its hit area covers the card.');
+      }
+      if (inLink && INTERACTIVE.has(tag)) {
+        report('warning', 'nested-interactive', at, `<${tag}> is inside a link. Interactive elements can't be nested; move it outside the <a>.`);
+      }
+
       const selfClosing = /\/\s*$/.test(attrs);
       if (!VOID.has(tag) && !selfClosing) stack.push({ tag, classes: own });
     }
@@ -133,7 +143,9 @@ export function createValidator(contracts) {
 function checkStatePair(tag, attrs, state, warn) {
   const formControl = ['button', 'input', 'select', 'textarea'].includes(tag);
   if (state === 'disabled') {
-    if (formControl && !hasAttr(attrs, 'disabled')) warn(`data-state="disabled" on <${tag}> also needs the disabled attribute.`);
+    if (formControl && !hasAttr(attrs, 'disabled') && attr(attrs, 'aria-disabled') !== 'true') {
+      warn(`data-state="disabled" on <${tag}> also needs aria-disabled="true" (keeps it focusable; link the reason with aria-describedby) or the disabled attribute.`);
+    }
     if (tag === 'a' && attr(attrs, 'aria-disabled') !== 'true') warn('data-state="disabled" on <a> also needs aria-disabled="true".');
   }
   if (state === 'error' && attr(attrs, 'aria-invalid') !== 'true') warn('data-state="error" also needs aria-invalid="true" and aria-describedby pointing at the error message.');

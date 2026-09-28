@@ -4,15 +4,35 @@
   "block": "l-container",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Centers page content horizontally with a max width and side gutters.",
   "modifiers": [
-    { "group": "width", "exclusive": true, "values": [ { "name": "narrow", "description": "Reading width (48rem) for articles and forms." } ] }
+    {
+      "group": "width",
+      "exclusive": true,
+      "values": [{ "name": "narrow", "description": "Reading width (48rem) for articles and forms." }]
+    }
   ],
-  "tokens": ["--container-max-width", "--container-narrow", "--space-4"],
   "guidelines": {
+    "whenToUse": ["The outermost wrapper of each page region: header, main content, footer."],
+    "whenNotToUse": ["Narrowing text inside a region: use `l-center`.", "Inside another container."],
     "use": ["Use once per page region, as the outermost wrapper of the content."],
-    "avoid": ["Nesting containers."]
+    "avoid": ["Nesting containers."],
+    "doDont": [
+      {
+        "do": {
+          "text": "Use one container per region.",
+          "html": "<header>\n  <div class=\"l-container\">\n    <p class=\"u-margin-0\">Acme</p>\n  </div>\n</header>"
+        },
+        "dont": {
+          "text": "Don't invent width modifiers.",
+          "html": "<div class=\"l-container l-container--wide\">\n  <p class=\"u-margin-0\">Acme</p>\n</div>",
+          "rule": "unknown-class"
+        }
+      }
+    ]
   },
+  "tokens": ["--container-max-width", "--container-narrow", "--space-4"],
   "related": ["l-section", "l-center"],
   "examples": ["layouts.html"]
 }

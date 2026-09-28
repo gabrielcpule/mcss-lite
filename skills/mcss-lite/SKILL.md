@@ -24,10 +24,13 @@ Read `AGENTS.md` before writing markup. Copy structure from the canonical exampl
 
 1. **Golden Rule.** Never put margin on a `c-*` root. Space components with a layout parent: `l-stack` (vertical), `l-cluster` (inline, wraps), `l-grid`, `l-sidebar`, `l-switcher`.
 2. **Lookup order.** Layout primitive → component + modifiers → utility → custom CSS with `var(--token)` only.
-3. **No invention.** Only classes, modifiers, elements, `data-state` values and tokens that appear in the files above exist. `c-button--danger`, `c-card__image`, `--color-brand` do not.
-4. **States.** Use `data-state="…"` on the block and its pair: `disabled` → `disabled` attribute (or `aria-disabled="true"` on `<a>`); `error` → `aria-invalid="true"` + `aria-describedby`; `loading` → `aria-busy="true"`.
+3. **No invention.** Only classes, modifiers, elements, `data-state` values and tokens that appear in the files above exist. `c-button--warning`, `c-card__image`, `--color-brand` do not.
+4. **States.** Use `data-state="…"` on the block and its pair: `disabled` → prefer `aria-disabled="true"` with the reason linked by `aria-describedby` (the `disabled` attribute also works on `<button>` but hides it from keyboard users); `error` → `aria-invalid="true"` + `aria-describedby`; `loading` → `aria-busy="true"`.
 5. **Tokens.** Never write hex, `rgb()` or pixel spacing. Use semantic tokens (`--color-text-default`, `--color-background-raised`, `--color-action-primary`, `--space-4`…). Primitive colors (`--color-gray-*`, `--color-blue-*`) ignore dark mode.
 6. **Themes.** `data-theme="light" | "dark" | "auto"` on `<html>` or a subtree. Default is light.
+7. **Pick the right part.** Each block in `llms-components.txt` lists "When to use" and "When not to use"; follow them (for example, a link that goes somewhere is not a `c-button`).
+8. **Clickable cards.** Put the link on `c-card__title` and add `c-card--interactive`. Never wrap a card in `<a>`.
+9. **Words.** Follow the content rules in `AGENTS.md`: sentence case, buttons start with a verb ("Save changes", never "OK" or "Submit"), errors say what went wrong and how to fix it, mark optional fields "(optional)".
 
 ## Before you finish
 

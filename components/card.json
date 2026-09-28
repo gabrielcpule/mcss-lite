@@ -4,6 +4,7 @@
   "block": "c-card",
   "layer": "component",
   "status": "stable",
+  "since": "0.1.0",
   "description": "A raised surface that groups related content, such as a summary, a settings group or a list item.",
   "tags": [
     "article",
@@ -75,6 +76,55 @@
       ]
     }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "A collection of similar items people browse and open one at a time: projects, articles, plans.",
+      "A dashboard summary that groups a figure with its actions.",
+      "A group of related settings."
+    ],
+    "whenNotToUse": [
+      "People compare items side by side or scan dense data: use a list or table.",
+      "Grouping inside another card: use `l-stack` and a heading instead of a card in a card.",
+      "A page section with no border of its own: use `l-section`."
+    ],
+    "use": [
+      "Place cards in l-grid or l-stack; the layout sets the gap between cards.",
+      "For c-card--interactive, make the card an <a> or put one link inside whose area covers the card."
+    ],
+    "avoid": [
+      "Nesting cards inside cards.",
+      "Adding margin to .c-card.",
+      "Putting several competing links inside a c-card--interactive."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Put the link on the title and add c-card--interactive; the link covers the card and other actions stay clickable.",
+          "html": "<article class=\"c-card c-card--interactive\">\n  <div class=\"c-card__header\">\n    <h3 class=\"c-card__title\"><a href=\"#atlas\">Atlas</a></h3>\n  </div>\n  <div class=\"c-card__body\">\n    <p class=\"u-margin-0\">Updated 2 hours ago</p>\n  </div>\n</article>"
+        },
+        "dont": {
+          "text": "Don't wrap the whole card in a link: screen readers read the entire card as one long link name.",
+          "html": "<a class=\"c-card c-card--interactive\" href=\"#atlas\">\n  <h3 class=\"c-card__title\">Atlas</h3>\n  <p class=\"u-margin-0\">Updated 2 hours ago</p>\n</a>",
+          "rule": "card-link"
+        }
+      },
+      {
+        "do": {
+          "text": "Let the grid space the cards.",
+          "html": "<div class=\"l-grid l-grid--responsive\">\n  <section class=\"c-card c-card--bordered\"><p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p></section>\n  <section class=\"c-card c-card--bordered\"><p class=\"u-margin-0\">Seats: 12 of 20</p></section>\n</div>"
+        },
+        "dont": {
+          "text": "Don't space cards with their own margin.",
+          "html": "<section class=\"c-card\" style=\"margin-block-end: 16px\"><p class=\"u-margin-0\">Storage: 4 GB of 10 GB</p></section>",
+          "rule": "golden-rule"
+        }
+      }
+    ],
+    "content": [
+      "The title names the thing, not the action: \"Atlas\", not \"View Atlas\".",
+      "Keep the body to one or two lines of summary; details belong on the page the card opens."
+    ]
+  },
   "children": [
     "Elements appear in the order header, body, footer. All are optional.",
     "c-card__title goes inside c-card__header."
@@ -88,20 +138,15 @@
     "--card-shadow",
     "--card-shadow-elevated"
   ],
-  "guidelines": {
-    "use": [
-      "Place cards in l-grid or l-stack; the layout sets the gap between cards.",
-      "For c-card--interactive, make the card an <a> or put one link inside whose area covers the card."
-    ],
-    "avoid": [
-      "Nesting cards inside cards.",
-      "Adding margin to .c-card.",
-      "Putting several competing links inside a c-card--interactive."
-    ]
-  },
   "a11y": [
     "An interactive card must be reachable with the keyboard: use a real <a> or <button>, never a click handler on a <div>.",
     "Keep the title a real heading so screen reader users can navigate by headings."
+  ],
+  "keyboard": [
+    {
+      "key": "Tab",
+      "action": "Focuses the title link (the card shows the focus ring), then any other actions in the card."
+    }
   ],
   "related": [
     "l-grid",
@@ -111,5 +156,19 @@
   ],
   "examples": [
     "card.html"
+  ],
+  "sources": [
+    {
+      "title": "Adrian Roselli: Block links, cards, clickable regions",
+      "url": "https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html"
+    },
+    {
+      "title": "Inclusive Components: Cards",
+      "url": "https://inclusive-components.design/cards/"
+    },
+    {
+      "title": "NN/g: Cards component",
+      "url": "https://www.nngroup.com/articles/cards-component/"
+    }
   ]
 }

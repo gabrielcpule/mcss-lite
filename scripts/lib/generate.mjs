@@ -7,6 +7,7 @@ import {
 } from './tokens.mjs';
 import { loadContracts, loadExamples } from './contracts.mjs';
 import { buildDemo } from './demo.mjs';
+import { buildPages } from './pages.mjs';
 import { buildFigmaScript, figmaScopes, px } from './figma-script.mjs';
 
 export const RULES = [
@@ -57,7 +58,8 @@ export function generate(root) {
   const examples = new Map(contracts.map((c) => [c.block, loadExamples(join(root, 'components'), c)]));
 
   const tokenRows = buildTokenRows(sets, byMode);
-  const manifest = buildManifest(pkg, tokenRows, contracts, examples);
+  const content = JSON.parse(readFileSync(join(root, 'guidelines', 'content.json'), 'utf8'));
+  const manifest = buildManifest(pkg, tokenRows, contracts, examples, content);
 
   const files = new Map();
   const tokensCss = buildCss(sets, byMode);
@@ -69,13 +71,14 @@ export function generate(root) {
   files.set('dist/figma/push-variables.js', buildFigmaScript(pkg, sets));
   files.set('dist/mcss-lite.manifest.json', JSON.stringify(manifest, null, 2) + '\n');
 
-  const docs = buildDocs(pkg, tokenRows, contracts, examples);
+  const docs = buildDocs(pkg, tokenRows, contracts, examples, content);
   files.set('AGENTS.md', docs.agents);
   files.set('llms.txt', docs.index);
   files.set('llms-components.txt', docs.components);
   files.set('llms-tokens.txt', docs.tokens);
   files.set('llms-full.txt', docs.full);
   files.set('demo/index.html', buildDemo(root, pkg, contracts, tokenRows));
+  for (const [rel, html] of buildPages({ root, pkg, contracts, tokenRows })) files.set(rel, html);
   return files;
 }
 
@@ -187,7 +190,7 @@ function resolveType(t, byPath) {
 
 // ---------- Manifest ----------
 
-function buildManifest(pkg, tokenRows, contracts, examples) {
+function buildManifest(pkg, tokenRows, contracts, examples, content) {
   return {
     name: pkg.name,
     version: pkg.version,
@@ -198,6 +201,7 @@ function buildManifest(pkg, tokenRows, contracts, examples) {
     naming: 'BEM: block, block__element, block--modifier. State: data-state="value" on the block.',
     themes: THEMES,
     rules: RULES,
+    contentRules: content.rules,
     blocks: contracts.map(({ file, $schema, ...c }) => ({
       ...c,
       examples: (examples.get(c.block) ?? []).map((e) => ({ file: `components/${e.file}`, html: e.html })),
@@ -258,7 +262,7 @@ function buildFigma(sets) {
 const fence = (lang, s) => '```' + lang + '\n' + s + '\n```';
 const fmtValue = (v) => (typeof v === 'object' ? `${v.light} / ${v.dark}` : v);
 
-function buildDocs(pkg, tokenRows, contracts, examples) {
+function buildDocs(pkg, tokenRows, contracts, examples, content) {
   const header = (title, what) => [
     `# ${title}`,
     '',
@@ -318,7 +322,11 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
   const blockDetail = (c) => {
     const out = [`### ${c.name} — \`${c.block}\``, ''];
     if (c.status === 'deprecated') out.push(`**Deprecated.** Use \`${c.replacement}\` instead.`, '');
+    if (c.status === 'beta') out.push('**Beta:** shipped and validated; the API may change in a minor version.', '');
     out.push(c.description, '');
+    const g = c.guidelines ?? {};
+    if (g.whenToUse?.length) out.push('**When to use:**', ...g.whenToUse.map((x) => `- ${x}`), '');
+    if (g.whenNotToUse?.length) out.push('**When not to use:**', ...g.whenNotToUse.map((x) => `- ${x}`), '');
     if (c.tags) out.push(`**Apply to:** ${c.tags.map((t) => `\`<${t}>\``).join(', ')}`, '');
     for (const m of c.modifiers ?? []) {
       out.push(`**Modifiers — ${m.group}** (${m.exclusive ? 'pick at most one' : 'combinable'}):`);
@@ -343,7 +351,15 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
     if (c.children?.length) out.push('**Structure:**', ...c.children.map((x) => `- ${x}`), '');
     if (c.guidelines?.use?.length) out.push('**Do:**', ...c.guidelines.use.map((x) => `- ${x}`), '');
     if (c.guidelines?.avoid?.length) out.push("**Don't:**", ...c.guidelines.avoid.map((x) => `- ${x}`), '');
+    for (const pair of g.doDont ?? []) {
+      out.push(`**Do (example):** ${pair.do.text}`, '');
+      if (pair.do.html) out.push(fence('html', pair.do.html), '');
+      out.push(`**Don't (example):** ${pair.dont.text}${pair.dont.rule ? ` (\`mcss-lite validate\` reports \`[${pair.dont.rule}]\`)` : ''}`, '');
+      if (pair.dont.html) out.push(fence('html', pair.dont.html), '');
+    }
+    if (g.content?.length) out.push('**Content:**', ...g.content.map((x) => `- ${x}`), '');
     if (c.a11y?.length) out.push('**Accessibility:**', ...c.a11y.map((x) => `- ${x}`), '');
+    if (c.keyboard?.length) out.push('**Keyboard:**', ...c.keyboard.map((k) => `- ${k.key}: ${k.action}`), '');
     if (c.tokens?.length) out.push(`**Tokens:** ${c.tokens.map((t) => `\`${t}\``).join(', ')}`, '');
     for (const e of examples.get(c.block) ?? []) {
       if (e.html) out.push(`**Example** (\`components/${e.file}\`):`, '', fence('html', e.html), '');
@@ -424,12 +440,22 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
   ].join('\n');
   const tokensMd = [themesMd, semanticMd, scalesMd, componentTokensMd, primitiveColorsMd].join('\n');
 
+  const contentMd = [
+    '## Content rules',
+    '',
+    'Labels, messages and help text follow the same rules everywhere.',
+    '',
+    ...content.rules.map((r) => `- **${r.title}.** ${r.text} Do: "${r.do}". Don't: "${r.dont}".${r.enforcedBy ? ` Checked by \`[${r.enforcedBy}]\`.` : ''}`),
+    '',
+  ].join('\n');
+
   const agents = [
     header('MCSS-Lite: guide for AI coding agents', 'How to build UI with MCSS-Lite: the rules, every class, every token. Read this before writing markup or CSS.'),
     rulesMd,
     setupMd,
     blocksTable,
     utilitiesMd,
+    contentMd,
     '## More detail',
     '',
     '- `llms-components.txt`: every block with modifiers, elements, states, accessibility rules and a canonical example.',
@@ -441,9 +467,9 @@ function buildDocs(pkg, tokenRows, contracts, examples) {
     scalesMd,
   ].join('\n');
 
-  const components = [header('MCSS-Lite components', 'Every layout primitive, component and utility, with canonical examples.'), rulesMd, componentsMd].join('\n');
+  const components = [header('MCSS-Lite components', 'Every layout primitive, component and utility, with canonical examples.'), rulesMd, contentMd, componentsMd].join('\n');
   const tokens = [header('MCSS-Lite tokens', 'Every design token with light and dark values.'), tokensMd].join('\n');
-  const full = [header('MCSS-Lite (full)', 'Rules, components and tokens in one file.'), rulesMd, setupMd, blocksTable, componentsMd, tokensMd].join('\n');
+  const full = [header('MCSS-Lite (full)', 'Rules, components and tokens in one file.'), rulesMd, setupMd, blocksTable, contentMd, componentsMd, tokensMd].join('\n');
 
   const index = [
     '# MCSS-Lite',
