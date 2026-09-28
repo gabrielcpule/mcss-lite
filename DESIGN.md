@@ -217,6 +217,7 @@ Status pairs (`--color-{text,background,border}-{success,warning,error,info}`) a
 - **Numeral** (800, clamp(4rem, 11vw, 6rem), 0.9, -0.04em): step numerals; Rubik 800 also sets the wordmark (`--font-size-xl`) and part counts (tabular).
 - **Headline** (700, `--font-size-4xl` down to `--font-size-base` for h1 to h6, `--line-height-tight`): default heading ramp from the global layer, balanced wrapping.
 - **Title** (700, `--font-size-lg`, tight): card and modal titles.
+- **Sheet title** (800, clamp(2rem, 6vw, 3.25rem), 1.05, -0.02em): the part name at the top of a part sheet, inventory or content page. Rubik, one step below Display: a booklet page title, not a heading in the ramp.
 - **Body** (400, `--font-size-base`, `--line-height-normal`): all running text; ledes step up to `--font-size-lg` at `--line-height-relaxed`, capped around 48 to 58ch.
 - **Label** (600, `--font-size-sm`): form-field labels, help and error text (error is 600 in `--color-text-error`), button text is 600 at base size.
 
@@ -233,7 +234,7 @@ Showcase pages (demo) use a two-column step layout from 60rem up (5fr call-out b
 
 ## Elevation & Depth
 
-Hybrid: depth is a brick edge, not a floating card. Every raised part carries a 2px straight-down edge in ink plus a soft ambient blur; the edge is what makes a part read as a brick sitting on the plate. In dark the edge becomes translucent black. Only straight-down offsets are used, never diagonal.
+Hybrid: depth is a brick edge, not a floating card. Every raised part carries a 2px straight-down edge in ink plus a soft ambient blur; the edge is what makes a part read as a brick sitting on the plate. In dark the edge is the pale keyline at 45% (50% for elevated), so parts still read as seated bricks on navy; it is tested at 3:1 against every dark surface. Only straight-down offsets are used, never diagonal.
 
 ### Shadow Vocabulary
 - **Raised** (`--shadow-raised`; light `0 2px 0 #1a1d20, 0 3px 8px rgb(26 29 32 / 0.12)`): resting buttons, cards, the install line, build stages, the wrong-piece panel.
@@ -247,12 +248,14 @@ The legacy `--shadow-xs` to `--shadow-xl` primitives are kept for back-compat; n
 
 ## Shapes
 
-Studded, gently squared forms. Parts (buttons, inputs, call-outs, panels, swatches) use the stud radius (`--border-radius-base`, 4px). Containers that hold parts (cards, modals) use `--border-radius-lg` (8px). Badges and round count markers are full pills (`--border-radius-full`). Inline code uses `--border-radius-sm`.
+Studded, gently squared forms. Parts (buttons, inputs, call-outs, panels, swatches) use the stud radius (`--border-radius-base`, 4px). Containers that hold parts (cards, modals) use `--border-radius-lg` (8px). Badges and round count markers are full pills (`--border-radius-full`). Inline code uses `--border-radius-sm`. The one round control is the radio (see below).
 
 Borders carry the world: 2px (`--border-width-thick`) around every part, 1px (`--border-width-thin`) hairlines only for dividers inside a part (card footer, modal header and footer, step separators) and for badges, which outline in `currentColor`. Disabled parts switch their keyline to dashed. The demo's parts bags thicken the top edge to 4px (`--border-width-thicker`) like a sealed fold.
 
 ### Named Rules
 **The Ink Keyline Rule.** Anything you can press, type into, or that holds content wears a 2px keyline. A 1px line divides; it never outlines a part.
+
+**The Round Means Pick One Rule.** The radio is the only round control: a stud seen from above. Round tells people "only one of these"; every other control stays square-cornered, and pills stay reserved for badges.
 
 ## Components
 
@@ -290,6 +293,22 @@ Tactile and literal: every part looks like it could be picked up. Contracts (mod
 - **Success:** green border. **Disabled:** muted fill, dashed border, disabled text.
 - **Form field:** label (small, semibold, graphite) above; help (small, slate) and error below, 0.5rem apart.
 
+### Checkbox, Radio and Toggle (beta)
+- **Structure:** a native input beside its label, GOV.UK style: `div.c-checkbox > input.c-checkbox__input + label.c-checkbox__label + .c-checkbox__hint`. The label is 44px tall and pads the hit area; groups sit in `fieldset.c-form-field` with a legend. Every state is native (`checked`, `:indeterminate`, `disabled`, `aria-invalid`), never `data-state`.
+- **Checkbox:** a 24px keylined box on its brick edge. Checked is an ink fill with a paper tick, seated like a pressed button; blue stays for actions. The tick draws in over 150ms. Indeterminate is a flat bar. Pressing drops it 2px only while held, so a checked box stays level with its label.
+- **Radio:** a round 2px ring; checked seats an ink stud in the middle.
+- **Toggle:** a keylined channel with a square thumb brick. Off: muted track, thumb at the start with a bar. On: ink track, thumb at the end with a tick, so the state never rests on position or color. Saving: neutral track with the loading stripes.
+- **Error:** red keyline plus the heavier bottom edge, on one box (`aria-invalid`) or on every control in a group (`data-state="error"` on the fieldset).
+- **Disabled:** 45% opacity, dashed keyline, ghosted label. **Forced colors:** checkboxes and radios fall back to the native control; the toggle redraws in system colors.
+
+### Alert (beta)
+- A printed notice, not a brick: paper fill (`--alert-background`) for every tone, 2px ink keyline, stud radius, no shadow.
+- **Severity shows three ways at once:** a shaped icon (circle info, rounded-square success, triangle warning, octagon error) in a 2rem keylined tile, a visually hidden prefix ("Error: "), and a 4px bottom edge in the tone's border color (`--alert-edge-*`). No side stripe and no tinted fill: the warning tint is the call-out cream, which belongs to the Yellow Is a Highlight Rule.
+- **Close:** a 44px ghost button like the modal's. The error summary after a failed submit is a `c-alert--error` with a link to each field.
+
+### Icons (beta)
+- 20 line pictograms on a 24-unit grid: 2px round-capped strokes, no fills, corners at the stud radius. `vector-effect: non-scaling-stroke` keeps the stroke 2px at 16, 20 and 24px, so icons match the keyline. They take the text color only; arrows and chevrons mirror in right-to-left pages.
+
 ### Modal
 - Centered container up to 36rem wide on an ink-tinted backdrop (`--color-background-overlay`), 2px keyline, 8px radius, elevated shadow. Header and footer divided by hairlines; a 44px close button with an inline SVG; footer actions right-aligned and wrapping. Works as native `<dialog>` or with `data-state="closed"`.
 
@@ -299,7 +318,9 @@ Tactile and literal: every part looks like it could be picked up. Contracts (mod
 ### Part Sheets, Inventory and Content Pages (showcase)
 - More pages of the same booklet, never a docs site. A part sheet opens with the part on a keylined plate, its class as the element ID, a status sticker and "since", then numbered sections on the stud rail: Pick this part, Build it, Check your build, Spec sheet, Safe building, Words on this part, Fits with.
 - **Check your build:** ✓ panels are solid keyline cards with the live build and "validate: 0 issues"; ✗ panels are dashed error-red outlines showing the markup as code with the real validator output generated at build time, or "Guidance only" when the validator can't catch it.
-- **Status stickers:** monochrome ink-keyline tags, never status colors (One Blue Rule): stable is a solid keyline with a check, beta a dashed keyline with a wrench, deprecated a ghosted, struck-through tag.
+- **Status stickers:** monochrome ink-keyline tags, never status colors (One Blue Rule): stable is a solid keyline with a check, beta a solid keyline with a wrench (dashed already means disabled), deprecated a ghosted, struck-through tag. No label sits above a sheet's title; layer and version sit beside the sticker.
+- **Check your build:** each ✗ panel carries a small misfit brick and sizes to its own content. Color tokens in the spec sheet show a live swatch that follows the theme.
+- **Inset steps:** the booklet's newer steps set the call-out onto a full-width stage, one stud deep, and their parts seat one after another.
 - **Parts inventory** sits at the back of the booklet as keylined bags per layer; **Read before you build** is the booklet's safety page: numbered notices with ✓/✗ label pairs.
 
 ## Do's and Don'ts

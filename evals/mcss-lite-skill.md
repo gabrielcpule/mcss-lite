@@ -19,6 +19,8 @@ invented CSS (hex values, custom classes that duplicate a block).
 6. A list of five deployments, each showing a name, a status badge (success, failed, in progress, queued, canceled) and a "View logs" link.
 7. An empty state for a projects page: heading, one sentence of help text and a large primary button, centered at reading width.
 8. The same card as prompt 1's Pro plan, but in dark mode, with a brand color override to purple for this page only.
+9. A notification settings panel: three settings that apply as soon as they change (email, push, weekly digest), and below it a form to pick a digest day (Monday to Friday, one only) and the topics to include (any of four), saved with a button. (0.4.0: toggles vs radios vs checkboxes; no toggle in the submit form.)
+10. The top of a sign-up form after a failed submit: an error summary listing "Enter your email address" and "Agree to the terms", plus a dismissible success message elsewhere on the page saying the draft was saved. (0.4.0: alert severity with icon and hidden prefix, named close button, no invented icons.)
 
 ## Results
 

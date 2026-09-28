@@ -33,6 +33,8 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 | 2026-09-28 | Phase "Part sheets" split in two PRs: A (0.3.0) generated part sheets, inventory, content rules, guidance backfill, clickable-card fix; B (0.4.0) checkbox/radio/toggle, alert, icons, content lint. New parts ship as beta. Plan: `docs/superpowers/specs/2026-09-28-part-sheets-design.md`. |
 | 2026-09-28 | Grilling decisions: round radio (DESIGN exception), clean URLs `/design-system/components/<name>`, "reward early, punish late" validation, mark optional fields, prefer focusable aria-disabled buttons, card link on the title. |
 
+| 2026-09-28 | PR B design review (/impeccable + frontend-design lens): checked controls are ink and seated (blue stays "act"); alerts are paper with a 4px tone edge, a shaped icon tile and a hidden prefix (no tint: the warning tint equals the call-out cream); one PR for 0.4.0, committed in reviewable slices; all 20 icons. |
+
 ## Where things are
 
 - Specs: `docs/superpowers/specs/2026-09-25-ai-readable-design-system-design.md`, `docs/superpowers/specs/2026-09-28-part-sheets-design.md` (current)
@@ -43,11 +45,17 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Shipped agent skill: `skills/mcss-lite/SKILL.md`; eval prompts in `evals/mcss-lite-skill.md`
 - Demo: `demo/index.html` (`?theme=light|dark|auto`)
 - Hosted demo: https://www.gabrielpule.work/design-system, served from Gabriel's portfolio repo (`gabrielcpule/New-new-new-portf`, Next.js on Vercel) as static files in `public/design-system/`. After changing the demo here, run `pnpm sync:design-system` in the portfolio repo (`scripts/sync-design-system.mjs`) and deploy.
-- Branches: `claude/design-system-ai-mcss-lite-4mhmop` (merged as #1), `claude/design-system-access-yybz83` (hosting link merged as #2; now PR A "Part sheets")
+- Branches: `claude/design-system-ai-mcss-lite-4mhmop` (merged as #1), `claude/design-system-access-yybz83` (hosting link #2, part sheets #3 and the install fix #6 merged; now 0.4.0 "New parts")
+- Icons: sources in `icons/*.svg` (24-unit grid, strokes only, checked by `npm run check`); the sprite and `inlineSprite()` come from `scripts/lib/icons.mjs`.
+- Validator rules: `RULES` in `scripts/lib/validate.mjs` is the single list (CLI help, AGENTS.md "Validator rules", content-rule links).
 
 ## Distribution (2026-09-28)
 
 Not on npm, by choice (supply-chain risk). Releases are GitHub tags; CSS via jsDelivr, installs via `github:gabrielcpule/mcss-lite#vX.Y.Z`. URLs are generated from package.json (`scripts/lib/release.mjs`). Tags and GitHub Releases are created by `.github/workflows/release.yml` (Claude sessions can't push tags: HTTP 403): automatically when a package.json change lands on main, or via Actions → Release → Run workflow with a commit SHA to tag an earlier version. The tag name always comes from package.json at that commit. PR B decisions (grilling): toggle ships native-first; alert severity = icon + hidden prefix (`alert-severity`); `clickable-div` only for click triggers; `--ignore`/inline ignore for warnings only; Figma push after PR B.
+
+## New parts round, 0.4.0 (2026-09-28)
+
+Branch `claude/design-system-access-yybz83` (restarted from main after #6). Slices, one commit each: (1) native states in the schema + `c-checkbox`, `c-radio`, `c-toggle` and a fieldset group error; (2) 20 icons in `icons/` → `dist/mcss-lite.icons.svg`, `c-icon`, `c-alert`, a visible dark brick edge; (3+4) validator text capture and new rules (`content-*`, `label-missing`, `primary-count`, `card-nesting`, `clickable-div`, `toggle-in-form`, `alert-severity`, `unknown-icon`), `--ignore` and inline `mcss-lite-ignore` for warnings only; (5) inset booklet steps, sheet fixes from the review (no label above titles, swatches, misfit per ✗ panel, solid beta sticker); (6) docs and 0.4.0. After merge: Gabriel creates tag `v0.4.0`; re-sync the portfolio; push the new component tokens to the Figma file.
 
 ## Part sheets round (2026-09-28)
 

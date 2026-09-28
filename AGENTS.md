@@ -2,7 +2,7 @@
 
 > How to build UI with MCSS-Lite: the rules, every class, every token. Read this before writing markup or CSS.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.3.1
+> Package: @gabrielpule/mcss-lite@0.4.0
 
 ## Rules
 
@@ -17,12 +17,12 @@
 MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.3.1/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
 ```
 
 ```sh
-npm install github:gabrielcpule/mcss-lite#v0.3.1   # or pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.0   # or pnpm add / yarn add / bun add
 # then: <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
@@ -32,7 +32,7 @@ Before finishing, check your markup:
 
 ```sh
 npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output
-npx github:gabrielcpule/mcss-lite#v0.3.1 validate path/to/file.html   # without installing
+npx github:gabrielcpule/mcss-lite#v0.4.0 validate path/to/file.html   # without installing
 ```
 
 ## Blocks at a glance

@@ -24,7 +24,8 @@ MCSS-Lite extracts the three most practical parts of the MCSS architecture:
 
 1. **Design tokens** — CSS custom properties as the single source of truth for colors, typography, spacing, shadows, and motion
 2. **Layout primitives** — `l-container`, `l-grid`, `l-stack`, `l-center`, `l-cluster`, `l-sidebar`, `l-switcher` that handle spacing so components never set their own margin
-3. **Component classes** — BEM-style semantic components (`c-button`, `c-card`, `c-modal`, `c-input`, `c-badge`) with modifier and state support
+3. **Component classes** — BEM-style semantic components (`c-button`, `c-card`, `c-modal`, `c-input`, `c-badge`, and in beta `c-checkbox`, `c-radio`, `c-toggle`, `c-alert`, `c-icon`) with modifier and state support
+4. **Icons** — 20 line icons on a 24-unit grid in one sprite, drawn with a 2px stroke at every size
 
 ## Built for AI agents and Figma
 
@@ -46,7 +47,7 @@ Point your agent at the docs, for example in your project's `AGENTS.md` or `CLAU
 
 ```md
 UI uses MCSS-Lite. Before writing markup, read node_modules/@gabrielpule/mcss-lite/AGENTS.md.
-After editing markup, run `npx mcss-lite validate <path>` (or `npx github:gabrielcpule/mcss-lite#v0.3.1 validate <path>` without installing) and fix every error.
+After editing markup, run `npx mcss-lite validate <path>` (or `npx github:gabrielcpule/mcss-lite#v0.4.0 validate <path>` without installing) and fix every error.
 ```
 
 For Claude Code, copy the skill into your project: `cp -r node_modules/@gabrielpule/mcss-lite/skills/mcss-lite .claude/skills/`.
@@ -56,9 +57,24 @@ For Claude Code, copy the skill into your project: `cp -r node_modules/@gabrielp
 ```bash
 npx mcss-lite validate src/            # .html, .jsx, .tsx, .vue, .svelte, .astro…
 npx mcss-lite validate page.html --json
+npx mcss-lite validate src/ --ignore content-case   # silence one warning rule
 ```
 
-It reports unknown `c-`/`l-`/`u-` classes (listing the valid ones), modifiers without their block, conflicting modifiers, invalid `data-state` values, missing ARIA pairs (`disabled`, `aria-invalid`, `aria-busy`), deprecated classes and inline raw colors. It exits with code 1 on errors, so it can gate CI.
+**Errors** (exit code 1, so it can gate CI): unknown `c-`/`l-`/`u-` classes and icon names (listing the valid ones), modifiers without their block, conflicting modifiers, invalid `data-state` values, including native states such as `checked` written as `data-state`.
+
+**Warnings**: missing ARIA pairs (`disabled`, `aria-invalid`, `aria-busy`), deprecated classes, inline raw colors and margins, and the mistakes agents and templates make most:
+
+- a form control with no label (a placeholder is not a label);
+- Title Case or vague labels ("Submit", "Click here") on buttons, links, labels and titles, and buttons with no name;
+- more than one primary button per form, dialog, card or landmark;
+- a card in a card, or a card wrapped in a link;
+- a `div` or `span` that reacts to clicks (`onclick`, `@click`, `hx-post`…);
+- a toggle in a form saved with a submit button;
+- an alert whose severity rests on color alone.
+
+Text that comes from a template (`{{ }}`, `{% %}`, `<%= %>`, JSX `{…}`) is never judged. The full list with levels is under "Validator rules" in [`AGENTS.md`](AGENTS.md), or run `npx mcss-lite help`.
+
+Warnings can be silenced for a run with `--ignore rule,rule`, or for one element with a comment right before it: `<!-- mcss-lite-ignore primary-count: a gallery of variants -->`. Errors can't be ignored.
 
 ### Figma
 
@@ -76,6 +92,16 @@ The tokens work in **any** Figma account. Nothing in this repo points at a speci
 Every variable gets its Figma scopes, description, and CSS code syntax (`var(--token)`), so Dev Mode shows the right token. The script is safe to re-run (it updates and never duplicates), and on single-mode plans it warns and skips the Dark mode instead of failing.
 
 Shadows become effect styles; font stacks and easings stay code-only because Figma variables can't hold them. To bring design changes back, export the collections as DTCG JSON, merge them into `tokens/`, and run `npm run build`.
+
+## Icons
+
+The 20 icons (`check`, `close`, `plus`, `minus`, four chevrons, `arrow-right`, `external-link`, `info`, `success`, `warning`, `error`, `search`, `menu`, `copy`, `trash`, `edit`, `download`) ship as one sprite, `dist/mcss-lite.icons.svg`. Browsers won't load `<use href>` from another origin, so inline the sprite once near the top of `<body>` (paste it, or include it from your template), then reference a symbol:
+
+```html
+<svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+```
+
+Icons take the text color and keep a 2px stroke at every size (`c-icon--sm`, default, `c-icon--lg`). The four severity icons differ in shape, so alerts read without color. The sources are in [`icons/`](icons/): add one by dropping a 24×24 stroke-only SVG there and running `npm run build`.
 
 ## Dark mode
 
@@ -98,13 +124,13 @@ MCSS-Lite is not on the npm registry. Releases are Git tags on GitHub, so there 
 **From the CDN** (no build step), pinned to a release:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.3.1/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
 ```
 
 **From GitHub**, with any package manager:
 
 ```bash
-npm install github:gabrielcpule/mcss-lite#v0.3.1   # or: pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.0   # or: pnpm add / yarn add / bun add
 ```
 
 ```html
@@ -118,7 +144,7 @@ Or import it in your CSS build: `@import '@gabrielpule/mcss-lite';`
 **The validator** runs from the install (`npx mcss-lite validate <path>`) or straight from GitHub without installing:
 
 ```bash
-npx github:gabrielcpule/mcss-lite#v0.3.1 validate src/
+npx github:gabrielcpule/mcss-lite#v0.4.0 validate src/
 ```
 
 ## Usage

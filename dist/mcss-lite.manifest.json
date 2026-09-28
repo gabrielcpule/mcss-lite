@@ -1,6 +1,6 @@
 {
   "name": "@gabrielpule/mcss-lite",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Contract-first CSS design system: every class, state and token is declared in machine-readable contracts, so people and AI agents build UI with the right parts.",
   "generatedFrom": [
     "tokens/*.tokens.json",
