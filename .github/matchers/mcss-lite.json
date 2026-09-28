@@ -1,0 +1,51 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "mcss-lite-validate",
+      "pattern": [
+        {
+          "regexp": "^(.+?):(\\d+)\\s{2}(error|warning)\\s+(.+?)\\s{2}\\[(.+)\\]$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "message": 4,
+          "code": 5
+        }
+      ]
+    },
+    {
+      "owner": "mcss-lite-check-line",
+      "severity": "error",
+      "pattern": [
+        {
+          "regexp": "^((?:src|components|demo|tokens|schemas)/[^:\\s]+):(\\d+): (.+)$",
+          "file": 1,
+          "line": 2,
+          "message": 3
+        }
+      ]
+    },
+    {
+      "owner": "mcss-lite-check-file",
+      "severity": "error",
+      "pattern": [
+        {
+          "regexp": "^((?:components|demo)/[^:\\s]+): (.+)$",
+          "file": 1,
+          "message": 2
+        }
+      ]
+    },
+    {
+      "owner": "mcss-lite-stale",
+      "severity": "error",
+      "pattern": [
+        {
+          "regexp": "^(\\S+) (is stale; run npm run build)$",
+          "file": 1,
+          "message": 2
+        }
+      ]
+    }
+  ]
+}

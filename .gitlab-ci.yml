@@ -1,0 +1,30 @@
+# Same gate as .github/workflows/ci.yml, for a GitLab mirror of this repo.
+# Runs on merge requests and on the default branch.
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+default:
+  interruptible: true
+  timeout: 10 minutes
+
+checks:
+  image: node:22-alpine
+  script:
+    - npm test
+    - npm run check
+    - node bin/mcss-lite.mjs validate components demo
+    - npm pack --dry-run
+
+compat:
+  image: node:${NODE}-alpine
+  parallel:
+    matrix:
+      - NODE: ["18", "20", "24"]
+  script:
+    - npm test
+    - npm run check
