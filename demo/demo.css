@@ -1062,7 +1062,7 @@
 }
 
 /* A live chip of the token's color in the current theme. */
-.demo-swatch {
+.demo-spec__swatch {
   display: inline-block;
   inline-size: 1rem;
   block-size: 1rem;
