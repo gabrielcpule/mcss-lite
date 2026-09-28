@@ -1217,7 +1217,7 @@
       "examples": [
         {
           "file": "components/button.html",
-          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export</button>\n  <a class=\"c-button c-button--secondary\" href=\"/docs\">Read the docs</a>\n  <button type=\"button\" class=\"c-button c-button--lg\">Create a project</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button\" data-state=\"disabled\" disabled>Unavailable</button>\n  <button type=\"button\" class=\"c-button\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"View\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">List</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Grid</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"button\" class=\"c-button\">Save draft</button>\n  <button type=\"button\" class=\"c-button c-button--primary\">Publish post</button>\n</div>\n\n<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--secondary c-button--sm\">Export CSV</button>\n  <button type=\"button\" class=\"c-button c-button--secondary\">Duplicate post</button>\n  <button type=\"button\" class=\"c-button c-button--lg\">Create a project</button>\n</div>\n\n<div class=\"l-stack l-stack--sm\">\n  <div class=\"l-cluster\">\n    <button type=\"button\" class=\"c-button\" data-state=\"disabled\" aria-disabled=\"true\" aria-describedby=\"schedule-reason\">Schedule post</button>\n    <button type=\"button\" class=\"c-button\" data-state=\"loading\" aria-busy=\"true\" aria-disabled=\"true\">Saving…</button>\n  </div>\n  <p class=\"u-margin-0\" id=\"schedule-reason\">Add a publish date to schedule the post.</p>\n</div>\n\n<div class=\"l-cluster\" role=\"group\" aria-label=\"View\">\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"true\">List</button>\n  <button type=\"button\" class=\"c-button c-button--sm\" aria-pressed=\"false\">Grid</button>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
         }
       ],
       "sources": [
@@ -2618,7 +2618,7 @@
       "examples": [
         {
           "file": "components/utilities.html",
-          "html": "<button type=\"button\" class=\"c-button c-button--ghost\">\n  <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"10\" cy=\"10\" r=\"3\"/><path d=\"M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4 4l2.1 2.1M13.9 13.9L16 16M4 16l2.1-2.1M13.9 6.1L16 4\"/></svg>\n  <span class=\"u-sr-only\">Settings</span>\n</button>\n<p class=\"u-truncate u-font-mono\">a-very-long-file-name-that-will-be-cut-off-with-an-ellipsis.css</p>"
+          "html": "<div class=\"l-grid l-grid--2-col\">\n  <div class=\"c-card\">\n    <p class=\"c-card__body u-truncate u-font-mono\">quarterly-board-report-reviewed-by-finance-and-legal-v14.pdf</p>\n  </div>\n  <div class=\"c-card\">\n    <p class=\"c-card__body u-truncate u-font-mono\">brand-guidelines-2026-with-every-approved-logo-lockup.pdf</p>\n  </div>\n</div>\n\n<button type=\"button\" class=\"c-button c-button--ghost\">\n  <svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-edit\"></use></svg>\n  <span class=\"u-sr-only\">Edit post</span>\n</button>"
         }
       ]
     }
@@ -2808,7 +2808,7 @@
       "path": "color.blue.300",
       "tier": "primitive",
       "type": "color",
-      "value": "#6cb4ee",
+      "value": "#7cbff1",
       "figma": true
     },
     {
@@ -3858,7 +3858,7 @@
       },
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#7cbff1"
       },
       "description": "Link text. Links are also underlined.",
       "figma": true
@@ -4638,7 +4638,7 @@
       "alias": "--color-text-link",
       "value": {
         "light": "#005a9c",
-        "dark": "#6cb4ee"
+        "dark": "#7cbff1"
       },
       "figma": true
     },

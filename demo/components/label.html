@@ -51,25 +51,13 @@
       </div>
     </div>
   </header>
-
-  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 4">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-    </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
-  </nav>
-
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h10"/><path d="M4 15h16" stroke-dasharray="3 3"/></svg></div>
         <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h10"/><path d="M4 15h16" stroke-dasharray="3 3"/></svg></div>
           <h1 class="demo-sheet__title">Label <span class="demo-sheet__id">c-label</span></h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--deprecated"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8"/></svg>Deprecated</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
-          <p class="demo-hero__lede">Deprecated standalone label. Use <code>c-form-field__label</code> inside <a href="form-field.html"><code>c-form-field</code></a> instead; <a href="label.html"><code>c-label</code></a> will be removed in 1.0.</p>
           <div class="c-alert c-alert--warning">
             <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
             <div class="c-alert__body">
@@ -78,8 +66,26 @@
             </div>
           </div>
         </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="name-hd">Name</label>
+              <input class="c-input" id="name-hd">
+            </div>
+          </figure>
+        </div>
       </div>
     </header>
+
+    <nav class="demo-rail" aria-label="Sections">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 4">
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
+    </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+  </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -184,8 +190,6 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;label&gt;</code></p>
-<details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">1</span></summary>
 <div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
@@ -195,7 +199,6 @@
     </tbody>
   </table>
 </div>
-</details>
           </div>
         </div>
       </div>
@@ -215,7 +218,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

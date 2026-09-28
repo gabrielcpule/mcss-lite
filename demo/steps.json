@@ -8,7 +8,7 @@
   "steps": [
     {
       "title": "Lay the baseplate",
-      "text": "Layout primitives own all spacing, and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout primitive.",
+      "text": "Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.",
       "blocks": [
         "l-section",
         "l-container",

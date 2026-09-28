@@ -31,7 +31,7 @@ const DATA = {
     {"name":"color/blue/100","type":"COLOR","css":"--color-blue-100","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.7804,"g":0.8863,"b":0.9725,"a":1}}},
     {"name":"color/blue/150","type":"COLOR","css":"--color-blue-150","description":"Instruction-page sky: the demo canvas.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.8627,"g":0.9294,"b":0.9765,"a":1}}},
     {"name":"color/blue/200","type":"COLOR","css":"--color-blue-200","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.6118,"g":0.8039,"b":0.9569,"a":1}}},
-    {"name":"color/blue/300","type":"COLOR","css":"--color-blue-300","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.4235,"g":0.7059,"b":0.9333,"a":1}}},
+    {"name":"color/blue/300","type":"COLOR","css":"--color-blue-300","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.4863,"g":0.749,"b":0.9451,"a":1}}},
     {"name":"color/blue/400","type":"COLOR","css":"--color-blue-400","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.302,"g":0.5647,"b":0.9961,"a":1}}},
     {"name":"color/blue/600","type":"COLOR","css":"--color-blue-600","description":"Night-build primary: white text 4.6:1, at least 3:1 on every navy surface.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.1451,"g":0.4627,"b":0.8,"a":1}}},
     {"name":"color/blue/700","type":"COLOR","css":"--color-blue-700","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"r":0.0941,"g":0.3647,"b":0.651,"a":1}}},

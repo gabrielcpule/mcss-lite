@@ -51,30 +51,52 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h1 class="demo-sheet__title">Radio <span class="demo-sheet__id">c-radio</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
+          <p class="demo-hero__lede">A native radio button with its label: pick exactly one option from a short, visible list.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <fieldset class="c-form-field">
+              <legend class="c-form-field__label">Delivery speed</legend>
+              <div class="l-stack l-stack--sm">
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="delivery-standard-hd" name="delivery" value="standard" checked aria-describedby="delivery-standard-hint-hd">
+                  <label class="c-radio__label" for="delivery-standard-hd">Standard</label>
+                  <p class="c-radio__hint" id="delivery-standard-hint-hd">3 to 5 working days, free.</p>
+                </div>
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="delivery-next-hd" name="delivery" value="next-day" aria-describedby="delivery-next-hint-hd">
+                  <label class="c-radio__label" for="delivery-next-hd">Next day</label>
+                  <p class="c-radio__hint" id="delivery-next-hint-hd">Order by 4pm, £4.99.</p>
+                </div>
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="delivery-same-hd" name="delivery" value="same-day" disabled>
+                  <label class="c-radio__label" for="delivery-same-hd">Same day (not available in your area)</label>
+                </div>
+              </div>
+            </fieldset>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Radio <span class="demo-sheet__id">c-radio</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
-          <p class="demo-hero__lede">A native radio button with its label: pick exactly one option from a short, visible list.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -281,7 +303,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>Keep native &lt;input type=&quot;radio&quot;&gt; elements sharing one name: the browser handles arrow keys and single selection.</li><li>Wrap the group in fieldset + legend so the question is read with every option.</li><li>Link hints with aria-describedby on the input.</li></ul>
 <div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
@@ -304,7 +326,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>The legend asks the question; each label is a short answer in sentence case.</li><li>Use a hint for the detail that decides the choice: price, time, consequence.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -330,7 +352,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

@@ -48,6 +48,9 @@ const PAIRS = [
   ['color.text.link', 'color.background.interactive', 4.5],
   ['color.text.subtle', 'color.background.canvas', 4.5],
   ['color.text.link', 'color.background.canvas', 4.5],
+  // Links sit in call-outs and on muted chips (the booklet's disclosures and part call-outs).
+  ['color.text.link', 'color.background.muted', 4.5],
+  ['color.text.link', 'color.background.callout', 4.5],
   ['color.text.default', 'color.background.callout', 4.5],
   ['color.text.on-danger', 'color.action.danger.$root', 4.5],
   ['color.text.on-danger', 'color.action.danger.hover', 4.5],

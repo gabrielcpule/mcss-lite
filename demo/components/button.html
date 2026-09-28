@@ -51,30 +51,38 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg></div>
+          <h1 class="demo-sheet__title">Button <span class="demo-sheet__id">c-button</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
+          <p class="demo-hero__lede">Triggers an action. Apply to <code>&lt;button&gt;</code>. Apply to <code>&lt;a&gt;</code> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-cluster">
+              <button type="button" class="c-button c-button--ghost">Cancel</button>
+              <button type="button" class="c-button">Save draft</button>
+              <button type="button" class="c-button c-button--primary">Publish post</button>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Button <span class="demo-sheet__id">c-button</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
-          <p class="demo-hero__lede">Triggers an action. Apply to <code>&lt;button&gt;</code>. Apply to <code>&lt;a&gt;</code> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -110,18 +118,21 @@
     <div class="l-cluster">
       <button type="button" class="c-button c-button--ghost">Cancel</button>
       <button type="button" class="c-button">Save draft</button>
-      <button type="button" class="c-button c-button--primary">Publish</button>
+      <button type="button" class="c-button c-button--primary">Publish post</button>
     </div>
 
     <div class="l-cluster">
-      <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
-      <a class="c-button c-button--secondary" href="#build">Read the docs</a>
+      <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+      <button type="button" class="c-button c-button--secondary">Duplicate post</button>
       <button type="button" class="c-button c-button--lg">Create a project</button>
     </div>
 
-    <div class="l-cluster">
-      <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-      <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+    <div class="l-stack l-stack--sm">
+      <div class="l-cluster">
+        <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="schedule-reason-ex">Schedule post</button>
+        <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+      </div>
+      <p class="u-margin-0" id="schedule-reason-ex">Add a publish date to schedule the post.</p>
     </div>
 
     <div class="l-cluster" role="group" aria-label="View">
@@ -133,23 +144,26 @@
   </figure>
 </div>
 <details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">23 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">26 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-35">&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
   &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--ghost</span>&quot;&gt;Cancel&lt;/button&gt;
   &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot;&gt;Save draft&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Publish&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Publish post&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--secondary</span> <span class="demo-code__token">c-button--sm</span>&quot;&gt;Export&lt;/button&gt;
-  &lt;a class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--secondary</span>&quot; href=&quot;/docs&quot;&gt;Read the docs&lt;/a&gt;
+  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--secondary</span> <span class="demo-code__token">c-button--sm</span>&quot;&gt;Export CSV&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--secondary</span>&quot;&gt;Duplicate post&lt;/button&gt;
   &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--lg</span>&quot;&gt;Create a project&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">data-state</span>=&quot;disabled&quot; disabled&gt;Unavailable&lt;/button&gt;
-  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">data-state</span>=&quot;loading&quot; <span class="demo-code__token">aria-busy</span>=&quot;true&quot; <span class="demo-code__token">aria-disabled</span>=&quot;true&quot;&gt;Saving…&lt;/button&gt;
+&lt;div class=&quot;<span class="demo-code__token">l-stack</span> <span class="demo-code__token">l-stack--sm</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">data-state</span>=&quot;disabled&quot; <span class="demo-code__token">aria-disabled</span>=&quot;true&quot; <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">schedule-reason</span>&quot;&gt;Schedule post&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">data-state</span>=&quot;loading&quot; <span class="demo-code__token">aria-busy</span>=&quot;true&quot; <span class="demo-code__token">aria-disabled</span>=&quot;true&quot;&gt;Saving…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot; id=&quot;<span class="demo-code__token">schedule-reason</span>&quot;&gt;Add a publish date to schedule the post.&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot; role=&quot;group&quot; <span class="demo-code__token">aria-label</span>=&quot;View&quot;&gt;
@@ -241,13 +255,10 @@
 <figure class="demo-stage">
   <button type="button" class="c-button c-button--danger">Delete project</button>
 </figure>
-<details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">1 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-40">&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--danger</span>&quot;&gt;Delete project&lt;/button&gt;</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-40" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
 </div>
-</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
@@ -265,13 +276,10 @@
 <figure class="demo-stage">
   <button type="submit" class="c-button c-button--primary">Create account</button>
 </figure>
-<details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">1 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-42">&lt;button type=&quot;submit&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Create account&lt;/button&gt;</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-42" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
 </div>
-</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
@@ -289,13 +297,10 @@
 <figure class="demo-stage">
   <button type="button" class="c-button" hx-post="/projects/42/archive">Archive project</button>
 </figure>
-<details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">1 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-44">&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">hx-post</span>=&quot;/projects/42/archive&quot;&gt;Archive project&lt;/button&gt;</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-44" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
 </div>
-</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
@@ -359,7 +364,7 @@
       <tr><th scope="row"><code>--button-primary-background</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-primary-background, var(--color-action-primary))" aria-hidden="true"></span><code>#005a9c</code> / <code>#2576cc</code></td></tr>
       <tr><th scope="row"><code>--button-primary-background-hover</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-primary-background-hover, var(--color-action-primary-hover))" aria-hidden="true"></span><code>#004a80</code> / <code>#185da6</code></td></tr>
       <tr><th scope="row"><code>--button-primary-text</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-primary-text, var(--color-text-on-action))" aria-hidden="true"></span><code>#ffffff</code></td></tr>
-      <tr><th scope="row"><code>--button-secondary-text</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-secondary-text, var(--color-text-link))" aria-hidden="true"></span><code>#005a9c</code> / <code>#6cb4ee</code></td></tr>
+      <tr><th scope="row"><code>--button-secondary-text</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-secondary-text, var(--color-text-link))" aria-hidden="true"></span><code>#005a9c</code> / <code>#7cbff1</code></td></tr>
       <tr><th scope="row"><code>--button-secondary-border</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-secondary-border, var(--color-action-primary))" aria-hidden="true"></span><code>#005a9c</code> / <code>#2576cc</code></td></tr>
       <tr><th scope="row"><code>--button-ghost-background-hover</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-ghost-background-hover, var(--color-action-neutral-hover))" aria-hidden="true"></span><code>#e9ecef</code> / <code>#27436f</code></td></tr>
       <tr><th scope="row"><code>--button-danger-background</code></th><td data-label="Value (light / dark)"><span class="demo-spec__swatch" style="background-color: var(--button-danger-background, var(--color-action-danger))" aria-hidden="true"></span><code>#c91a09</code></td></tr>
@@ -385,7 +390,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>A button needs a visible text label, or aria-label when it only contains an icon.</li><li>Do not remove the :focus-visible outline.</li><li>Use type=&quot;button&quot; unless the button submits a form.</li><li>c-button--sm looks compact but keeps a 44px tall hit area.</li><li>Don't disable a submit button until the form is valid. Let people submit, then show what is missing.</li></ul>
 <div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
@@ -408,7 +413,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>Write a verb plus the thing it acts on: &quot;Save changes&quot;, &quot;Delete project&quot;. Never &quot;OK&quot;, &quot;Submit&quot; or &quot;Click here&quot;.</li><li>Use sentence case: &quot;Create account&quot;, not &quot;Create Account&quot;.</li><li>Keep the label the same when a toggle changes state; aria-pressed carries the state.</li><li>A danger button names what is destroyed: &quot;Delete account&quot;, not &quot;Confirm&quot;.</li><li>No full stop at the end of a label.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -434,7 +439,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

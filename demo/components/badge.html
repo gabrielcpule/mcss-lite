@@ -51,30 +51,41 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg></div>
+          <h1 class="demo-sheet__title">Badge <span class="demo-sheet__id">c-badge</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
+          <p class="demo-hero__lede">A short, non-interactive label for status or category, such as &quot;Beta&quot; or &quot;Paid&quot;.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-cluster">
+              <span class="c-badge">Draft</span>
+              <span class="c-badge c-badge--primary">New</span>
+              <span class="c-badge c-badge--success">Active</span>
+              <span class="c-badge c-badge--warning">Expiring</span>
+              <span class="c-badge c-badge--error">Failed</span>
+              <span class="c-badge c-badge--info">Beta</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Badge <span class="demo-sheet__id">c-badge</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
-          <p class="demo-hero__lede">A short, non-interactive label for status or category, such as &quot;Beta&quot; or &quot;Paid&quot;.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -225,7 +236,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>Color is decorative; the badge text must describe the status on its own.</li></ul>
           </div>
         </div>
@@ -237,7 +248,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>One or two words, sentence case: &quot;In review&quot;, not &quot;IN REVIEW&quot;.</li><li>Each tone keeps one meaning across the product: error always means something failed.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -263,7 +274,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

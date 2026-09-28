@@ -23,7 +23,7 @@
   --color-blue-100: #c7e2f8;
   --color-blue-150: #dcedf9;
   --color-blue-200: #9ccdf4;
-  --color-blue-300: #6cb4ee;
+  --color-blue-300: #7cbff1;
   --color-blue-400: #4d90fe;
   --color-blue-600: #2576cc;
   --color-blue-700: #185da6;
@@ -489,13 +489,13 @@
     gap: var(--space-6);
   }
   .l-grid--2-col {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .l-grid--3-col {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .l-grid--4-col {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .l-grid--responsive {
     grid-template-columns: repeat(auto-fill, minmax(min(17.5rem, 100%), 1fr));
@@ -504,7 +504,7 @@
     .l-grid--2-col,
     .l-grid--3-col,
     .l-grid--4-col {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
   .l-stack {

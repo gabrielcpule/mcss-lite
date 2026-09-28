@@ -51,8 +51,28 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg></div>
+          <h1 class="demo-sheet__title">Cluster <span class="demo-sheet__id">l-cluster</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Layout · since 0.1.0</span></div>
+          <p class="demo-hero__lede">Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-cluster">
+              <span class="c-badge">Design</span>
+              <span class="c-badge">Research</span>
+              <span class="c-badge">Accessibility</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 4">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
@@ -61,18 +81,6 @@
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Cluster <span class="demo-sheet__id">l-cluster</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Layout · since 0.1.0</span></div>
-          <p class="demo-hero__lede">Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -207,7 +215,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

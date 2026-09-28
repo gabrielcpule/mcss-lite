@@ -39,6 +39,7 @@ export const tag = (n) => (n > 0
   ? `<span class="demo-count"><span aria-hidden="true">${n}×</span><span class="u-sr-only">, used ${n} time${n === 1 ? '' : 's'} in this build</span></span>`
   : '');
 
+const CHECK_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>';
 const CROSS_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
 // The misfit: a brick whose studs miss the baseplate, next to one seated flush. Drawn in the keyline.
@@ -85,6 +86,21 @@ ${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === 
 // Files that read best on GitHub (rendered Markdown, a browsable folder), pinned to this release's tag.
 const repoUrl = (pkg, kind, path) => `https://github.com/gabrielcpule/mcss-lite/${kind}/v${pkg.version}/${path}`;
 
+// Bag counts shared by the booklet and the parts inventory: deprecated parts aren't parts to build with,
+// and the utilities block counts its classes.
+export const partCount = (list) => {
+  if (list.length === 1 && list[0].layer === 'utility') return `${list[0].classes.length} classes`;
+  const live = list.filter((c) => c.status !== 'deprecated').length;
+  const old = list.length - live;
+  return `${live} part${live === 1 ? '' : 's'}${old ? ` + ${old} deprecated` : ''}`;
+};
+
+export const tokenNote = (tokenRows) => {
+  const semantic = tokenRows.filter((t) => t.tier === 'semantic').length;
+  const component = tokenRows.filter((t) => t.tier === 'component').length;
+  return `${semantic} semantic and ${component} component tokens, built on ${tokenRows.length - semantic - component} primitives you don't use directly.`;
+};
+
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Escaped text with every hyphenated name (class, modifier, attribute) kept on one line,
 // so code and validator messages wrap between names, never inside one.
@@ -94,7 +110,29 @@ export const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l 
 
 // A wrong piece an agent might invent, checked by the real validator at build time.
 const WRONG_PIECE = '<button class="c-button c-button--warning" data-state="error">Retry</button>';
-const RIGHT_PIECE = '<button type="button" class="c-button">Retry</button>';
+
+// The finale: a whole form an agent might write from memory, and the rebuilt one. Both are
+// validated at build time; the build fails if the wrong one stops failing or the right one does.
+const FINALE_WRONG = `<form class="c-form">
+  <input class="c-input" type="email" placeholder="Work email">
+  <p style="color: #d93025">We never share your email.</p>
+  <button class="c-button c-button--primary">Submit</button>
+</form>`;
+const FINALE_RIGHT = `<form class="l-stack">
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="signup-email">Work email</label>
+    <input class="c-input" type="email" id="signup-email" aria-describedby="signup-email-help">
+    <p class="c-form-field__help" id="signup-email-help">We never share your email.</p>
+  </div>
+  <div class="l-cluster">
+    <button type="submit" class="c-button c-button--primary">Create account</button>
+  </div>
+</form>`;
+
+const tally = (issues) => ['error', 'warning'].map((level) => {
+  const n = issues.filter((i) => i.level === level).length;
+  return n ? `${n} ${level}${n === 1 ? '' : 's'}` : '';
+}).filter(Boolean).join(', ');
 
 // The step preview is always visible in page flow, so it must not claim aria-modal.
 const inlinePreview = (html) => {
@@ -117,9 +155,10 @@ export function realDialog(modalExample) {
     .replace(/<\/div>\s*$/, '</dialog>')
     .replace('<div class="c-modal__backdrop"></div>', '')
     .replace('id="delete-title"', 'id="demo-dialog-title"')
+    .replace('Atlas and its 42 files', 'Borealis and its 7 files')
     .replace(/<button type="button" class="c-modal__close"/, '<button type="button" class="c-modal__close" data-close-dialog')
     .replace(/<button type="button" class="c-button c-button--ghost">/, '<button type="button" class="c-button c-button--ghost" data-close-dialog>')
-    .replace(/<button type="button" class="c-button c-button--danger">/, '<button type="button" class="c-button c-button--danger" data-close-dialog>'), ['<dialog class="c-modal"', '</dialog>', 'demo-dialog-title', 'data-close-dialog>']);
+    .replace(/<button type="button" class="c-button c-button--danger">/, '<button type="button" class="c-button c-button--danger" data-close-dialog>'), ['<dialog class="c-modal"', '</dialog>', 'demo-dialog-title', 'data-close-dialog>', 'Borealis']);
 }
 
 export function loadBooklet(root) {
@@ -142,12 +181,17 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const example = (file) => readFileSync(join(root, 'components', file), 'utf8').trim();
   const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const wrongIssues = validate(WRONG_PIECE).filter((i) => i.level === 'error');
+  const finaleIssues = validate(FINALE_WRONG);
+  if (finaleIssues.length < 4) throw new Error('demo finale: the wrong form should fail four ways');
+  if (validate(FINALE_RIGHT).length) throw new Error('demo finale: the rebuilt form must validate cleanly');
 
   const layouts = contracts.filter((c) => c.layer === 'layout');
-  const components = contracts.filter((c) => c.layer === 'component' && c.status !== 'deprecated');
+  const allComponents = contracts.filter((c) => c.layer === 'component');
+  const components = allComponents.filter((c) => c.status !== 'deprecated');
+  const utilities = contracts.filter((c) => c.layer === 'utility');
   const semantic = tokenRows.filter((t) => t.tier === 'semantic');
   const componentTokens = tokenRows.filter((t) => t.tier === 'component');
-  const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-ring', '--color-focus-halo', '--color-background-callout', '--color-text-default'];
+  const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-halo', '--color-background-callout', '--color-background-canvas', '--color-text-default'];
   const inventory = classInventory(contracts);
 
   const sheet = (c) => `components/${c.file.replace(/\.json$/, '.html')}`;
@@ -281,12 +325,16 @@ ${inlineSprite(loadIcons(root), pkg)}
             <ul class="demo-bag__list" role="list">${partList(layouts)}</ul>
           </div>
           <div class="demo-bag">
-            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">2</span> Components <span class="demo-bag__count">${components.length} parts</span></h3>
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">2</span> Components <span class="demo-bag__count">${partCount(allComponents)}</span></h3>
             <ul class="demo-bag__list" role="list">${partList(components)}</ul>
           </div>
           <div class="demo-bag">
-            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Tokens <span class="demo-bag__count">${semantic.length + componentTokens.length} to use</span></h3>
-            <p class="demo-bag__note">${semantic.length} semantic and ${componentTokens.length} component tokens, built on ${tokenRows.length - semantic.length - componentTokens.length} primitives you don't use directly.</p>
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Utilities <span class="demo-bag__count">${partCount(utilities)}</span></h3>
+            <ul class="demo-bag__list" role="list">${partList(utilities)}</ul>
+          </div>
+          <div class="demo-bag">
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">4</span> Tokens <span class="demo-bag__count">${semantic.length + componentTokens.length} to use</span></h3>
+            <p class="demo-bag__note">${tokenNote(tokenRows)}</p>
             <ul class="demo-swatches" role="list">${swatches.map((v) => `<li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(${v})"></span><code>${v}</code></li>`).join('')}</ul>
           </div>
         </aside>
@@ -304,27 +352,29 @@ ${steps.map((st, i) => `        <li><a class="demo-rail__stud" href="#step-${i +
 ${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
 
     <section class="demo-step demo-wrong" id="wrong-piece" aria-labelledby="wrong-title">
-      <div class="l-container">
-        <div class="demo-step__grid">
-          <div class="demo-step__head">
+      <div class="l-container l-stack l-stack--lg">
+        <div class="demo-wrong__head">
+          <div>
             <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
-            <h2 class="demo-step__title" id="wrong-title">This piece doesn't fit</h2>
-            <p class="demo-step__text">An agent guessed a class. <code>npx mcss-lite validate</code> rejects it and names the parts that do exist. This output was produced by the real validator when this page was built.</p>
+            <h2 class="demo-wrong__title" id="wrong-title">This piece doesn't fit</h2>
+            <p class="demo-step__text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found ${finaleIssues.length} problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
           </div>
-          <div class="demo-step__build">
-            <div class="demo-check l-stack">
-              ${MISFIT_SVG}
-              <p class="demo-check__label">Invented markup</p>
-              <pre class="demo-code"><code>${codeTokens(WRONG_PIECE)}</code></pre>
-              <p class="demo-check__label">validate</p>
-              <ul class="demo-check__issues" role="list">${wrongIssues.map((i) => `<li class="demo-check__issue--error"><strong>error</strong> ${codeTokens(i.message)} <code>[${esc(i.rule)}]</code></li>`).join('')}</ul>
-              <p class="demo-check__label">The piece that fits</p>
-              <p class="demo-check__why">There is no warning button: <code>c-button</code> has four variants, and <code>data-state</code> takes only <code>disabled</code> or <code>loading</code>. Retry is an ordinary action, so it is the default button.</p>
-              <pre class="demo-code"><code>${codeTokens(RIGHT_PIECE)}</code></pre>
-              <div class="l-cluster">
-                ${RIGHT_PIECE}
-              </div>
-            </div>
+          ${MISFIT_SVG}
+        </div>
+        <div class="demo-wrong__pair">
+          <div class="demo-check l-stack">
+            <p class="demo-check__label">What the agent wrote</p>
+            <pre class="demo-code"><code>${codeTokens(FINALE_WRONG)}</code></pre>
+            <p class="demo-check__label">validate: ${tally(finaleIssues)}</p>
+            <ol class="demo-check__issues demo-wrong__issues" role="list">${finaleIssues.map((i) => `<li class="demo-check__issue--${esc(i.level)}"><span class="demo-wrong__line">Line ${i.line}</span> <strong>${esc(i.level)}</strong> ${codeTokens(i.message)} <code>[${esc(i.rule)}]</code></li>`).join('')}</ol>
+          </div>
+          <div class="demo-wrong__fit l-stack">
+            <p class="demo-check__label">The piece that fits</p>
+            <figure class="demo-stage">
+${indent(FINALE_RIGHT, 14)}
+            </figure>
+            <pre class="demo-code"><code>${codeTokens(FINALE_RIGHT)}</code></pre>
+            <p class="demo-checks__verdict">${CHECK_MARK}<span><code>validate</code>: 0 issues</span></p>
           </div>
         </div>
       </div>
@@ -341,6 +391,7 @@ ${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
             <li><a href="${repoUrl(pkg, 'tree', 'dist/figma')}">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
             <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
           </ul>
+          <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
           <p class="demo-end__author">Designed and built by <a href="${esc(author.url)}">${esc(author.name)}</a>.${author.caseStudy ? ` <a href="${esc(author.caseStudy)}">Read the case study</a> for the research and decisions behind it.` : ''}</p>
         </div>
         <div class="demo-end__fit l-stack">

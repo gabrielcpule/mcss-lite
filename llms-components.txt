@@ -1071,18 +1071,21 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 <div class="l-cluster">
   <button type="button" class="c-button c-button--ghost">Cancel</button>
   <button type="button" class="c-button">Save draft</button>
-  <button type="button" class="c-button c-button--primary">Publish</button>
+  <button type="button" class="c-button c-button--primary">Publish post</button>
 </div>
 
 <div class="l-cluster">
-  <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
-  <a class="c-button c-button--secondary" href="/docs">Read the docs</a>
+  <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+  <button type="button" class="c-button c-button--secondary">Duplicate post</button>
   <button type="button" class="c-button c-button--lg">Create a project</button>
 </div>
 
-<div class="l-cluster">
-  <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-  <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+<div class="l-stack l-stack--sm">
+  <div class="l-cluster">
+    <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="schedule-reason">Schedule post</button>
+    <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+  </div>
+  <p class="u-margin-0" id="schedule-reason">Add a publish date to schedule the post.</p>
 </div>
 
 <div class="l-cluster" role="group" aria-label="View">

@@ -1386,9 +1386,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
+  padding-block: var(--space-1);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -1397,9 +1395,10 @@
 }
 
 .demo-notice__dont {
-  border-style: dashed;
-  border-color: var(--color-border-error);
   color: var(--color-text-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-border-error);
+  text-decoration-thickness: var(--border-width-thick);
 }
 
 .demo-notice__dont .demo-mark {
@@ -1447,8 +1446,9 @@
 
 @media (min-width: 48rem) {
   .demo-sheet__head-grid {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-8);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-10);
+    align-items: center;
   }
 
   .demo-pick,
@@ -1674,6 +1674,7 @@
 }
 
 .demo-details__count {
+  color: var(--color-text-default);
   display: inline-grid;
   place-items: center;
   min-inline-size: 1.75rem;
@@ -1687,4 +1688,118 @@
 /* Bag titles are headings now: keep them at label size. */
 .demo-bag__head {
   font-size: var(--font-size-base);
+}
+
+/* Sheet header: a small glyph plate, the name, and the finished part beside it. */
+.demo-sheet__head .demo-sheet__plate {
+  width: 4rem;
+}
+
+.demo-sheet__head .demo-sheet__plate .demo-glyph {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.demo-sheet__specimen {
+  min-width: 0;
+}
+
+.demo-sheet__specimen .demo-stage {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Phones: each step shows the result first, then the parts it used. */
+@media (max-width: 59.99rem) {
+  .demo-step__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .demo-step__head {
+    display: contents;
+  }
+
+  .demo-step__build {
+    order: 1;
+    margin-block: var(--space-6);
+  }
+
+  .demo-step__grid > .demo-step__head > .demo-callout {
+    order: 2;
+  }
+}
+
+/* The finale: a full-width band, one scale up from a step. */
+.demo-wrong {
+  padding-block: var(--space-20);
+  background-color: var(--color-background-raised);
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-wrong__head {
+  display: grid;
+  gap: var(--space-6);
+  align-items: end;
+}
+
+.demo-wrong__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-family-display);
+  font-size: clamp(var(--font-size-3xl), 5vw, var(--font-size-5xl));
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.demo-wrong__pair {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.demo-wrong__fit {
+  padding: var(--space-6);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-wrong .demo-check {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.demo-wrong__issues {
+  counter-reset: none;
+}
+
+.demo-wrong__line {
+  display: inline-block;
+  min-inline-size: 3.5rem;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 60rem) {
+  .demo-wrong__head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-16);
+  }
+
+  .demo-wrong__pair {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.demo-end__proof {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-wrong__pair > *,
+.demo-wrong__head > * {
+  min-width: 0;
 }

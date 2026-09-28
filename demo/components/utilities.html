@@ -51,8 +51,31 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="6" rx="1"/><path d="M7 10V7h3v3M14 10V7h3v3"/></svg></div>
+          <h1 class="demo-sheet__title">Utilities <span class="demo-sheet__id">u-*</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Utilities · since 0.1.0</span></div>
+          <p class="demo-hero__lede">Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-grid l-grid--2-col">
+              <div class="c-card">
+                <p class="c-card__body u-truncate u-font-mono">quarterly-board-report-reviewed-by-finance-and-legal-v14.pdf</p>
+              </div>
+              <div class="c-card">
+                <p class="c-card__body u-truncate u-font-mono">brand-guidelines-2026-with-every-approved-logo-lockup.pdf</p>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 4">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
@@ -61,18 +84,6 @@
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="6" rx="1"/><path d="M7 10V7h3v3M14 10V7h3v3"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Utilities <span class="demo-sheet__id">u-*</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Utilities · since 0.1.0</span></div>
-          <p class="demo-hero__lede">Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -105,21 +116,37 @@
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <figure class="demo-stage">
+    <div class="l-grid l-grid--2-col">
+      <div class="c-card">
+        <p class="c-card__body u-truncate u-font-mono">quarterly-board-report-reviewed-by-finance-and-legal-v14.pdf</p>
+      </div>
+      <div class="c-card">
+        <p class="c-card__body u-truncate u-font-mono">brand-guidelines-2026-with-every-approved-logo-lockup.pdf</p>
+      </div>
+    </div>
+
     <button type="button" class="c-button c-button--ghost">
-      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="3"/><path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4 4l2.1 2.1M13.9 13.9L16 16M4 16l2.1-2.1M13.9 6.1L16 4"/></svg>
-      <span class="u-sr-only">Settings</span>
+      <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-edit"></use></svg>
+      <span class="u-sr-only">Edit post</span>
     </button>
-    <p class="u-truncate u-font-mono">a-very-long-file-name-that-will-be-cut-off-with-an-ellipsis.css</p>
   </figure>
 </div>
 <details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">5 lines</span></summary>
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">13 lines</span></summary>
 <div class="demo-code-block">
-  <pre class="demo-code"><code id="code-89">&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--ghost</span>&quot;&gt;
-  &lt;svg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 20 20&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; <span class="demo-code__token">stroke-width</span>=&quot;2&quot;&gt;&lt;circle cx=&quot;10&quot; cy=&quot;10&quot; r=&quot;3&quot;/&gt;&lt;path d=&quot;M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4 4l2.1 2.1M13.9 13.9L16 16M4 <span class="demo-code__token">16l2.1-2.1M13.9</span> 6.1L16 4&quot;/&gt;&lt;/svg&gt;
-  &lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Settings&lt;/span&gt;
-&lt;/button&gt;
-&lt;p class=&quot;<span class="demo-code__token">u-truncate</span> <span class="demo-code__token">u-font-mono</span>&quot;&gt;<span class="demo-code__token">a-very-long-file-name-that-will-be-cut-off-with-an-ellipsis.css</span>&lt;/p&gt;</code></pre>
+  <pre class="demo-code"><code id="code-89">&lt;div class=&quot;<span class="demo-code__token">l-grid</span> <span class="demo-code__token">l-grid--2-col</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-card__body</span> <span class="demo-code__token">u-truncate</span> <span class="demo-code__token">u-font-mono</span>&quot;&gt;<span class="demo-code__token">quarterly-board-report-reviewed-by-finance-and-legal-v14.pdf</span>&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-card__body</span> <span class="demo-code__token">u-truncate</span> <span class="demo-code__token">u-font-mono</span>&quot;&gt;<span class="demo-code__token">brand-guidelines-2026-with-every-approved-logo-lockup.pdf</span>&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--ghost</span>&quot;&gt;
+  &lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-edit</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Edit post&lt;/span&gt;
+&lt;/button&gt;</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-89" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
 </div>
 </details>
@@ -145,15 +172,12 @@
     <p class="u-margin-0">Storage: 4 GB of 10 GB</p>
   </section>
 </figure>
-<details class="demo-details">
-<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">3 lines</span></summary>
 <div class="demo-code-block">
   <pre class="demo-code"><code id="code-90">&lt;section class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
   &lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Storage: 4 GB of 10 GB&lt;/p&gt;
 &lt;/section&gt;</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-90" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
 </div>
-</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
@@ -214,7 +238,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

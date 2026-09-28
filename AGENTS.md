@@ -183,7 +183,7 @@ Values are shown as light / dark.
 | `--color-text-inverse` | #ffffff / #0f2140 | Text on an inverted background. |
 | `--color-text-on-action` | #ffffff / #ffffff | Text on --color-action-primary. |
 | `--color-text-on-danger` | #ffffff / #ffffff | Text on --color-action-danger. |
-| `--color-text-link` | #005a9c / #6cb4ee | Link text. Links are also underlined. |
+| `--color-text-link` | #005a9c / #7cbff1 | Link text. Links are also underlined. |
 | `--color-text-link-hover` | #004a80 / #9ccdf4 | Link text on hover. |
 | `--color-text-disabled` | #6c757d / #7f95ab | Text in disabled (ghosted) controls. |
 | `--color-text-success` | #155724 / #a3d9b1 | Text on --color-background-success. |

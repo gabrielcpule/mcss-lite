@@ -51,29 +51,37 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg></div>
+          <h1 class="demo-sheet__title">Grid <span class="demo-sheet__id">l-grid</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Layout · since 0.1.0</span></div>
+          <p class="demo-hero__lede">Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-grid l-grid--3-col">
+              <section class="c-card"><p class="u-margin-0">Step 1</p></section>
+              <section class="c-card"><p class="u-margin-0">Step 2</p></section>
+              <section class="c-card"><p class="u-margin-0">Step 3</p></section>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 5">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">5: Words on this part</span><span aria-hidden="true">5</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">5: Wording</span><span aria-hidden="true">5</span></a></li>
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Grid <span class="demo-sheet__id">l-grid</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Layout · since 0.1.0</span></div>
-          <p class="demo-hero__lede">Two-dimensional grid with a fixed gap. Column modifiers collapse to one column below 768px.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -205,7 +213,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>If you reorder items visually with CSS, keyboard and screen reader users still get the source order, so change the markup instead.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -231,7 +239,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 

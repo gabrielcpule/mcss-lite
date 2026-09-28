@@ -6,7 +6,13 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, demoBar, codeTokens, realDialog } from './demo.mjs';
+import { glyph, esc, indent, demoBar, codeTokens, realDialog, partCount, tokenNote } from './demo.mjs';
+
+// Markup and token tables shorter than this stay open: folding them costs more than it saves.
+const FOLD_MIN = 4;
+
+// Where a sheet's section rail goes: after the page header, so the keyboard reaches the page first.
+const RAIL_SLOT = '<!-- rail -->';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
 
@@ -79,7 +85,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
 
   function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>', extra = '' }) {
     const railHtml = rail.length
-      ? `\n  <nav class="demo-rail" aria-label="Sections">
+      ? `\n    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
 ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(label)}"><span class="u-sr-only">${n + 1}: ${esc(label)}</span><span aria-hidden="true">${n + 1}</span></a></li>`).join('\n')}
     </ol>
@@ -102,15 +108,14 @@ ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id
 ${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#main">Skip to the page</a>
   ${demoBar(pkg, rel, current)}
-${railHtml}
   <main id="main">
-${main}
+${main.replace(`${RAIL_SLOT}\n`, railHtml)}
   </main>
 
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from ${source} by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)} · by ${esc(pkg.author)}</p>
+      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)}</p>
     </div>
   </footer>
 
@@ -169,11 +174,11 @@ ${body}
     return c.guidelines?.doDont?.[0]?.do.html ?? null;
   }
 
-  function stage(html, anchor, suffix) {
+  function stage(html, anchor, suffix, { preview = false } = {}) {
     const isModal = html.includes('c-modal');
     const body = localLinks(namespaceIds(isModal ? dialogPreview(html) : html, suffix), anchor)
       .replace(' aria-modal="true"', '');
-    return `<figure class="demo-stage${isModal ? ' demo-stage--contain' : ''}"${isModal ? ' inert aria-hidden="true"' : ''}>
+    return `<figure class="demo-stage${isModal ? ' demo-stage--contain' : ''}"${isModal || preview ? ' inert aria-hidden="true"' : ''}>
 ${indent(body, 2)}
 </figure>`;
   }
@@ -187,7 +192,8 @@ ${indent(body, 2)}
   <pre class="demo-code"><code id="${id}">${codeTokens(html)}</code></pre>
   <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="${id}" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
 </div>` : `<pre class="demo-code"><code>${codeTokens(html)}</code></pre>`;
-    return fold ? disclosure(`Show markup <span class="demo-details__count">${html.split('\n').length} lines</span>`, block) : block;
+    const lines = html.split('\n').length;
+    return fold && lines >= FOLD_MIN ? disclosure(`Show markup <span class="demo-details__count">${lines} lines</span>`, block) : block;
   }
 
   function disclosure(summary, body) {
@@ -257,7 +263,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     if (c.layer !== 'layout') {
       out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), esc(s.pair ?? '–')])));
       const tokenTable = table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)]));
-      if (tokenTable) out.push(disclosure(`Show tokens <span class="demo-details__count">${c.tokens.length}</span>`, tokenTable));
+      if (tokenTable) out.push(c.tokens.length >= FOLD_MIN ? disclosure(`Show tokens <span class="demo-details__count">${c.tokens.length}</span>`, tokenTable) : tokenTable);
     }
     return out.filter(Boolean).join('\n');
   }
@@ -320,9 +326,9 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
   </table>
 </div>`);
     }
-    if (safe.length) add('safe', 'Safe building', safe.join('\n'));
+    if (safe.length) add('safe', 'Accessibility', safe.join('\n'));
 
-    if (g.content?.length) add('words', 'Words on this part', `<ol class="demo-notices demo-notices--compact">${g.content.map((x) => `<li>${rich(x)}</li>`).join('')}</ol>\n<p><a href="${rel}content.html">All content rules</a></p>`);
+    if (g.content?.length) add('words', 'Wording', `<ol class="demo-notices demo-notices--compact">${g.content.map((x) => `<li>${rich(x)}</li>`).join('')}</ol>\n<p><a href="${rel}content.html">All content rules</a></p>`);
 
     const related = (c.related ?? []).map((b) => byBlock.get(b)).filter(Boolean);
     const fits = related.length
@@ -350,16 +356,18 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
     </section>`
       : '';
 
+    const specimen = example ? example.split(/\n\s*\n/)[0] : null;
     const main = `    <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate">${glyph(c.block)}</div>
         <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate">${glyph(c.block)}</div>
           <h1 class="demo-sheet__title">${esc(c.name)} <span class="demo-sheet__id">${esc(c.block)}</span></h1>
           <div class="l-cluster">${sticker(c.status)}<span class="demo-sheet__since">${layerName}${c.since ? ` · since ${esc(c.since)}` : ''}</span></div>
-          <p class="demo-hero__lede">${rich(autoCode(c.description))}</p>${deprecated}
-        </div>
+          ${c.status === 'deprecated' ? deprecated.trim() : `<p class="demo-hero__lede">${rich(autoCode(c.description))}</p>`}
+        </div>${specimen ? `\n        <div class="demo-sheet__specimen">\n${indent(stage(specimen, 'build', 'hd', { preview: true }), 10)}\n        </div>` : ''}
       </div>
     </header>
+${RAIL_SLOT}
 
 ${parts.join('\n\n')}
 ${fits}${sources}
@@ -397,6 +405,10 @@ ${list.map((c) => `        <tr><th scope="row"><a class="demo-bag__link demo-inv
     const layouts = contracts.filter((c) => c.layer === 'layout');
     const components = contracts.filter((c) => c.layer === 'component');
     const utilities = contracts.filter((c) => c.layer === 'utility');
+    const tokensBag = `<div class="demo-bag demo-bag--wide">
+  <h2 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">4</span> Tokens <span class="demo-bag__count">${tokenRows.filter((t) => t.tier !== 'primitive').length} to use</span></h2>
+  <p class="demo-bag__note">${tokenNote(tokenRows)} Every token with its light and dark value is in <a href="../llms-tokens.txt"><code>llms-tokens.txt</code></a>; each part sheet lists the tokens it reads.</p>
+</div>`;
     const main = `    <header class="demo-sheet__head">
       <div class="l-container l-stack l-stack--sm">
         <h1 class="demo-sheet__title">Parts inventory</h1>
@@ -408,7 +420,7 @@ ${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)
     </header>
     <section class="demo-step demo-sheet__section" aria-label="All parts">
       <div class="l-container l-stack">
-${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, 'Utilities', utilities)].join('\n'), 8)}
+${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, 'Utilities', utilities), tokensBag].join('\n'), 8)}
       </div>
     </section>`;
     return shell({ title: 'Parts inventory', description: 'Every MCSS-Lite part with its status.', rel: '', rail: [], main, current: 'status.html' });
@@ -450,12 +462,6 @@ const autoCode = (s) => s.replace(/(^|[\s(])([clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-
 
 const firstSentence = (s) => s.split(/(?<=\.)\s/)[0];
 
-// "11 parts", or "11 parts + 1 deprecated": deprecated parts aren't counted as parts to build with.
-const partCount = (list) => {
-  const live = list.filter((c) => c.status !== 'deprecated').length;
-  const old = list.length - live;
-  return `${live} part${live === 1 ? '' : 's'}${old ? ` + ${old} deprecated` : ''}`;
-};
 
 // A state's pair, with attribute and class names set as code.
 const pairText = (s) => esc(s).replace(/(aria-[a-z]+(?:=&quot;[^&]*&quot;)?|\bdisabled(?= attribute)|&lt;[a-z]+&gt;|\bhref\b|[clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-9]+)*)/g, '<code>$1</code>');

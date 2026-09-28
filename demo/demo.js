@@ -24,7 +24,12 @@
         button.textContent = 'Copied';
         if (copyStatus) copyStatus.textContent = button.dataset.copied || 'Copied.';
       } catch {
-        button.textContent = 'Select and copy';
+        // No clipboard access: select the text so Ctrl+C / Cmd+C copies it.
+        const range = document.createRange();
+        range.selectNodeContents(document.getElementById(button.dataset.copy));
+        getSelection().removeAllRanges();
+        getSelection().addRange(range);
+        button.textContent = 'Selected: press Ctrl+C';
       }
       setTimeout(() => { button.innerHTML = label; }, 2000);
     });
@@ -50,13 +55,14 @@
   const studs = new Map([...document.querySelectorAll('[data-rail]')].map((a) => [a.dataset.rail, a]));
   // Under the studs, name the step in view, or the stud being pointed at or focused.
   const now = document.querySelector('[data-rail-now]');
-  let currentId = null;
+  let currentId = studs.keys().next().value ?? null;
   const name = (a) => a?.dataset.label ?? '';
   const show = (a) => { if (now) now.textContent = name(a); };
   studs.forEach((a) => {
     ['mouseenter', 'focus'].forEach((type) => a.addEventListener(type, () => show(a)));
     ['mouseleave', 'blur'].forEach((type) => a.addEventListener(type, () => show(studs.get(currentId))));
   });
+  show(studs.get(currentId));
   if (studs.size && 'IntersectionObserver' in window) {
     const setCurrent = (id) => {
       currentId = id;
@@ -77,9 +83,36 @@
     if (!close) return;
     const alert = close.closest('.c-alert');
     alert.hidden = true;
-    const next = alert.closest('.demo-stage, figure') ?? document.getElementById('main');
-    if (next) { next.setAttribute('tabindex', '-1'); next.focus(); }
+    // In the demo, a dismissed alert can come back, so the example is never lost.
+    const restore = document.createElement('button');
+    restore.type = 'button';
+    restore.className = 'c-button c-button--sm';
+    restore.textContent = 'Show the alert again';
+    restore.addEventListener('click', () => { alert.hidden = false; restore.remove(); alert.querySelector('.c-alert__close')?.focus(); });
+    alert.after(restore);
+    restore.focus();
   });
+
+  // Example forms are for looking at: submitting one never leaves the page.
+  document.addEventListener('submit', (event) => {
+    if (event.target.closest('.demo-stage')) event.preventDefault();
+  });
+
+  // A code block that scrolls sideways must be reachable by keyboard, and named.
+  const markScrollers = () => document.querySelectorAll('pre.demo-code').forEach((pre) => {
+    if (pre.scrollWidth > pre.clientWidth + 1) {
+      pre.tabIndex = 0;
+      pre.setAttribute('role', 'region');
+      pre.setAttribute('aria-label', 'Markup, scrolls sideways');
+    } else if (pre.hasAttribute('role')) {
+      pre.removeAttribute('tabindex');
+      pre.removeAttribute('role');
+      pre.removeAttribute('aria-label');
+    }
+  });
+  markScrollers();
+  addEventListener('resize', markScrollers);
+  document.addEventListener('toggle', markScrollers, true); // folded markup measures once it opens
 
   // Step-in motion: parts drop into place along the arrow. Content is visible without it.
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {

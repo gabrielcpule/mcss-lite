@@ -51,30 +51,67 @@
       </div>
     </div>
   </header>
+  <main id="main">
+    <header class="demo-sheet__head">
+      <div class="l-container demo-sheet__head-grid">
+        <div class="l-stack l-stack--sm">
+          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg></div>
+          <h1 class="demo-sheet__title">Alert <span class="demo-sheet__id">c-alert</span></h1>
+          <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
+          <p class="demo-hero__lede">A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.</p>
+        </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-stack">
+              <div class="c-alert c-alert--info">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
+                  <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
+                </div>
+              </div>
+              <div class="c-alert c-alert--success">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+                  <p>Acme Inc. will get it by email in a few minutes.</p>
+                </div>
+              </div>
+              <div class="c-alert c-alert--warning">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+                  <p>Choose a plan to keep your 4 projects.</p>
+                  <div class="c-alert__actions l-cluster">
+                    <a class="c-button c-button--primary c-button--sm" href="#build">Choose a plan</a>
+                  </div>
+                </div>
+              </div>
+              <div class="c-alert c-alert--error">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
+                  <p>The connection dropped. Check your network and save again.</p>
+                </div>
+                <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </header>
 
-  <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
       <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
       <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
     </ol>
     <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
   </nav>
-
-  <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg></div>
-        <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title">Alert <span class="demo-sheet__id">c-alert</span></h1>
-          <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
-          <p class="demo-hero__lede">A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.</p>
-        </div>
-      </div>
-    </header>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -345,7 +382,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.</li><li>role=&quot;alert&quot; interrupts the screen reader: only for urgent messages that appear after an action.</li><li>An error summary gets tabindex=&quot;-1&quot; and focus after a failed submit; its links move focus to each field.</li><li>c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert.</li></ul>
 <div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
@@ -367,7 +404,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>Titles say what happened in plain words, in sentence case, with no exclamation mark.</li><li>The text says what to do next. Name the action: &quot;Choose a plan&quot;, not &quot;Click here&quot;.</li><li>Keep the hidden prefix to one word and a colon: &quot;Error:&quot;, &quot;Warning:&quot;, &quot;Success:&quot;, &quot;Information:&quot;.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -393,7 +430,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
     </div>
   </footer>
 
