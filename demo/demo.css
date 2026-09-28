@@ -188,8 +188,9 @@
 }
 
 .demo-links a {
-  display: inline-block;
-  padding-block: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
 }
 
 /* Parts inventory */
@@ -499,7 +500,7 @@
 /* Contains the fixed-position modal preview inside the stage. */
 .demo-stage--contain {
   position: relative;
-  min-height: 24rem;
+  min-height: 26rem;
   padding: 0;
   overflow: hidden;
   transform: translateZ(0);
@@ -537,20 +538,23 @@
 
 .demo-rail__list {
   display: flex;
-  justify-content: center;
+  justify-content: safe center;
   gap: var(--space-1);
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--space-1);
   list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .demo-rail__stud {
   position: relative;
   display: grid;
   place-items: center;
-  /* Every stud fits one row down to 320px: the generator sets --demo-studs to the number of studs. */
-  width: min(2.5rem, calc((100vw - var(--space-12) - var(--space-1) * var(--demo-studs, 8)) / var(--demo-studs, 8)));
-  height: min(2.5rem, calc((100vw - var(--space-12) - var(--space-1) * var(--demo-studs, 8)) / var(--demo-studs, 8)));
+  /* Studs stay a full 44px target; when they don't fit the row scrolls sideways instead of shrinking. */
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-full);
   background-color: var(--color-background-raised);
@@ -686,7 +690,7 @@
 }
 
 .demo-step.is-seating .demo-misfit__wobble {
-  animation: demo-misfit-drop var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+  animation: demo-misfit-drop var(--duration-slower) var(--ease-out-expo) 200ms both;
 }
 
 .demo-misfit__good {
@@ -771,11 +775,11 @@
 }
 
 .demo-step.is-seating .demo-stage {
-  animation: demo-seat var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: demo-seat var(--duration-slower) var(--ease-out-expo) both;
 }
 
 .demo-step.is-seating .demo-callout {
-  animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
 }
 
 .demo-step.is-seating .demo-arrow {
@@ -842,7 +846,7 @@
 }
 
 .demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert) {
-  animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
   animation-delay: calc(var(--demo-i, 0) * 70ms + var(--duration-base));
 }
 
@@ -900,8 +904,9 @@
 }
 
 .demo-bar__links a {
-  display: inline-block;
-  padding-block: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
 }
 
 /* Sheet header: the part on its own plate, element ID first, like a parts-list entry. */
@@ -1298,7 +1303,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding-block: var(--space-2);
+  min-block-size: 2.75rem;
 }
 
 /* Parts inventory: bags per layer at the back of the booklet. */
@@ -1379,6 +1384,7 @@
 .demo-notice__pair {
   display: grid;
   gap: var(--space-2);
+  max-inline-size: 60ch;
 }
 
 .demo-notice__do,
@@ -1396,9 +1402,6 @@
 
 .demo-notice__dont {
   color: var(--color-text-muted);
-  text-decoration: line-through;
-  text-decoration-color: var(--color-border-error);
-  text-decoration-thickness: var(--border-width-thick);
 }
 
 .demo-notice__dont .demo-mark {
@@ -1479,6 +1482,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  min-block-size: 2.75rem;
   color: inherit;
   text-decoration: none;
 }
@@ -1802,4 +1806,91 @@
 .demo-wrong__pair > *,
 .demo-wrong__head > * {
   min-width: 0;
+}
+
+/* ✓ panels: one column that can shrink, so opened markup scrolls inside the card, never the page. */
+.demo-checks__card {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.demo-checks__card--do {
+  align-self: start;
+}
+
+/* The sticky rail never covers what receives focus or a jumped-to step (WCAG 2.4.11). */
+@media (max-width: 99.99rem) {
+  html {
+    scroll-padding-block-start: 7rem;
+  }
+}
+
+/* Current page link: keep the halo on focus, like every other stop. */
+.demo-bar__links a[aria-current="page"]:focus-visible {
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
+/* Links in the closing plate are full targets; each sits right on top of its description. */
+.demo-end__links li {
+  gap: 0;
+}
+
+.demo-end__links a,
+.demo-part__row a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+}
+
+/* Part sheet title: the glyph sits beside the name, as a mark, not a tile you could press. */
+.demo-sheet__titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.demo-sheet__mark .demo-glyph {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Sheet rails carry their section names once there's room. */
+.demo-rail__text {
+  display: none;
+}
+
+@media (min-width: 64rem) and (max-width: 99.99rem) {
+  .demo-rail--labelled .demo-rail__stud {
+    grid-auto-flow: column;
+    gap: var(--space-2);
+    width: auto;
+    padding-inline: var(--space-2) var(--space-4);
+  }
+
+  .demo-rail--labelled .demo-rail__text {
+    display: inline;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .demo-rail--labelled .demo-rail__now {
+    display: none;
+  }
+}
+
+/* The closing plate echoes the finale: one seated brick and its result. */
+.demo-end__recap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-background-subtle);
+  border-radius: var(--border-radius-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-seated-mini {
+  flex: none;
+  inline-size: 3rem;
+  block-size: 2rem;
 }

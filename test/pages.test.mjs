@@ -75,3 +75,34 @@ test('the manifest lists exactly the generated booklet pages', () => {
   const manifest = JSON.parse(files.get('dist/mcss-lite.manifest.json'));
   assert.deepEqual([...manifest.pages].sort(), pages.map(([rel]) => rel).sort());
 });
+
+// Regression: a header specimen cut at a blank line left a <form> open and captured the page's controls.
+test('generated pages close every element they open', () => {
+  const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+  for (const [rel, html] of pages) {
+    const stack = [];
+    const body = html.replace(/<!--[\s\S]*?-->/g, '').replace(/<(script|style)\b[\s\S]*?<\/\1>/g, '');
+    for (const [, close, tag, self] of body.matchAll(/<(\/)?([a-z][a-z0-9-]*)\b[^>]*?(\/)?>/gi)) {
+      const t = tag.toLowerCase();
+      if (VOID.has(t) || self) continue;
+      if (!close) stack.push(t);
+      else assert.equal(stack.pop(), t, `${rel}: </${t}> closes the wrong element`);
+    }
+    assert.deepEqual(stack, [], `${rel}: left open: ${stack.join(' > ')}`);
+  }
+});
+
+// Regression: the header specimen and the build example shared name="delivery", so they were one radio group.
+test('each snippet on a page has its own radio and checkbox group names', () => {
+  for (const [rel, html] of pages) {
+    const groups = new Map();
+    for (const m of html.matchAll(/<input\b[^>]*\btype="radio"[^>]*\bname="([^"]+)"[^>]*>/g)) {
+      groups.set(m[1], (groups.get(m[1]) ?? 0) + (/\bchecked\b/.test(m[0]) ? 1 : 0));
+    }
+    for (const [name, checked] of groups) assert.ok(checked <= 1, `${rel}: radio group "${name}" has ${checked} checked options`);
+  }
+});
+
+test('namespaceIds suffixes group names as well as ids', () => {
+  assert.equal(namespaceIds('<input type="radio" name="size" id="s">', 'hd'), '<input type="radio" name="size-hd" id="s-hd">');
+});

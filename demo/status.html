@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Parts inventory · MCSS-Lite</title>
   <meta name="description" content="Every MCSS-Lite part with its status.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../src/tokens.css" as="style">
+  <link rel="preload" href="../src/global.css" as="style">
+  <link rel="preload" href="../src/layout.css" as="style">
+  <link rel="preload" href="../src/components.css" as="style">
+  <link rel="preload" href="../src/utilities.css" as="style">
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="index.html">Booklet</a></li>
+          <li><a href="index.html">Overview</a></li>
           <li><a href="status.html" aria-current="page">Parts inventory</a></li>
           <li><a href="content.html">Read before you build</a></li>
         </ul>
@@ -121,7 +127,7 @@
         </div>
         <div class="demo-bag demo-bag--wide">
           <h2 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">4</span> Tokens <span class="demo-bag__count">113 to use</span></h2>
-          <p class="demo-bag__note">51 semantic and 62 component tokens, built on 136 primitives you don't use directly. Every token with its light and dark value is in <a href="../llms-tokens.txt"><code>llms-tokens.txt</code></a>; each part sheet lists the tokens it reads.</p>
+          <p class="demo-bag__note">51 semantic and 62 component tokens, built on 137 primitives you don't use directly. Every token with its light and dark value is in <a href="../llms-tokens.txt"><code>llms-tokens.txt</code></a>; each part sheet lists the tokens it reads.</p>
         </div>
       </div>
     </section>
@@ -130,7 +136,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

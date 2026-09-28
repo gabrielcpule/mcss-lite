@@ -15,9 +15,12 @@
   choices.forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeChoice)));
 
   const copyStatus = document.querySelector('[data-copy-status]');
+  const copyKeys = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘C' : 'Ctrl+C';
   document.querySelectorAll('[data-copy]').forEach((button) => {
     const label = button.innerHTML;
+    let reset;
     button.addEventListener('click', async () => {
+      clearTimeout(reset);
       const text = document.getElementById(button.dataset.copy).textContent;
       try {
         await navigator.clipboard.writeText(text);
@@ -29,9 +32,10 @@
         range.selectNodeContents(document.getElementById(button.dataset.copy));
         getSelection().removeAllRanges();
         getSelection().addRange(range);
-        button.textContent = 'Selected: press Ctrl+C';
+        button.textContent = `Selected: press ${copyKeys}`;
+        if (copyStatus) copyStatus.textContent = `Text selected. Press ${copyKeys} to copy it.`;
       }
-      setTimeout(() => { button.innerHTML = label; }, 2000);
+      reset = setTimeout(() => { button.innerHTML = label; }, 2000);
     });
   });
 
@@ -55,8 +59,10 @@
   const studs = new Map([...document.querySelectorAll('[data-rail]')].map((a) => [a.dataset.rail, a]));
   // Under the studs, name the step in view, or the stud being pointed at or focused.
   const now = document.querySelector('[data-rail-now]');
-  let currentId = studs.keys().next().value ?? null;
-  const name = (a) => a?.dataset.label ?? '';
+  let currentId = null;
+  const ids = [...studs.keys()];
+  // With no step in view (above the first, below the last) the label invites a jump instead.
+  const name = (a) => a?.dataset.label ?? (now?.dataset.railNow || '');
   const show = (a) => { if (now) now.textContent = name(a); };
   studs.forEach((a) => {
     ['mouseenter', 'focus'].forEach((type) => a.addEventListener(type, () => show(a)));
@@ -66,13 +72,32 @@
   if (studs.size && 'IntersectionObserver' in window) {
     const setCurrent = (id) => {
       currentId = id;
+      if (!id) {
+        studs.forEach((a) => a.removeAttribute('aria-current'));
+        if (!document.activeElement?.matches('[data-rail]')) show(null);
+        return;
+      }
       studs.forEach((a, key) => {
         if (key === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
       });
       if (!document.activeElement?.matches('[data-rail]')) show(studs.get(id));
+      // A rail that scrolls sideways keeps the current stud in view (without moving the page).
+      const stud = studs.get(id);
+      const list = stud?.closest('ol');
+      if (stud && list.scrollWidth > list.clientWidth) {
+        const s = stud.getBoundingClientRect();
+        const l = list.getBoundingClientRect();
+        if (s.left < l.left || s.right > l.right) list.scrollLeft += s.left - l.left - (l.width - s.width) / 2;
+      }
     };
     const railIo = new IntersectionObserver((entries) => {
-      entries.filter((e) => e.isIntersecting).forEach((e) => setCurrent(e.target.id));
+      entries.forEach((e) => {
+        if (e.isIntersecting) setCurrent(e.target.id);
+        // Leaving the first step upwards or the last step downwards: nothing is current any more.
+        else if (e.target.id === currentId
+          && ((e.target.id === ids[0] && e.boundingClientRect.top > 0)
+            || (e.target.id === ids.at(-1) && e.boundingClientRect.top < 0))) setCurrent(null);
+      });
     }, { rootMargin: '-45% 0px -50% 0px' });
     studs.forEach((_, id) => { const el = document.getElementById(id); if (el) railIo.observe(el); });
   }
@@ -111,7 +136,11 @@
     }
   });
   markScrollers();
-  addEventListener('resize', markScrollers);
+  let resizeFrame = 0;
+  addEventListener('resize', () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(markScrollers); // once per frame, not once per event
+  });
   document.addEventListener('toggle', markScrollers, true); // folded markup measures once it opens
 
   // Step-in motion: parts drop into place along the arrow. Content is visible without it.

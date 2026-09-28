@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Section (l-section) · MCSS-Lite</title>
   <meta name="description" content="Section: Vertical padding for a full-width page section.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -55,8 +61,10 @@
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
         <div class="l-stack l-stack--sm">
-          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/></svg></div>
-          <h1 class="demo-sheet__title">Section <span class="demo-sheet__id">l-section</span></h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/></svg></span>
+            <h1 class="demo-sheet__title">Section <span class="demo-sheet__id">l-section</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Layout · since 0.1.0</span></div>
           <p class="demo-hero__lede">Vertical padding for a full-width page section.</p>
         </div>
@@ -72,14 +80,14 @@
       </div>
     </header>
 
-    <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 4">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
     </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
   </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
@@ -170,7 +178,7 @@
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
-    <p>Don't invent size modifiers; use l-section--sm for a tighter band.</p>
+    <p>Don't invent size modifiers; use <code>l-section--sm</code> for a tighter band.</p>
 <pre class="demo-code"><code>&lt;section class=&quot;<span class="demo-code__token">l-section</span> <span class="demo-code__token">l-section--xl</span>&quot;&gt;
   &lt;h2 class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Features&lt;/h2&gt;
 &lt;/section&gt;</code></pre>
@@ -218,7 +226,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Button (c-button) · MCSS-Lite</title>
   <meta name="description" content="Button: Triggers an action. Apply to &lt;button&gt;. Apply to &lt;a&gt; only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -55,8 +61,10 @@
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
         <div class="l-stack l-stack--sm">
-          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg></div>
-          <h1 class="demo-sheet__title">Button <span class="demo-sheet__id">c-button</span></h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg></span>
+            <h1 class="demo-sheet__title">Button <span class="demo-sheet__id">c-button</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">Triggers an action. Apply to <code>&lt;button&gt;</code>. Apply to <code>&lt;a&gt;</code> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.</p>
         </div>
@@ -72,16 +80,16 @@
       </div>
     </header>
 
-    <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
     </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
   </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
@@ -97,7 +105,7 @@
   </div>
   <div class="demo-pick__col demo-pick__col--other">
     <p class="demo-check__label">Pick another part for</p>
-    <ul class="demo-pick__list"><li>The control goes to another page or URL: use a plain link. Apply c-button to an <code>&lt;a&gt;</code> only when a link must look like a button, such as a start-page call to action.</li><li>Showing a status that does nothing when clicked: use <a href="badge.html"><code>c-badge</code></a>.</li><li>Filtering or removing items in a list of tags: that is a chip, which MCSS-Lite does not ship yet.</li></ul>
+    <ul class="demo-pick__list"><li>The control goes to another page or URL: use a plain link. Apply <a href="button.html"><code>c-button</code></a> to an <code>&lt;a&gt;</code> only when a link must look like a button, such as a start-page call to action.</li><li>Showing a status that does nothing when clicked: use <a href="badge.html"><code>c-badge</code></a>.</li><li>Filtering or removing items in a list of tags: that is a chip, which MCSS-Lite does not ship yet.</li></ul>
   </div>
 </div>
           </div>
@@ -251,7 +259,7 @@
 <div class="demo-checks__pair">
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
-    <p>Invent nothing: a warning-style action is c-button--danger or a plain button.</p>
+    <p>Invent nothing: a warning-style action is <code>c-button--danger</code> or a plain button.</p>
 <figure class="demo-stage">
   <button type="button" class="c-button c-button--danger">Delete project</button>
 </figure>
@@ -343,8 +351,8 @@
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><code>data-state=&quot;disabled&quot;</code></th><td data-label="Meaning">The action cannot run right now. Rendered ghosted with a dashed keyline.</td><td data-label="Pair it with">Prefer aria-disabled=&quot;true&quot;: the button stays focusable, so link a visible reason with aria-describedby and ignore activation in your handler. The disabled attribute also works on &lt;button&gt; but removes it from the tab order. On &lt;a&gt;, set aria-disabled=&quot;true&quot; and remove href.</td></tr>
-      <tr><th scope="row"><code>data-state=&quot;loading&quot;</code></th><td data-label="Meaning">The action is in progress. Shows moving stripes; text keeps full contrast.</td><td data-label="Pair it with">Set aria-busy=&quot;true&quot; and aria-disabled=&quot;true&quot;, keep the visible label (for example &quot;Saving…&quot;), and ignore activation in your handler.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;disabled&quot;</code></th><td data-label="Meaning">The action cannot run right now. Rendered ghosted with a dashed keyline.</td><td data-label="Pair it with">Prefer <code>aria-disabled=&quot;true&quot;</code>: the button stays focusable, so link a visible reason with <code>aria-describedby</code> and ignore activation in your handler. The <code>disabled</code> attribute also works on <code>&lt;button&gt;</code> but removes it from the tab order. On <code>&lt;a&gt;</code>, set <code>aria-disabled=&quot;true&quot;</code> and remove <code>href</code>.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;loading&quot;</code></th><td data-label="Meaning">The action is in progress. Shows moving stripes; text keeps full contrast.</td><td data-label="Pair it with">Set <code>aria-busy=&quot;true&quot;</code> and <code>aria-disabled=&quot;true&quot;</code>, keep the visible label (for example &quot;Saving…&quot;), and ignore activation in your handler.</td></tr>
     </tbody>
   </table>
 </div>
@@ -391,7 +399,7 @@
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
-<ul class="demo-safe__list"><li>A button needs a visible text label, or aria-label when it only contains an icon.</li><li>Do not remove the :focus-visible outline.</li><li>Use type=&quot;button&quot; unless the button submits a form.</li><li>c-button--sm looks compact but keeps a 44px tall hit area.</li><li>Don't disable a submit button until the form is valid. Let people submit, then show what is missing.</li></ul>
+<ul class="demo-safe__list"><li>A button needs a visible text label, or aria-label when it only contains an icon.</li><li>Do not remove the :focus-visible outline.</li><li>Use type=&quot;button&quot; unless the button submits a form.</li><li><code>c-button--sm</code> looks compact but keeps a 44px tall hit area.</li><li>Don't disable a submit button until the form is valid. Let people submit, then show what is missing.</li></ul>
 <div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
@@ -439,7 +447,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

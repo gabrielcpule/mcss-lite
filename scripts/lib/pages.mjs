@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, demoBar, codeTokens, realDialog, partCount, tokenNote } from './demo.mjs';
+import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, tokenNote } from './demo.mjs';
 
 // Markup and token tables shorter than this stay open: folding them costs more than it saves.
 const FOLD_MIN = 4;
@@ -43,9 +43,10 @@ const CROSS_ICON = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true
 // Give every id in a snippet (and every reference to it) a suffix, so several snippets can share a page.
 export function namespaceIds(html, suffix) {
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
-  if (!ids.size) return html;
+  const named = html.replace(/(\sname=")([^"]+)"/g, (_, a, v) => `${a}${v}-${suffix}"`);
+  if (!ids.size) return named;
   const map = (v) => v.split(/\s+/).map((x) => (ids.has(x) ? `${x}-${suffix}` : x)).join(' ');
-  return html
+  return named
     .replace(/(\s(?:id|for|aria-labelledby|aria-describedby|aria-controls)=")([^"]*)"/g, (_, a, v) => `${a}${map(v)}"`)
     .replace(/(\shref="#)([^"]*)"/g, (_, a, v) => `${a}${map(v)}"`);
 }
@@ -68,7 +69,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
   const content = JSON.parse(readFileSync(join(root, 'guidelines', 'content.json'), 'utf8'));
 
   // Inline `code` in guidance text; known blocks link to their sheet.
-  const rich = (text, rel = '') => esc(text.replace(/(^|[^`])(<[a-z]+>)(?!`)/g, '$1`$2`')).replace(/`([^`]+)`/g, (_, raw) => {
+  const rich = (text, rel = '') => esc(autoCode(text).replace(/(^|[^`])(<[a-z]+>)(?!`)/g, '$1`$2`')).replace(/`([^`]+)`/g, (_, raw) => {
     const name = raw.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
     const c = byBlock.get(name);
     return c ? `<a href="${rel}${sheetFile(c)}"><code>${esc(name)}</code></a>` : `<code>${esc(name)}</code>`;
@@ -85,11 +86,11 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
 
   function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>', extra = '' }) {
     const railHtml = rail.length
-      ? `\n    <nav class="demo-rail" aria-label="Sections">
+      ? `\n    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
-${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(label)}"><span class="u-sr-only">${n + 1}: ${esc(label)}</span><span aria-hidden="true">${n + 1}</span></a></li>`).join('\n')}
+${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(label)}"><span class="u-sr-only">${n + 1}: ${esc(label)}</span><span aria-hidden="true">${n + 1}</span><span class="demo-rail__text" aria-hidden="true">${esc(label)}</span></a></li>`).join('\n')}
     </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
   </nav>\n`
       : '';
     return `<!doctype html>
@@ -100,9 +101,7 @@ ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)} · MCSS-Lite</title>
   <meta name="description" content="${esc(description)}">
-  <link rel="preload" href="${rel}fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${rel}../index.css">
-  <link rel="stylesheet" href="${rel}demo.css">
+  ${demoHead(rel)}
 </head>
 <body class="demo">
 ${inlineSprite(loadIcons(root), pkg)}
@@ -115,7 +114,7 @@ ${main.replace(`${RAIL_SLOT}\n`, railHtml)}
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from ${source} by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)}</p>
+      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)} · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
@@ -261,7 +260,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     out.push(table('Elements', ['Class', 'On', 'What it does'], (c.elements ?? []).map((e) => [`<code>${esc(c.block)}__${esc(e.name)}</code>${e.required ? ' <span class="demo-spec__muted">required</span>' : ''}`, (e.tags ?? []).map((t) => `<code>&lt;${esc(t)}&gt;</code>`).join(' ') || '–', esc(e.description)])));
     out.push(table('Custom properties', ['Property', 'Default', 'What it does'], (c.customProperties ?? []).map((p) => [`<code>${esc(p.name)}</code>`, `<code>${esc(p.default)}</code>`, esc(p.description)])));
     if (c.layer !== 'layout') {
-      out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), esc(s.pair ?? '–')])));
+      out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), s.pair ? pairText(s.pair) : '–'])));
       const tokenTable = table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)]));
       if (tokenTable) out.push(c.tokens.length >= FOLD_MIN ? disclosure(`Show tokens <span class="demo-details__count">${c.tokens.length}</span>`, tokenTable) : tokenTable);
     }
@@ -280,7 +279,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     if (g.whenToUse?.length || g.whenNotToUse?.length) {
       add('pick', 'Pick this part', `<div class="demo-pick">
   <div class="demo-pick__col">
-    <p class="demo-check__label">Pick ${esc(c.block === 'u-*' ? 'a utility' : c.block)} for</p>
+    <p class="demo-check__label">${c.status === 'deprecated' ? 'Existing markup only' : `Pick ${esc(c.block === 'u-*' ? 'a utility' : c.block)} for`}</p>
     <ul class="demo-pick__list">${(g.whenToUse ?? []).map((x) => `<li>${rich(x)}</li>`).join('')}</ul>
   </div>
   <div class="demo-pick__col demo-pick__col--other">
@@ -356,14 +355,16 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
     </section>`
       : '';
 
-    const specimen = example ? example.split(/\n\s*\n/)[0] : null;
+    const specimen = example ? firstBlock(example) : null;
     const main = `    <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
         <div class="l-stack l-stack--sm">
-          <div class="demo-sheet__plate">${glyph(c.block)}</div>
-          <h1 class="demo-sheet__title">${esc(c.name)} <span class="demo-sheet__id">${esc(c.block)}</span></h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark">${glyph(c.block)}</span>
+            <h1 class="demo-sheet__title">${esc(c.name)} <span class="demo-sheet__id">${esc(c.block)}</span></h1>
+          </div>
           <div class="l-cluster">${sticker(c.status)}<span class="demo-sheet__since">${layerName}${c.since ? ` · since ${esc(c.since)}` : ''}</span></div>
-          ${c.status === 'deprecated' ? deprecated.trim() : `<p class="demo-hero__lede">${rich(autoCode(c.description))}</p>`}
+          ${c.status === 'deprecated' ? deprecated.trim() : `<p class="demo-hero__lede">${rich(c.description)}</p>`}
         </div>${specimen ? `\n        <div class="demo-sheet__specimen">\n${indent(stage(specimen, 'build', 'hd', { preview: true }), 10)}\n        </div>` : ''}
       </div>
     </header>
@@ -459,6 +460,23 @@ ${content.rules.map((r, i) => `          <li class="demo-notice" id="${esc(r.id)
 
 // Bare class names in prose (c-button, l-stack__x, u-sr-only) render as code.
 const autoCode = (s) => s.replace(/(^|[\s(])([clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-9]+)*)(?=[\s.,;:)]|$)/g, '$1`$2`');
+
+// The first complete block of an example: blank-line chunks joined until every tag they open is closed,
+// so a header specimen never leaves a <form> or a grid open.
+const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+const firstBlock = (html) => {
+  let depth = 0;
+  const out = [];
+  for (const chunk of html.split(/\n\s*\n/)) {
+    out.push(chunk);
+    for (const [, close, tag, self] of chunk.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<(\/)?([a-z][a-z0-9-]*)\b[^>]*?(\/)?>/gi)) {
+      if (VOID.has(tag.toLowerCase()) || self) continue;
+      depth += close ? -1 : 1;
+    }
+    if (depth <= 0) break;
+  }
+  return out.join('\n\n');
+};
 
 const firstSentence = (s) => s.split(/(?<=\.)\s/)[0];
 

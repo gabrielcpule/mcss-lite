@@ -39,6 +39,8 @@ export const tag = (n) => (n > 0
   ? `<span class="demo-count"><span aria-hidden="true">${n}×</span><span class="u-sr-only">, used ${n} time${n === 1 ? '' : 's'} in this build</span></span>`
   : '');
 
+// A brick seated flush on its plate: the closing plate's echo of the finale.
+const SEATED_MINI = '<svg class="demo-seated-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="24" width="40" height="5" rx="1"/><rect x="9" y="12" width="30" height="12" rx="2"/><path d="M14 12V8h5v4M29 12V8h5v4"/></g></svg>';
 const CHECK_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>';
 const CROSS_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
@@ -64,7 +66,7 @@ export const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="
 </svg>`;
 
 // The top bar on every booklet page: wordmark, the three pages (the current one marked) and the theme switch.
-const PAGES = [['index.html', 'Booklet'], ['status.html', 'Parts inventory'], ['content.html', 'Read before you build']];
+const PAGES = [['index.html', 'Overview'], ['status.html', 'Parts inventory'], ['content.html', 'Read before you build']];
 export function demoBar(pkg, rel, current) {
   return `<header class="demo-bar">
     <div class="l-container demo-bar__inner">
@@ -82,6 +84,15 @@ ${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === 
     </div>
   </header>`;
 }
+
+// Head assets shared by every page. The theme is set before first paint, so a saved dark theme never
+// flashes light; the library's @import files are preloaded so they don't wait for index.css.
+const LIB_FILES = ['tokens', 'global', 'layout', 'components', 'utilities'];
+export const demoHead = (rel) => `<script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
+  <link rel="preload" href="${rel}fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+${LIB_FILES.map((f) => `  <link rel="preload" href="${rel}../src/${f}.css" as="style">`).join('\n')}
+  <link rel="stylesheet" href="${rel}../index.css">
+  <link rel="stylesheet" href="${rel}demo.css">`;
 
 // Files that read best on GitHub (rendered Markdown, a browsable folder), pinned to this release's tag.
 const repoUrl = (pkg, kind, path) => `https://github.com/gabrielcpule/mcss-lite/${kind}/v${pkg.version}/${path}`;
@@ -155,7 +166,7 @@ export function realDialog(modalExample) {
     .replace(/<\/div>\s*$/, '</dialog>')
     .replace('<div class="c-modal__backdrop"></div>', '')
     .replace('id="delete-title"', 'id="demo-dialog-title"')
-    .replace('Atlas and its 42 files', 'Borealis and its 7 files')
+    .replace('Atlas and its 12 pages', 'Borealis and its 4 pages')
     .replace(/<button type="button" class="c-modal__close"/, '<button type="button" class="c-modal__close" data-close-dialog')
     .replace(/<button type="button" class="c-button c-button--ghost">/, '<button type="button" class="c-button c-button--ghost" data-close-dialog>')
     .replace(/<button type="button" class="c-button c-button--danger">/, '<button type="button" class="c-button c-button--danger" data-close-dialog>'), ['<dialog class="c-modal"', '</dialog>', 'demo-dialog-title', 'data-close-dialog>', 'Borealis']);
@@ -260,7 +271,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
         <h2 class="demo-step__title" id="step-${n}-title"><span class="u-sr-only">Step ${n}: </span>${esc(s.title)}</h2>
         <p class="demo-step__text">${esc(s.text)}</p>
         <div class="demo-callout">
-          <p class="demo-callout__label">New parts${n === 1 ? ' <span class="demo-callout__hint">(× is how many times a part is used in this build)</span>' : ''}</p>
+          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
           <ul class="demo-parts" role="list">${s.blocks.map((b) => callout(b, example(s.example))).join('')}</ul>
           ${alsoHtml}
         </div>
@@ -286,9 +297,7 @@ ${indent(stage, 10)}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MCSS-Lite: build UI from declared parts</title>
   <meta name="description" content="${esc(pkg.description)}">
-  <link rel="preload" href="fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../index.css">
-  <link rel="stylesheet" href="demo.css">
+  ${demoHead('')}
 </head>
 <body class="demo">
 ${inlineSprite(loadIcons(root), pkg)}
@@ -299,7 +308,7 @@ ${inlineSprite(loadIcons(root), pkg)}
     <section class="demo-hero" aria-labelledby="demo-title">
       <div class="l-container demo-hero__grid">
         <div class="demo-hero__claim">
-          <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts.</h1>
+          <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts</h1>
           <p class="demo-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
           <div class="demo-proof">
             <p class="demo-proof__guess"><span class="demo-proof__key">An agent guesses</span> <code>c-button--warning</code></p>
@@ -311,11 +320,7 @@ ${inlineSprite(loadIcons(root), pkg)}
             <button type="button" class="c-button c-button--sm" data-copy="install-cmd" data-copied="Stylesheet link copied.">Copy</button>
           </div>
           <p class="demo-install__alt">Or install it from GitHub: <code>npm install ${esc(gitSpec(pkg))}</code>. MCSS-Lite is not on the npm registry.</p>
-          <ul class="demo-links" role="list">
-            <li><a href="${repoUrl(pkg, 'blob', 'AGENTS.md')}">AGENTS.md: the rules for agents</a></li>
-            <li><a href="../dist/mcss-lite.manifest.json">Manifest: every part as JSON</a></li>
-            <li><a href="${repoUrl(pkg, 'tree', 'dist/figma')}">Figma variables: token import files</a></li>
-          </ul>
+          <p class="demo-links"><a href="${repoUrl(pkg, 'blob', 'AGENTS.md')}">AGENTS.md: the rules for agents</a></p>
         </div>
 
         <aside class="demo-inventory" aria-labelledby="inventory-title">
@@ -346,7 +351,7 @@ ${inlineSprite(loadIcons(root), pkg)}
 ${steps.map((st, i) => `        <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
         <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
       </ol>
-      <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+      <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a step"></p>
     </nav>
 
 ${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
@@ -391,6 +396,7 @@ ${indent(FINALE_RIGHT, 14)}
             <li><a href="${repoUrl(pkg, 'tree', 'dist/figma')}">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
             <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
           </ul>
+          <p class="demo-end__recap">${SEATED_MINI}<span>The agent's form: ${finaleIssues.length} problems caught by <code>validate</code>, 0 in the rebuild.</span></p>
           <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
           <p class="demo-end__author">Designed and built by <a href="${esc(author.url)}">${esc(author.name)}</a>.${author.caseStudy ? ` <a href="${esc(author.caseStudy)}">Read the case study</a> for the research and decisions behind it.` : ''}</p>
         </div>
@@ -422,7 +428,7 @@ ${indent(FINALE_RIGHT, 14)}
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> and <code>demo/steps.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)}</p>
+      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)} · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

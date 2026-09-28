@@ -134,6 +134,7 @@
   --ease-in: ease-in;
   --ease-out: ease-out;
   --ease-in-out: ease-in-out;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-instant: 0ms;
   --duration-fast: 150ms;
   --duration-base: 250ms;

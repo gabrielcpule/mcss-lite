@@ -120,6 +120,7 @@
   --ease-in: ease-in;
   --ease-out: ease-out;
   --ease-in-out: ease-in-out;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-instant: 0ms;
   --duration-fast: 150ms;
   --duration-base: 250ms;
@@ -448,10 +449,10 @@
     *,
     *::before,
     *::after {
-      scroll-behavior: auto !important;
-      transition-duration: var(--duration-instant) !important;
-      animation-duration: var(--duration-instant) !important;
-      animation-iteration-count: 1 !important;
+      scroll-behavior: auto;
+      transition-duration: var(--duration-instant);
+      animation-duration: var(--duration-instant);
+      animation-iteration-count: 1;
     }
   }
   @media (forced-colors: active) {
@@ -1315,6 +1316,28 @@
     }
     .c-button[aria-pressed="true"] {
       outline: var(--border-width-thick) solid Highlight;
+    }
+  }
+  :is(.c-checkbox__input, .c-radio__input):focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .c-button,
+    .c-card--interactive,
+    .c-input,
+    .c-checkbox__input,
+    .c-radio__input,
+    .c-checkbox__input::before,
+    .c-radio__input::before,
+    .c-toggle__input,
+    .c-toggle__input::after,
+    .c-alert__close,
+    .c-modal__close {
+      transition-duration: var(--duration-instant);
+    }
+    .c-button[data-state="loading"],
+    .c-toggle[data-state="loading"] .c-toggle__input {
+      animation: none;
     }
   }
 }

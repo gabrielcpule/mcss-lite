@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Input (c-input) · MCSS-Lite</title>
   <meta name="description" content="Input: Single-line text entry. Also styles &lt;textarea&gt; and &lt;select&gt;.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -55,8 +61,10 @@
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
         <div class="l-stack l-stack--sm">
-          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg></div>
-          <h1 class="demo-sheet__title">Input <span class="demo-sheet__id">c-input</span></h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg></span>
+            <h1 class="demo-sheet__title">Input <span class="demo-sheet__id">c-input</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">Single-line text entry. Also styles <code>&lt;textarea&gt;</code> and <code>&lt;select&gt;</code>.</p>
         </div>
@@ -71,16 +79,16 @@
       </div>
     </header>
 
-    <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
     </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
   </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
@@ -223,9 +231,9 @@
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><code>data-state=&quot;error&quot;</code></th><td data-label="Meaning">The value is invalid. Adds a heavier bottom edge so the state does not rely on color.</td><td data-label="Pair it with">Set aria-invalid=&quot;true&quot; and aria-describedby pointing at the c-form-field__error message.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;error&quot;</code></th><td data-label="Meaning">The value is invalid. Adds a heavier bottom edge so the state does not rely on color.</td><td data-label="Pair it with">Set <code>aria-invalid=&quot;true&quot;</code> and <code>aria-describedby</code> pointing at the <code>c-form-field__error</code> message.</td></tr>
       <tr><th scope="row"><code>data-state=&quot;success&quot;</code></th><td data-label="Meaning">The value was validated successfully.</td><td data-label="Pair it with">–</td></tr>
-      <tr><th scope="row"><code>data-state=&quot;disabled&quot;</code></th><td data-label="Meaning">The field cannot be edited. Rendered ghosted with a dashed keyline.</td><td data-label="Pair it with">Also set the disabled attribute.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;disabled&quot;</code></th><td data-label="Meaning">The field cannot be edited. Rendered ghosted with a dashed keyline.</td><td data-label="Pair it with">Also set the <code>disabled</code> attribute.</td></tr>
     </tbody>
   </table>
 </div>
@@ -259,7 +267,7 @@
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
-<ul class="demo-safe__list"><li>Every input needs a programmatic label: &lt;label for&gt; on c-form-field__label.</li><li>Error text must be linked with aria-describedby, not only shown in red.</li></ul>
+<ul class="demo-safe__list"><li>Every input needs a programmatic label: &lt;label for&gt; on <code>c-form-field__label</code>.</li><li>Error text must be linked with aria-describedby, not only shown in red.</li></ul>
 <div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
@@ -305,7 +313,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

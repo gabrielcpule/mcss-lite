@@ -935,4 +935,33 @@
       outline: var(--border-width-thick) solid Highlight;
     }
   }
+
+  /* Checked or not, a focused checkbox or radio keeps its halo (last, so it wins over :checked). */
+  :is(.c-checkbox__input, .c-radio__input):focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
+  }
+
+  /* Reduced motion: each part stops its own movement here, in the component layer, so the global rule
+     needs no !important and a consumer can still keep an essential animation. */
+  @media (prefers-reduced-motion: reduce) {
+    .c-button,
+    .c-card--interactive,
+    .c-input,
+    .c-checkbox__input,
+    .c-radio__input,
+    .c-checkbox__input::before,
+    .c-radio__input::before,
+    .c-toggle__input,
+    .c-toggle__input::after,
+    .c-alert__close,
+    .c-modal__close {
+      transition-duration: var(--duration-instant);
+    }
+
+    /* Loading keeps its stripes, still. */
+    .c-button[data-state="loading"],
+    .c-toggle[data-state="loading"] .c-toggle__input {
+      animation: none;
+    }
+  }
 }

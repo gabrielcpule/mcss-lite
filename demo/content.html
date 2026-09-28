@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Read before you build · MCSS-Lite</title>
   <meta name="description" content="Words are parts too. These rules keep labels, messages and help text consistent across every screen, whether a person or an agent writes them. They follow the GOV.UK Design System, GitLab Pajamas and NN/g research.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../src/tokens.css" as="style">
+  <link rel="preload" href="../src/global.css" as="style">
+  <link rel="preload" href="../src/layout.css" as="style">
+  <link rel="preload" href="../src/components.css" as="style">
+  <link rel="preload" href="../src/utilities.css" as="style">
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="index.html">Booklet</a></li>
+          <li><a href="index.html">Overview</a></li>
           <li><a href="status.html">Parts inventory</a></li>
           <li><a href="content.html" aria-current="page">Read before you build</a></li>
         </ul>
@@ -193,7 +199,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>guidelines/content.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

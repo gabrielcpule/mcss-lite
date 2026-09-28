@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Form field (c-form-field) · MCSS-Lite</title>
   <meta name="description" content="Form field: Wraps one form control with its label, help text and error message.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -55,8 +61,10 @@
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
         <div class="l-stack l-stack--sm">
-          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg></div>
-          <h1 class="demo-sheet__title">Form field <span class="demo-sheet__id">c-form-field</span></h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg></span>
+            <h1 class="demo-sheet__title">Form field <span class="demo-sheet__id">c-form-field</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">Wraps one form control with its label, help text and error message.</p>
         </div>
@@ -68,21 +76,37 @@
                 <input class="c-input" id="email-hd" type="email" autocomplete="email" aria-describedby="email-help-hd">
                 <p class="c-form-field__help" id="email-help-hd">We'll send the invite here.</p>
               </div>
+
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="password-hd">Password</label>
+                <input class="c-input" id="password-hd" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error-hd">
+                <p class="c-form-field__error" id="password-error-hd">Use at least 12 characters.</p>
+              </div>
+
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="org-hd">Organization</label>
+                <input class="c-input" id="org-hd" type="text" value="Acme Inc." data-state="disabled" disabled>
+              </div>
+
+              <div class="l-cluster">
+                <button type="submit" class="c-button c-button--primary">Create account</button>
+              </div>
+            </form>
           </figure>
         </div>
       </div>
     </header>
 
-    <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
     </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
   </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
@@ -216,7 +240,7 @@
 <div class="demo-checks__pair">
   <div class="demo-checks__card demo-checks__card--do">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>Fits</p>
-    <p>Space fields with l-stack.</p>
+    <p>Space fields with <a href="stack.html"><code>l-stack</code></a>.</p>
 <figure class="demo-stage">
   <form class="l-stack">
     <div class="c-form-field">
@@ -287,7 +311,7 @@
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><code>data-state=&quot;error&quot;</code></th><td data-label="Meaning">A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline.</td><td data-label="Pair it with">Set aria-describedby on the fieldset pointing at its c-form-field__error; ARIA doesn't allow aria-invalid on a fieldset or a radio.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;error&quot;</code></th><td data-label="Meaning">A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline.</td><td data-label="Pair it with">Set <code>aria-describedby</code> on the fieldset pointing at its <code>c-form-field__error</code>; ARIA doesn't allow <code>aria-invalid</code> on a fieldset or a radio.</td></tr>
     </tbody>
   </table>
 </div>
@@ -350,7 +374,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

@@ -2184,7 +2184,7 @@
       "examples": [
         {
           "file": "components/modal.html",
-          "html": "<div class=\"c-modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"delete-title\">\n  <div class=\"c-modal__backdrop\"></div>\n  <div class=\"c-modal__container\">\n    <header class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"delete-title\">Delete project?</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 5l10 10M15 5L5 15\"/></svg></button>\n    </header>\n    <div class=\"c-modal__body\">\n      <p class=\"u-margin-0\">Atlas and its 42 files will be deleted. This can't be undone.</p>\n    </div>\n    <footer class=\"c-modal__footer\">\n      <button type=\"button\" class=\"c-button c-button--ghost\">Keep project</button>\n      <button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>\n    </footer>\n  </div>\n</div>"
+          "html": "<div class=\"c-modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"delete-title\">\n  <div class=\"c-modal__backdrop\"></div>\n  <div class=\"c-modal__container\">\n    <header class=\"c-modal__header\">\n      <h2 class=\"c-modal__title\" id=\"delete-title\">Delete project?</h2>\n      <button type=\"button\" class=\"c-modal__close\" aria-label=\"Close\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 5l10 10M15 5L5 15\"/></svg></button>\n    </header>\n    <div class=\"c-modal__body\">\n      <p class=\"u-margin-0\">Atlas and its 12 pages will be deleted. This can't be undone.</p>\n    </div>\n    <footer class=\"c-modal__footer\">\n      <button type=\"button\" class=\"c-button c-button--ghost\">Keep project</button>\n      <button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>\n    </footer>\n  </div>\n</div>"
         }
       ],
       "sources": [
@@ -3583,6 +3583,15 @@
       "tier": "primitive",
       "type": "cubicBezier",
       "value": "ease-in-out",
+      "figma": false
+    },
+    {
+      "name": "--ease-out-expo",
+      "path": "ease.out-expo",
+      "tier": "primitive",
+      "type": "cubicBezier",
+      "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "description": "Fast start, long settle: a part dropping into place.",
       "figma": false
     },
     {

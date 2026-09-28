@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Radio (c-radio) · MCSS-Lite</title>
   <meta name="description" content="Radio: A native radio button with its label: pick exactly one option from a short, visible list.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -39,7 +45,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -55,8 +61,10 @@
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
         <div class="l-stack l-stack--sm">
-          <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
-          <h1 class="demo-sheet__title">Radio <span class="demo-sheet__id">c-radio</span></h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h1 class="demo-sheet__title">Radio <span class="demo-sheet__id">c-radio</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">A native radio button with its label: pick exactly one option from a short, visible list.</p>
         </div>
@@ -66,17 +74,17 @@
               <legend class="c-form-field__label">Delivery speed</legend>
               <div class="l-stack l-stack--sm">
                 <div class="c-radio">
-                  <input class="c-radio__input" type="radio" id="delivery-standard-hd" name="delivery" value="standard" checked aria-describedby="delivery-standard-hint-hd">
+                  <input class="c-radio__input" type="radio" id="delivery-standard-hd" name="delivery-hd" value="standard" checked aria-describedby="delivery-standard-hint-hd">
                   <label class="c-radio__label" for="delivery-standard-hd">Standard</label>
                   <p class="c-radio__hint" id="delivery-standard-hint-hd">3 to 5 working days, free.</p>
                 </div>
                 <div class="c-radio">
-                  <input class="c-radio__input" type="radio" id="delivery-next-hd" name="delivery" value="next-day" aria-describedby="delivery-next-hint-hd">
+                  <input class="c-radio__input" type="radio" id="delivery-next-hd" name="delivery-hd" value="next-day" aria-describedby="delivery-next-hint-hd">
                   <label class="c-radio__label" for="delivery-next-hd">Next day</label>
                   <p class="c-radio__hint" id="delivery-next-hint-hd">Order by 4pm, £4.99.</p>
                 </div>
                 <div class="c-radio">
-                  <input class="c-radio__input" type="radio" id="delivery-same-hd" name="delivery" value="same-day" disabled>
+                  <input class="c-radio__input" type="radio" id="delivery-same-hd" name="delivery-hd" value="same-day" disabled>
                   <label class="c-radio__label" for="delivery-same-hd">Same day (not available in your area)</label>
                 </div>
               </div>
@@ -86,16 +94,16 @@
       </div>
     </header>
 
-    <nav class="demo-rail" aria-label="Sections">
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
     </ol>
-    <p class="demo-rail__now" aria-hidden="true" data-rail-now></p>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
   </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
@@ -133,17 +141,17 @@
       <legend class="c-form-field__label">Delivery speed</legend>
       <div class="l-stack l-stack--sm">
         <div class="c-radio">
-          <input class="c-radio__input" type="radio" id="delivery-standard-ex" name="delivery" value="standard" checked aria-describedby="delivery-standard-hint-ex">
+          <input class="c-radio__input" type="radio" id="delivery-standard-ex" name="delivery-ex" value="standard" checked aria-describedby="delivery-standard-hint-ex">
           <label class="c-radio__label" for="delivery-standard-ex">Standard</label>
           <p class="c-radio__hint" id="delivery-standard-hint-ex">3 to 5 working days, free.</p>
         </div>
         <div class="c-radio">
-          <input class="c-radio__input" type="radio" id="delivery-next-ex" name="delivery" value="next-day" aria-describedby="delivery-next-hint-ex">
+          <input class="c-radio__input" type="radio" id="delivery-next-ex" name="delivery-ex" value="next-day" aria-describedby="delivery-next-hint-ex">
           <label class="c-radio__label" for="delivery-next-ex">Next day</label>
           <p class="c-radio__hint" id="delivery-next-hint-ex">Order by 4pm, £4.99.</p>
         </div>
         <div class="c-radio">
-          <input class="c-radio__input" type="radio" id="delivery-same-ex" name="delivery" value="same-day" disabled>
+          <input class="c-radio__input" type="radio" id="delivery-same-ex" name="delivery-ex" value="same-day" disabled>
           <label class="c-radio__label" for="delivery-same-ex">Same day (not available in your area)</label>
         </div>
       </div>
@@ -197,12 +205,12 @@
     <legend class="c-form-field__label">Delivery speed</legend>
     <div class="l-stack l-stack--sm">
       <div class="c-radio">
-        <input class="c-radio__input" type="radio" id="speed-standard-do1" name="speed" value="standard" checked aria-describedby="speed-standard-hint-do1">
+        <input class="c-radio__input" type="radio" id="speed-standard-do1" name="speed-do1" value="standard" checked aria-describedby="speed-standard-hint-do1">
         <label class="c-radio__label" for="speed-standard-do1">Standard</label>
         <p class="c-radio__hint" id="speed-standard-hint-do1">3 to 5 working days, free.</p>
       </div>
       <div class="c-radio">
-        <input class="c-radio__input" type="radio" id="speed-next-do1" name="speed" value="next-day">
+        <input class="c-radio__input" type="radio" id="speed-next-do1" name="speed-do1" value="next-day">
         <label class="c-radio__label" for="speed-next-do1">Next day</label>
       </div>
     </div>
@@ -274,7 +282,7 @@
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
       <tr><th scope="row"><code>:checked</code></th><td data-label="Meaning">Selected: an ink stud seated in the ring.</td><td data-label="Pair it with">Use the checked attribute, never data-state.</td></tr>
-      <tr><th scope="row"><code>:disabled</code></th><td data-label="Meaning">Cannot be chosen. Dashed ring, ghosted label.</td><td data-label="Pair it with">Use the disabled attribute, and say nearby why it is unavailable.</td></tr>
+      <tr><th scope="row"><code>:disabled</code></th><td data-label="Meaning">Cannot be chosen. Dashed ring, ghosted label.</td><td data-label="Pair it with">Use the <code>disabled</code> attribute, and say nearby why it is unavailable.</td></tr>
     </tbody>
   </table>
 </div>
@@ -352,7 +360,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.1 · MIT</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 

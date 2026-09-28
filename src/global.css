@@ -121,10 +121,10 @@
     *,
     *::before,
     *::after {
-      scroll-behavior: auto !important;
-      transition-duration: var(--duration-instant) !important;
-      animation-duration: var(--duration-instant) !important;
-      animation-iteration-count: 1 !important;
+      scroll-behavior: auto;
+      transition-duration: var(--duration-instant);
+      animation-duration: var(--duration-instant);
+      animation-iteration-count: 1;
     }
   }
 
