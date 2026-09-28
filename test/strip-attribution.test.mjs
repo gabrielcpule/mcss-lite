@@ -50,6 +50,11 @@ test('keeps a rule that is not directly above the removed footer', () => {
   assert.equal(stripAttribution(text), 'Intro\n\n---\n\nNotes\n\n<!-- bot summary -->\n');
 });
 
+test('leaves spacing away from the removed lines as it was', () => {
+  const text = 'Intro\n\n\nSpaced out\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nEnd\n\n\n';
+  assert.equal(stripAttribution(text), 'Intro\n\n\nSpaced out\n\nEnd\n\n\n');
+});
+
 test('is idempotent and handles an empty body', () => {
   assert.equal(stripAttribution(stripAttribution(PR_BODY)), stripAttribution(PR_BODY));
   assert.equal(stripAttribution(''), '');

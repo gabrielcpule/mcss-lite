@@ -26,6 +26,8 @@ export function hasAttribution(text) {
 export function stripAttribution(text) {
   if (!hasAttribution(text)) return text;
   const out = [];
+  // True from a removed line until the next non-blank line: only that gap is tidied.
+  let afterRemoval = false;
   for (const line of text.replace(/\r\n/g, '\n').split('\n')) {
     if (isAttribution(line)) {
       // A removed footer takes the blank lines and the --- rule directly above it.
@@ -34,12 +36,19 @@ export function stripAttribution(text) {
         out.pop();
         while (out.length && isBlank(out.at(-1))) out.pop();
       }
+      afterRemoval = true;
       continue;
     }
-    // Don't let a removed line leave two blank lines in a row.
-    if (isBlank(line) && out.length && isBlank(out.at(-1))) continue;
+    if (isBlank(line)) {
+      // Don't let a removed line leave two blank lines in a row, or a blank first line.
+      if (afterRemoval && (!out.length || isBlank(out.at(-1)))) continue;
+    } else {
+      afterRemoval = false;
+    }
     out.push(line);
   }
+  if (!afterRemoval) return out.join('\n');
+  // The text ended with removed lines: drop the blank lines they left behind.
   while (out.length && isBlank(out.at(-1))) out.pop();
   return out.length ? `${out.join('\n')}\n` : '';
 }
