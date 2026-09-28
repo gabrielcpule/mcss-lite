@@ -211,6 +211,8 @@ npm test        # back-compat, WCAG AA contrast in both themes, validator fixtur
 
 Adding a class to `src/*.css` without adding it to a contract fails `npm run check`, which keeps the contract the single source of truth. See [`demo/index.html`](demo/index.html) for every block in every state, and [`docs/superpowers/specs/`](docs/superpowers/specs/) for the design rationale.
 
+Releasing: bump `version` in `package.json` and merge to `main`. The Release workflow runs the checks, then creates the `vX.Y.Z` tag and GitHub Release that jsDelivr serves. To tag an earlier commit, run the workflow by hand from the Actions tab with that commit's SHA.
+
 ## License
 
 MIT

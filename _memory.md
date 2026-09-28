@@ -47,7 +47,7 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 
 ## Distribution (2026-09-28)
 
-Not on npm, by choice (supply-chain risk). Releases are GitHub tags; CSS via jsDelivr, installs via `github:gabrielcpule/mcss-lite#vX.Y.Z`. URLs are generated from package.json (`scripts/lib/release.mjs`). Claude sessions can't push tags (HTTP 403), so Gabriel creates each tag and release on GitHub. PR B decisions (grilling): toggle ships native-first; alert severity = icon + hidden prefix (`alert-severity`); `clickable-div` only for click triggers; `--ignore`/inline ignore for warnings only; Figma push after PR B.
+Not on npm, by choice (supply-chain risk). Releases are GitHub tags; CSS via jsDelivr, installs via `github:gabrielcpule/mcss-lite#vX.Y.Z`. URLs are generated from package.json (`scripts/lib/release.mjs`). Tags and GitHub Releases are created by `.github/workflows/release.yml` (Claude sessions can't push tags: HTTP 403): automatically when a package.json change lands on main, or via Actions → Release → Run workflow with a commit SHA to tag an earlier version. The tag name always comes from package.json at that commit. PR B decisions (grilling): toggle ships native-first; alert severity = icon + hidden prefix (`alert-severity`); `clickable-div` only for click triggers; `--ignore`/inline ignore for warnings only; Figma push after PR B.
 
 ## Part sheets round (2026-09-28)
 
