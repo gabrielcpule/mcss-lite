@@ -36,12 +36,12 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
           <li><a href="index.html">Booklet</a></li>
           <li><a href="status.html">Parts inventory</a></li>
-          <li><a href="content.html">Read before you build</a></li>
+          <li><a href="content.html" aria-current="page">Read before you build</a></li>
         </ul>
       </nav>
       <div class="l-cluster" role="group" aria-label="Theme">
@@ -193,11 +193,12 @@
 
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
-      <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>Generated from <code>guidelines/content.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="demo.js" defer></script>
 </body>
 </html>

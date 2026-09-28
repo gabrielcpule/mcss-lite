@@ -27,6 +27,12 @@
   background-color: var(--color-background-raised);
   box-shadow: inset 0 0 0 1px var(--color-border-default);
   color: var(--color-text-default);
+  /* A class name is one word: never split it at its hyphens. */
+  white-space: nowrap;
+}
+
+.demo-install__alt code {
+  white-space: normal;
   overflow-wrap: anywhere;
 }
 
@@ -39,6 +45,8 @@
   background-color: var(--color-background-raised);
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-base);
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-semibold);
 }
 
 .demo-skip:focus-visible {
@@ -52,12 +60,45 @@
 }
 
 .demo-bar__inner {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "mark theme" "nav nav";
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  padding-block: var(--space-3);
+  gap: var(--space-1) var(--space-3);
+  padding-block: var(--space-2);
+}
+
+.demo-bar__inner > .demo-wordmark { grid-area: mark; }
+.demo-bar__inner > .demo-bar__nav { grid-area: nav; }
+.demo-bar__inner > [role="group"] {
+  grid-area: theme;
+  flex-wrap: nowrap;
+  gap: var(--space-1);
+}
+
+/* The narrowest phones: wordmark, theme switch and page links each get a row. */
+@media (max-width: 24rem) {
+  .demo-bar__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "mark" "theme" "nav";
+  }
+
+  .demo-bar__inner > [role="group"] {
+    justify-self: start;
+  }
+}
+
+@media (min-width: 48rem) {
+  .demo-bar__inner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "mark nav theme";
+    padding-block: var(--space-3);
+  }
+
+  .demo-bar__inner > .demo-bar__nav {
+    justify-self: center;
+  }
 }
 
 .demo-wordmark {
@@ -66,6 +107,7 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-extrabold);
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .demo-wordmark__version {
@@ -318,7 +360,7 @@
   gap: var(--space-2) var(--space-3);
   margin: var(--space-4) 0 0;
   padding-block-start: var(--space-3);
-  border-block-start: var(--border-width-thin) dashed var(--color-border-strong);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
   font-size: var(--font-size-sm);
 }
 
@@ -511,6 +553,10 @@
   height: 1rem;
 }
 
+.demo-rail__stud:focus-visible {
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
 .demo-rail__stud:hover {
   color: var(--color-text-default);
   background-color: var(--color-background-interactive-hover);
@@ -530,10 +576,11 @@
   color: var(--color-text-on-danger);
 }
 
-@media (min-width: 90rem) {
+/* The column rail needs a gutter wide enough for its labels, so they never cover the page. */
+@media (min-width: 100rem) {
   .demo-rail {
     position: fixed;
-    inset-inline-start: var(--space-8);
+    inset-inline-start: var(--space-4);
     inset-block-start: 50%;
     transform: translateY(-50%);
     padding: 0;
@@ -564,7 +611,9 @@
     font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
+    line-height: var(--line-height-tight);
+    inline-size: max-content;
+    max-inline-size: 9.5rem;
     opacity: 0;
     transform: translateX(calc(var(--space-2) * -1));
     transition:
@@ -609,7 +658,7 @@
 }
 
 .demo-misfit__good {
-  stroke: var(--color-action-primary);
+  stroke: var(--color-text-default);
 }
 
 /* The wrong piece */
@@ -636,7 +685,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.demo-check__issue--error {
   color: var(--color-text-error);
+}
+
+.demo-check__issue--warning {
+  color: var(--color-text-warning);
 }
 
 .demo-code {
@@ -645,11 +701,20 @@
   background-color: var(--color-background-subtle);
   border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--border-radius-base);
-  white-space: pre;
+  white-space: pre-wrap;
   overflow-x: auto;
 }
 
+.demo-code__token {
+  white-space: nowrap;
+}
+
+.demo-install__cmd .demo-code__token {
+  white-space: normal;
+}
+
 .demo .demo-code code {
+  white-space: inherit;
   padding: 0;
   background: none;
   box-shadow: none;
@@ -842,7 +907,7 @@
 .demo-sheet__title {
   margin: 0;
   font-family: var(--font-family-display);
-  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
   font-weight: var(--font-weight-extrabold);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -860,14 +925,6 @@
 .demo-sheet__since {
   font-size: var(--font-size-sm);
   color: var(--color-text-subtle);
-}
-
-.demo-sheet__replaced {
-  margin: 0;
-  padding: var(--space-4);
-  background-color: var(--color-background-callout);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
 }
 
 .demo-sheet__row {
@@ -888,15 +945,15 @@
   padding-block: var(--space-12);
 }
 
-/* Status sticker: a monochrome tag with a keyline, never a status color (One Blue Rule). */
+/* Status sticker: a monochrome filled tag, never a status color (One Blue Rule). No keyline and no brick edge,
+   so it never reads as a button. */
 .demo-sticker {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: 0 var(--space-2);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
-  background-color: var(--color-background-raised);
+  padding: 0 var(--space-2) 0 var(--space-1);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-muted);
   color: var(--color-text-default);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
@@ -914,16 +971,11 @@
   stroke-linejoin: round;
 }
 
-.demo-sticker--beta {
-  /* Solid, like stable: dashed already means disabled in this system. The wrench says "beta". */
-  border-style: solid;
-}
-
 .demo-sticker--deprecated {
-  border-style: dashed;
+  /* The cross says "deprecated"; the text stays readable. */
+  background-color: transparent;
+  box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-border-strong);
   color: var(--color-text-muted);
-  text-decoration: line-through;
-  text-decoration-thickness: var(--border-width-thick);
 }
 
 /* Pick this part / Pick another part */
@@ -941,7 +993,7 @@
 
 .demo-pick__col--other {
   background-color: var(--color-background-subtle);
-  border-style: dashed;
+  border-color: var(--color-border-strong);
 }
 
 .demo-pick__list,
@@ -1288,6 +1340,7 @@
 .demo-notice p,
 .demo-notice__title {
   margin: 0;
+  max-inline-size: 65ch;
 }
 
 .demo-notice__title {
@@ -1406,23 +1459,8 @@
   box-shadow: inset 0 0 0 var(--border-width-thick) var(--color-border-keyline);
 }
 
-.demo-fit {
-  padding-block: var(--space-10);
-  border-block-start: var(--border-width-thin) solid var(--color-border-default);
-}
-
-.demo-fit__title {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-}
-
 /* Review fixes: the wrong piece stays visible, the inventory bag holds its table without a second box,
    the sticky rail never covers what receives focus. */
-.demo-checks .demo-code {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
 .demo-bag--wide .demo-spec table {
   border: 0;
   background-color: transparent;
@@ -1432,10 +1470,6 @@
 .demo-checks__card,
 .demo-sheet__section {
   scroll-margin-block-start: var(--space-20);
-}
-
-.demo-fit__callout .demo-pick__col {
-  background-color: var(--color-background-raised);
 }
 
 /* Inventory: every layer's table shares one set of column widths, so the columns line up down the page. */
@@ -1449,4 +1483,153 @@
   .demo-inventory-table :is(th, td):nth-child(2) { inline-size: 14%; }
   .demo-inventory-table :is(th, td):nth-child(3) { inline-size: 16%; }
   .demo-inventory-table :is(th, td):nth-child(4) { inline-size: 10%; }
+}
+
+/* The page you're on, in the top bar. */
+.demo-bar__links a[aria-current="page"] {
+  color: var(--color-text-default);
+  text-decoration: none;
+  box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-keyline);
+}
+
+/* Hero proof: the validator's first rejection, a glance before the build. */
+.demo-proof {
+  display: grid;
+  gap: var(--space-2);
+  max-inline-size: 36rem;
+  margin-block-end: var(--space-6);
+  padding: var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) dashed var(--color-border-error);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-proof p {
+  margin: 0;
+}
+
+.demo-proof__key {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-proof__verdict {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-error);
+}
+
+.demo-proof__verdict .demo-mark {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-block-start: 0.05em;
+}
+
+.demo-proof a {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Closing: what to take away, who made it, and whether it's the right kit. */
+.demo-end {
+  padding-block: var(--space-16);
+  background-color: var(--color-background-raised);
+  border-block-start: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-end__grid {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.demo-end__links {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-end__links li {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.demo-end__links a {
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-end__links span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-end__author {
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-muted);
+}
+
+.demo-end__fit-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+}
+
+.demo-end .demo-pick__col {
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-end .demo-pick__col--other {
+  box-shadow: none;
+}
+
+@media (min-width: 60rem) {
+  .demo-end__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+/* Copyable code on part sheets. */
+.demo-code-block {
+  position: relative;
+  min-width: 0;
+}
+
+.demo-code-block .demo-code {
+  padding-inline-end: 5.5rem;
+}
+
+.demo-code-block__copy {
+  position: absolute;
+  inset-block-start: var(--space-2);
+  inset-inline-end: var(--space-2);
+}
+
+/* Folded tables: open when you need them. */
+.demo-details > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.demo-details[open] > summary {
+  margin-block-end: var(--space-3);
+}
+
+.demo-details__count {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.75rem;
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-muted);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
 }

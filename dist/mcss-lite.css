@@ -1,4 +1,4 @@
-/* @gabrielpule/mcss-lite@0.4.0 | MIT | generated bundle of index.css */
+/* @gabrielpule/mcss-lite@0.4.1 | MIT | generated bundle of index.css */
 @layer global, layout, component, utility;
 :root {
   --color-white: #ffffff;
@@ -669,6 +669,9 @@
     color: var(--button-pressed-text, var(--color-text-inverse));
     box-shadow: none;
     transform: translateY(2px);
+  }
+  .c-button[aria-pressed="true"]:focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
   .c-button:disabled,
   .c-button[data-state="disabled"] {

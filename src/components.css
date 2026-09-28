@@ -134,6 +134,10 @@
     transform: translateY(2px);
   }
 
+  .c-button[aria-pressed="true"]:focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
+  }
+
   /* Disabled parts are ghosted, like the finished steps in an instruction booklet. */
   .c-button:disabled,
   .c-button[data-state="disabled"] {

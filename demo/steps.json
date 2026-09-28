@@ -1,5 +1,10 @@
 {
-  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it).",
+  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it.",
+  "author": {
+    "name": "Gabriel Pule",
+    "url": "https://www.gabrielpule.work",
+    "caseStudy": null
+  },
   "steps": [
     {
       "title": "Lay the baseplate",

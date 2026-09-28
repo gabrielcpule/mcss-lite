@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent } from './demo.mjs';
+import { glyph, esc, indent, demoBar, codeTokens } from './demo.mjs';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
 
@@ -67,6 +67,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
     return c ? `<a href="${rel}${sheetFile(c)}"><code>${esc(name)}</code></a>` : `<code>${esc(name)}</code>`;
   });
 
+  let codeId = 0; // ids for copyable code blocks
   const files = new Map();
   sheets.forEach((c, i) => files.set(`demo/components/${sheetFile(c)}`, partSheet(c, i)));
   files.set('demo/status.html', inventoryPage());
@@ -75,7 +76,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
 
   // ---------- shell ----------
 
-  function shell({ title, description, rel, rail, main }) {
+  function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>' }) {
     const railHtml = rail.length
       ? `\n  <nav class="demo-rail" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
@@ -98,23 +99,7 @@ ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id
 <body class="demo">
 ${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#main">Skip to the page</a>
-  <header class="demo-bar">
-    <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="${rel}index.html">MCSS-Lite</a> <span class="demo-wordmark__version">${esc(pkg.version)}</span></p>
-      <nav class="demo-bar__nav" aria-label="Booklet">
-        <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="${rel}index.html">Booklet</a></li>
-          <li><a href="${rel}status.html">Parts inventory</a></li>
-          <li><a href="${rel}content.html">Read before you build</a></li>
-        </ul>
-      </nav>
-      <div class="l-cluster" role="group" aria-label="Theme">
-        <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
-        <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
-        <button type="button" class="c-button c-button--sm" data-theme-choice="auto" aria-pressed="false">System</button>
-      </div>
-    </div>
-  </header>
+  ${demoBar(pkg, rel, current)}
 ${railHtml}
   <main id="main">
 ${main}
@@ -122,11 +107,12 @@ ${main}
 
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
-      <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
+      <p>Generated from ${source} by <code>npm run build</code>, so this page can't drift from the contract.</p>
       <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)} · by ${esc(pkg.author)}</p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="${rel}demo.js" defer></script>
 </body>
 </html>
@@ -150,6 +136,12 @@ ${body}
   // ---------- part sheet ----------
 
   function buildSteps(c) {
+    if (c.status === 'deprecated') {
+      return [
+        `Build ${rich(`\`${c.replacement}\``)} instead: this part only exists so older pages keep working.`,
+        `Replace <code>class="${esc(c.block)}"</code> in existing markup when you next touch it. <code>mcss-lite validate</code> flags every use with <code>[deprecated]</code>.`,
+      ];
+    }
     if (c.layer === 'utility') return ['Pick the one utility that does the job.', 'Add it next to the part it adjusts. Utilities win over layouts and components, so use them sparingly.'];
     const steps = [`Start with ${c.tags ? `<code>&lt;${esc(c.tags[0])}&gt;</code>` : 'an element'} and add <code>class="${esc(c.block)}"</code>.`];
     const req = (c.elements ?? []).filter((e) => e.required);
@@ -163,7 +155,7 @@ ${body}
     const dataStates = (c.states ?? []).filter((s) => !s.native);
     const nativeStates = (c.states ?? []).filter((s) => s.native);
     if (nativeStates.length) steps.push(`Set state on the native control, never with data-state: ${nativeStates.map((s) => `<code>${esc(s.selector)}</code>`).join(', ')}.`);
-    if (dataStates.length) steps.push(`Set a state with <code>data-state</code> and add its paired attribute: ${dataStates.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
+    for (const st of dataStates) steps.push(`Add <code>data-state="${esc(st.name)}"</code> when ${esc(firstSentence(st.description).replace(/^./, (ch) => ch.toLowerCase()))}${st.pair ? ` ${pairText(st.pair)}` : ''}`);
     if (c.layer === 'layout') steps.push('Put the parts inside. The layout sets the space between them, so they need no margins.');
     return steps;
   }
@@ -184,18 +176,27 @@ ${indent(body, 2)}
 </figure>`;
   }
 
-  function code(html) { return `<pre class="demo-code"><code>${esc(html)}</code></pre>`; }
+  // Code blocks wrap at spaces only (class names stay whole) and carry a Copy button.
+  // fold: the stage above already shows the result, so the markup opens on request.
+  function code(html, { fold = false } = {}) {
+    const id = `code-${++codeId}`;
+    const block = `<div class="demo-code-block">
+  <pre class="demo-code"><code id="${id}">${codeTokens(html)}</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="${id}" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>`;
+    return fold ? `<details class="demo-details">\n<summary>Markup <span class="demo-details__count">${html.split('\n').length} lines</span></summary>\n${block}\n</details>` : block;
+  }
 
   function checkPanels(c) {
     return (c.guidelines?.doDont ?? []).map((pair, i) => {
       const doHtml = pair.do.html
-        ? `${stage(pair.do.html, 'check', `do${i + 1}`)}\n${code(pair.do.html)}\n<p class="demo-checks__verdict">${CHECK_ICON}<span><code>validate</code>: 0 issues</span></p>`
+        ? `${stage(pair.do.html, 'check', `do${i + 1}`)}\n${code(pair.do.html, { fold: true })}\n<p class="demo-checks__verdict">${CHECK_ICON}<span><code>validate</code>: 0 issues</span></p>`
         : '';
       let dontHtml = '';
       if (pair.dont.html) {
         const issues = validate(pair.dont.html);
         const list = issues.length
-          ? `<ul class="demo-check__issues" role="list">${issues.map((x) => `<li><strong>${esc(x.level)}</strong> ${esc(x.message)} <code>[${esc(x.rule)}]</code></li>`).join('')}</ul>`
+          ? `<ul class="demo-check__issues" role="list">${issues.map((x) => `<li class="demo-check__issue--${esc(x.level)}"><strong>${esc(x.level)}</strong> ${codeTokens(x.message)} <code>[${esc(x.rule)}]</code></li>`).join('')}</ul>`
           : '';
         const verdict = pair.dont.rule
           ? `<p class="demo-check__label">validate</p>\n${list}`
@@ -248,7 +249,8 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     out.push(table('Custom properties', ['Property', 'Default', 'What it does'], (c.customProperties ?? []).map((p) => [`<code>${esc(p.name)}</code>`, `<code>${esc(p.default)}</code>`, esc(p.description)])));
     if (c.layer !== 'layout') {
       out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), esc(s.pair ?? '–')])));
-      out.push(table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)])));
+      const tokenTable = table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)]));
+      if (tokenTable) out.push(`<details class="demo-details">\n<summary>Tokens <span class="demo-details__count">${c.tokens.length}</span></summary>\n${tokenTable}\n</details>`);
     }
     return out.filter(Boolean).join('\n');
   }
@@ -276,7 +278,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     }
 
     const steps = buildSteps(c);
-    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example)}` : ''}`);
+    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example, { fold: true })}` : ''}`);
 
     // The icon sheet shows the whole set, each with the id to reference.
     if (c.block === 'c-icon') {
@@ -318,7 +320,13 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
     const prev = sheets[index - 1];
     const next = sheets[index + 1];
     const deprecated = c.status === 'deprecated'
-      ? `\n        <p class="demo-sheet__replaced">This part was replaced. Use ${rich(`\`${c.replacement}\``)} in new code; <code>${esc(c.block)}</code> keeps working until 1.0.</p>`
+      ? `\n          <div class="c-alert c-alert--warning">
+            <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#${ICON_PREFIX}warning"></use></svg></span>
+            <div class="c-alert__body">
+              <p class="c-alert__title"><span class="u-sr-only">Warning: </span>This part was replaced</p>
+              <p>Use ${rich(`\`${c.replacement}\``)} in new code. <code>${esc(c.block)}</code> keeps working until 1.0.</p>
+            </div>
+          </div>`
       : '';
     const sources = c.sources?.length
       ? `\n    <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
@@ -343,7 +351,7 @@ ${sources}
     <nav class="demo-sheet__pager l-container" aria-label="Part sheets">
       ${prev ? `<a class="demo-sheet__prev" href="${sheetFile(prev)}"><span aria-hidden="true">←</span> <code>${esc(prev.block)}</code></a>` : '<span></span>'}
       <a href="${rel}status.html">All parts</a>
-      ${next ? `<a class="demo-sheet__next" href="${sheetFile(next)}"><code>${esc(next.block)}</code> <span aria-hidden="true">→</span></a>` : '<span></span>'}
+      ${next ? `<a class="demo-sheet__next" href="${sheetFile(next)}"><code>${esc(next.block)}</code> <span aria-hidden="true">→</span></a>` : `<a class="demo-sheet__next" href="${rel}content.html">Read before you build <span aria-hidden="true">→</span></a>`}
     </nav>`;
 
     return shell({
@@ -359,7 +367,7 @@ ${sources}
 
   function inventoryPage() {
     const bag = (n, title, list) => `<div class="demo-bag demo-bag--wide">
-  <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">${n}</span> ${title} <span class="demo-bag__count">${list.length} part${list.length === 1 ? '' : 's'}</span></p>
+  <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">${n}</span> ${title} <span class="demo-bag__count">${partCount(list)}</span></p>
   <div class="demo-spec demo-inventory-table">
     <table>
       <caption class="u-sr-only">${title}</caption>
@@ -388,7 +396,7 @@ ${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)
 ${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, 'Utilities', utilities)].join('\n'), 8)}
       </div>
     </section>`;
-    return shell({ title: 'Parts inventory', description: 'Every MCSS-Lite part with its status.', rel: '', rail: [], main });
+    return shell({ title: 'Parts inventory', description: 'Every MCSS-Lite part with its status.', rel: '', rail: [], main, current: 'status.html' });
   }
 
   // ---------- read before you build ----------
@@ -418,7 +426,7 @@ ${content.rules.map((r, i) => `          <li class="demo-notice" id="${esc(r.id)
         </ol>
       </div>
     </section>`;
-    return shell({ title: content.title, description: content.intro, rel: '', rail: [], main });
+    return shell({ title: content.title, description: content.intro, rel: '', rail: [], main, current: 'content.html', source: '<code>guidelines/content.json</code>' });
   }
 }
 
@@ -426,6 +434,16 @@ ${content.rules.map((r, i) => `          <li class="demo-notice" id="${esc(r.id)
 const autoCode = (s) => s.replace(/(^|[\s(])([clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-9]+)*)(?=[\s.,;:)]|$)/g, '$1`$2`');
 
 const firstSentence = (s) => s.split(/(?<=\.)\s/)[0];
+
+// "11 parts", or "11 parts + 1 deprecated": deprecated parts aren't counted as parts to build with.
+const partCount = (list) => {
+  const live = list.filter((c) => c.status !== 'deprecated').length;
+  const old = list.length - live;
+  return `${live} part${live === 1 ? '' : 's'}${old ? ` + ${old} deprecated` : ''}`;
+};
+
+// A state's pair, with attribute and class names set as code.
+const pairText = (s) => esc(s).replace(/(aria-[a-z]+(?:=&quot;[^&]*&quot;)?|\bdisabled(?= attribute)|&lt;[a-z]+&gt;|\bhref\b|[clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-9]+)*)/g, '<code>$1</code>');
 
 // Checks the guidance examples: every "do" validates cleanly, every "don't" that names a rule triggers it.
 export function checkGuidance(contracts, root) {

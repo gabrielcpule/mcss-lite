@@ -2,7 +2,7 @@
 
 > Rules, components and tokens in one file.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.4.0
+> Package: @gabrielpule/mcss-lite@0.4.1
 
 ## Rules
 
@@ -17,12 +17,12 @@
 MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.1/dist/mcss-lite.min.css">
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
 ```
 
 ```sh
-npm install github:gabrielcpule/mcss-lite#v0.4.0   # or pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.1   # or pnpm add / yarn add / bun add
 # then: <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
@@ -32,7 +32,7 @@ Before finishing, check your markup:
 
 ```sh
 npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output
-npx github:gabrielcpule/mcss-lite#v0.4.0 validate path/to/file.html   # without installing
+npx github:gabrielcpule/mcss-lite#v0.4.1 validate path/to/file.html   # without installing
 ```
 
 ## Blocks at a glance
@@ -157,9 +157,18 @@ Centers a block horizontally at reading width without side gutters.
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -232,9 +241,18 @@ Horizontal group that wraps, with a gap and vertically centered items: button gr
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -309,9 +327,18 @@ Centers page content horizontally with a max width and side gutters.
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -393,9 +420,18 @@ Two-dimensional grid with a fixed gap. Column modifiers collapse to one column b
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -467,9 +503,18 @@ Vertical padding for a full-width page section.
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -540,9 +585,18 @@ A sidebar next to main content that stacks when the content would get narrower t
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -638,9 +692,18 @@ Vertical flow: adds space between consecutive children, which keep their own wid
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -708,9 +771,18 @@ Children sit side by side until the container is narrower than a threshold, then
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -1084,14 +1156,12 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 <div class="l-cluster">
   <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
   <a class="c-button c-button--secondary" href="/docs">Read the docs</a>
-  <!-- mcss-lite-ignore primary-count: this sheet shows every variant side by side -->
-  <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
+  <button type="button" class="c-button c-button--lg">Create a project</button>
 </div>
 
 <div class="l-cluster">
   <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-  <!-- mcss-lite-ignore primary-count -->
-  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+  <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
 </div>
 
 <div class="l-cluster" role="group" aria-label="Theme">

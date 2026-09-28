@@ -39,6 +39,8 @@ export const tag = (n) => (n > 0
   ? `<span class="demo-count"><span aria-hidden="true">${n}×</span><span class="u-sr-only">, used ${n} time${n === 1 ? '' : 's'} in this build</span></span>`
   : '');
 
+const CROSS_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+
 // The misfit: a brick whose studs miss the baseplate, next to one seated flush. Drawn in the keyline.
 export const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title" focusable="false">
   <title id="misfit-title">A brick tilted off its baseplate next to a brick seated flush</title>
@@ -60,7 +62,34 @@ export const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="
   </g>
 </svg>`;
 
+// The top bar on every booklet page: wordmark, the three pages (the current one marked) and the theme switch.
+const PAGES = [['index.html', 'Booklet'], ['status.html', 'Parts inventory'], ['content.html', 'Read before you build']];
+export function demoBar(pkg, rel, current) {
+  return `<header class="demo-bar">
+    <div class="l-container demo-bar__inner">
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="${rel}index.html">MCSS-Lite</a> <span class="demo-wordmark__version">${esc(pkg.version)}</span></p>
+      <nav class="demo-bar__nav" aria-label="Booklet">
+        <ul class="l-cluster demo-bar__links" role="list">
+${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a></li>`).join('\n')}
+        </ul>
+      </nav>
+      <div class="l-cluster" role="group" aria-label="Theme">
+        <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
+        <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
+        <button type="button" class="c-button c-button--sm" data-theme-choice="auto" aria-pressed="false">System</button>
+      </div>
+    </div>
+  </header>`;
+}
+
+// Files that read best on GitHub (rendered Markdown, a browsable folder), pinned to this release's tag.
+const repoUrl = (pkg, kind, path) => `https://github.com/gabrielcpule/mcss-lite/${kind}/v${pkg.version}/${path}`;
+
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// Escaped text with every hyphenated name (class, modifier, attribute) kept on one line,
+// so code and validator messages wrap between names, never inside one.
+export const codeTokens = (text) => esc(text).replace(/[A-Za-z0-9_:.#]*(?:-{1,2}[A-Za-z0-9_:.#]+)+/g, '<span class="demo-code__token">$&</span>');
+
 export const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l : l)).join('\n');
 
 // A wrong piece an agent might invent, checked by the real validator at build time.
@@ -81,8 +110,12 @@ function mustRewrite(source, rewrite, markers) {
   return out;
 }
 
+export function loadBooklet(root) {
+  return JSON.parse(readFileSync(join(root, 'demo', 'steps.json'), 'utf8'));
+}
+
 export function loadSteps(root) {
-  return JSON.parse(readFileSync(join(root, 'demo', 'steps.json'), 'utf8')).steps;
+  return loadBooklet(root).steps;
 }
 
 // Blocks that must appear in the booklet: every stable contract.
@@ -92,7 +125,7 @@ export function uncoveredBlocks(contracts, steps) {
 }
 
 export function buildDemo(root, pkg, contracts, tokenRows) {
-  const steps = loadSteps(root);
+  const { steps, author } = loadBooklet(root);
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const example = (file) => readFileSync(join(root, 'components', file), 'utf8').trim();
   const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
@@ -110,7 +143,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
 
   // How many times a block is used in the step's canonical example: the booklet's "1x" count tag.
   const countIn = (html, block) => {
-    if (block === 'u-*') return (html.match(/class="[^"]*\bu-[a-z0-9-]+/g) || []).length;
+    if (block === 'u-*') return [...html.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)).filter((cls) => cls.startsWith('u-')).length;
     const re = new RegExp(`class="[^"]*(?<![\\w-])${block.replace(/[-]/g, '\\-')}(?![\\w-])`, 'g');
     return (html.match(re) || []).length;
   };
@@ -211,44 +244,29 @@ ${indent(stage, 10)}
 </head>
 <body class="demo">
 ${inlineSprite(loadIcons(root), pkg)}
-  <a class="demo-skip" href="#step-1">Skip to the build</a>
-  <header class="demo-bar">
-    <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark">MCSS-Lite <span class="demo-wordmark__version">${esc(pkg.version)}</span></p>
-      <div class="l-cluster" role="group" aria-label="Theme">
-        <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
-        <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
-        <button type="button" class="c-button c-button--sm" data-theme-choice="auto" aria-pressed="false">System</button>
-      </div>
-    </div>
-  </header>
+  <a class="demo-skip" href="#main">Skip to the page</a>
+  ${demoBar(pkg, '', 'index.html')}
 
-  <nav class="demo-rail" aria-label="Build steps">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: ${steps.length + 1}">
-${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
-      <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
-    </ol>
-  </nav>
-
-  <main>
+  <main id="main">
     <section class="demo-hero" aria-labelledby="demo-title">
       <div class="l-container demo-hero__grid">
         <div class="demo-hero__claim">
           <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts.</h1>
           <p class="demo-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+          <div class="demo-proof">
+            <p class="demo-proof__guess"><span class="demo-proof__key">An agent guesses</span> <code>c-button--warning</code></p>
+            <p class="demo-proof__verdict">${CROSS_MARK}<span><strong>error</strong> ${codeTokens(wrongIssues[0].message)}</span></p>
+            <p><a href="#wrong-piece">See the piece that doesn't fit</a></p>
+          </div>
           <div class="demo-install">
-            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="${esc(cdnUrl(pkg))}"&gt;</code>
-            <button type="button" class="c-button c-button--sm" data-copy="install-cmd">Copy</button>
-            <span class="u-sr-only" role="status" data-copy-status></span>
+            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="${codeTokens(cdnUrl(pkg))}"&gt;</code>
+            <button type="button" class="c-button c-button--sm" data-copy="install-cmd" data-copied="Stylesheet link copied.">Copy</button>
           </div>
           <p class="demo-install__alt">Or install it from GitHub: <code>npm install ${esc(gitSpec(pkg))}</code>. MCSS-Lite is not on the npm registry.</p>
           <ul class="demo-links" role="list">
-            <li><a href="status.html">Parts inventory: a sheet for every part</a></li>
-            <li><a href="content.html">Read before you build: content rules</a></li>
-            <li><a href="../AGENTS.md">AGENTS.md: the rules for agents</a></li>
+            <li><a href="${repoUrl(pkg, 'blob', 'AGENTS.md')}">AGENTS.md: the rules for agents</a></li>
             <li><a href="../dist/mcss-lite.manifest.json">Manifest: every part as JSON</a></li>
-            <li><a href="../dist/figma/">Figma variables</a></li>
-            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a></li>
+            <li><a href="${repoUrl(pkg, 'tree', 'dist/figma')}">Figma variables: token import files</a></li>
           </ul>
         </div>
 
@@ -271,10 +289,57 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
       </div>
     </section>
 
-    <section class="demo-fit" aria-labelledby="fit-title">
+    <nav class="demo-rail" aria-label="Build steps">
+      <ol class="demo-rail__list" role="list" style="--demo-studs: ${steps.length + 1}">
+${steps.map((st, i) => `        <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
+        <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+      </ol>
+    </nav>
+
+${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
+
+    <section class="demo-step demo-wrong" id="wrong-piece" aria-labelledby="wrong-title">
       <div class="l-container">
-        <div class="demo-callout demo-fit__callout l-stack">
-          <h2 class="demo-fit__title" id="fit-title">Before you start: is this the right kit?</h2>
+        <div class="demo-step__grid">
+          <div class="demo-step__head">
+            <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
+            <h2 class="demo-step__title" id="wrong-title">This piece doesn't fit</h2>
+            <p class="demo-step__text">An agent guessed a class. <code>npx mcss-lite validate</code> rejects it and names the parts that do exist. This output was produced by the real validator when this page was built.</p>
+          </div>
+          <div class="demo-step__build">
+            <div class="demo-check l-stack">
+              ${MISFIT_SVG}
+              <p class="demo-check__label">Invented markup</p>
+              <pre class="demo-code"><code>${codeTokens(WRONG_PIECE)}</code></pre>
+              <p class="demo-check__label">validate</p>
+              <ul class="demo-check__issues" role="list">${wrongIssues.map((i) => `<li class="demo-check__issue--error"><strong>error</strong> ${codeTokens(i.message)} <code>[${esc(i.rule)}]</code></li>`).join('')}</ul>
+              <p class="demo-check__label">The piece that fits</p>
+              <p class="demo-check__why">Retry isn't destructive, so it is the default button. <code>--danger</code> is only for actions that destroy something.</p>
+              <pre class="demo-code"><code>${codeTokens(RIGHT_PIECE)}</code></pre>
+              <div class="l-cluster">
+                ${RIGHT_PIECE}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-end" id="take-it" aria-labelledby="end-title">
+      <div class="l-container demo-end__grid">
+        <div class="l-stack">
+          <h2 class="demo-step__title" id="end-title">Take the parts with you</h2>
+          <p class="demo-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+          <ul class="demo-end__links" role="list">
+            <li><a href="${repoUrl(pkg, 'blob', 'AGENTS.md')}">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+            <li><a href="../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+            <li><a href="${repoUrl(pkg, 'tree', 'dist/figma')}">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+          </ul>
+          <p class="demo-end__author">Designed and built by <a href="${esc(author.url)}">${esc(author.name)}</a>.${author.caseStudy ? ` <a href="${esc(author.caseStudy)}">Read the case study</a> for the research and decisions behind it.` : ''}</p>
+        </div>
+        <div class="demo-end__fit l-stack">
+          <h2 class="demo-end__fit-title" id="fit-title">Is this the right kit?</h2>
           <div class="demo-pick">
             <div class="demo-pick__col">
               <p class="demo-check__label">Good fit</p>
@@ -296,35 +361,6 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
         </div>
       </div>
     </section>
-
-${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
-
-    <section class="demo-step demo-wrong" id="wrong-piece" aria-labelledby="wrong-title">
-      <div class="l-container">
-        <div class="demo-step__grid">
-          <div class="demo-step__head">
-            <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
-            <h2 class="demo-step__title" id="wrong-title">This piece doesn't fit</h2>
-            <p class="demo-step__text">An agent guessed a class. <code>npx mcss-lite validate</code> rejects it and names the parts that do exist. This output was produced by the real validator when this page was built.</p>
-          </div>
-          <div class="demo-step__build">
-            <div class="demo-check l-stack">
-              ${MISFIT_SVG}
-              <p class="demo-check__label">Invented markup</p>
-              <pre class="demo-code"><code>${esc(WRONG_PIECE)}</code></pre>
-              <p class="demo-check__label">validate</p>
-              <ul class="demo-check__issues" role="list">${wrongIssues.map((i) => `<li><strong>error</strong> ${esc(i.message)} <code>[${esc(i.rule)}]</code></li>`).join('')}</ul>
-              <p class="demo-check__label">The piece that fits</p>
-              <p class="demo-check__why">Retry isn't destructive, so it is the default button. <code>--danger</code> is only for actions that destroy something.</p>
-              <pre class="demo-code"><code>${esc(RIGHT_PIECE)}</code></pre>
-              <div class="l-cluster">
-                ${RIGHT_PIECE}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="demo-footer">
@@ -336,6 +372,7 @@ ${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
 
   ${indent(dialog, 2).trim()}
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="demo.js" defer></script>
 </body>
 </html>

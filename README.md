@@ -47,7 +47,7 @@ Point your agent at the docs, for example in your project's `AGENTS.md` or `CLAU
 
 ```md
 UI uses MCSS-Lite. Before writing markup, read node_modules/@gabrielpule/mcss-lite/AGENTS.md.
-After editing markup, run `npx mcss-lite validate <path>` (or `npx github:gabrielcpule/mcss-lite#v0.4.0 validate <path>` without installing) and fix every error.
+After editing markup, run `npx mcss-lite validate <path>` (or `npx github:gabrielcpule/mcss-lite#v0.4.1 validate <path>` without installing) and fix every error.
 ```
 
 For Claude Code, copy the skill into your project: `cp -r node_modules/@gabrielpule/mcss-lite/skills/mcss-lite .claude/skills/`.
@@ -124,13 +124,13 @@ MCSS-Lite is not on the npm registry. Releases are Git tags on GitHub, so there 
 **From the CDN** (no build step), pinned to a release:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.1/dist/mcss-lite.min.css">
 ```
 
 **From GitHub**, with any package manager:
 
 ```bash
-npm install github:gabrielcpule/mcss-lite#v0.4.0   # or: pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.1   # or: pnpm add / yarn add / bun add
 ```
 
 ```html
@@ -144,7 +144,7 @@ Or import it in your CSS build: `@import '@gabrielpule/mcss-lite';`
 **The validator** runs from the install (`npx mcss-lite validate <path>`) or straight from GitHub without installing:
 
 ```bash
-npx github:gabrielcpule/mcss-lite#v0.4.0 validate src/
+npx github:gabrielcpule/mcss-lite#v0.4.1 validate src/
 ```
 
 ## Usage

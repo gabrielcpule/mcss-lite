@@ -33,10 +33,17 @@
     <symbol id="mcss-icon-trash" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M4 7h16"/><path vector-effect="non-scaling-stroke" d="M9 7V4h6v3"/><path vector-effect="non-scaling-stroke" d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/><path vector-effect="non-scaling-stroke" d="M10 11v6"/><path vector-effect="non-scaling-stroke" d="M14 11v6"/></symbol>
     <symbol id="mcss-icon-warning" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M12 3.5L21.5 20h-19z"/><path vector-effect="non-scaling-stroke" d="M12 10v4"/><path vector-effect="non-scaling-stroke" d="M12 17v.5"/></symbol>
   </svg>
-  <a class="demo-skip" href="#step-1">Skip to the build</a>
+  <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark">MCSS-Lite <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
+      <nav class="demo-bar__nav" aria-label="Booklet">
+        <ul class="l-cluster demo-bar__links" role="list">
+          <li><a href="index.html" aria-current="page">Booklet</a></li>
+          <li><a href="status.html">Parts inventory</a></li>
+          <li><a href="content.html">Read before you build</a></li>
+        </ul>
+      </nav>
       <div class="l-cluster" role="group" aria-label="Theme">
         <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
         <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
@@ -45,40 +52,26 @@
     </div>
   </header>
 
-  <nav class="demo-rail" aria-label="Build steps">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 10">
-      <li><a class="demo-rail__stud" href="#step-1" data-rail="step-1" data-label="Lay the baseplate"><span class="u-sr-only">Step 1: Lay the baseplate</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-2" data-rail="step-2" data-label="Seat the buttons in a cluster"><span class="u-sr-only">Step 2: Seat the buttons in a cluster</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-3" data-rail="step-3" data-label="Snap on the badges"><span class="u-sr-only">Step 3: Snap on the badges</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-4" data-rail="step-4" data-label="Place cards on the grid"><span class="u-sr-only">Step 4: Place cards on the grid</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-5" data-rail="step-5" data-label="Build the form"><span class="u-sr-only">Step 5: Build the form</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-6" data-rail="step-6" data-label="Fit the checks and switches"><span class="u-sr-only">Step 6: Fit the checks and switches</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-7" data-rail="step-7" data-label="Raise the signals"><span class="u-sr-only">Step 7: Raise the signals</span><span aria-hidden="true">7</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-8" data-rail="step-8" data-label="Fit the dialog"><span class="u-sr-only">Step 8: Fit the dialog</span><span aria-hidden="true">8</span></a></li>
-      <li><a class="demo-rail__stud" href="#step-9" data-rail="step-9" data-label="Finishing touches"><span class="u-sr-only">Step 9: Finishing touches</span><span aria-hidden="true">9</span></a></li>
-      <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
-    </ol>
-  </nav>
-
-  <main>
+  <main id="main">
     <section class="demo-hero" aria-labelledby="demo-title">
       <div class="l-container demo-hero__grid">
         <div class="demo-hero__claim">
           <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts.</h1>
           <p class="demo-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
-          <div class="demo-install">
-            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css"&gt;</code>
-            <button type="button" class="c-button c-button--sm" data-copy="install-cmd">Copy</button>
-            <span class="u-sr-only" role="status" data-copy-status></span>
+          <div class="demo-proof">
+            <p class="demo-proof__guess"><span class="demo-proof__key">An agent guesses</span> <code>c-button--warning</code></p>
+            <p class="demo-proof__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist.</span></p>
+            <p><a href="#wrong-piece">See the piece that doesn't fit</a></p>
           </div>
-          <p class="demo-install__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.0</code>. MCSS-Lite is not on the npm registry.</p>
+          <div class="demo-install">
+            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/<span class="demo-code__token">mcss-lite</span>@v0.4.1/dist/<span class="demo-code__token">mcss-lite.min.css</span>"&gt;</code>
+            <button type="button" class="c-button c-button--sm" data-copy="install-cmd" data-copied="Stylesheet link copied.">Copy</button>
+          </div>
+          <p class="demo-install__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
           <ul class="demo-links" role="list">
-            <li><a href="status.html">Parts inventory: a sheet for every part</a></li>
-            <li><a href="content.html">Read before you build: content rules</a></li>
-            <li><a href="../AGENTS.md">AGENTS.md: the rules for agents</a></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></li>
             <li><a href="../dist/mcss-lite.manifest.json">Manifest: every part as JSON</a></li>
-            <li><a href="../dist/figma/">Figma variables</a></li>
-            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables: token import files</a></li>
           </ul>
         </div>
 
@@ -101,31 +94,20 @@
       </div>
     </section>
 
-    <section class="demo-fit" aria-labelledby="fit-title">
-      <div class="l-container">
-        <div class="demo-callout demo-fit__callout l-stack">
-          <h2 class="demo-fit__title" id="fit-title">Before you start: is this the right kit?</h2>
-          <div class="demo-pick">
-            <div class="demo-pick__col">
-              <p class="demo-check__label">Good fit</p>
-              <ul class="demo-pick__list">
-                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
-                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
-                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
-              </ul>
-            </div>
-            <div class="demo-pick__col demo-pick__col--other">
-              <p class="demo-check__label">Pick something else</p>
-              <ul class="demo-pick__list">
-                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
-                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
-                <li>Dense data products, or a brand that must not look like building bricks.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <nav class="demo-rail" aria-label="Build steps">
+      <ol class="demo-rail__list" role="list" style="--demo-studs: 10">
+        <li><a class="demo-rail__stud" href="#step-1" data-rail="step-1" data-label="Lay the baseplate"><span class="u-sr-only">Step 1: Lay the baseplate</span><span aria-hidden="true">1</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-2" data-rail="step-2" data-label="Seat the buttons in a cluster"><span class="u-sr-only">Step 2: Seat the buttons in a cluster</span><span aria-hidden="true">2</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-3" data-rail="step-3" data-label="Snap on the badges"><span class="u-sr-only">Step 3: Snap on the badges</span><span aria-hidden="true">3</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-4" data-rail="step-4" data-label="Place cards on the grid"><span class="u-sr-only">Step 4: Place cards on the grid</span><span aria-hidden="true">4</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-5" data-rail="step-5" data-label="Build the form"><span class="u-sr-only">Step 5: Build the form</span><span aria-hidden="true">5</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-6" data-rail="step-6" data-label="Fit the checks and switches"><span class="u-sr-only">Step 6: Fit the checks and switches</span><span aria-hidden="true">6</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-7" data-rail="step-7" data-label="Raise the signals"><span class="u-sr-only">Step 7: Raise the signals</span><span aria-hidden="true">7</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-8" data-rail="step-8" data-label="Fit the dialog"><span class="u-sr-only">Step 8: Fit the dialog</span><span aria-hidden="true">8</span></a></li>
+        <li><a class="demo-rail__stud" href="#step-9" data-rail="step-9" data-label="Finishing touches"><span class="u-sr-only">Step 9: Finishing touches</span><span aria-hidden="true">9</span></a></li>
+        <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+      </ol>
+    </nav>
 
 <section class="demo-step demo-step--wide" id="step-1" aria-labelledby="step-1-title">
   <div class="l-container">
@@ -157,9 +139,18 @@
                   </nav>
                   <div class="l-sidebar__content">
                     <div class="l-grid l-grid--3-col">
-                      <div class="c-card">One</div>
-                      <div class="c-card">Two</div>
-                      <div class="c-card">Three</div>
+                      <article class="c-card">
+                        <h4 class="c-card__title">Atlas</h4>
+                        <p class="c-card__body">12 pages</p>
+                      </article>
+                      <article class="c-card">
+                        <h4 class="c-card__title">Borealis</h4>
+                        <p class="c-card__body">4 pages</p>
+                      </article>
+                      <article class="c-card">
+                        <h4 class="c-card__title">Cirrus</h4>
+                        <p class="c-card__body">7 pages</p>
+                      </article>
                     </div>
                   </div>
                 </div>
@@ -206,14 +197,12 @@
           <div class="l-cluster">
             <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
             <a class="c-button c-button--secondary" href="#step-2">Read the docs</a>
-            <!-- mcss-lite-ignore primary-count: this sheet shows every variant side by side -->
-            <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
+            <button type="button" class="c-button c-button--lg">Create a project</button>
           </div>
 
           <div class="l-cluster">
             <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-            <!-- mcss-lite-ignore primary-count -->
-            <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+            <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
           </div>
 
           <div class="l-cluster" role="group" aria-label="Theme">
@@ -523,7 +512,7 @@
         <p class="demo-step__text">Utilities are single-purpose overrides. Reach for them last.</p>
         <div class="demo-callout">
           <p class="demo-callout__label">New parts</p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/utilities.html"><code class="demo-part__name">u-*</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> <code>u-font-mono</code> <code>u-truncate</code> <code>u-sr-only</code></span><span class="demo-part__row">12 more in AGENTS.md</span></span></li></ul>
+          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/utilities.html"><code class="demo-part__name">u-*</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> <code>u-font-mono</code> <code>u-truncate</code> <code>u-sr-only</code></span><span class="demo-part__row">12 more in AGENTS.md</span></span></li></ul>
           <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
         </div>
       </div>
@@ -571,15 +560,52 @@
   </g>
 </svg>
               <p class="demo-check__label">Invented markup</p>
-              <pre class="demo-code"><code>&lt;button class=&quot;c-button c-button--warning&quot; data-state=&quot;error&quot;&gt;Retry&lt;/button&gt;</code></pre>
+              <pre class="demo-code"><code>&lt;button class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--warning</span>&quot; <span class="demo-code__token">data-state</span>=&quot;error&quot;&gt;Retry&lt;/button&gt;</code></pre>
               <p class="demo-check__label">validate</p>
-              <ul class="demo-check__issues" role="list"><li><strong>error</strong> Unknown class &quot;c-button--warning&quot;. Valid modifiers of c-button: --primary, --secondary, --ghost, --danger, --sm, --lg. Only classes from the MCSS-Lite contracts exist. <code>[unknown-class]</code></li><li><strong>error</strong> data-state=&quot;error&quot; is not a state of c-button (allowed: c-button: disabled, loading). <code>[invalid-state]</code></li></ul>
+              <ul class="demo-check__issues" role="list"><li class="demo-check__issue--error"><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li><li class="demo-check__issue--error"><strong>error</strong> <span class="demo-code__token">data-state</span>=&quot;error&quot; is not a state of <span class="demo-code__token">c-button</span> (allowed: <span class="demo-code__token">c-button:</span> disabled, loading). <code>[invalid-state]</code></li></ul>
               <p class="demo-check__label">The piece that fits</p>
               <p class="demo-check__why">Retry isn't destructive, so it is the default button. <code>--danger</code> is only for actions that destroy something.</p>
-              <pre class="demo-code"><code>&lt;button type=&quot;button&quot; class=&quot;c-button&quot;&gt;Retry&lt;/button&gt;</code></pre>
+              <pre class="demo-code"><code>&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot;&gt;Retry&lt;/button&gt;</code></pre>
               <div class="l-cluster">
                 <button type="button" class="c-button">Retry</button>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-end" id="take-it" aria-labelledby="end-title">
+      <div class="l-container demo-end__grid">
+        <div class="l-stack">
+          <h2 class="demo-step__title" id="end-title">Take the parts with you</h2>
+          <p class="demo-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+          <ul class="demo-end__links" role="list">
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+            <li><a href="../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+          </ul>
+          <p class="demo-end__author">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+        </div>
+        <div class="demo-end__fit l-stack">
+          <h2 class="demo-end__fit-title" id="fit-title">Is this the right kit?</h2>
+          <div class="demo-pick">
+            <div class="demo-pick__col">
+              <p class="demo-check__label">Good fit</p>
+              <ul class="demo-pick__list">
+                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+              </ul>
+            </div>
+            <div class="demo-pick__col demo-pick__col--other">
+              <p class="demo-check__label">Pick something else</p>
+              <ul class="demo-pick__list">
+                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+                <li>Dense data products, or a brand that must not look like building bricks.</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -590,7 +616,7 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> and <code>demo/steps.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
     </div>
   </footer>
 
@@ -611,6 +637,7 @@
     </div>
   </dialog>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="demo.js" defer></script>
 </body>
 </html>

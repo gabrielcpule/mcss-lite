@@ -36,7 +36,7 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
           <li><a href="../index.html">Booklet</a></li>
@@ -70,7 +70,13 @@
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-label</span> Label</h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--deprecated"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8"/></svg>Deprecated</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">Deprecated standalone label. Use <code>c-form-field__label</code> inside <a href="form-field.html"><code>c-form-field</code></a> instead; <a href="label.html"><code>c-label</code></a> will be removed in 1.0.</p>
-        <p class="demo-sheet__replaced">This part was replaced. Use <code>c-form-field__label</code> in new code; <code>c-label</code> keeps working until 1.0.</p>
+          <div class="c-alert c-alert--warning">
+            <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+            <div class="c-alert__body">
+              <p class="c-alert__title"><span class="u-sr-only">Warning: </span>This part was replaced</p>
+              <p>Use <code>c-form-field__label</code> in new code. <code>c-label</code> keeps working until 1.0.</p>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -102,7 +108,7 @@
           <p class="demo-step__numeral" aria-hidden="true">2</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="build-title">Build it</h2>
-<ol class="demo-build-steps"><li><span>Start with <code>&lt;label&gt;</code> and add <code>class="c-label"</code>.</span></li></ol>
+<ol class="demo-build-steps"><li><span>Build <code>c-form-field__label</code> instead: this part only exists so older pages keep working.</span></li><li><span>Replace <code>class="c-label"</code> in existing markup when you next touch it. <code>mcss-lite validate</code> flags every use with <code>[deprecated]</code>.</span></li></ol>
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <figure class="demo-stage">
@@ -112,10 +118,16 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;c-form-field&quot;&gt;
-  &lt;label class=&quot;c-form-field__label&quot; for=&quot;name&quot;&gt;Name&lt;/label&gt;
-  &lt;input class=&quot;c-input&quot; id=&quot;name&quot;&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">4 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-73">&lt;div class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
+  &lt;label class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot; for=&quot;name&quot;&gt;Name&lt;/label&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; id=&quot;name&quot;&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-73" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -139,18 +151,27 @@
     <input class="c-input" id="name-do1">
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;c-form-field&quot;&gt;
-  &lt;label class=&quot;c-form-field__label&quot; for=&quot;name&quot;&gt;Name&lt;/label&gt;
-  &lt;input class=&quot;c-input&quot; id=&quot;name&quot;&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">4 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-74">&lt;div class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
+  &lt;label class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot; for=&quot;name&quot;&gt;Name&lt;/label&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; id=&quot;name&quot;&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-74" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't use the deprecated block.</p>
-<pre class="demo-code"><code>&lt;label class=&quot;c-label&quot; for=&quot;name2&quot;&gt;Name&lt;/label&gt;</code></pre>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-75">&lt;label class=&quot;<span class="demo-code__token">c-label</span>&quot; for=&quot;name2&quot;&gt;Name&lt;/label&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-75" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> &quot;c-label&quot; is deprecated. Use &quot;c-form-field__label&quot;. <code>[deprecated]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> &quot;<span class="demo-code__token">c-label</span>&quot; is deprecated. Use &quot;<span class="demo-code__token">c-form-field__label</span>&quot;. <code>[deprecated]</code></li></ul>
   </div>
 </div>
 </div>
@@ -166,6 +187,8 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;label&gt;</code></p>
+<details class="demo-details">
+<summary>Tokens <span class="demo-details__count">1</span></summary>
 <div class="demo-spec">
   <table>
     <caption>Tokens</caption>
@@ -175,6 +198,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -202,10 +226,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

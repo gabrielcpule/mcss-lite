@@ -1,4 +1,4 @@
-<!-- MCSS-Lite 0.4.0 icons. Inline this file once in <body>, then: <svg class="c-icon" aria-hidden="true"><use href="#mcss-icon-check"/></svg> -->
+<!-- MCSS-Lite 0.4.1 icons. Inline this file once in <body>, then: <svg class="c-icon" aria-hidden="true"><use href="#mcss-icon-check"/></svg> -->
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
   <symbol id="mcss-icon-arrow-right" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12h14"/><path vector-effect="non-scaling-stroke" d="M13 6l6 6-6 6"/></symbol>
   <symbol id="mcss-icon-check" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12.5l4.5 4.5L19 7"/></symbol>

@@ -36,7 +36,7 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
           <li><a href="../index.html">Booklet</a></li>
@@ -103,7 +103,7 @@
           <p class="demo-step__numeral" aria-hidden="true">2</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="build-title">Build it</h2>
-<ol class="demo-build-steps"><li><span>Start with <code>&lt;dialog&gt;</code> and add <code>class="c-modal"</code>.</span></li><li><span>Add the required parts: <code>c-modal__container</code>, <code>c-modal__title</code>.</span></li><li><span>Add the parts you need: <code>c-modal__backdrop</code>, <code>c-modal__header</code>, <code>c-modal__close</code>, <code>c-modal__body</code>, <code>c-modal__footer</code>.</span></li><li><span>Set a state with <code>data-state</code> and add its paired attribute: <code>closed</code>.</span></li></ol>
+<ol class="demo-build-steps"><li><span>Start with <code>&lt;dialog&gt;</code> and add <code>class="c-modal"</code>.</span></li><li><span>Add the required parts: <code>c-modal__container</code>, <code>c-modal__title</code>.</span></li><li><span>Add the parts you need: <code>c-modal__backdrop</code>, <code>c-modal__header</code>, <code>c-modal__close</code>, <code>c-modal__body</code>, <code>c-modal__footer</code>.</span></li><li><span>Add <code>data-state="closed"</code> when hidden (div form). When closed, return focus to the control that opened the modal.</span></li></ol>
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <figure class="demo-stage demo-stage--contain" inert aria-hidden="true">
@@ -125,22 +125,28 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;c-modal&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;delete-title&quot;&gt;
-  &lt;div class=&quot;c-modal__backdrop&quot;&gt;&lt;/div&gt;
-  &lt;div class=&quot;c-modal__container&quot;&gt;
-    &lt;header class=&quot;c-modal__header&quot;&gt;
-      &lt;h2 class=&quot;c-modal__title&quot; id=&quot;delete-title&quot;&gt;Delete project?&lt;/h2&gt;
-      &lt;button type=&quot;button&quot; class=&quot;c-modal__close&quot; aria-label=&quot;Close&quot;&gt;&lt;svg viewBox=&quot;0 0 20 20&quot; aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;&gt;&lt;path d=&quot;M5 5l10 10M15 5L5 15&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">16 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-76">&lt;div class=&quot;<span class="demo-code__token">c-modal</span>&quot; role=&quot;dialog&quot; <span class="demo-code__token">aria-modal</span>=&quot;true&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">delete-title</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-modal__backdrop</span>&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
+    &lt;header class=&quot;<span class="demo-code__token">c-modal__header</span>&quot;&gt;
+      &lt;h2 class=&quot;<span class="demo-code__token">c-modal__title</span>&quot; id=&quot;<span class="demo-code__token">delete-title</span>&quot;&gt;Delete project?&lt;/h2&gt;
+      &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-modal__close</span>&quot; <span class="demo-code__token">aria-label</span>=&quot;Close&quot;&gt;&lt;svg viewBox=&quot;0 0 20 20&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; <span class="demo-code__token">stroke-width</span>=&quot;2&quot; <span class="demo-code__token">stroke-linecap</span>=&quot;round&quot;&gt;&lt;path d=&quot;M5 5l10 10M15 5L5 15&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
     &lt;/header&gt;
-    &lt;div class=&quot;c-modal__body&quot;&gt;
-      &lt;p class=&quot;u-margin-0&quot;&gt;Atlas and its 42 files will be deleted. This can't be undone.&lt;/p&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-modal__body</span>&quot;&gt;
+      &lt;p class=&quot;<span class="demo-code__token">u-margin-0</span>&quot;&gt;Atlas and its 42 files will be deleted. This can't be undone.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;footer class=&quot;c-modal__footer&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;c-button c-button--ghost&quot;&gt;Keep project&lt;/button&gt;
-      &lt;button type=&quot;button&quot; class=&quot;c-button c-button--danger&quot;&gt;Delete project&lt;/button&gt;
+    &lt;footer class=&quot;<span class="demo-code__token">c-modal__footer</span>&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--ghost</span>&quot;&gt;Keep project&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--danger</span>&quot;&gt;Delete project&lt;/button&gt;
     &lt;/footer&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-76" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -173,29 +179,38 @@
     </div>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;dialog class=&quot;c-modal&quot; aria-labelledby=&quot;leave-title&quot;&gt;
-  &lt;div class=&quot;c-modal__container&quot;&gt;
-    &lt;div class=&quot;c-modal__header&quot;&gt;
-      &lt;h2 class=&quot;c-modal__title&quot; id=&quot;leave-title&quot;&gt;Discard your changes?&lt;/h2&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">13 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-77">&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">leave-title</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-modal__header</span>&quot;&gt;
+      &lt;h2 class=&quot;<span class="demo-code__token">c-modal__title</span>&quot; id=&quot;<span class="demo-code__token">leave-title</span>&quot;&gt;Discard your changes?&lt;/h2&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;c-modal__footer&quot;&gt;
-      &lt;div class=&quot;l-cluster&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;c-button c-button--ghost&quot;&gt;Keep editing&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;c-button c-button--danger&quot;&gt;Discard changes&lt;/button&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-modal__footer</span>&quot;&gt;
+      &lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--ghost</span>&quot;&gt;Keep editing&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--danger</span>&quot;&gt;Discard changes&lt;/button&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/dialog&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-77" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't build a dialog from a bare &lt;div&gt;: no focus handling, no Escape, nothing announced.</p>
-<pre class="demo-code"><code>&lt;div class=&quot;c-modal&quot;&gt;
-  &lt;div class=&quot;c-modal__container&quot;&gt;Discard your changes?&lt;/div&gt;
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-78">&lt;div class=&quot;<span class="demo-code__token">c-modal</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;Discard your changes?&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-78" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> c-modal needs role=&quot;dialog&quot; (or use &lt;dialog&gt;), aria-modal=&quot;true&quot; and aria-labelledby. <code>[a11y]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-modal</span> needs role=&quot;dialog&quot; (or use &lt;dialog&gt;), <span class="demo-code__token">aria-modal</span>=&quot;true&quot; and <span class="demo-code__token">aria-labelledby.</span> <code>[a11y]</code></li></ul>
   </div>
 </div>
 <div class="demo-checks__pair">
@@ -212,27 +227,36 @@
     </div>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;dialog class=&quot;c-modal&quot; aria-labelledby=&quot;share-title&quot;&gt;
-  &lt;div class=&quot;c-modal__container&quot;&gt;
-    &lt;div class=&quot;c-modal__header&quot;&gt;
-      &lt;h2 class=&quot;c-modal__title&quot; id=&quot;share-title&quot;&gt;Share project&lt;/h2&gt;
-      &lt;button type=&quot;button&quot; class=&quot;c-modal__close&quot; aria-label=&quot;Close&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4 4l8 8M12 4l-8 8&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">8 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-79">&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">share-title</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-modal__header</span>&quot;&gt;
+      &lt;h2 class=&quot;<span class="demo-code__token">c-modal__title</span>&quot; id=&quot;<span class="demo-code__token">share-title</span>&quot;&gt;Share project&lt;/h2&gt;
+      &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-modal__close</span>&quot; <span class="demo-code__token">aria-label</span>=&quot;Close&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4 4l8 8M12 <span class="demo-code__token">4l-8</span> 8&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; <span class="demo-code__token">stroke-width</span>=&quot;2&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/dialog&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-79" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't leave an icon-only close button without a name.</p>
-<pre class="demo-code"><code>&lt;dialog class=&quot;c-modal&quot; aria-labelledby=&quot;share-title2&quot;&gt;
-  &lt;div class=&quot;c-modal__container&quot;&gt;
-    &lt;h2 class=&quot;c-modal__title&quot; id=&quot;share-title2&quot;&gt;Share project&lt;/h2&gt;
-    &lt;button type=&quot;button&quot; class=&quot;c-modal__close&quot;&gt;×&lt;/button&gt;
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-80">&lt;dialog class=&quot;<span class="demo-code__token">c-modal</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">share-title2</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-modal__container</span>&quot;&gt;
+    &lt;h2 class=&quot;<span class="demo-code__token">c-modal__title</span>&quot; id=&quot;<span class="demo-code__token">share-title2</span>&quot;&gt;Share project&lt;/h2&gt;
+    &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-modal__close</span>&quot;&gt;×&lt;/button&gt;
   &lt;/div&gt;
 &lt;/dialog&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-80" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> c-modal__close needs an accessible name, e.g. aria-label=&quot;Close&quot; or &quot;Dismiss&quot;. <code>[a11y]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-modal__close</span> needs an accessible name, e.g. <span class="demo-code__token">aria-label</span>=&quot;Close&quot; or &quot;Dismiss&quot;. <code>[a11y]</code></li></ul>
   </div>
 </div>
 </div>
@@ -272,6 +296,8 @@
     </tbody>
   </table>
 </div>
+<details class="demo-details">
+<summary>Tokens <span class="demo-details__count">7</span></summary>
 <div class="demo-spec">
   <table>
     <caption>Tokens</caption>
@@ -287,6 +313,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -353,10 +380,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

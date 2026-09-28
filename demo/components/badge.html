@@ -36,7 +36,7 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
           <li><a href="../index.html">Booklet</a></li>
@@ -117,14 +117,20 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;l-cluster&quot;&gt;
-  &lt;span class=&quot;c-badge&quot;&gt;Draft&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--primary&quot;&gt;New&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--success&quot;&gt;Active&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--warning&quot;&gt;Expiring&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--error&quot;&gt;Failed&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--info&quot;&gt;Beta&lt;/span&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">8 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-32">&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span>&quot;&gt;Draft&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--primary</span>&quot;&gt;New&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--success</span>&quot;&gt;Active&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--warning</span>&quot;&gt;Expiring&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--error</span>&quot;&gt;Failed&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--info</span>&quot;&gt;Beta&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-32" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -148,18 +154,27 @@
     <span class="c-badge c-badge--success">Passed</span>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;l-cluster&quot;&gt;
-  &lt;span class=&quot;c-badge c-badge--error&quot;&gt;Failed&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--success&quot;&gt;Passed&lt;/span&gt;
+<details class="demo-details">
+<summary>Markup <span class="demo-details__count">4 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-33">&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--error</span>&quot;&gt;Failed&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--success</span>&quot;&gt;Passed&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-33" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't make a badge clickable or invent tones.</p>
-<pre class="demo-code"><code>&lt;span class=&quot;c-badge c-badge--danger&quot;&gt;Failed&lt;/span&gt;</code></pre>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-34">&lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--danger</span>&quot;&gt;Failed&lt;/span&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-34" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>error</strong> Unknown class &quot;c-badge--danger&quot;. Valid modifiers of c-badge: --primary, --success, --warning, --error, --info. Only classes from the MCSS-Lite contracts exist. <code>[unknown-class]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--error"><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-badge--danger</span>&quot;. Valid modifiers of <span class="demo-code__token">c-badge:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--success</span>, <span class="demo-code__token">--warning</span>, <span class="demo-code__token">--error</span>, <span class="demo-code__token">--info.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li></ul>
   </div>
 </div>
 </div>
@@ -188,6 +203,8 @@
     </tbody>
   </table>
 </div>
+<details class="demo-details">
+<summary>Tokens <span class="demo-details__count">4</span></summary>
 <div class="demo-spec">
   <table>
     <caption>Tokens</caption>
@@ -200,6 +217,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -256,10 +274,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · by Gabriel Pule</p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

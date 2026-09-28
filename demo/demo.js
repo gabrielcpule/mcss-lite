@@ -14,18 +14,19 @@
   setTheme(new URLSearchParams(location.search).get('theme') || saved || 'light');
   choices.forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeChoice)));
 
+  const copyStatus = document.querySelector('[data-copy-status]');
   document.querySelectorAll('[data-copy]').forEach((button) => {
-    const status = document.querySelector('[data-copy-status]');
+    const label = button.innerHTML;
     button.addEventListener('click', async () => {
       const text = document.getElementById(button.dataset.copy).textContent;
       try {
         await navigator.clipboard.writeText(text);
         button.textContent = 'Copied';
-        if (status) status.textContent = 'Stylesheet link copied.';
+        if (copyStatus) copyStatus.textContent = button.dataset.copied || 'Copied.';
       } catch {
         button.textContent = 'Select and copy';
       }
-      setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+      setTimeout(() => { button.innerHTML = label; }, 2000);
     });
   });
 
