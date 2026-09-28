@@ -2,7 +2,7 @@
 
 > Rules, components and tokens in one file.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.4.0
+> Package: @gabrielpule/mcss-lite@0.4.1
 
 ## Rules
 
@@ -17,12 +17,12 @@
 MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.1/dist/mcss-lite.min.css">
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
 ```
 
 ```sh
-npm install github:gabrielcpule/mcss-lite#v0.4.0   # or pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.1   # or pnpm add / yarn add / bun add
 # then: <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
@@ -32,7 +32,7 @@ Before finishing, check your markup:
 
 ```sh
 npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output
-npx github:gabrielcpule/mcss-lite#v0.4.0 validate path/to/file.html   # without installing
+npx github:gabrielcpule/mcss-lite#v0.4.1 validate path/to/file.html   # without installing
 ```
 
 ## Blocks at a glance
@@ -151,15 +151,24 @@ Centers a block horizontally at reading width without side gutters.
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -226,15 +235,24 @@ Horizontal group that wraps, with a gap and vertically centered items: button gr
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -303,15 +321,24 @@ Centers page content horizontally with a max width and side gutters.
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -387,15 +414,24 @@ Two-dimensional grid with a fixed gap. Column modifiers collapse to one column b
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -461,15 +497,24 @@ Vertical padding for a full-width page section.
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -534,15 +579,24 @@ A sidebar next to main content that stacks when the content would get narrower t
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -632,15 +686,24 @@ Vertical flow: adds space between consecutive children, which keep their own wid
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -702,15 +765,24 @@ Children sit side by side until the container is narrower than a threshold, then
       <div class="l-sidebar">
         <nav class="l-sidebar__sidebar" aria-label="Filters">
           <div class="l-stack l-stack--sm">
-            <a href="#all">All</a>
-            <a href="#mine">Mine</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#all" aria-current="page">All projects</a>
+            <a class="c-button c-button--ghost c-button--sm" href="#mine">My projects</a>
           </div>
         </nav>
         <div class="l-sidebar__content">
           <div class="l-grid l-grid--3-col">
-            <div class="c-card">One</div>
-            <div class="c-card">Two</div>
-            <div class="c-card">Three</div>
+            <article class="c-card">
+              <h4 class="c-card__title">Atlas</h4>
+              <p class="c-card__body">12 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Borealis</h4>
+              <p class="c-card__body">4 pages</p>
+            </article>
+            <article class="c-card">
+              <h4 class="c-card__title">Cirrus</h4>
+              <p class="c-card__body">7 pages</p>
+            </article>
           </div>
         </div>
       </div>
@@ -1078,25 +1150,26 @@ Triggers an action. Apply to <button>. Apply to <a> only when the control naviga
 <div class="l-cluster">
   <button type="button" class="c-button c-button--ghost">Cancel</button>
   <button type="button" class="c-button">Save draft</button>
-  <button type="button" class="c-button c-button--primary">Publish</button>
+  <button type="button" class="c-button c-button--primary">Publish post</button>
 </div>
 
 <div class="l-cluster">
-  <button type="button" class="c-button c-button--secondary c-button--sm">Export</button>
-  <a class="c-button c-button--secondary" href="/docs">Read the docs</a>
-  <!-- mcss-lite-ignore primary-count: this sheet shows every variant side by side -->
-  <button type="button" class="c-button c-button--primary c-button--lg">Start free trial</button>
+  <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+  <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+  <button type="button" class="c-button c-button--lg">Create a project</button>
 </div>
 
-<div class="l-cluster">
-  <button type="button" class="c-button" data-state="disabled" disabled>Unavailable</button>
-  <!-- mcss-lite-ignore primary-count -->
-  <button type="button" class="c-button c-button--primary" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+<div class="l-stack l-stack--sm">
+  <div class="l-cluster">
+    <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="schedule-reason">Schedule post</button>
+    <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+  </div>
+  <p class="u-margin-0" id="schedule-reason">Add a publish date to schedule the post.</p>
 </div>
 
-<div class="l-cluster" role="group" aria-label="Theme">
-  <button type="button" class="c-button c-button--sm" aria-pressed="true">Light</button>
-  <button type="button" class="c-button c-button--sm" aria-pressed="false">Dark</button>
+<div class="l-cluster" role="group" aria-label="View">
+  <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+  <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
 </div>
 
 <button type="button" class="c-button c-button--danger">Delete project</button>
@@ -1249,7 +1322,7 @@ A raised surface that groups related content, such as a summary, a settings grou
 
   <section class="c-card c-card--bordered">
     <div class="c-card__body">
-      <p class="u-margin-0">Bordered cards suit dense, flat layouts.</p>
+      <p class="u-margin-0">Invoices go to finance@example.com on the 1st of each month.</p>
     </div>
   </section>
 </div>
@@ -1812,7 +1885,7 @@ A dialog over the page that blocks interaction until dismissed. Works on <dialog
       <button type="button" class="c-modal__close" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
     </header>
     <div class="c-modal__body">
-      <p class="u-margin-0">Atlas and its 42 files will be deleted. This can't be undone.</p>
+      <p class="u-margin-0">Atlas and its 12 pages will be deleted. This can't be undone.</p>
     </div>
     <footer class="c-modal__footer">
       <button type="button" class="c-button c-button--ghost">Keep project</button>
@@ -2112,7 +2185,7 @@ Values are shown as light / dark.
 | `--color-text-inverse` | #ffffff / #0f2140 | Text on an inverted background. |
 | `--color-text-on-action` | #ffffff / #ffffff | Text on --color-action-primary. |
 | `--color-text-on-danger` | #ffffff / #ffffff | Text on --color-action-danger. |
-| `--color-text-link` | #005a9c / #6cb4ee | Link text. Links are also underlined. |
+| `--color-text-link` | #005a9c / #7cbff1 | Link text. Links are also underlined. |
 | `--color-text-link-hover` | #004a80 / #9ccdf4 | Link text on hover. |
 | `--color-text-disabled` | #6c757d / #7f95ab | Text in disabled (ghosted) controls. |
 | `--color-text-success` | #155724 / #a3d9b1 | Text on --color-background-success. |
@@ -2190,7 +2263,7 @@ Values are shown as light / dark.
 - **border-radius:** `--border-radius-none` (0), `--border-radius-sm` (0.125rem), `--border-radius-base` (0.25rem), `--border-radius-md` (0.375rem), `--border-radius-lg` (0.5rem), `--border-radius-xl` (0.75rem), `--border-radius-2xl` (1rem), `--border-radius-full` (9999px)
 - **border-width:** `--border-width-0` (0), `--border-width-thin` (1px), `--border-width-thick` (2px), `--border-width-thicker` (4px)
 - **shadow:** `--shadow-xs` (0 1px 2px rgb(0 0 0 / 0.05)), `--shadow-sm` (0 1px 3px rgb(0 0 0 / 0.1)), `--shadow-base` (0 4px 6px rgb(0 0 0 / 0.1)), `--shadow-md` (0 8px 25px rgb(0 0 0 / 0.1)), `--shadow-lg` (0 25px 50px rgb(0 0 0 / 0.15)), `--shadow-xl` (0 25px 50px rgb(0 0 0 / 0.25))
-- **ease:** `--ease-linear` (linear), `--ease-in` (ease-in), `--ease-out` (ease-out), `--ease-in-out` (ease-in-out)
+- **ease:** `--ease-linear` (linear), `--ease-in` (ease-in), `--ease-out` (ease-out), `--ease-in-out` (ease-in-out), `--ease-out-expo` (cubic-bezier(0.16, 1, 0.3, 1))
 - **duration:** `--duration-instant` (0ms), `--duration-fast` (150ms), `--duration-base` (250ms), `--duration-slow` (350ms), `--duration-slower` (500ms)
 - **z-index:** `--z-index-hide` (-1), `--z-index-base` (0), `--z-index-docked` (10), `--z-index-dropdown` (1000), `--z-index-sticky` (1020), `--z-index-modal-backdrop` (1040), `--z-index-modal` (1050), `--z-index-popover` (1060), `--z-index-toast` (1070), `--z-index-tooltip` (1080)
 - **container:** `--container-max-width` (72rem), `--container-narrow` (48rem)
@@ -2212,7 +2285,7 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--button-primary-text` | `--color-text-on-action` | #ffffff |
 | `--button-primary-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--button-primary-background-active` | `--color-action-primary-active` | #003860 / #144d8a |
-| `--button-secondary-text` | `--color-text-link` | #005a9c / #6cb4ee |
+| `--button-secondary-text` | `--color-text-link` | #005a9c / #7cbff1 |
 | `--button-secondary-border` | `--color-action-primary` | #005a9c / #2576cc |
 | `--button-ghost-background-hover` | `--color-action-neutral-hover` | #e9ecef / #27436f |
 | `--button-danger-background` | `--color-action-danger` | #c91a09 |

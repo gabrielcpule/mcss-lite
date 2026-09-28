@@ -39,6 +39,11 @@ export const tag = (n) => (n > 0
   ? `<span class="demo-count"><span aria-hidden="true">${n}×</span><span class="u-sr-only">, used ${n} time${n === 1 ? '' : 's'} in this build</span></span>`
   : '');
 
+// A brick seated flush on its plate: the closing plate's echo of the finale.
+const SEATED_MINI = '<svg class="demo-seated-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="24" width="40" height="5" rx="1"/><rect x="9" y="12" width="30" height="12" rx="2"/><path d="M14 12V8h5v4M29 12V8h5v4"/></g></svg>';
+const CHECK_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+const CROSS_MARK = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+
 // The misfit: a brick whose studs miss the baseplate, next to one seated flush. Drawn in the keyline.
 export const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title" focusable="false">
   <title id="misfit-title">A brick tilted off its baseplate next to a brick seated flush</title>
@@ -60,12 +65,85 @@ export const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="
   </g>
 </svg>`;
 
+// The top bar on every booklet page: wordmark, the three pages (the current one marked) and the theme switch.
+const PAGES = [['index.html', 'Overview'], ['status.html', 'Parts inventory'], ['content.html', 'Read before you build']];
+export function demoBar(pkg, rel, current) {
+  return `<header class="demo-bar">
+    <div class="l-container demo-bar__inner">
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="${rel}index.html">MCSS-Lite</a> <span class="demo-wordmark__version">${esc(pkg.version)}</span></p>
+      <nav class="demo-bar__nav" aria-label="Booklet">
+        <ul class="l-cluster demo-bar__links" role="list">
+${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a></li>`).join('\n')}
+        </ul>
+      </nav>
+      <div class="l-cluster" role="group" aria-label="Theme">
+        <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
+        <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
+        <button type="button" class="c-button c-button--sm" data-theme-choice="auto" aria-pressed="false">System</button>
+      </div>
+    </div>
+  </header>`;
+}
+
+// Head assets shared by every page. The theme is set before first paint, so a saved dark theme never
+// flashes light; the library's @import files are preloaded so they don't wait for index.css.
+const LIB_FILES = ['tokens', 'global', 'layout', 'components', 'utilities'];
+export const demoHead = (rel) => `<script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
+  <link rel="preload" href="${rel}fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+${LIB_FILES.map((f) => `  <link rel="preload" href="${rel}../src/${f}.css" as="style">`).join('\n')}
+  <link rel="stylesheet" href="${rel}../index.css">
+  <link rel="stylesheet" href="${rel}demo.css">`;
+
+// Files that read best on GitHub (rendered Markdown, a browsable folder), pinned to this release's tag.
+const repoUrl = (pkg, kind, path) => `https://github.com/gabrielcpule/mcss-lite/${kind}/v${pkg.version}/${path}`;
+
+// Bag counts shared by the booklet and the parts inventory: deprecated parts aren't parts to build with,
+// and the utilities block counts its classes.
+export const partCount = (list) => {
+  if (list.length === 1 && list[0].layer === 'utility') return `${list[0].classes.length} classes`;
+  const live = list.filter((c) => c.status !== 'deprecated').length;
+  const old = list.length - live;
+  return `${live} part${live === 1 ? '' : 's'}${old ? ` + ${old} deprecated` : ''}`;
+};
+
+export const tokenNote = (tokenRows) => {
+  const semantic = tokenRows.filter((t) => t.tier === 'semantic').length;
+  const component = tokenRows.filter((t) => t.tier === 'component').length;
+  return `${semantic} semantic and ${component} component tokens, built on ${tokenRows.length - semantic - component} primitives you don't use directly.`;
+};
+
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// Escaped text with every hyphenated name (class, modifier, attribute) kept on one line,
+// so code and validator messages wrap between names, never inside one.
+export const codeTokens = (text) => esc(text).replace(/[A-Za-z0-9_:.#]*(?:-{1,2}[A-Za-z0-9_:.#]+)+/g, '<span class="demo-code__token">$&</span>');
+
 export const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l : l)).join('\n');
 
 // A wrong piece an agent might invent, checked by the real validator at build time.
 const WRONG_PIECE = '<button class="c-button c-button--warning" data-state="error">Retry</button>';
-const RIGHT_PIECE = '<button type="button" class="c-button">Retry</button>';
+
+// The finale: a whole form an agent might write from memory, and the rebuilt one. Both are
+// validated at build time; the build fails if the wrong one stops failing or the right one does.
+const FINALE_WRONG = `<form class="c-form">
+  <input class="c-input" type="email" placeholder="Work email">
+  <p style="color: #d93025">We never share your email.</p>
+  <button class="c-button c-button--primary">Submit</button>
+</form>`;
+const FINALE_RIGHT = `<form class="l-stack">
+  <div class="c-form-field">
+    <label class="c-form-field__label" for="signup-email">Work email</label>
+    <input class="c-input" type="email" id="signup-email" aria-describedby="signup-email-help">
+    <p class="c-form-field__help" id="signup-email-help">We never share your email.</p>
+  </div>
+  <div class="l-cluster">
+    <button type="submit" class="c-button c-button--primary">Create account</button>
+  </div>
+</form>`;
+
+const tally = (issues) => ['error', 'warning'].map((level) => {
+  const n = issues.filter((i) => i.level === level).length;
+  return n ? `${n} ${level}${n === 1 ? '' : 's'}` : '';
+}).filter(Boolean).join(', ');
 
 // The step preview is always visible in page flow, so it must not claim aria-modal.
 const inlinePreview = (html) => {
@@ -81,8 +159,25 @@ function mustRewrite(source, rewrite, markers) {
   return out;
 }
 
+// The canonical modal example as a native <dialog> the page can open for real.
+export function realDialog(modalExample) {
+  return mustRewrite(modalExample, (m) => m
+    .replace(/^<div class="c-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">/, '<dialog class="c-modal" id="demo-dialog" aria-labelledby="demo-dialog-title">')
+    .replace(/<\/div>\s*$/, '</dialog>')
+    .replace('<div class="c-modal__backdrop"></div>', '')
+    .replace('id="delete-title"', 'id="demo-dialog-title"')
+    .replace('Atlas and its 12 pages', 'Borealis and its 4 pages')
+    .replace(/<button type="button" class="c-modal__close"/, '<button type="button" class="c-modal__close" data-close-dialog')
+    .replace(/<button type="button" class="c-button c-button--ghost">/, '<button type="button" class="c-button c-button--ghost" data-close-dialog>')
+    .replace(/<button type="button" class="c-button c-button--danger">/, '<button type="button" class="c-button c-button--danger" data-close-dialog>'), ['<dialog class="c-modal"', '</dialog>', 'demo-dialog-title', 'data-close-dialog>', 'Borealis']);
+}
+
+export function loadBooklet(root) {
+  return JSON.parse(readFileSync(join(root, 'demo', 'steps.json'), 'utf8'));
+}
+
 export function loadSteps(root) {
-  return JSON.parse(readFileSync(join(root, 'demo', 'steps.json'), 'utf8')).steps;
+  return loadBooklet(root).steps;
 }
 
 // Blocks that must appear in the booklet: every stable contract.
@@ -92,17 +187,22 @@ export function uncoveredBlocks(contracts, steps) {
 }
 
 export function buildDemo(root, pkg, contracts, tokenRows) {
-  const steps = loadSteps(root);
+  const { steps, author } = loadBooklet(root);
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const example = (file) => readFileSync(join(root, 'components', file), 'utf8').trim();
   const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
   const wrongIssues = validate(WRONG_PIECE).filter((i) => i.level === 'error');
+  const finaleIssues = validate(FINALE_WRONG);
+  if (finaleIssues.length < 4) throw new Error('demo finale: the wrong form should fail four ways');
+  if (validate(FINALE_RIGHT).length) throw new Error('demo finale: the rebuilt form must validate cleanly');
 
   const layouts = contracts.filter((c) => c.layer === 'layout');
-  const components = contracts.filter((c) => c.layer === 'component' && c.status !== 'deprecated');
+  const allComponents = contracts.filter((c) => c.layer === 'component');
+  const components = allComponents.filter((c) => c.status !== 'deprecated');
+  const utilities = contracts.filter((c) => c.layer === 'utility');
   const semantic = tokenRows.filter((t) => t.tier === 'semantic');
   const componentTokens = tokenRows.filter((t) => t.tier === 'component');
-  const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-ring', '--color-focus-halo', '--color-background-callout', '--color-text-default'];
+  const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-halo', '--color-background-callout', '--color-background-canvas', '--color-text-default'];
   const inventory = classInventory(contracts);
 
   const sheet = (c) => `components/${c.file.replace(/\.json$/, '.html')}`;
@@ -110,7 +210,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
 
   // How many times a block is used in the step's canonical example: the booklet's "1x" count tag.
   const countIn = (html, block) => {
-    if (block === 'u-*') return (html.match(/class="[^"]*\bu-[a-z0-9-]+/g) || []).length;
+    if (block === 'u-*') return [...html.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)).filter((cls) => cls.startsWith('u-')).length;
     const re = new RegExp(`class="[^"]*(?<![\\w-])${block.replace(/[-]/g, '\\-')}(?![\\w-])`, 'g');
     return (html.match(re) || []).length;
   };
@@ -134,7 +234,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     if (!c) throw new Error(`demo/steps.json names unknown block ${block}`);
     if (c.layer === 'utility') {
       const used = c.classes.filter((u) => countIn(html, u.name) > 0);
-      return `<li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="${sheet(c)}"><code class="demo-part__name">u-*</code></a>${tag(countIn(html, 'u-*'))}</span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> ${used.map((u) => `<code>${esc(u.name)}</code>`).join(' ')}</span><span class="demo-part__row">${c.classes.length - used.length} more in AGENTS.md</span></span></li>`;
+      return `<li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="${sheet(c)}"><code class="demo-part__name">u-*</code></a>${tag(countIn(html, 'u-*'))}</span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> ${used.map((u) => `<code>${esc(u.name)}</code>`).join(' ')}</span><span class="demo-part__row"><a href="${sheet(c)}">${c.classes.length - used.length} more on the utilities sheet</a></span></span></li>`;
     }
     const mods = (c.modifiers ?? []).flatMap((m) => m.values.map((v) => `<code>--${esc(v.name)}</code>`)).join(' ');
     const els = (c.elements ?? []).map((e) => `<code>__${esc(e.name)}</code>`).join(' ');
@@ -171,7 +271,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
         <h2 class="demo-step__title" id="step-${n}-title"><span class="u-sr-only">Step ${n}: </span>${esc(s.title)}</h2>
         <p class="demo-step__text">${esc(s.text)}</p>
         <div class="demo-callout">
-          <p class="demo-callout__label">New parts${n === 1 ? ' <span class="demo-callout__hint">(× is how many times a part is used in this build)</span>' : ''}</p>
+          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
           <ul class="demo-parts" role="list">${s.blocks.map((b) => callout(b, example(s.example))).join('')}</ul>
           ${alsoHtml}
         </div>
@@ -187,15 +287,7 @@ ${indent(stage, 10)}
 </section>`;
   };
 
-  const modalExample = example('modal.html');
-  const dialog = mustRewrite(modalExample, (m) => m
-    .replace(/^<div class="c-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">/, '<dialog class="c-modal" id="demo-dialog" aria-labelledby="demo-dialog-title">')
-    .replace(/<\/div>\s*$/, '</dialog>')
-    .replace('<div class="c-modal__backdrop"></div>', '')
-    .replace('id="delete-title"', 'id="demo-dialog-title"')
-    .replace(/<button type="button" class="c-modal__close"/, '<button type="button" class="c-modal__close" data-close-dialog')
-    .replace(/<button type="button" class="c-button c-button--ghost">/, '<button type="button" class="c-button c-button--ghost" data-close-dialog>')
-    .replace(/<button type="button" class="c-button c-button--danger">/, '<button type="button" class="c-button c-button--danger" data-close-dialog>'), ['<dialog class="c-modal"', '</dialog>', 'demo-dialog-title', 'data-close-dialog>']);
+  const dialog = realDialog(example('modal.html'));
 
   return `<!doctype html>
 <!-- GENERATED by scripts/build.mjs from demo/steps.json and components/*.json. Do not edit. -->
@@ -205,76 +297,111 @@ ${indent(stage, 10)}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MCSS-Lite: build UI from declared parts</title>
   <meta name="description" content="${esc(pkg.description)}">
-  <link rel="preload" href="fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../index.css">
-  <link rel="stylesheet" href="demo.css">
+  ${demoHead('')}
 </head>
 <body class="demo">
 ${inlineSprite(loadIcons(root), pkg)}
-  <a class="demo-skip" href="#step-1">Skip to the build</a>
-  <header class="demo-bar">
-    <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark">MCSS-Lite <span class="demo-wordmark__version">${esc(pkg.version)}</span></p>
-      <div class="l-cluster" role="group" aria-label="Theme">
-        <button type="button" class="c-button c-button--sm" data-theme-choice="light" aria-pressed="true">Light</button>
-        <button type="button" class="c-button c-button--sm" data-theme-choice="dark" aria-pressed="false">Dark</button>
-        <button type="button" class="c-button c-button--sm" data-theme-choice="auto" aria-pressed="false">System</button>
-      </div>
-    </div>
-  </header>
+  <a class="demo-skip" href="#main">Skip to the page</a>
+  ${demoBar(pkg, '', 'index.html')}
 
-  <nav class="demo-rail" aria-label="Build steps">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: ${steps.length + 1}">
-${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
-      <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
-    </ol>
-  </nav>
-
-  <main>
+  <main id="main">
     <section class="demo-hero" aria-labelledby="demo-title">
       <div class="l-container demo-hero__grid">
         <div class="demo-hero__claim">
-          <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts.</h1>
+          <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts</h1>
           <p class="demo-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+          <div class="demo-proof">
+            <p class="demo-proof__guess"><span class="demo-proof__key">An agent guesses</span> <code>c-button--warning</code></p>
+            <p class="demo-proof__verdict">${CROSS_MARK}<span><strong>error</strong> ${codeTokens(wrongIssues[0].message)}</span></p>
+            <p><a href="#wrong-piece">See the piece that doesn't fit</a></p>
+          </div>
           <div class="demo-install">
-            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="${esc(cdnUrl(pkg))}"&gt;</code>
-            <button type="button" class="c-button c-button--sm" data-copy="install-cmd">Copy</button>
-            <span class="u-sr-only" role="status" data-copy-status></span>
+            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="${cdnUrl(pkg).split('/').map(codeTokens).join('/<wbr>')}"&gt;</code>
+            <button type="button" class="c-button c-button--sm" data-copy="install-cmd" data-copied="Stylesheet link copied.">Copy</button>
           </div>
           <p class="demo-install__alt">Or install it from GitHub: <code>npm install ${esc(gitSpec(pkg))}</code>. MCSS-Lite is not on the npm registry.</p>
-          <ul class="demo-links" role="list">
-            <li><a href="status.html">Parts inventory: a sheet for every part</a></li>
-            <li><a href="content.html">Read before you build: content rules</a></li>
-            <li><a href="../AGENTS.md">AGENTS.md: the rules for agents</a></li>
-            <li><a href="../dist/mcss-lite.manifest.json">Manifest: every part as JSON</a></li>
-            <li><a href="../dist/figma/">Figma variables</a></li>
-            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a></li>
-          </ul>
+          <p class="demo-links"><a href="${repoUrl(pkg, 'blob', 'AGENTS.md')}">AGENTS.md: the rules for agents</a></p>
         </div>
 
         <aside class="demo-inventory" aria-labelledby="inventory-title">
-          <h2 class="demo-inventory__title" id="inventory-title">Parts inventory</h2>
+          <h2 class="demo-inventory__title" id="inventory-title">What's in the box</h2>
           <div class="demo-bag">
-            <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">1</span> Layouts <span class="demo-bag__count">${layouts.length} parts</span></p>
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">1</span> Layouts <span class="demo-bag__count">${layouts.length} parts</span></h3>
             <ul class="demo-bag__list" role="list">${partList(layouts)}</ul>
           </div>
           <div class="demo-bag">
-            <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">2</span> Components <span class="demo-bag__count">${components.length} parts</span></p>
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">2</span> Components <span class="demo-bag__count">${partCount(allComponents)}</span></h3>
             <ul class="demo-bag__list" role="list">${partList(components)}</ul>
           </div>
           <div class="demo-bag">
-            <p class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Tokens <span class="demo-bag__count">${semantic.length + componentTokens.length} to use</span></p>
-            <p class="demo-bag__note">${semantic.length} semantic and ${componentTokens.length} component tokens, built on ${tokenRows.length - semantic.length - componentTokens.length} primitives you don't use directly.</p>
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Utilities <span class="demo-bag__count">${partCount(utilities)}</span></h3>
+            <ul class="demo-bag__list" role="list">${partList(utilities)}</ul>
+          </div>
+          <div class="demo-bag">
+            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">4</span> Tokens <span class="demo-bag__count">${semantic.length + componentTokens.length} to use</span></h3>
+            <p class="demo-bag__note">${tokenNote(tokenRows)}</p>
             <ul class="demo-swatches" role="list">${swatches.map((v) => `<li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(${v})"></span><code>${v}</code></li>`).join('')}</ul>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="demo-fit" aria-labelledby="fit-title">
-      <div class="l-container">
-        <div class="demo-callout demo-fit__callout l-stack">
-          <h2 class="demo-fit__title" id="fit-title">Before you start: is this the right kit?</h2>
+    <nav class="demo-rail" aria-label="Build steps">
+      <ol class="demo-rail__list" role="list" style="--demo-studs: ${steps.length + 1}">
+${steps.map((st, i) => `        <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
+        <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+      </ol>
+      <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a step"></p>
+    </nav>
+
+${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
+
+    <section class="demo-step demo-wrong" id="wrong-piece" aria-labelledby="wrong-title">
+      <div class="l-container l-stack l-stack--lg">
+        <div class="demo-wrong__head">
+          <div>
+            <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
+            <h2 class="demo-wrong__title" id="wrong-title">This piece doesn't fit</h2>
+            <p class="demo-step__text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found ${finaleIssues.length} problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
+          </div>
+          ${MISFIT_SVG}
+        </div>
+        <div class="demo-wrong__pair">
+          <div class="demo-check l-stack">
+            <p class="demo-check__label">What the agent wrote</p>
+            <pre class="demo-code"><code>${codeTokens(FINALE_WRONG)}</code></pre>
+            <p class="demo-check__label">validate: ${tally(finaleIssues)}</p>
+            <ol class="demo-check__issues demo-wrong__issues" role="list">${finaleIssues.map((i) => `<li class="demo-check__issue--${esc(i.level)}"><span class="demo-wrong__line">Line ${i.line}</span> <strong>${esc(i.level)}</strong> ${codeTokens(i.message)} <code>[${esc(i.rule)}]</code></li>`).join('')}</ol>
+          </div>
+          <div class="demo-wrong__fit l-stack">
+            <p class="demo-check__label">The piece that fits</p>
+            <figure class="demo-stage">
+${indent(FINALE_RIGHT, 14)}
+            </figure>
+            <pre class="demo-code"><code>${codeTokens(FINALE_RIGHT)}</code></pre>
+            <p class="demo-checks__verdict">${CHECK_MARK}<span><code>validate</code>: 0 issues</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-end" id="take-it" aria-labelledby="end-title">
+      <div class="l-container demo-end__grid">
+        <div class="demo-end__plate l-stack">
+          <h2 class="demo-step__title" id="end-title">Take the parts with you</h2>
+          <p class="demo-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+          <ul class="demo-end__links" role="list">
+            <li><a href="${repoUrl(pkg, 'blob', 'AGENTS.md')}">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+            <li><a href="../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+            <li><a href="${repoUrl(pkg, 'tree', 'dist/figma')}">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+          </ul>
+          <p class="demo-end__recap">${SEATED_MINI}<span>The agent's form: ${finaleIssues.length} problems caught by <code>validate</code>, 0 in the rebuild.</span></p>
+          <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
+          <p class="demo-end__author">Designed and built by <a href="${esc(author.url)}">${esc(author.name)}</a>.${author.caseStudy ? ` <a href="${esc(author.caseStudy)}">Read the case study</a> for the research and decisions behind it.` : ''}</p>
+        </div>
+        <div class="demo-end__fit l-stack">
+          <h2 class="demo-end__fit-title" id="fit-title">Is this the right kit?</h2>
           <div class="demo-pick">
             <div class="demo-pick__col">
               <p class="demo-check__label">Good fit</p>
@@ -296,46 +423,18 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
         </div>
       </div>
     </section>
-
-${steps.map((s, i) => stepHtml(s, i + 1)).join('\n\n')}
-
-    <section class="demo-step demo-wrong" id="wrong-piece" aria-labelledby="wrong-title">
-      <div class="l-container">
-        <div class="demo-step__grid">
-          <div class="demo-step__head">
-            <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
-            <h2 class="demo-step__title" id="wrong-title">This piece doesn't fit</h2>
-            <p class="demo-step__text">An agent guessed a class. <code>npx mcss-lite validate</code> rejects it and names the parts that do exist. This output was produced by the real validator when this page was built.</p>
-          </div>
-          <div class="demo-step__build">
-            <div class="demo-check l-stack">
-              ${MISFIT_SVG}
-              <p class="demo-check__label">Invented markup</p>
-              <pre class="demo-code"><code>${esc(WRONG_PIECE)}</code></pre>
-              <p class="demo-check__label">validate</p>
-              <ul class="demo-check__issues" role="list">${wrongIssues.map((i) => `<li><strong>error</strong> ${esc(i.message)} <code>[${esc(i.rule)}]</code></li>`).join('')}</ul>
-              <p class="demo-check__label">The piece that fits</p>
-              <p class="demo-check__why">Retry isn't destructive, so it is the default button. <code>--danger</code> is only for actions that destroy something.</p>
-              <pre class="demo-code"><code>${esc(RIGHT_PIECE)}</code></pre>
-              <div class="l-cluster">
-                ${RIGHT_PIECE}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> and <code>demo/steps.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)} · by ${esc(pkg.author)}</p>
+      <p>${esc(pkg.name)}@${esc(pkg.version)} · ${esc(pkg.license)} · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
   ${indent(dialog, 2).trim()}
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="demo.js" defer></script>
 </body>
 </html>

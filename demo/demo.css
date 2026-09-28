@@ -27,6 +27,12 @@
   background-color: var(--color-background-raised);
   box-shadow: inset 0 0 0 1px var(--color-border-default);
   color: var(--color-text-default);
+  /* A class name is one word: never split it at its hyphens. */
+  white-space: nowrap;
+}
+
+.demo-install__alt code {
+  white-space: normal;
   overflow-wrap: anywhere;
 }
 
@@ -39,6 +45,8 @@
   background-color: var(--color-background-raised);
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-base);
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-semibold);
 }
 
 .demo-skip:focus-visible {
@@ -52,12 +60,45 @@
 }
 
 .demo-bar__inner {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "mark theme" "nav nav";
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  padding-block: var(--space-3);
+  gap: var(--space-1) var(--space-3);
+  padding-block: var(--space-2);
+}
+
+.demo-bar__inner > .demo-wordmark { grid-area: mark; }
+.demo-bar__inner > .demo-bar__nav { grid-area: nav; }
+.demo-bar__inner > [role="group"] {
+  grid-area: theme;
+  flex-wrap: nowrap;
+  gap: var(--space-1);
+}
+
+/* The narrowest phones: wordmark, theme switch and page links each get a row. */
+@media (max-width: 24rem) {
+  .demo-bar__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "mark" "theme" "nav";
+  }
+
+  .demo-bar__inner > [role="group"] {
+    justify-self: start;
+  }
+}
+
+@media (min-width: 48rem) {
+  .demo-bar__inner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "mark nav theme";
+    padding-block: var(--space-3);
+  }
+
+  .demo-bar__inner > .demo-bar__nav {
+    justify-self: center;
+  }
 }
 
 .demo-wordmark {
@@ -66,6 +107,7 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-extrabold);
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .demo-wordmark__version {
@@ -146,8 +188,9 @@
 }
 
 .demo-links a {
-  display: inline-block;
-  padding-block: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
 }
 
 /* Parts inventory */
@@ -318,7 +361,7 @@
   gap: var(--space-2) var(--space-3);
   margin: var(--space-4) 0 0;
   padding-block-start: var(--space-3);
-  border-block-start: var(--border-width-thin) dashed var(--color-border-strong);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
   font-size: var(--font-size-sm);
 }
 
@@ -437,10 +480,27 @@
   inset-inline: auto var(--space-2);
 }
 
+/* Each outlined primitive gets a strip for its tag, so tags never sit on the parts or on each other. */
+.demo-stage--baseplate :where([class^="l-"], [class*=" l-"]) {
+  padding-block: var(--space-6) var(--space-2);
+}
+
+/* On phones the outer section outline would only add a fifth nested box. */
+@media (max-width: 40rem) {
+  .demo-stage--baseplate .l-section {
+    outline: 0;
+    padding-block: 0;
+  }
+
+  .demo-stage--baseplate .l-section::before {
+    content: none;
+  }
+}
+
 /* Contains the fixed-position modal preview inside the stage. */
 .demo-stage--contain {
   position: relative;
-  min-height: 24rem;
+  min-height: 26rem;
   padding: 0;
   overflow: hidden;
   transform: translateZ(0);
@@ -478,20 +538,23 @@
 
 .demo-rail__list {
   display: flex;
-  justify-content: center;
+  justify-content: safe center;
   gap: var(--space-1);
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--space-1);
   list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .demo-rail__stud {
   position: relative;
   display: grid;
   place-items: center;
-  /* Every stud fits one row down to 320px: the generator sets --demo-studs to the number of studs. */
-  width: min(2.5rem, calc((100vw - var(--space-12) - var(--space-1) * var(--demo-studs, 8)) / var(--demo-studs, 8)));
-  height: min(2.5rem, calc((100vw - var(--space-12) - var(--space-1) * var(--demo-studs, 8)) / var(--demo-studs, 8)));
+  /* Studs stay a full 44px target; when they don't fit the row scrolls sideways instead of shrinking. */
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-full);
   background-color: var(--color-background-raised);
@@ -511,12 +574,27 @@
   height: 1rem;
 }
 
+.demo-rail__stud:focus-visible {
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
 .demo-rail__stud:hover {
   color: var(--color-text-default);
   background-color: var(--color-background-interactive-hover);
 }
 
 /* The current step is seated: ink-filled and pressed onto its edge. */
+/* The name of the step you're on (or pointing at), under the studs. The column rail shows labels instead. */
+.demo-rail__now {
+  margin: var(--space-1) 0 0;
+  min-block-size: 1.25em;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
 .demo-rail__stud[aria-current="step"] {
   background-color: var(--color-text-default);
   color: var(--color-text-inverse);
@@ -530,10 +608,15 @@
   color: var(--color-text-on-danger);
 }
 
-@media (min-width: 90rem) {
+/* The column rail needs a gutter wide enough for its labels, so they never cover the page. */
+@media (min-width: 100rem) {
+  .demo-rail__now {
+    display: none;
+  }
+
   .demo-rail {
     position: fixed;
-    inset-inline-start: var(--space-8);
+    inset-inline-start: var(--space-4);
     inset-block-start: 50%;
     transform: translateY(-50%);
     padding: 0;
@@ -564,7 +647,9 @@
     font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
+    line-height: var(--line-height-tight);
+    inline-size: max-content;
+    max-inline-size: 9.5rem;
     opacity: 0;
     transform: translateX(calc(var(--space-2) * -1));
     transition:
@@ -605,11 +690,11 @@
 }
 
 .demo-step.is-seating .demo-misfit__wobble {
-  animation: demo-misfit-drop var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+  animation: demo-misfit-drop var(--duration-slower) var(--ease-out-expo) 200ms both;
 }
 
 .demo-misfit__good {
-  stroke: var(--color-action-primary);
+  stroke: var(--color-text-default);
 }
 
 /* The wrong piece */
@@ -636,7 +721,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.demo-check__issue--error {
   color: var(--color-text-error);
+}
+
+.demo-check__issue--warning {
+  color: var(--color-text-warning);
 }
 
 .demo-code {
@@ -645,11 +737,16 @@
   background-color: var(--color-background-subtle);
   border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--border-radius-base);
-  white-space: pre;
+  white-space: pre-wrap;
   overflow-x: auto;
 }
 
+.demo-code__token {
+  white-space: nowrap;
+}
+
 .demo .demo-code code {
+  white-space: inherit;
   padding: 0;
   background: none;
   box-shadow: none;
@@ -678,11 +775,11 @@
 }
 
 .demo-step.is-seating .demo-stage {
-  animation: demo-seat var(--duration-slower) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: demo-seat var(--duration-slower) var(--ease-out-expo) both;
 }
 
 .demo-step.is-seating .demo-callout {
-  animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
 }
 
 .demo-step.is-seating .demo-arrow {
@@ -749,7 +846,7 @@
 }
 
 .demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert) {
-  animation: demo-seat var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
   animation-delay: calc(var(--demo-i, 0) * 70ms + var(--duration-base));
 }
 
@@ -807,8 +904,9 @@
 }
 
 .demo-bar__links a {
-  display: inline-block;
-  padding-block: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
 }
 
 /* Sheet header: the part on its own plate, element ID first, like a parts-list entry. */
@@ -842,7 +940,7 @@
 .demo-sheet__title {
   margin: 0;
   font-family: var(--font-family-display);
-  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
   font-weight: var(--font-weight-extrabold);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -850,6 +948,7 @@
 
 .demo-sheet__id {
   display: block;
+  margin-block-start: var(--space-2);
   font-family: var(--font-family-mono);
   font-size: 0.55em;
   font-weight: var(--font-weight-bold);
@@ -860,14 +959,6 @@
 .demo-sheet__since {
   font-size: var(--font-size-sm);
   color: var(--color-text-subtle);
-}
-
-.demo-sheet__replaced {
-  margin: 0;
-  padding: var(--space-4);
-  background-color: var(--color-background-callout);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
 }
 
 .demo-sheet__row {
@@ -888,15 +979,15 @@
   padding-block: var(--space-12);
 }
 
-/* Status sticker: a monochrome tag with a keyline, never a status color (One Blue Rule). */
+/* Status sticker: a monochrome filled tag, never a status color (One Blue Rule). No keyline and no brick edge,
+   so it never reads as a button. */
 .demo-sticker {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: 0 var(--space-2);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
-  background-color: var(--color-background-raised);
+  padding: 0 var(--space-2) 0 var(--space-1);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-muted);
   color: var(--color-text-default);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
@@ -914,16 +1005,11 @@
   stroke-linejoin: round;
 }
 
-.demo-sticker--beta {
-  /* Solid, like stable: dashed already means disabled in this system. The wrench says "beta". */
-  border-style: solid;
-}
-
 .demo-sticker--deprecated {
-  border-style: dashed;
+  /* The cross says "deprecated"; the text stays readable. */
+  background-color: transparent;
+  box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-border-strong);
   color: var(--color-text-muted);
-  text-decoration: line-through;
-  text-decoration-thickness: var(--border-width-thick);
 }
 
 /* Pick this part / Pick another part */
@@ -941,7 +1027,7 @@
 
 .demo-pick__col--other {
   background-color: var(--color-background-subtle);
-  border-style: dashed;
+  border-color: var(--color-border-strong);
 }
 
 .demo-pick__list,
@@ -1217,7 +1303,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding-block: var(--space-2);
+  min-block-size: 2.75rem;
 }
 
 /* Parts inventory: bags per layer at the back of the booklet. */
@@ -1288,6 +1374,7 @@
 .demo-notice p,
 .demo-notice__title {
   margin: 0;
+  max-inline-size: 60ch;
 }
 
 .demo-notice__title {
@@ -1297,6 +1384,7 @@
 .demo-notice__pair {
   display: grid;
   gap: var(--space-2);
+  max-inline-size: 60ch;
 }
 
 .demo-notice__do,
@@ -1304,9 +1392,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
+  padding-block: var(--space-1);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -1315,8 +1401,6 @@
 }
 
 .demo-notice__dont {
-  border-style: dashed;
-  border-color: var(--color-border-error);
   color: var(--color-text-muted);
 }
 
@@ -1365,8 +1449,9 @@
 
 @media (min-width: 48rem) {
   .demo-sheet__head-grid {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-8);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-10);
+    align-items: center;
   }
 
   .demo-pick,
@@ -1397,6 +1482,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  min-block-size: 2.75rem;
   color: inherit;
   text-decoration: none;
 }
@@ -1406,23 +1492,8 @@
   box-shadow: inset 0 0 0 var(--border-width-thick) var(--color-border-keyline);
 }
 
-.demo-fit {
-  padding-block: var(--space-10);
-  border-block-start: var(--border-width-thin) solid var(--color-border-default);
-}
-
-.demo-fit__title {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-}
-
 /* Review fixes: the wrong piece stays visible, the inventory bag holds its table without a second box,
    the sticky rail never covers what receives focus. */
-.demo-checks .demo-code {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
 .demo-bag--wide .demo-spec table {
   border: 0;
   background-color: transparent;
@@ -1434,10 +1505,6 @@
   scroll-margin-block-start: var(--space-20);
 }
 
-.demo-fit__callout .demo-pick__col {
-  background-color: var(--color-background-raised);
-}
-
 /* Inventory: every layer's table shares one set of column widths, so the columns line up down the page. */
 @media (min-width: 40rem) {
   .demo-inventory-table table {
@@ -1445,8 +1512,385 @@
     inline-size: 100%;
   }
 
-  .demo-inventory-table :is(th, td):nth-child(1) { inline-size: 28%; }
-  .demo-inventory-table :is(th, td):nth-child(2) { inline-size: 14%; }
-  .demo-inventory-table :is(th, td):nth-child(3) { inline-size: 16%; }
-  .demo-inventory-table :is(th, td):nth-child(4) { inline-size: 10%; }
+  .demo-inventory-table :is(th, td):nth-child(1) { inline-size: 24%; }
+  .demo-inventory-table :is(th, td):nth-child(2) { inline-size: 16%; }
+  .demo-inventory-table :is(th, td):nth-child(3) { inline-size: 10%; }
+}
+
+/* The page you're on, in the top bar. */
+.demo-bar__links a[aria-current="page"] {
+  color: var(--color-text-default);
+  text-decoration: none;
+  box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-keyline);
+}
+
+/* Hero proof: the validator's first rejection, a glance before the build. */
+.demo-proof {
+  display: grid;
+  gap: var(--space-2);
+  max-inline-size: 36rem;
+  margin-block-end: var(--space-6);
+  padding: var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) dashed var(--color-border-error);
+  border-radius: var(--border-radius-base);
+}
+
+.demo-proof p {
+  margin: 0;
+}
+
+.demo-proof__key {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-proof__verdict {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-error);
+}
+
+.demo-proof__verdict .demo-mark {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-block-start: 0.05em;
+}
+
+.demo-proof a {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Closing: what to take away, who made it, and whether it's the right kit. */
+/* The last page of the booklet: two plates on the canvas. */
+.demo-end {
+  padding-block: var(--space-16);
+}
+
+.demo-end__plate {
+  padding: var(--space-8) var(--space-6);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-elevated);
+}
+
+.demo-end__grid {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.demo-end__links {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-end__links li {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.demo-end__links a {
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-end__links span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-end__author {
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-muted);
+}
+
+.demo-end__fit-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+}
+
+.demo-end .demo-pick__col {
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-end .demo-pick__col--other {
+  box-shadow: none;
+}
+
+@media (min-width: 60rem) {
+  .demo-end__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+/* Copyable code on part sheets. */
+.demo-code-block {
+  position: relative;
+  min-width: 0;
+}
+
+.demo-code-block .demo-code {
+  padding-inline-end: 5.5rem;
+}
+
+.demo-code-block__copy {
+  position: absolute;
+  inset-block-start: var(--space-2);
+  inset-inline-end: var(--space-2);
+}
+
+/* Folded tables: open when you need them. */
+.demo-details > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-2) var(--space-3);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.demo-details > summary:hover {
+  background-color: var(--color-background-interactive-hover);
+}
+
+.demo-details__chevron {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.demo-details[open] .demo-details__chevron {
+  transform: rotate(180deg);
+}
+
+.demo-details[open] > summary {
+  margin-block-end: var(--space-3);
+}
+
+.demo-details__count {
+  color: var(--color-text-default);
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.75rem;
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background-muted);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bag titles are headings now: keep them at label size. */
+.demo-bag__head {
+  font-size: var(--font-size-base);
+}
+
+/* Sheet header: a small glyph plate, the name, and the finished part beside it. */
+.demo-sheet__head .demo-sheet__plate {
+  width: 4rem;
+}
+
+.demo-sheet__head .demo-sheet__plate .demo-glyph {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.demo-sheet__specimen {
+  min-width: 0;
+}
+
+.demo-sheet__specimen .demo-stage {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Phones: each step shows the result first, then the parts it used. */
+@media (max-width: 59.99rem) {
+  .demo-step__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .demo-step__head {
+    display: contents;
+  }
+
+  .demo-step__build {
+    order: 1;
+    margin-block: var(--space-6);
+  }
+
+  .demo-step__grid > .demo-step__head > .demo-callout {
+    order: 2;
+  }
+}
+
+/* The finale: a full-width band, one scale up from a step. */
+.demo-wrong {
+  padding-block: var(--space-20);
+  background-color: var(--color-background-raised);
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-wrong__head {
+  display: grid;
+  gap: var(--space-6);
+  align-items: end;
+}
+
+.demo-wrong__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-family-display);
+  font-size: clamp(var(--font-size-3xl), 5vw, var(--font-size-5xl));
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.demo-wrong__pair {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.demo-wrong__fit {
+  padding: var(--space-6);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-wrong .demo-check {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.demo-wrong__issues {
+  counter-reset: none;
+}
+
+.demo-wrong__line {
+  display: inline-block;
+  min-inline-size: 3.5rem;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 60rem) {
+  .demo-wrong__head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-16);
+  }
+
+  .demo-wrong__pair {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.demo-end__proof {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.demo-wrong__pair > *,
+.demo-wrong__head > * {
+  min-width: 0;
+}
+
+/* ✓ panels: one column that can shrink, so opened markup scrolls inside the card, never the page. */
+.demo-checks__card {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.demo-checks__card--do {
+  align-self: start;
+}
+
+/* The sticky rail never covers what receives focus or a jumped-to step (WCAG 2.4.11). */
+@media (max-width: 99.99rem) {
+  html {
+    scroll-padding-block-start: 7rem;
+  }
+}
+
+/* Current page link: keep the halo on focus, like every other stop. */
+.demo-bar__links a[aria-current="page"]:focus-visible {
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
+/* Links in the closing plate are full targets; each sits right on top of its description. */
+.demo-end__links li {
+  gap: 0;
+}
+
+.demo-end__links a,
+.demo-part__row a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+}
+
+/* Part sheet title: the glyph sits beside the name, as a mark, not a tile you could press. */
+.demo-sheet__titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.demo-sheet__mark .demo-glyph {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Sheet rails carry their section names once there's room. */
+.demo-rail__text {
+  display: none;
+}
+
+@media (min-width: 64rem) and (max-width: 99.99rem) {
+  .demo-rail--labelled .demo-rail__stud {
+    grid-auto-flow: column;
+    gap: var(--space-2);
+    width: auto;
+    padding-inline: var(--space-2) var(--space-4);
+  }
+
+  .demo-rail--labelled .demo-rail__text {
+    display: inline;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .demo-rail--labelled .demo-rail__now {
+    display: none;
+  }
+}
+
+/* The closing plate echoes the finale: one seated brick and its result. */
+.demo-end__recap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-background-subtle);
+  border-radius: var(--border-radius-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-seated-mini {
+  flex: none;
+  inline-size: 3rem;
+  block-size: 2rem;
 }

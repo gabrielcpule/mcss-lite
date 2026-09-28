@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Icon (c-icon) · MCSS-Lite</title>
   <meta name="description" content="Icon: A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -36,10 +42,10 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -51,30 +57,48 @@
       </div>
     </div>
   </header>
-
-  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#set" data-rail="set" data-label="The set"><span class="u-sr-only">3: The set</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">4: Check your build</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">5: Spec sheet</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">6: Safe building</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
-    </ol>
-  </nav>
-
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-icon</span> Icon</h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg></span>
+            <h1 class="demo-sheet__title">Icon <span class="demo-sheet__id">c-icon</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">A line icon from the MCSS-Lite sprite, drawn with a 2px stroke in the current text color.</p>
         </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-cluster">
+              <button type="button" class="c-button">
+                <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg>
+                Download the invoice
+              </button>
+              <a class="c-button c-button--ghost" href="#build">
+                Pajamas docs
+                <svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-external-link"></use></svg>
+              </a>
+              <button type="button" class="c-button" aria-label="Copy the API key">
+                <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+              </button>
+            </div>
+          </figure>
+        </div>
       </div>
     </header>
+
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#set" data-rail="set" data-label="The set"><span class="u-sr-only">3: The set</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">The set</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">4: Check your build</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">5: Spec sheet</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">6: Accessibility</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+    </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
+  </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -122,19 +146,25 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;l-cluster&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;c-button&quot;&gt;
-    &lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-download&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">13 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-63">&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot;&gt;
+    &lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-download</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
     Download the invoice
   &lt;/button&gt;
-  &lt;a class=&quot;c-button c-button--ghost&quot; href=&quot;https://design.gitlab.com/&quot;&gt;
+  &lt;a class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--ghost</span>&quot; href=&quot;https://design.gitlab.com/&quot;&gt;
     Pajamas docs
-    &lt;svg class=&quot;c-icon c-icon--sm&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-external-link&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
+    &lt;svg class=&quot;<span class="demo-code__token">c-icon</span> <span class="demo-code__token">c-icon--sm</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-external-link</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
   &lt;/a&gt;
-  &lt;button type=&quot;button&quot; class=&quot;c-button&quot; aria-label=&quot;Copy the API key&quot;&gt;
-    &lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-copy&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
+  &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">aria-label</span>=&quot;Copy the API key&quot;&gt;
+    &lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-copy</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
   &lt;/button&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-63" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -192,18 +222,24 @@
     Download the invoice
   </button>
 </figure>
-<pre class="demo-code"><code>&lt;button type=&quot;button&quot; class=&quot;c-button&quot;&gt;
-  &lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-download&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">4 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-64">&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot;&gt;
+  &lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-download</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
   Download the invoice
 &lt;/button&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-64" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't leave an icon exposed and unnamed: screen readers announce an unlabelled image, or nothing.</p>
-<pre class="demo-code"><code>&lt;svg class=&quot;c-icon&quot;&gt;&lt;use href=&quot;#mcss-icon-download&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
+<pre class="demo-code"><code>&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-download</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> c-icon needs aria-hidden=&quot;true&quot; when it is decorative, or role=&quot;img&quot; and aria-label when it carries meaning on its own. <code>[a11y]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-icon</span> needs <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; when it is decorative, or role=&quot;img&quot; and <span class="demo-code__token">aria-label</span> when it carries meaning on its own. <code>[a11y]</code></li></ul>
   </div>
 </div>
 <div class="demo-checks__pair">
@@ -215,17 +251,20 @@
     <svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
   </button>
 </figure>
-<pre class="demo-code"><code>&lt;button type=&quot;button&quot; class=&quot;c-button&quot; aria-label=&quot;Copy the API key&quot;&gt;
-  &lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-copy&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-66">&lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-button</span>&quot; <span class="demo-code__token">aria-label</span>=&quot;Copy the API key&quot;&gt;
+  &lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-copy</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;
 &lt;/button&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-66" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't invent icon names: an unknown symbol draws nothing.</p>
-<pre class="demo-code"><code>&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;use href=&quot;#mcss-icon-rocket&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
+<pre class="demo-code"><code>&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-rocket</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>error</strong> There is no icon &quot;rocket&quot;. Icons: arrow-right, check, chevron-down, chevron-left, chevron-right, chevron-up, close, copy, download, edit, error, external-link, info, menu, minus, plus, search, success, trash, warning. <code>[unknown-icon]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--error"><strong>error</strong> There is no icon &quot;rocket&quot;. Icons: <span class="demo-code__token">arrow-right</span>, check, <span class="demo-code__token">chevron-down</span>, <span class="demo-code__token">chevron-left</span>, <span class="demo-code__token">chevron-right</span>, <span class="demo-code__token">chevron-up</span>, close, copy, download, edit, error, <span class="demo-code__token">external-link</span>, info, menu, minus, plus, search, success, trash, warning. <code>[unknown-icon]</code></li></ul>
   </div>
 </div>
 </div>
@@ -241,7 +280,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;svg&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Modifiers" tabindex="0">
   <table>
     <caption>Modifiers</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">Group</th><th scope="col">What it does</th></tr></thead>
@@ -251,7 +290,7 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -272,25 +311,17 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
-<ul class="demo-safe__list"><li>Decorative icons: aria-hidden=&quot;true&quot; and focusable=&quot;false&quot;.</li><li>Meaningful icons with no visible text: role=&quot;img&quot; and aria-label on the &lt;svg&gt;.</li><li>Severity must never rely on an icon alone; pair it with text.</li></ul>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
+<ul class="demo-safe__list"><li>Decorative icons: aria-hidden=&quot;true&quot; and focusable=&quot;false&quot;.</li><li>Meaningful icons with no visible text: role=&quot;img&quot; and aria-label on the <code>&lt;svg&gt;</code>.</li><li>Severity must never rely on an icon alone; pair it with text.</li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li><li class="demo-bag__part"><a href="alert.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg><code>c-alert</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="alert.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg><code>c-alert</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://www.sarasoueidan.com/blog/accessible-icon-buttons/">Sara Soueidan: Accessible icon buttons</a></li><li><a href="https://design.gitlab.com/product-foundations/iconography">GitLab Pajamas: Icons</a></li></ul>
@@ -305,10 +336,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

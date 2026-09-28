@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alert (c-alert) · MCSS-Lite</title>
   <meta name="description" content="Alert: A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -36,10 +42,10 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -51,30 +57,69 @@
       </div>
     </div>
   </header>
-
-  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
-    </ol>
-  </nav>
-
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-alert</span> Alert</h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg></span>
+            <h1 class="demo-sheet__title">Alert <span class="demo-sheet__id">c-alert</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">A printed notice on the page: tells people about something that affects what they are doing, with its severity in an icon, a word and a heavier bottom edge.</p>
         </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-stack">
+              <div class="c-alert c-alert--info">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
+                  <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
+                </div>
+              </div>
+              <div class="c-alert c-alert--success">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+                  <p>Acme Inc. will get it by email in a few minutes.</p>
+                </div>
+              </div>
+              <div class="c-alert c-alert--warning">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+                  <p>Choose a plan to keep your 4 projects.</p>
+                  <div class="c-alert__actions l-cluster">
+                    <a class="c-button c-button--primary c-button--sm" href="#build">Choose a plan</a>
+                  </div>
+                </div>
+              </div>
+              <div class="c-alert c-alert--error">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
+                  <p>The connection dropped. Check your network and save again.</p>
+                </div>
+                <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+              </div>
+            </div>
+          </figure>
+        </div>
       </div>
     </header>
+
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
+    </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
+  </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -143,40 +188,46 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;l-stack&quot;&gt;
-  &lt;div class=&quot;c-alert c-alert--info&quot;&gt;
-    &lt;span class=&quot;c-alert__icon&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-info&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
-    &lt;div class=&quot;c-alert__body&quot;&gt;
-      &lt;p class=&quot;c-alert__title&quot;&gt;&lt;span class=&quot;u-sr-only&quot;&gt;Information: &lt;/span&gt;Maintenance on 3 October 2026&lt;/p&gt;
-      &lt;p&gt;Sign-in is paused from 22:00 to 23:00 UTC.&lt;/p&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">34 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-27">&lt;div class=&quot;<span class="demo-code__token">l-stack</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--info</span>&quot;&gt;
+    &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-info</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;&lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Information: &lt;/span&gt;Maintenance on 3 October 2026&lt;/p&gt;
+      &lt;p&gt;<span class="demo-code__token">Sign-in</span> is paused from 22:00 to 23:00 UTC.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;c-alert c-alert--success&quot;&gt;
-    &lt;span class=&quot;c-alert__icon&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-success&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
-    &lt;div class=&quot;c-alert__body&quot;&gt;
-      &lt;p class=&quot;c-alert__title&quot;&gt;&lt;span class=&quot;u-sr-only&quot;&gt;Success: &lt;/span&gt;Invoice sent&lt;/p&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--success</span>&quot;&gt;
+    &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-success</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;&lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Success: &lt;/span&gt;Invoice sent&lt;/p&gt;
       &lt;p&gt;Acme Inc. will get it by email in a few minutes.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;c-alert c-alert--warning&quot;&gt;
-    &lt;span class=&quot;c-alert__icon&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-warning&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
-    &lt;div class=&quot;c-alert__body&quot;&gt;
-      &lt;p class=&quot;c-alert__title&quot;&gt;&lt;span class=&quot;u-sr-only&quot;&gt;Warning: &lt;/span&gt;Your trial ends on 12 October 2026&lt;/p&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--warning</span>&quot;&gt;
+    &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-warning</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;&lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Warning: &lt;/span&gt;Your trial ends on 12 October 2026&lt;/p&gt;
       &lt;p&gt;Choose a plan to keep your 4 projects.&lt;/p&gt;
-      &lt;div class=&quot;c-alert__actions l-cluster&quot;&gt;
-        &lt;a class=&quot;c-button c-button--primary c-button--sm&quot; href=&quot;#plans&quot;&gt;Choose a plan&lt;/a&gt;
+      &lt;div class=&quot;<span class="demo-code__token">c-alert__actions</span> <span class="demo-code__token">l-cluster</span>&quot;&gt;
+        &lt;a class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span> <span class="demo-code__token">c-button--sm</span>&quot; href=&quot;#plans&quot;&gt;Choose a plan&lt;/a&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;c-alert c-alert--error&quot;&gt;
-    &lt;span class=&quot;c-alert__icon&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-error&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
-    &lt;div class=&quot;c-alert__body&quot;&gt;
-      &lt;p class=&quot;c-alert__title&quot;&gt;&lt;span class=&quot;u-sr-only&quot;&gt;Error: &lt;/span&gt;The changes weren't saved&lt;/p&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--error</span>&quot;&gt;
+    &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-error</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;&lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Error: &lt;/span&gt;The changes weren't saved&lt;/p&gt;
       &lt;p&gt;The connection dropped. Check your network and save again.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;button type=&quot;button&quot; class=&quot;c-alert__close&quot; aria-label=&quot;Dismiss this error&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-close&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;<span class="demo-code__token">c-alert__close</span>&quot; <span class="demo-code__token">aria-label</span>=&quot;Dismiss this error&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-close</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-27" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -203,25 +254,31 @@
     </div>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;c-alert c-alert--warning&quot;&gt;
-  &lt;span class=&quot;c-alert__icon&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-warning&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
-  &lt;div class=&quot;c-alert__body&quot;&gt;
-    &lt;p class=&quot;c-alert__title&quot;&gt;&lt;span class=&quot;u-sr-only&quot;&gt;Warning: &lt;/span&gt;Your trial ends on 12 October 2026&lt;/p&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">7 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-28">&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--warning</span>&quot;&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-warning</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;&lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Warning: &lt;/span&gt;Your trial ends on 12 October 2026&lt;/p&gt;
     &lt;p&gt;Choose a plan to keep your projects.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-28" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't signal severity with color alone: screen readers and people who can't tell the edge color apart miss it.</p>
-<pre class="demo-code"><code>&lt;div class=&quot;c-alert c-alert--warning&quot;&gt;
-  &lt;div class=&quot;c-alert__body&quot;&gt;
-    &lt;p class=&quot;c-alert__title&quot;&gt;Your trial ends on 12 October 2026&lt;/p&gt;
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--warning</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;Your trial ends on 12 October 2026&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> c-alert--warning shows its severity by color alone. Add a c-alert__icon and start the title with &lt;span class=&quot;u-sr-only&quot;&gt;Warning: &lt;/span&gt;. <code>[alert-severity]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">c-alert--warning</span> shows its severity by color alone. Add a <span class="demo-code__token">c-alert__icon</span> and start the title with &lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Warning: &lt;/span&gt;. <code>[alert-severity]</code></li></ul>
   </div>
 </div>
 <div class="demo-checks__pair">
@@ -240,26 +297,32 @@
     </div>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;c-alert c-alert--error&quot; tabindex=&quot;-1&quot; aria-labelledby=&quot;summary-title&quot;&gt;
-  &lt;span class=&quot;c-alert__icon&quot;&gt;&lt;svg class=&quot;c-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;#mcss-icon-error&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
-  &lt;div class=&quot;c-alert__body&quot;&gt;
-    &lt;h2 class=&quot;c-alert__title&quot; id=&quot;summary-title&quot;&gt;&lt;span class=&quot;u-sr-only&quot;&gt;Error: &lt;/span&gt;There is a problem&lt;/h2&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">10 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-30">&lt;div class=&quot;<span class="demo-code__token">c-alert</span> <span class="demo-code__token">c-alert--error</span>&quot; tabindex=&quot;<span class="demo-code__token">-1</span>&quot; <span class="demo-code__token">aria-labelledby</span>=&quot;<span class="demo-code__token">summary-title</span>&quot;&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-alert__icon</span>&quot;&gt;&lt;svg class=&quot;<span class="demo-code__token">c-icon</span>&quot; <span class="demo-code__token">aria-hidden</span>=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;use href=&quot;<span class="demo-code__token">#mcss-icon-error</span>&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-alert__body</span>&quot;&gt;
+    &lt;h2 class=&quot;<span class="demo-code__token">c-alert__title</span>&quot; id=&quot;<span class="demo-code__token">summary-title</span>&quot;&gt;&lt;span class=&quot;<span class="demo-code__token">u-sr-only</span>&quot;&gt;Error: &lt;/span&gt;There is a problem&lt;/h2&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#email&quot;&gt;Enter your email address&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#terms&quot;&gt;Agree to the terms of service&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-30" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't build an alert from elements outside the block: the tile and edge lose their shape.</p>
-<pre class="demo-code"><code>&lt;div class=&quot;c-card&quot;&gt;
-  &lt;p class=&quot;c-alert__title&quot;&gt;There is a problem&lt;/p&gt;
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-card</span>&quot;&gt;
+  &lt;p class=&quot;<span class="demo-code__token">c-alert__title</span>&quot;&gt;There is a problem&lt;/p&gt;
 &lt;/div&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> &quot;c-alert__title&quot; should be inside an element with class &quot;c-alert&quot;. <code>[element-outside-block]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> &quot;<span class="demo-code__token">c-alert__title</span>&quot; should be inside an element with class &quot;<span class="demo-code__token">c-alert</span>&quot;. <code>[element-outside-block]</code></li></ul>
   </div>
 </div>
 </div>
@@ -275,7 +338,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;div&gt;</code> <code>&lt;section&gt;</code> <code>&lt;aside&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Modifiers" tabindex="0">
   <table>
     <caption>Modifiers</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">Group</th><th scope="col">What it does</th></tr></thead>
@@ -287,7 +350,7 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -300,7 +363,9 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">6</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -314,6 +379,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -324,9 +390,9 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
-<ul class="demo-safe__list"><li>Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.</li><li>role=&quot;alert&quot; interrupts the screen reader: only for urgent messages that appear after an action.</li><li>An error summary gets tabindex=&quot;-1&quot; and focus after a failed submit; its links move focus to each field.</li><li>c-alert__close needs aria-label, and the app moves focus to a sensible place after hiding the alert.</li></ul>
-<div class="demo-spec">
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
+<ul class="demo-safe__list"><li>Severity is carried three ways: the hidden text prefix, the icon shape and the bottom edge.</li><li>role=&quot;alert&quot; interrupts the screen reader: only for urgent messages that appear after an action.</li><li>An error summary gets tabindex=&quot;-1&quot; and focus after a failed submit; its links move focus to each field.</li><li><code>c-alert__close</code> needs aria-label, and the app moves focus to a sensible place after hiding the alert.</li></ul>
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -346,7 +412,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>Titles say what happened in plain words, in sentence case, with no exclamation mark.</li><li>The text says what to do next. Name the action: &quot;Choose a plan&quot;, not &quot;Click here&quot;.</li><li>Keep the hidden prefix to one word and a colon: &quot;Error:&quot;, &quot;Warning:&quot;, &quot;Success:&quot;, &quot;Information:&quot;.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -354,18 +420,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-icon</code></a></li><li class="demo-bag__part"><a href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a href="modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code>c-modal</code></a></li><li class="demo-bag__part"><a href="badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-icon</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code>c-modal</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://design-system.service.gov.uk/components/error-summary">GOV.UK Design System: Error summary</a></li><li><a href="https://design-system.service.gov.uk/components/notification-banner">GOV.UK Design System: Notification banner</a></li><li><a href="https://design.gitlab.com/components/alert">GitLab Pajamas: Alert</a></li><li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">WAI-ARIA APG: Alert pattern</a></li><li><a href="https://www.scottohara.me/blog/2022/02/05/are-we-live.html">Scott O'Hara: Are we live? (live regions)</a></li></ul>
@@ -380,10 +438,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

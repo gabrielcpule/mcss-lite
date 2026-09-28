@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Radio (c-radio) · MCSS-Lite</title>
   <meta name="description" content="Radio: A native radio button with its label: pick exactly one option from a short, visible list.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -36,10 +42,10 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -51,30 +57,54 @@
       </div>
     </div>
   </header>
-
-  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
-    </ol>
-  </nav>
-
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-radio</span> Radio</h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h1 class="demo-sheet__title">Radio <span class="demo-sheet__id">c-radio</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">A native radio button with its label: pick exactly one option from a short, visible list.</p>
         </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <fieldset class="c-form-field">
+              <legend class="c-form-field__label">Delivery speed</legend>
+              <div class="l-stack l-stack--sm">
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="delivery-standard-hd" name="delivery-hd" value="standard" checked aria-describedby="delivery-standard-hint-hd">
+                  <label class="c-radio__label" for="delivery-standard-hd">Standard</label>
+                  <p class="c-radio__hint" id="delivery-standard-hint-hd">3 to 5 working days, free.</p>
+                </div>
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="delivery-next-hd" name="delivery-hd" value="next-day" aria-describedby="delivery-next-hint-hd">
+                  <label class="c-radio__label" for="delivery-next-hd">Next day</label>
+                  <p class="c-radio__hint" id="delivery-next-hint-hd">Order by 4pm, £4.99.</p>
+                </div>
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="delivery-same-hd" name="delivery-hd" value="same-day" disabled>
+                  <label class="c-radio__label" for="delivery-same-hd">Same day (not available in your area)</label>
+                </div>
+              </div>
+            </fieldset>
+          </figure>
+        </div>
       </div>
     </header>
+
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
+    </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
+  </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -89,7 +119,7 @@
   </div>
   <div class="demo-pick__col demo-pick__col--other">
     <p class="demo-check__label">Pick another part for</p>
-    <ul class="demo-pick__list"><li>Any number of options may be chosen: use <a href="checkbox.html"><code>c-checkbox</code></a>.</li><li>An on/off setting that applies immediately: use <a href="toggle.html"><code>c-toggle</code></a>.</li><li>More than about 7 options: use a <a href="input.html"><code>c-input</code></a> on a &lt;select&gt;.</li></ul>
+    <ul class="demo-pick__list"><li>Any number of options may be chosen: use <a href="checkbox.html"><code>c-checkbox</code></a>.</li><li>An on/off setting that applies immediately: use <a href="toggle.html"><code>c-toggle</code></a>.</li><li>More than about 7 options: use a <a href="input.html"><code>c-input</code></a> on a <code>&lt;select&gt;</code>.</li></ul>
   </div>
 </div>
           </div>
@@ -111,42 +141,48 @@
       <legend class="c-form-field__label">Delivery speed</legend>
       <div class="l-stack l-stack--sm">
         <div class="c-radio">
-          <input class="c-radio__input" type="radio" id="delivery-standard-ex" name="delivery" value="standard" checked aria-describedby="delivery-standard-hint-ex">
+          <input class="c-radio__input" type="radio" id="delivery-standard-ex" name="delivery-ex" value="standard" checked aria-describedby="delivery-standard-hint-ex">
           <label class="c-radio__label" for="delivery-standard-ex">Standard</label>
           <p class="c-radio__hint" id="delivery-standard-hint-ex">3 to 5 working days, free.</p>
         </div>
         <div class="c-radio">
-          <input class="c-radio__input" type="radio" id="delivery-next-ex" name="delivery" value="next-day" aria-describedby="delivery-next-hint-ex">
+          <input class="c-radio__input" type="radio" id="delivery-next-ex" name="delivery-ex" value="next-day" aria-describedby="delivery-next-hint-ex">
           <label class="c-radio__label" for="delivery-next-ex">Next day</label>
           <p class="c-radio__hint" id="delivery-next-hint-ex">Order by 4pm, £4.99.</p>
         </div>
         <div class="c-radio">
-          <input class="c-radio__input" type="radio" id="delivery-same-ex" name="delivery" value="same-day" disabled>
+          <input class="c-radio__input" type="radio" id="delivery-same-ex" name="delivery-ex" value="same-day" disabled>
           <label class="c-radio__label" for="delivery-same-ex">Same day (not available in your area)</label>
         </div>
       </div>
     </fieldset>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;fieldset class=&quot;c-form-field&quot;&gt;
-  &lt;legend class=&quot;c-form-field__label&quot;&gt;Delivery speed&lt;/legend&gt;
-  &lt;div class=&quot;l-stack l-stack--sm&quot;&gt;
-    &lt;div class=&quot;c-radio&quot;&gt;
-      &lt;input class=&quot;c-radio__input&quot; type=&quot;radio&quot; id=&quot;delivery-standard&quot; name=&quot;delivery&quot; value=&quot;standard&quot; checked aria-describedby=&quot;delivery-standard-hint&quot;&gt;
-      &lt;label class=&quot;c-radio__label&quot; for=&quot;delivery-standard&quot;&gt;Standard&lt;/label&gt;
-      &lt;p class=&quot;c-radio__hint&quot; id=&quot;delivery-standard-hint&quot;&gt;3 to 5 working days, free.&lt;/p&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">19 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-81">&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
+  &lt;legend class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot;&gt;Delivery speed&lt;/legend&gt;
+  &lt;div class=&quot;<span class="demo-code__token">l-stack</span> <span class="demo-code__token">l-stack--sm</span>&quot;&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
+      &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">delivery-standard</span>&quot; name=&quot;delivery&quot; value=&quot;standard&quot; checked <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">delivery-standard-hint</span>&quot;&gt;
+      &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">delivery-standard</span>&quot;&gt;Standard&lt;/label&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-radio__hint</span>&quot; id=&quot;<span class="demo-code__token">delivery-standard-hint</span>&quot;&gt;3 to 5 working days, free.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;c-radio&quot;&gt;
-      &lt;input class=&quot;c-radio__input&quot; type=&quot;radio&quot; id=&quot;delivery-next&quot; name=&quot;delivery&quot; value=&quot;next-day&quot; aria-describedby=&quot;delivery-next-hint&quot;&gt;
-      &lt;label class=&quot;c-radio__label&quot; for=&quot;delivery-next&quot;&gt;Next day&lt;/label&gt;
-      &lt;p class=&quot;c-radio__hint&quot; id=&quot;delivery-next-hint&quot;&gt;Order by 4pm, £4.99.&lt;/p&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
+      &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">delivery-next</span>&quot; name=&quot;delivery&quot; value=&quot;<span class="demo-code__token">next-day</span>&quot; <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">delivery-next-hint</span>&quot;&gt;
+      &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">delivery-next</span>&quot;&gt;Next day&lt;/label&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-radio__hint</span>&quot; id=&quot;<span class="demo-code__token">delivery-next-hint</span>&quot;&gt;Order by 4pm, £4.99.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;c-radio&quot;&gt;
-      &lt;input class=&quot;c-radio__input&quot; type=&quot;radio&quot; id=&quot;delivery-same&quot; name=&quot;delivery&quot; value=&quot;same-day&quot; disabled&gt;
-      &lt;label class=&quot;c-radio__label&quot; for=&quot;delivery-same&quot;&gt;Same day (not available in your area)&lt;/label&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
+      &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">delivery-same</span>&quot; name=&quot;delivery&quot; value=&quot;<span class="demo-code__token">same-day</span>&quot; disabled&gt;
+      &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">delivery-same</span>&quot;&gt;Same day (not available in your area)&lt;/label&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/fieldset&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-81" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -169,45 +205,51 @@
     <legend class="c-form-field__label">Delivery speed</legend>
     <div class="l-stack l-stack--sm">
       <div class="c-radio">
-        <input class="c-radio__input" type="radio" id="speed-standard-do1" name="speed" value="standard" checked aria-describedby="speed-standard-hint-do1">
+        <input class="c-radio__input" type="radio" id="speed-standard-do1" name="speed-do1" value="standard" checked aria-describedby="speed-standard-hint-do1">
         <label class="c-radio__label" for="speed-standard-do1">Standard</label>
         <p class="c-radio__hint" id="speed-standard-hint-do1">3 to 5 working days, free.</p>
       </div>
       <div class="c-radio">
-        <input class="c-radio__input" type="radio" id="speed-next-do1" name="speed" value="next-day">
+        <input class="c-radio__input" type="radio" id="speed-next-do1" name="speed-do1" value="next-day">
         <label class="c-radio__label" for="speed-next-do1">Next day</label>
       </div>
     </div>
   </fieldset>
 </figure>
-<pre class="demo-code"><code>&lt;fieldset class=&quot;c-form-field&quot;&gt;
-  &lt;legend class=&quot;c-form-field__label&quot;&gt;Delivery speed&lt;/legend&gt;
-  &lt;div class=&quot;l-stack l-stack--sm&quot;&gt;
-    &lt;div class=&quot;c-radio&quot;&gt;
-      &lt;input class=&quot;c-radio__input&quot; type=&quot;radio&quot; id=&quot;speed-standard&quot; name=&quot;speed&quot; value=&quot;standard&quot; checked aria-describedby=&quot;speed-standard-hint&quot;&gt;
-      &lt;label class=&quot;c-radio__label&quot; for=&quot;speed-standard&quot;&gt;Standard&lt;/label&gt;
-      &lt;p class=&quot;c-radio__hint&quot; id=&quot;speed-standard-hint&quot;&gt;3 to 5 working days, free.&lt;/p&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">14 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-82">&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
+  &lt;legend class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot;&gt;Delivery speed&lt;/legend&gt;
+  &lt;div class=&quot;<span class="demo-code__token">l-stack</span> <span class="demo-code__token">l-stack--sm</span>&quot;&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
+      &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">speed-standard</span>&quot; name=&quot;speed&quot; value=&quot;standard&quot; checked <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">speed-standard-hint</span>&quot;&gt;
+      &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">speed-standard</span>&quot;&gt;Standard&lt;/label&gt;
+      &lt;p class=&quot;<span class="demo-code__token">c-radio__hint</span>&quot; id=&quot;<span class="demo-code__token">speed-standard-hint</span>&quot;&gt;3 to 5 working days, free.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;c-radio&quot;&gt;
-      &lt;input class=&quot;c-radio__input&quot; type=&quot;radio&quot; id=&quot;speed-next&quot; name=&quot;speed&quot; value=&quot;next-day&quot;&gt;
-      &lt;label class=&quot;c-radio__label&quot; for=&quot;speed-next&quot;&gt;Next day&lt;/label&gt;
+    &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
+      &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">speed-next</span>&quot; name=&quot;speed&quot; value=&quot;<span class="demo-code__token">next-day</span>&quot;&gt;
+      &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">speed-next</span>&quot;&gt;Next day&lt;/label&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/fieldset&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-82" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't mark a group error with aria-invalid on each radio; ARIA doesn't allow it there. Put the error on the fieldset.</p>
-<pre class="demo-code"><code>&lt;fieldset class=&quot;c-form-field&quot; data-state=&quot;error&quot;&gt;
-  &lt;legend class=&quot;c-form-field__label&quot;&gt;Delivery speed&lt;/legend&gt;
-  &lt;div class=&quot;c-radio&quot;&gt;
-    &lt;input class=&quot;c-radio__input&quot; type=&quot;radio&quot; id=&quot;speed-x&quot; name=&quot;speed-x&quot; value=&quot;standard&quot;&gt;
-    &lt;label class=&quot;c-radio__label&quot; for=&quot;speed-x&quot;&gt;Standard&lt;/label&gt;
+<pre class="demo-code"><code>&lt;fieldset class=&quot;<span class="demo-code__token">c-form-field</span>&quot; <span class="demo-code__token">data-state</span>=&quot;error&quot;&gt;
+  &lt;legend class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot;&gt;Delivery speed&lt;/legend&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-radio</span>&quot;&gt;
+    &lt;input class=&quot;<span class="demo-code__token">c-radio__input</span>&quot; type=&quot;radio&quot; id=&quot;<span class="demo-code__token">speed-x</span>&quot; name=&quot;<span class="demo-code__token">speed-x</span>&quot; value=&quot;standard&quot;&gt;
+    &lt;label class=&quot;<span class="demo-code__token">c-radio__label</span>&quot; for=&quot;<span class="demo-code__token">speed-x</span>&quot;&gt;Standard&lt;/label&gt;
   &lt;/div&gt;
 &lt;/fieldset&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> data-state=&quot;error&quot; on a &lt;fieldset&gt; also needs aria-describedby pointing at the c-form-field__error message. <code>[state-pair]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">data-state</span>=&quot;error&quot; on a &lt;fieldset&gt; also needs <span class="demo-code__token">aria-describedby</span> pointing at the <span class="demo-code__token">c-form-field__error</span> message. <code>[state-pair]</code></li></ul>
   </div>
 </div>
 </div>
@@ -223,7 +265,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;div&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -234,17 +276,19 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="States" tabindex="0">
   <table>
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
       <tr><th scope="row"><code>:checked</code></th><td data-label="Meaning">Selected: an ink stud seated in the ring.</td><td data-label="Pair it with">Use the checked attribute, never data-state.</td></tr>
-      <tr><th scope="row"><code>:disabled</code></th><td data-label="Meaning">Cannot be chosen. Dashed ring, ghosted label.</td><td data-label="Pair it with">Use the disabled attribute, and say nearby why it is unavailable.</td></tr>
+      <tr><th scope="row"><code>:disabled</code></th><td data-label="Meaning">Cannot be chosen. Dashed ring, ghosted label.</td><td data-label="Pair it with">Use the <code>disabled</code> attribute, and say nearby why it is unavailable.</td></tr>
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">4</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -256,6 +300,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -266,9 +311,9 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>Keep native &lt;input type=&quot;radio&quot;&gt; elements sharing one name: the browser handles arrow keys and single selection.</li><li>Wrap the group in fieldset + legend so the question is read with every option.</li><li>Link hints with aria-describedby on the input.</li></ul>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -289,7 +334,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>The legend asks the question; each label is a short answer in sentence case.</li><li>Use a hint for the detail that decides the choice: price, time, consequence.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -297,18 +342,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a href="toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code>c-toggle</code></a></li><li class="demo-bag__part"><a href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code>c-toggle</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://design-system.service.gov.uk/components/radios">GOV.UK Design System: Radios</a></li><li><a href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/">NN/g: Checkboxes vs. radio buttons</a></li><li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">WAI-ARIA APG: Radio group pattern</a></li><li><a href="https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/">Sara Soueidan: Inclusively hiding and styling checkboxes and radio buttons</a></li></ul>
@@ -323,10 +360,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

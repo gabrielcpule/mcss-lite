@@ -1,4 +1,4 @@
-/* @gabrielpule/mcss-lite@0.4.0 | MIT | generated bundle of index.css */
+/* @gabrielpule/mcss-lite@0.4.1 | MIT | generated bundle of index.css */
 @layer global, layout, component, utility;
 :root {
   --color-white: #ffffff;
@@ -23,7 +23,7 @@
   --color-blue-100: #c7e2f8;
   --color-blue-150: #dcedf9;
   --color-blue-200: #9ccdf4;
-  --color-blue-300: #6cb4ee;
+  --color-blue-300: #7cbff1;
   --color-blue-400: #4d90fe;
   --color-blue-600: #2576cc;
   --color-blue-700: #185da6;
@@ -120,6 +120,7 @@
   --ease-in: ease-in;
   --ease-out: ease-out;
   --ease-in-out: ease-in-out;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-instant: 0ms;
   --duration-fast: 150ms;
   --duration-base: 250ms;
@@ -448,10 +449,10 @@
     *,
     *::before,
     *::after {
-      scroll-behavior: auto !important;
-      transition-duration: var(--duration-instant) !important;
-      animation-duration: var(--duration-instant) !important;
-      animation-iteration-count: 1 !important;
+      scroll-behavior: auto;
+      transition-duration: var(--duration-instant);
+      animation-duration: var(--duration-instant);
+      animation-iteration-count: 1;
     }
   }
   @media (forced-colors: active) {
@@ -489,13 +490,13 @@
     gap: var(--space-6);
   }
   .l-grid--2-col {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .l-grid--3-col {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .l-grid--4-col {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .l-grid--responsive {
     grid-template-columns: repeat(auto-fill, minmax(min(17.5rem, 100%), 1fr));
@@ -504,7 +505,7 @@
     .l-grid--2-col,
     .l-grid--3-col,
     .l-grid--4-col {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
   .l-stack {
@@ -669,6 +670,9 @@
     color: var(--button-pressed-text, var(--color-text-inverse));
     box-shadow: none;
     transform: translateY(2px);
+  }
+  .c-button[aria-pressed="true"]:focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
   }
   .c-button:disabled,
   .c-button[data-state="disabled"] {
@@ -1312,6 +1316,28 @@
     }
     .c-button[aria-pressed="true"] {
       outline: var(--border-width-thick) solid Highlight;
+    }
+  }
+  :is(.c-checkbox__input, .c-radio__input):focus-visible {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .c-button,
+    .c-card--interactive,
+    .c-input,
+    .c-checkbox__input,
+    .c-radio__input,
+    .c-checkbox__input::before,
+    .c-radio__input::before,
+    .c-toggle__input,
+    .c-toggle__input::after,
+    .c-alert__close,
+    .c-modal__close {
+      transition-duration: var(--duration-instant);
+    }
+    .c-button[data-state="loading"],
+    .c-toggle[data-state="loading"] .c-toggle__input {
+      animation: none;
     }
   }
 }

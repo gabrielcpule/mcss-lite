@@ -43,7 +43,7 @@ Run the validator on every file you touched and fix all errors:
 ```sh
 npx mcss-lite validate <file-or-dir>          # human output (once installed)
 npx mcss-lite validate <file-or-dir> --json   # machine output
-npx github:gabrielcpule/mcss-lite#v0.4.0 validate <file-or-dir>   # without installing
+npx github:gabrielcpule/mcss-lite#v0.4.1 validate <file-or-dir>   # without installing
 ```
 
 It reports unknown classes and icons (with the valid alternatives), modifiers without their block, conflicting modifiers, invalid `data-state` values, missing ARIA pairs, deprecated classes and inline raw colors as errors or warnings, plus warnings for missing labels, Title Case and vague labels, more than one primary button per region, cards in cards, clickable divs, toggles in submit forms and alerts that rest on color. The full list is under "Validator rules" in `AGENTS.md`.

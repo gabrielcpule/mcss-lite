@@ -1,9 +1,14 @@
 {
-  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it).",
+  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it.",
+  "author": {
+    "name": "Gabriel Pule",
+    "url": "https://www.gabrielpule.work",
+    "caseStudy": null
+  },
   "steps": [
     {
       "title": "Lay the baseplate",
-      "text": "Layout primitives own all spacing, and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout primitive.",
+      "text": "Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.",
       "blocks": [
         "l-section",
         "l-container",
@@ -34,10 +39,11 @@
     },
     {
       "title": "Place cards on the grid",
-      "text": "l-grid sets the gap. Cards group related content; an interactive card is one real link.",
+      "text": "l-grid sets the gap. Cards group related content; an interactive card is one real link. A utility such as u-margin-0 is the last resort, for the one override no part covers.",
       "blocks": [
         "l-grid",
-        "c-card"
+        "c-card",
+        "u-*"
       ],
       "example": "card.html"
     },
@@ -78,14 +84,6 @@
         "c-modal"
       ],
       "example": "modal.html"
-    },
-    {
-      "title": "Finishing touches",
-      "text": "Utilities are single-purpose overrides. Reach for them last.",
-      "blocks": [
-        "u-*"
-      ],
-      "example": "utilities.html"
     }
   ]
 }

@@ -409,11 +409,11 @@
         "$value": {
           "colorSpace": "srgb",
           "components": [
-            0.4235,
-            0.7059,
-            0.9333
+            0.4863,
+            0.749,
+            0.9451
           ],
-          "hex": "#6cb4ee"
+          "hex": "#7cbff1"
         },
         "$extensions": {
           "com.figma.scopes": [

@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Toggle (c-toggle) · MCSS-Lite</title>
   <meta name="description" content="Toggle: An on/off switch built on a native checkbox with role=&quot;switch&quot;: the setting applies as soon as it changes.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -36,10 +42,10 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -51,30 +57,50 @@
       </div>
     </div>
   </header>
-
-  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
-    </ol>
-  </nav>
-
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-toggle</span> Toggle</h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg></span>
+            <h1 class="demo-sheet__title">Toggle <span class="demo-sheet__id">c-toggle</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--beta"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.5a3 3 0 0 0-3.9 3.9L2.5 10.5l3 3 4.1-4.1a3 3 0 0 0 3.9-3.9l-2 2-2-2z"/></svg>Beta</span><span class="demo-sheet__since">Component · since 0.4.0</span></div>
           <p class="demo-hero__lede">An on/off switch built on a native checkbox with role=&quot;switch&quot;: the setting applies as soon as it changes.</p>
         </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-stack l-stack--sm">
+              <div class="c-toggle">
+                <input class="c-toggle__input" type="checkbox" role="switch" id="setting-email-hd" checked aria-describedby="setting-email-hint-hd">
+                <label class="c-toggle__label" for="setting-email-hd">Email notifications</label>
+                <p class="c-toggle__hint" id="setting-email-hint-hd">Applies straight away.</p>
+              </div>
+              <div class="c-toggle">
+                <input class="c-toggle__input" type="checkbox" role="switch" id="setting-digest-hd">
+                <label class="c-toggle__label" for="setting-digest-hd">Weekly digest</label>
+              </div>
+              <div class="c-toggle" data-state="loading" aria-busy="true">
+                <input class="c-toggle__input" type="checkbox" role="switch" id="setting-beta-hd" checked disabled>
+                <label class="c-toggle__label" for="setting-beta-hd">Beta features</label>
+              </div>
+            </div>
+          </figure>
+        </div>
       </div>
     </header>
+
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
+    </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
+  </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -103,7 +129,7 @@
           <p class="demo-step__numeral" aria-hidden="true">2</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="build-title">Build it</h2>
-<ol class="demo-build-steps"><li><span>Start with <code>&lt;div&gt;</code> and add <code>class="c-toggle"</code>.</span></li><li><span>Add the required parts: <code>c-toggle__input</code>, <code>c-toggle__label</code>.</span></li><li><span>Add the parts you need: <code>c-toggle__hint</code>.</span></li><li><span>Set state on the native control, never with data-state: <code>:checked</code>, <code>:disabled</code>.</span></li><li><span>Set a state with <code>data-state</code> and add its paired attribute: <code>loading</code>.</span></li></ol>
+<ol class="demo-build-steps"><li><span>Start with <code>&lt;div&gt;</code> and add <code>class="c-toggle"</code>.</span></li><li><span>Add the required parts: <code>c-toggle__input</code>, <code>c-toggle__label</code>.</span></li><li><span>Add the parts you need: <code>c-toggle__hint</code>.</span></li><li><span>Set state on the native control, never with data-state: <code>:checked</code>, <code>:disabled</code>.</span></li><li><span>Add <code>data-state="loading"</code> when the change is being saved. Set <code>aria-busy=&quot;true&quot;</code> on the <code>c-toggle</code> and disable the input until the save finishes.</span></li></ol>
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <figure class="demo-stage">
@@ -124,21 +150,27 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;l-stack l-stack--sm&quot;&gt;
-  &lt;div class=&quot;c-toggle&quot;&gt;
-    &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;setting-email&quot; checked aria-describedby=&quot;setting-email-hint&quot;&gt;
-    &lt;label class=&quot;c-toggle__label&quot; for=&quot;setting-email&quot;&gt;Email notifications&lt;/label&gt;
-    &lt;p class=&quot;c-toggle__hint&quot; id=&quot;setting-email-hint&quot;&gt;Applies straight away.&lt;/p&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">15 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-84">&lt;div class=&quot;<span class="demo-code__token">l-stack</span> <span class="demo-code__token">l-stack--sm</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot;&gt;
+    &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;<span class="demo-code__token">setting-email</span>&quot; checked <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">setting-email-hint</span>&quot;&gt;
+    &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;<span class="demo-code__token">setting-email</span>&quot;&gt;Email notifications&lt;/label&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-toggle__hint</span>&quot; id=&quot;<span class="demo-code__token">setting-email-hint</span>&quot;&gt;Applies straight away.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;c-toggle&quot;&gt;
-    &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;setting-digest&quot;&gt;
-    &lt;label class=&quot;c-toggle__label&quot; for=&quot;setting-digest&quot;&gt;Weekly digest&lt;/label&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot;&gt;
+    &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;<span class="demo-code__token">setting-digest</span>&quot;&gt;
+    &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;<span class="demo-code__token">setting-digest</span>&quot;&gt;Weekly digest&lt;/label&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;c-toggle&quot; data-state=&quot;loading&quot; aria-busy=&quot;true&quot;&gt;
-    &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;setting-beta&quot; checked disabled&gt;
-    &lt;label class=&quot;c-toggle__label&quot; for=&quot;setting-beta&quot;&gt;Beta features&lt;/label&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot; <span class="demo-code__token">data-state</span>=&quot;loading&quot; <span class="demo-code__token">aria-busy</span>=&quot;true&quot;&gt;
+    &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;<span class="demo-code__token">setting-beta</span>&quot; checked disabled&gt;
+    &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;<span class="demo-code__token">setting-beta</span>&quot;&gt;Beta features&lt;/label&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-84" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -163,22 +195,28 @@
     <p class="c-toggle__hint" id="notify-hint-do1">Applies straight away.</p>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot;&gt;
-  &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;notify&quot; checked aria-describedby=&quot;notify-hint&quot;&gt;
-  &lt;label class=&quot;c-toggle__label&quot; for=&quot;notify&quot;&gt;Email notifications&lt;/label&gt;
-  &lt;p class=&quot;c-toggle__hint&quot; id=&quot;notify-hint&quot;&gt;Applies straight away.&lt;/p&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">5 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-85">&lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;notify&quot; checked <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">notify-hint</span>&quot;&gt;
+  &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;notify&quot;&gt;Email notifications&lt;/label&gt;
+  &lt;p class=&quot;<span class="demo-code__token">c-toggle__hint</span>&quot; id=&quot;<span class="demo-code__token">notify-hint</span>&quot;&gt;Applies straight away.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-85" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't fake the on state with data-state: the control has to carry it.</p>
-<pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot; data-state=&quot;checked&quot;&gt;
-  &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;notify-fake&quot;&gt;
-  &lt;label class=&quot;c-toggle__label&quot; for=&quot;notify-fake&quot;&gt;Email notifications&lt;/label&gt;
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot; <span class="demo-code__token">data-state</span>=&quot;checked&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;<span class="demo-code__token">notify-fake</span>&quot;&gt;
+  &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;<span class="demo-code__token">notify-fake</span>&quot;&gt;Email notifications&lt;/label&gt;
 &lt;/div&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>error</strong> &quot;checked&quot; is a native state of c-toggle: don't use data-state. Use the checked attribute; role=&quot;switch&quot; makes screen readers say on and off. <code>[invalid-state]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--error"><strong>error</strong> &quot;checked&quot; is a native state of <span class="demo-code__token">c-toggle:</span> don't use <span class="demo-code__token">data-state.</span> Use the checked attribute; role=&quot;switch&quot; makes screen readers say on and off. <code>[invalid-state]</code></li></ul>
   </div>
 </div>
 <div class="demo-checks__pair">
@@ -191,21 +229,27 @@
     <label class="c-toggle__label" for="beta-do2">Beta features</label>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot; data-state=&quot;loading&quot; aria-busy=&quot;true&quot;&gt;
-  &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;beta&quot; checked disabled&gt;
-  &lt;label class=&quot;c-toggle__label&quot; for=&quot;beta&quot;&gt;Beta features&lt;/label&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">4 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-87">&lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot; <span class="demo-code__token">data-state</span>=&quot;loading&quot; <span class="demo-code__token">aria-busy</span>=&quot;true&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;beta&quot; checked disabled&gt;
+  &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;beta&quot;&gt;Beta features&lt;/label&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-87" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't show the loading stripes without aria-busy; screen readers can't tell the save is still running.</p>
-<pre class="demo-code"><code>&lt;div class=&quot;c-toggle&quot; data-state=&quot;loading&quot;&gt;
-  &lt;input class=&quot;c-toggle__input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;beta-x&quot; checked disabled&gt;
-  &lt;label class=&quot;c-toggle__label&quot; for=&quot;beta-x&quot;&gt;Beta features&lt;/label&gt;
+<pre class="demo-code"><code>&lt;div class=&quot;<span class="demo-code__token">c-toggle</span>&quot; <span class="demo-code__token">data-state</span>=&quot;loading&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-toggle__input</span>&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;<span class="demo-code__token">beta-x</span>&quot; checked disabled&gt;
+  &lt;label class=&quot;<span class="demo-code__token">c-toggle__label</span>&quot; for=&quot;<span class="demo-code__token">beta-x</span>&quot;&gt;Beta features&lt;/label&gt;
 &lt;/div&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>warning</strong> data-state=&quot;loading&quot; also needs aria-busy=&quot;true&quot;. <code>[state-pair]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--warning"><strong>warning</strong> <span class="demo-code__token">data-state</span>=&quot;loading&quot; also needs <span class="demo-code__token">aria-busy</span>=&quot;true&quot;. <code>[state-pair]</code></li></ul>
   </div>
 </div>
 </div>
@@ -221,7 +265,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;div&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Elements" tabindex="0">
   <table>
     <caption>Elements</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">On</th><th scope="col">What it does</th></tr></thead>
@@ -232,18 +276,20 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="States" tabindex="0">
   <table>
     <caption>States</caption>
     <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
       <tr><th scope="row"><code>:checked</code></th><td data-label="Meaning">On: the thumb slides to the end on an ink track and shows a tick.</td><td data-label="Pair it with">Use the checked attribute; role=&quot;switch&quot; makes screen readers say on and off.</td></tr>
-      <tr><th scope="row"><code>:disabled</code></th><td data-label="Meaning">Cannot be changed. Dashed track, ghosted label.</td><td data-label="Pair it with">Use the disabled attribute, and say nearby why it is unavailable.</td></tr>
-      <tr><th scope="row"><code>data-state=&quot;loading&quot;</code></th><td data-label="Meaning">The change is being saved. The track turns neutral with moving stripes.</td><td data-label="Pair it with">Set aria-busy=&quot;true&quot; on the c-toggle and disable the input until the save finishes.</td></tr>
+      <tr><th scope="row"><code>:disabled</code></th><td data-label="Meaning">Cannot be changed. Dashed track, ghosted label.</td><td data-label="Pair it with">Use the <code>disabled</code> attribute, and say nearby why it is unavailable.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;loading&quot;</code></th><td data-label="Meaning">The change is being saved. The track turns neutral with moving stripes.</td><td data-label="Pair it with">Set <code>aria-busy=&quot;true&quot;</code> on the <code>c-toggle</code> and disable the input until the save finishes.</td></tr>
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">6</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -257,6 +303,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -267,9 +314,9 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>Use &lt;input type=&quot;checkbox&quot; role=&quot;switch&quot;&gt;: screen readers that know switches say &quot;on&quot; and &quot;off&quot;, and the rest still say &quot;checked&quot;.</li><li>The thumb shows a tick when on and stays empty when off, so state never relies on position or color alone.</li><li>Movement stops under prefers-reduced-motion.</li></ul>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Keyboard" tabindex="0">
   <table>
     <caption>Keyboard</caption>
     <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
@@ -289,7 +336,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>Toggle labels are nouns naming the setting, in sentence case: &quot;Dark mode&quot;, not &quot;Enable dark mode&quot;.</li><li>Never change the label when the state changes.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -297,18 +344,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a href="radio.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg><code>c-radio</code></a></li><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="radio.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg><code>c-radio</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://www.nngroup.com/articles/toggle-switch-guidelines/">NN/g: Toggle-switch guidelines</a></li><li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/switch/">WAI-ARIA APG: Switch pattern</a></li><li><a href="https://design.gitlab.com/components/toggle">GitLab Pajamas: Toggle</a></li></ul>
@@ -323,10 +362,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

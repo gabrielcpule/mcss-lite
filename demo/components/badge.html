@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Badge (c-badge) · MCSS-Lite</title>
   <meta name="description" content="Badge: A short, non-interactive label for status or category, such as &quot;Beta&quot; or &quot;Paid&quot;.">
+  <script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="../fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../src/tokens.css" as="style">
+  <link rel="preload" href="../../src/global.css" as="style">
+  <link rel="preload" href="../../src/layout.css" as="style">
+  <link rel="preload" href="../../src/components.css" as="style">
+  <link rel="preload" href="../../src/utilities.css" as="style">
   <link rel="stylesheet" href="../../index.css">
   <link rel="stylesheet" href="../demo.css">
 </head>
@@ -36,10 +42,10 @@
   <a class="demo-skip" href="#main">Skip to the page</a>
   <header class="demo-bar">
     <div class="l-container demo-bar__inner">
-      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.0</span></p>
+      <p class="demo-wordmark"><a class="demo-wordmark__link" href="../index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="../index.html">Booklet</a></li>
+          <li><a href="../index.html">Overview</a></li>
           <li><a href="../status.html">Parts inventory</a></li>
           <li><a href="../content.html">Read before you build</a></li>
         </ul>
@@ -51,30 +57,43 @@
       </div>
     </div>
   </header>
-
-  <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
-      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
-      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Words on this part"><span class="u-sr-only">6: Words on this part</span><span aria-hidden="true">6</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
-    </ol>
-  </nav>
-
   <main id="main">
     <header class="demo-sheet__head">
       <div class="l-container demo-sheet__head-grid">
-        <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-badge</span> Badge</h1>
+          <div class="demo-sheet__titlebar">
+            <span class="demo-sheet__mark"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg></span>
+            <h1 class="demo-sheet__title">Badge <span class="demo-sheet__id">c-badge</span></h1>
+          </div>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Component · since 0.1.0</span></div>
           <p class="demo-hero__lede">A short, non-interactive label for status or category, such as &quot;Beta&quot; or &quot;Paid&quot;.</p>
         </div>
+        <div class="demo-sheet__specimen">
+          <figure class="demo-stage" inert aria-hidden="true">
+            <div class="l-cluster">
+              <span class="c-badge">Draft</span>
+              <span class="c-badge c-badge--primary">New</span>
+              <span class="c-badge c-badge--success">Active</span>
+              <span class="c-badge c-badge--warning">Expiring</span>
+              <span class="c-badge c-badge--error">Failed</span>
+              <span class="c-badge c-badge--info">Beta</span>
+            </div>
+          </figure>
+        </div>
       </div>
     </header>
+
+    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
+      <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span><span class="demo-rail__text" aria-hidden="true">Pick this part</span></a></li>
+      <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span><span class="demo-rail__text" aria-hidden="true">Build it</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span><span class="demo-rail__text" aria-hidden="true">Check your build</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span><span class="demo-rail__text" aria-hidden="true">Spec sheet</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Accessibility"><span class="u-sr-only">5: Accessibility</span><span aria-hidden="true">5</span><span class="demo-rail__text" aria-hidden="true">Accessibility</span></a></li>
+      <li><a class="demo-rail__stud" href="#words" data-rail="words" data-label="Wording"><span class="u-sr-only">6: Wording</span><span aria-hidden="true">6</span><span class="demo-rail__text" aria-hidden="true">Wording</span></a></li>
+    </ol>
+    <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a section"></p>
+  </nav>
 
     <section class="demo-step demo-sheet__section" id="pick" aria-labelledby="pick-title">
       <div class="l-container">
@@ -89,7 +108,7 @@
   </div>
   <div class="demo-pick__col demo-pick__col--other">
     <p class="demo-check__label">Pick another part for</p>
-    <ul class="demo-pick__list"><li>Anything clickable, removable or filterable: use <a href="button.html"><code>c-button</code></a> with c-button--sm.</li><li>A count on a navigation item: badges here are for status words, not numbers.</li><li>A sentence: use body text or an alert.</li></ul>
+    <ul class="demo-pick__list"><li>Anything clickable, removable or filterable: use <a href="button.html"><code>c-button</code></a> with <code>c-button--sm</code>.</li><li>A count on a navigation item: badges here are for status words, not numbers.</li><li>A sentence: use body text or an alert.</li></ul>
   </div>
 </div>
           </div>
@@ -117,14 +136,20 @@
     </div>
   </figure>
 </div>
-<pre class="demo-code"><code>&lt;div class=&quot;l-cluster&quot;&gt;
-  &lt;span class=&quot;c-badge&quot;&gt;Draft&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--primary&quot;&gt;New&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--success&quot;&gt;Active&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--warning&quot;&gt;Expiring&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--error&quot;&gt;Failed&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--info&quot;&gt;Beta&lt;/span&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">8 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-32">&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span>&quot;&gt;Draft&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--primary</span>&quot;&gt;New&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--success</span>&quot;&gt;Active&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--warning</span>&quot;&gt;Expiring&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--error</span>&quot;&gt;Failed&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--info</span>&quot;&gt;Beta&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-32" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
           </div>
         </div>
       </div>
@@ -148,18 +173,24 @@
     <span class="c-badge c-badge--success">Passed</span>
   </div>
 </figure>
-<pre class="demo-code"><code>&lt;div class=&quot;l-cluster&quot;&gt;
-  &lt;span class=&quot;c-badge c-badge--error&quot;&gt;Failed&lt;/span&gt;
-  &lt;span class=&quot;c-badge c-badge--success&quot;&gt;Passed&lt;/span&gt;
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show markup <span class="demo-details__count">4 lines</span></summary>
+<div class="demo-code-block">
+  <pre class="demo-code"><code id="code-33">&lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--error</span>&quot;&gt;Failed&lt;/span&gt;
+  &lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--success</span>&quot;&gt;Passed&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+  <button type="button" class="c-button c-button--sm demo-code-block__copy" data-copy="code-33" data-copied="Code copied.">Copy<span class="u-sr-only"> code</span></button>
+</div>
+</details>
 <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
   </div>
   <div class="demo-checks__card demo-checks__card--dont">
     <p class="demo-checks__head"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>Doesn't fit<svg class="demo-misfit-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg></p>
     <p>Don't make a badge clickable or invent tones.</p>
-<pre class="demo-code"><code>&lt;span class=&quot;c-badge c-badge--danger&quot;&gt;Failed&lt;/span&gt;</code></pre>
+<pre class="demo-code"><code>&lt;span class=&quot;<span class="demo-code__token">c-badge</span> <span class="demo-code__token">c-badge--danger</span>&quot;&gt;Failed&lt;/span&gt;</code></pre>
 <p class="demo-check__label">validate</p>
-<ul class="demo-check__issues" role="list"><li><strong>error</strong> Unknown class &quot;c-badge--danger&quot;. Valid modifiers of c-badge: --primary, --success, --warning, --error, --info. Only classes from the MCSS-Lite contracts exist. <code>[unknown-class]</code></li></ul>
+<ul class="demo-check__issues" role="list"><li class="demo-check__issue--error"><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-badge--danger</span>&quot;. Valid modifiers of <span class="demo-code__token">c-badge:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--success</span>, <span class="demo-code__token">--warning</span>, <span class="demo-code__token">--error</span>, <span class="demo-code__token">--info.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li></ul>
   </div>
 </div>
 </div>
@@ -175,7 +206,7 @@
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;span&gt;</code></p>
-<div class="demo-spec">
+<div class="demo-spec" role="region" aria-label="Modifiers" tabindex="0">
   <table>
     <caption>Modifiers</caption>
     <thead><tr><th scope="col">Class</th><th scope="col">Group</th><th scope="col">What it does</th></tr></thead>
@@ -188,7 +219,9 @@
     </tbody>
   </table>
 </div>
-<div class="demo-spec">
+<details class="demo-details">
+<summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>Show tokens <span class="demo-details__count">4</span></summary>
+<div class="demo-spec" role="region" aria-label="Tokens" tabindex="0">
   <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
@@ -200,6 +233,7 @@
     </tbody>
   </table>
 </div>
+</details>
           </div>
         </div>
       </div>
@@ -210,7 +244,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="safe-title">Safe building</h2>
+            <h2 class="demo-step__title" id="safe-title">Accessibility</h2>
 <ul class="demo-safe__list"><li>Color is decorative; the badge text must describe the status on its own.</li></ul>
           </div>
         </div>
@@ -222,7 +256,7 @@
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="words-title">Words on this part</h2>
+            <h2 class="demo-step__title" id="words-title">Wording</h2>
 <ol class="demo-notices demo-notices--compact"><li>One or two words, sentence case: &quot;In review&quot;, not &quot;IN REVIEW&quot;.</li><li>Each tone keeps one meaning across the product: error always means something failed.</li></ol>
 <p><a href="../content.html">All content rules</a></p>
           </div>
@@ -230,18 +264,10 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
-      <div class="l-container">
-        <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">7</p>
-          <div class="l-stack demo-sheet__body">
-            <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code></a></li><li class="demo-bag__part"><a href="card.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code>c-card</code></a></li></ul>
-          </div>
-        </div>
-      </div>
+    <section class="demo-sheet__sources l-container" aria-labelledby="fits-title">
+      <h2 class="demo-sheet__sources-title" id="fits-title">Fits with</h2>
+      <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="card.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code>c-card</code></a></li></ul>
     </section>
-
     <section class="demo-sheet__sources l-container" aria-labelledby="sources-title">
       <h2 class="demo-sheet__sources-title" id="sources-title">Researched from</h2>
       <ul class="demo-sheet__sources-list"><li><a href="https://design.gitlab.com/components/badge/">GitLab Pajamas: Badge</a></li><li><a href="https://atlassian.design/components/badge">Atlassian: Badge</a></li><li><a href="https://smart-interface-design-patterns.com/articles/badges-chips-tags-pills/">Smart Interface Design Patterns: Badges, chips, tags, pills</a></li></ul>
@@ -256,10 +282,11 @@
   <footer class="demo-footer">
     <div class="l-container l-stack l-stack--sm">
       <p>Generated from <code>components/*.json</code> by <code>npm run build</code>, so this page can't drift from the contract.</p>
-      <p>@gabrielpule/mcss-lite@0.4.0 · MIT · by Gabriel Pule</p>
+      <p>@gabrielpule/mcss-lite@0.4.1 · MIT · <a href="#main">Back to the top</a></p>
     </div>
   </footer>
 
+  <p class="u-sr-only" role="status" data-copy-status></p>
   <script src="../demo.js" defer></script>
 </body>
 </html>

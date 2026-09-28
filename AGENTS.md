@@ -2,7 +2,7 @@
 
 > How to build UI with MCSS-Lite: the rules, every class, every token. Read this before writing markup or CSS.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.4.0
+> Package: @gabrielpule/mcss-lite@0.4.1
 
 ## Rules
 
@@ -17,12 +17,12 @@
 MCSS-Lite is not on the npm registry. Link it from the jsDelivr CDN, pinned to a release tag, or install it straight from GitHub:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.0/dist/mcss-lite.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.4.1/dist/mcss-lite.min.css">
 <html data-theme="auto"> <!-- optional: light (default) | dark | auto -->
 ```
 
 ```sh
-npm install github:gabrielcpule/mcss-lite#v0.4.0   # or pnpm add / yarn add / bun add
+npm install github:gabrielcpule/mcss-lite#v0.4.1   # or pnpm add / yarn add / bun add
 # then: <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
@@ -32,7 +32,7 @@ Before finishing, check your markup:
 
 ```sh
 npx mcss-lite validate path/to/file.html   # once installed; or a directory; add --json for machine output
-npx github:gabrielcpule/mcss-lite#v0.4.0 validate path/to/file.html   # without installing
+npx github:gabrielcpule/mcss-lite#v0.4.1 validate path/to/file.html   # without installing
 ```
 
 ## Blocks at a glance
@@ -183,7 +183,7 @@ Values are shown as light / dark.
 | `--color-text-inverse` | #ffffff / #0f2140 | Text on an inverted background. |
 | `--color-text-on-action` | #ffffff / #ffffff | Text on --color-action-primary. |
 | `--color-text-on-danger` | #ffffff / #ffffff | Text on --color-action-danger. |
-| `--color-text-link` | #005a9c / #6cb4ee | Link text. Links are also underlined. |
+| `--color-text-link` | #005a9c / #7cbff1 | Link text. Links are also underlined. |
 | `--color-text-link-hover` | #004a80 / #9ccdf4 | Link text on hover. |
 | `--color-text-disabled` | #6c757d / #7f95ab | Text in disabled (ghosted) controls. |
 | `--color-text-success` | #155724 / #a3d9b1 | Text on --color-background-success. |
@@ -261,7 +261,7 @@ Values are shown as light / dark.
 - **border-radius:** `--border-radius-none` (0), `--border-radius-sm` (0.125rem), `--border-radius-base` (0.25rem), `--border-radius-md` (0.375rem), `--border-radius-lg` (0.5rem), `--border-radius-xl` (0.75rem), `--border-radius-2xl` (1rem), `--border-radius-full` (9999px)
 - **border-width:** `--border-width-0` (0), `--border-width-thin` (1px), `--border-width-thick` (2px), `--border-width-thicker` (4px)
 - **shadow:** `--shadow-xs` (0 1px 2px rgb(0 0 0 / 0.05)), `--shadow-sm` (0 1px 3px rgb(0 0 0 / 0.1)), `--shadow-base` (0 4px 6px rgb(0 0 0 / 0.1)), `--shadow-md` (0 8px 25px rgb(0 0 0 / 0.1)), `--shadow-lg` (0 25px 50px rgb(0 0 0 / 0.15)), `--shadow-xl` (0 25px 50px rgb(0 0 0 / 0.25))
-- **ease:** `--ease-linear` (linear), `--ease-in` (ease-in), `--ease-out` (ease-out), `--ease-in-out` (ease-in-out)
+- **ease:** `--ease-linear` (linear), `--ease-in` (ease-in), `--ease-out` (ease-out), `--ease-in-out` (ease-in-out), `--ease-out-expo` (cubic-bezier(0.16, 1, 0.3, 1))
 - **duration:** `--duration-instant` (0ms), `--duration-fast` (150ms), `--duration-base` (250ms), `--duration-slow` (350ms), `--duration-slower` (500ms)
 - **z-index:** `--z-index-hide` (-1), `--z-index-base` (0), `--z-index-docked` (10), `--z-index-dropdown` (1000), `--z-index-sticky` (1020), `--z-index-modal-backdrop` (1040), `--z-index-modal` (1050), `--z-index-popover` (1060), `--z-index-toast` (1070), `--z-index-tooltip` (1080)
 - **container:** `--container-max-width` (72rem), `--container-narrow` (48rem)
