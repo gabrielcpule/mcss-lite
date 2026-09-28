@@ -1,0 +1,83 @@
+name: Release
+
+# jsDelivr serves files from git tags, so every version needs a vX.Y.Z tag.
+# This creates the tag and a GitHub Release for the version in package.json:
+# - automatically, when a change to package.json lands on main;
+# - by hand (Actions → Release → Run workflow) for any commit, e.g. to tag an
+#   earlier version. The version always comes from package.json at that commit,
+#   so a tag can never point at files built as another version.
+
+on:
+  push:
+    branches: [main]
+    paths: [package.json]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit SHA or branch to release (its package.json sets the version)
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag and release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Read version
+        id: version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          sha=$(git rev-parse HEAD)
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          if git rev-parse -q --verify "refs/tags/v$version" >/dev/null; then
+            existing=$(git rev-list -n 1 "v$version")
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            if [ "$existing" = "$sha" ]; then
+              echo "::notice::v$version already exists at $sha; nothing to do."
+            else
+              echo "::notice::v$version already exists at $existing, not $sha. Tags are immutable on jsDelivr; bump the version instead."
+            fi
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checks
+        if: steps.version.outputs.exists == 'false'
+        run: |
+          npm test
+          npm run check
+          node bin/mcss-lite.mjs validate components demo
+
+      - name: Create tag and GitHub Release
+        if: steps.version.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          SHA: ${{ steps.version.outputs.sha }}
+        run: |
+          gh release create "$TAG" --target "$SHA" --title "$TAG" --generate-notes --notes "CDN: https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${TAG}/dist/mcss-lite.min.css"
+          {
+            echo "### Released $TAG"
+            echo
+            echo "- Commit: \`$SHA\`"
+            echo "- CDN: https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${TAG}/dist/mcss-lite.min.css"
+          } >> "$GITHUB_STEP_SUMMARY"
