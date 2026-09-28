@@ -117,7 +117,7 @@
   ],
   "a11y": [
     "Use <input type=\"checkbox\" role=\"switch\">: screen readers that know switches say \"on\" and \"off\", and the rest still say \"checked\".",
-    "The thumb shows a tick when on and a bar when off, so state never relies on position or color alone.",
+    "The thumb shows a tick when on and stays empty when off, so state never relies on position or color alone.",
     "Movement stops under prefers-reduced-motion."
   ],
   "keyboard": [

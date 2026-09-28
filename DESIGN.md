@@ -297,7 +297,7 @@ Tactile and literal: every part looks like it could be picked up. Contracts (mod
 - **Structure:** a native input beside its label, GOV.UK style: `div.c-checkbox > input.c-checkbox__input + label.c-checkbox__label + .c-checkbox__hint`. The label is 44px tall and pads the hit area; groups sit in `fieldset.c-form-field` with a legend. Every state is native (`checked`, `:indeterminate`, `disabled`, `aria-invalid`), never `data-state`.
 - **Checkbox:** a 24px keylined box on its brick edge. Checked is an ink fill with a paper tick, seated like a pressed button; blue stays for actions. The tick draws in over 150ms. Indeterminate is a flat bar. Pressing drops it 2px only while held, so a checked box stays level with its label.
 - **Radio:** a round 2px ring; checked seats an ink stud in the middle.
-- **Toggle:** a keylined channel with a square thumb brick. Off: muted track, thumb at the start with a bar. On: ink track, thumb at the end with a tick, so the state never rests on position or color. Saving: neutral track with the loading stripes.
+- **Toggle:** a keylined channel with a square thumb brick. Off: muted track, an empty thumb at the start. On: ink track, thumb at the end with a tick, so the state never rests on position or color. The bar belongs to a mixed checkbox only. Saving: neutral track with the loading stripes and the thumb held in the middle.
 - **Error:** red keyline plus the heavier bottom edge, on one box (`aria-invalid`) or on every control in a group (`data-state="error"` on the fieldset).
 - **Disabled:** 45% opacity, dashed keyline, ghosted label. **Forced colors:** checkboxes and radios fall back to the native control; the toggle redraws in system colors.
 

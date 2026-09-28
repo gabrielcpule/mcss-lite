@@ -192,7 +192,7 @@
     },
     "mark": {
       "$value": "{color.text.default}",
-      "$description": "Tick (on) or bar (off) drawn on the thumb."
+      "$description": "Tick drawn on the thumb when on."
     }
   },
   "icon": {

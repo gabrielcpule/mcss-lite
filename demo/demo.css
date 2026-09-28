@@ -746,11 +746,6 @@
   .demo-step--inset .demo-stage {
     padding: var(--space-10) var(--space-8) var(--space-8);
   }
-
-  /* Signals step down one stud each, so their tone edges read as a column. */
-  .demo-step--inset .demo-stage > .l-stack > .c-alert:nth-child(2) { margin-inline-start: var(--space-4); }
-  .demo-step--inset .demo-stage > .l-stack > .c-alert:nth-child(3) { margin-inline-start: var(--space-8); }
-  .demo-step--inset .demo-stage > .l-stack > .c-alert:nth-child(4) { margin-inline-start: var(--space-12); }
 }
 
 .demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert) {
@@ -1042,6 +1037,28 @@
 
 .demo-checks__card--dont .demo-checks__head {
   display: flex;
+}
+
+/* The icon set on the c-icon sheet: a keylined tile per icon with its name. */
+.demo-icon-set {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-icon-set__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  font-size: var(--font-size-sm);
 }
 
 /* A live chip of the token's color in the current theme. */
@@ -1368,7 +1385,6 @@
   }
 }
 
-.demo-pick code,
 .demo-fits code,
 .demo-inventory-table code {
   overflow-wrap: normal;
@@ -1420,4 +1436,17 @@
 
 .demo-fit__callout .demo-pick__col {
   background-color: var(--color-background-raised);
+}
+
+/* Inventory: every layer's table shares one set of column widths, so the columns line up down the page. */
+@media (min-width: 40rem) {
+  .demo-inventory-table table {
+    table-layout: fixed;
+    inline-size: 100%;
+  }
+
+  .demo-inventory-table :is(th, td):nth-child(1) { inline-size: 28%; }
+  .demo-inventory-table :is(th, td):nth-child(2) { inline-size: 14%; }
+  .demo-inventory-table :is(th, td):nth-child(3) { inline-size: 16%; }
+  .demo-inventory-table :is(th, td):nth-child(4) { inline-size: 10%; }
 }

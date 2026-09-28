@@ -236,7 +236,7 @@ const DATA = {
     {"name":"toggle/track-on","type":"COLOR","css":"--toggle-track-on","description":"On: an ink track, like a pressed piece.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
     {"name":"toggle/thumb","type":"COLOR","css":"--toggle-thumb","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/interactive"}}},
     {"name":"toggle/border","type":"COLOR","css":"--toggle-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/keyline"}}},
-    {"name":"toggle/mark","type":"COLOR","css":"--toggle-mark","description":"Tick (on) or bar (off) drawn on the thumb.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
+    {"name":"toggle/mark","type":"COLOR","css":"--toggle-mark","description":"Tick drawn on the thumb when on.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
     {"name":"icon/size","type":"FLOAT","css":"--icon-size","description":"Default icon size (20px).","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/5"}}},
     {"name":"icon/size-sm","type":"FLOAT","css":"--icon-size-sm","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/4"}}},
     {"name":"icon/size-lg","type":"FLOAT","css":"--icon-size-lg","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/6"}}},

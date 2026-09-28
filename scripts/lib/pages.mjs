@@ -162,7 +162,7 @@ ${body}
     for (const p of c.customProperties ?? []) steps.push(`Tune <code>${esc(p.name)}</code> inline if the default (<code>${esc(p.default)}</code>) doesn't fit.`);
     const dataStates = (c.states ?? []).filter((s) => !s.native);
     const nativeStates = (c.states ?? []).filter((s) => s.native);
-    if (nativeStates.length) steps.push(`Set state on the native control, never with data-state: ${nativeStates.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
+    if (nativeStates.length) steps.push(`Set state on the native control, never with data-state: ${nativeStates.map((s) => `<code>${esc(s.selector)}</code>`).join(', ')}.`);
     if (dataStates.length) steps.push(`Set a state with <code>data-state</code> and add its paired attribute: ${dataStates.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
     if (c.layer === 'layout') steps.push('Put the parts inside. The layout sets the space between them, so they need no margins.');
     return steps;
@@ -277,6 +277,14 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
 
     const steps = buildSteps(c);
     add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example)}` : ''}`);
+
+    // The icon sheet shows the whole set, each with the id to reference.
+    if (c.block === 'c-icon') {
+      add('set', 'The set', `<p class="demo-step__text">Every icon in <code>dist/mcss-lite.icons.svg</code>, at the large size (<code>c-icon--lg</code>). Reference one with <code>&lt;use href="#${ICON_PREFIX}name"&gt;</code>.</p>
+<ul class="demo-icon-set" role="list">
+${loadIcons(root).map((i) => `  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#${ICON_PREFIX}${i.name}"></use></svg><code>${esc(i.name)}</code></li>`).join('\n')}
+</ul>`);
+    }
 
     if (g.doDont?.length) {
       add('check', 'Check your build', `<p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>

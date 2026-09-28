@@ -883,7 +883,7 @@
       "examples": [
         {
           "file": "components/alert.html",
-          "html": "<div class=\"l-stack\">\n  <div class=\"c-alert c-alert--info\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-info\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Information: </span>Maintenance on 3 October 2026</p>\n      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--success\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-success\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Success: </span>Invoice sent</p>\n      <p>Acme Inc. will get it by email in a few minutes.</p>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--warning\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-warning\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Warning: </span>Your trial ends on 12 October 2026</p>\n      <p>Choose a plan to keep your 4 projects.</p>\n      <div class=\"c-alert__actions l-cluster\">\n        <a class=\"c-button c-button--primary c-button--sm\" href=\"#plans\">Choose a plan</a>\n      </div>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--error\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-error\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Error: </span>The changes weren't saved</p>\n      <p>The connection dropped. Check your network and save again.</p>\n    </div>\n    <button type=\"button\" class=\"c-alert__close\" aria-label=\"Dismiss\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-close\"></use></svg></button>\n  </div>\n</div>"
+          "html": "<div class=\"l-stack\">\n  <div class=\"c-alert c-alert--info\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-info\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Information: </span>Maintenance on 3 October 2026</p>\n      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--success\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-success\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Success: </span>Invoice sent</p>\n      <p>Acme Inc. will get it by email in a few minutes.</p>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--warning\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-warning\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Warning: </span>Your trial ends on 12 October 2026</p>\n      <p>Choose a plan to keep your 4 projects.</p>\n      <div class=\"c-alert__actions l-cluster\">\n        <a class=\"c-button c-button--primary c-button--sm\" href=\"#plans\">Choose a plan</a>\n      </div>\n    </div>\n  </div>\n  <div class=\"c-alert c-alert--error\">\n    <span class=\"c-alert__icon\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-error\"></use></svg></span>\n    <div class=\"c-alert__body\">\n      <p class=\"c-alert__title\"><span class=\"u-sr-only\">Error: </span>The changes weren't saved</p>\n      <p>The connection dropped. Check your network and save again.</p>\n    </div>\n    <button type=\"button\" class=\"c-alert__close\" aria-label=\"Dismiss this error\"><svg class=\"c-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"#mcss-icon-close\"></use></svg></button>\n  </div>\n</div>"
         }
       ],
       "sources": [
@@ -2478,7 +2478,7 @@
       ],
       "a11y": [
         "Use <input type=\"checkbox\" role=\"switch\">: screen readers that know switches say \"on\" and \"off\", and the rest still say \"checked\".",
-        "The thumb shows a tick when on and a bar when off, so state never relies on position or color alone.",
+        "The thumb shows a tick when on and stays empty when off, so state never relies on position or color alone.",
         "Movement stops under prefers-reduced-motion."
       ],
       "keyboard": [
@@ -5112,7 +5112,7 @@
         "light": "#1a1d20",
         "dark": "#e6edf4"
       },
-      "description": "Tick (on) or bar (off) drawn on the thumb.",
+      "description": "Tick drawn on the thumb when on.",
       "figma": true
     },
     {

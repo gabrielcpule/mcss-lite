@@ -871,7 +871,7 @@ A printed notice on the page: tells people about something that affects what the
       <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
       <p>The connection dropped. Check your network and save again.</p>
     </div>
-    <button type="button" class="c-alert__close" aria-label="Dismiss"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+    <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
   </div>
 </div>
 ```
@@ -2013,7 +2013,7 @@ An on/off switch built on a native checkbox with role="switch": the setting appl
 
 **Accessibility:**
 - Use <input type="checkbox" role="switch">: screen readers that know switches say "on" and "off", and the rest still say "checked".
-- The thumb shows a tick when on and a bar when off, so state never relies on position or color alone.
+- The thumb shows a tick when on and stays empty when off, so state never relies on position or color alone.
 - Movement stops under prefers-reduced-motion.
 
 **Keyboard:**

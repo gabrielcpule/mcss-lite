@@ -53,13 +53,14 @@
   </header>
 
   <nav class="demo-rail" aria-label="Sections">
-    <ol class="demo-rail__list" role="list" style="--demo-studs: 6">
+    <ol class="demo-rail__list" role="list" style="--demo-studs: 7">
       <li><a class="demo-rail__stud" href="#pick" data-rail="pick" data-label="Pick this part"><span class="u-sr-only">1: Pick this part</span><span aria-hidden="true">1</span></a></li>
       <li><a class="demo-rail__stud" href="#build" data-rail="build" data-label="Build it"><span class="u-sr-only">2: Build it</span><span aria-hidden="true">2</span></a></li>
-      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">3: Check your build</span><span aria-hidden="true">3</span></a></li>
-      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">4: Spec sheet</span><span aria-hidden="true">4</span></a></li>
-      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">5: Safe building</span><span aria-hidden="true">5</span></a></li>
-      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">6: Fits with</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#set" data-rail="set" data-label="The set"><span class="u-sr-only">3: The set</span><span aria-hidden="true">3</span></a></li>
+      <li><a class="demo-rail__stud" href="#check" data-rail="check" data-label="Check your build"><span class="u-sr-only">4: Check your build</span><span aria-hidden="true">4</span></a></li>
+      <li><a class="demo-rail__stud" href="#spec" data-rail="spec" data-label="Spec sheet"><span class="u-sr-only">5: Spec sheet</span><span aria-hidden="true">5</span></a></li>
+      <li><a class="demo-rail__stud" href="#safe" data-rail="safe" data-label="Safe building"><span class="u-sr-only">6: Safe building</span><span aria-hidden="true">6</span></a></li>
+      <li><a class="demo-rail__stud" href="#fits" data-rail="fits" data-label="Fits with"><span class="u-sr-only">7: Fits with</span><span aria-hidden="true">7</span></a></li>
     </ol>
   </nav>
 
@@ -139,10 +140,44 @@
       </div>
     </section>
 
-    <section class="demo-step demo-sheet__section" id="check" aria-labelledby="check-title">
+    <section class="demo-step demo-sheet__section" id="set" aria-labelledby="set-title">
       <div class="l-container">
         <div class="demo-sheet__row">
           <p class="demo-step__numeral" aria-hidden="true">3</p>
+          <div class="l-stack demo-sheet__body">
+            <h2 class="demo-step__title" id="set-title">The set</h2>
+<p class="demo-step__text">Every icon in <code>dist/mcss-lite.icons.svg</code>, at the large size (<code>c-icon--lg</code>). Reference one with <code>&lt;use href="#mcss-icon-name"&gt;</code>.</p>
+<ul class="demo-icon-set" role="list">
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-arrow-right"></use></svg><code>arrow-right</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg><code>check</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg><code>chevron-down</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-left"></use></svg><code>chevron-left</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-right"></use></svg><code>chevron-right</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-up"></use></svg><code>chevron-up</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg><code>close</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg><code>copy</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-download"></use></svg><code>download</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-edit"></use></svg><code>edit</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg><code>error</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-external-link"></use></svg><code>external-link</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg><code>info</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-menu"></use></svg><code>menu</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-minus"></use></svg><code>minus</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><code>plus</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-search"></use></svg><code>search</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg><code>success</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-trash"></use></svg><code>trash</code></li>
+  <li class="demo-icon-set__item"><svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg><code>warning</code></li>
+</ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-step demo-sheet__section" id="check" aria-labelledby="check-title">
+      <div class="l-container">
+        <div class="demo-sheet__row">
+          <p class="demo-step__numeral" aria-hidden="true">4</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="check-title">Check your build</h2>
 <p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>
@@ -202,7 +237,7 @@
     <section class="demo-step demo-sheet__section" id="spec" aria-labelledby="spec-title">
       <div class="l-container">
         <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">4</p>
+          <p class="demo-step__numeral" aria-hidden="true">5</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="spec-title">Spec sheet</h2>
 <p><span class="demo-part__key">Apply to</span> <code>&lt;svg&gt;</code></p>
@@ -235,7 +270,7 @@
     <section class="demo-step demo-sheet__section" id="safe" aria-labelledby="safe-title">
       <div class="l-container">
         <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">5</p>
+          <p class="demo-step__numeral" aria-hidden="true">6</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="safe-title">Safe building</h2>
 <ul class="demo-safe__list"><li>Decorative icons: aria-hidden=&quot;true&quot; and focusable=&quot;false&quot;.</li><li>Meaningful icons with no visible text: role=&quot;img&quot; and aria-label on the &lt;svg&gt;.</li><li>Severity must never rely on an icon alone; pair it with text.</li></ul>
@@ -247,7 +282,7 @@
     <section class="demo-step demo-sheet__section" id="fits" aria-labelledby="fits-title">
       <div class="l-container">
         <div class="demo-sheet__row">
-          <p class="demo-step__numeral" aria-hidden="true">6</p>
+          <p class="demo-step__numeral" aria-hidden="true">7</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="fits-title">Fits with</h2>
 <ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li><li class="demo-bag__part"><a href="alert.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg><code>c-alert</code></a></li></ul>
