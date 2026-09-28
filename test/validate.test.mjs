@@ -19,8 +19,18 @@ test('bad markup reports every rule', () => {
   for (const expected of [
     'error:exclusive-modifiers', 'warning:raw-color', 'warning:golden-rule', 'error:unknown-class',
     'error:invalid-state', 'error:modifier-without-block', 'warning:state-pair', 'warning:deprecated',
-    'warning:element-outside-block', 'warning:a11y',
+    'warning:element-outside-block', 'warning:a11y', 'warning:card-link', 'warning:nested-interactive',
   ]) assert.ok(rules.includes(expected), `expected ${expected} in ${rules.join(', ')}`);
+});
+
+test('disabled buttons may use aria-disabled instead of the disabled attribute', () => {
+  assert.deepEqual(validate('<button class="c-button" data-state="disabled" aria-disabled="true">Publish</button>'), []);
+  assert.equal(validate('<button class="c-button" data-state="disabled">Publish</button>')[0].rule, 'state-pair');
+});
+
+test('a card with its link on the title is clean; a card inside a link is not', () => {
+  assert.deepEqual(validate('<article class="c-card c-card--interactive"><h3 class="c-card__title"><a href="/a">A</a></h3></article>'), []);
+  assert.equal(validate('<a href="/a"><div class="c-card">A</div></a>')[0].rule, 'card-link');
 });
 
 test('unknown modifiers list the valid ones', () => {

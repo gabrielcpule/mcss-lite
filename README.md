@@ -2,7 +2,21 @@
 
 Lightweight CSS framework with semantic BEM components and design tokens. A production-ready subset of [MCSS](https://github.com/gabrielcpule/MCSS) principles.
 
-**See it live: [gabrielpule.work/design-system](https://www.gabrielpule.work/design-system)**. The demo booklet shows every block in every state, in light and dark.
+**See it live: [gabrielpule.work/design-system](https://www.gabrielpule.work/design-system)**. The demo booklet shows every block in every state, in light and dark, and every part has its own part sheet: when to use it, how to build it, real validator output for the mistakes to avoid, and its full spec.
+
+**The verifiable UI layer for agent-written HTML, in any stack.** Every class, state and token is written down in a contract, and `mcss-lite validate` checks the HTML a person or an agent wrote against it.
+
+### Is it the right kit?
+
+| Good fit | Pick something else |
+|---|---|
+| UI written by coding agents: the contracts tell them what exists, and the validator checks what they wrote. | Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them. |
+| Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes, no runtime JavaScript. | A React component API with typed props: shadcn/ui or Primer React. |
+| Forms, settings and CRUD screens, internal tools and prototypes. | Dense data products, or a brand that must not look like building bricks. |
+
+### Part status
+
+Each part is **stable** (changes only in a major version), **beta** (shipped and validated; the API may change in a minor version) or **deprecated** (still works; move to the named replacement). The [parts inventory](https://www.gabrielpule.work/design-system/status.html) lists them all, and `components/*.json` records `status` and `since`.
 
 ## What it is
 

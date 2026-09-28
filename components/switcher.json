@@ -4,11 +4,39 @@
   "block": "l-switcher",
   "layer": "layout",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Children sit side by side until the container is narrower than a threshold, then all stack at once.",
   "customProperties": [
-    { "name": "--switcher-threshold", "default": "30rem", "description": "Container width below which children stack. Set inline, e.g. style=\"--switcher-threshold: 40rem\"." }
+    {
+      "name": "--switcher-threshold",
+      "default": "30rem",
+      "description": "Container width below which children stack. Set inline, e.g. style=\"--switcher-threshold: 40rem\"."
+    }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "Two to four items of equal importance, such as pricing tiers or steps, that should switch from a row to a column all at once."
+    ],
+    "whenNotToUse": [
+      "Items of unequal importance: use `l-sidebar`.",
+      "Five or more items, or a list of unknown length: use `l-grid` with l-grid--responsive."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Set the threshold with the custom property.",
+          "html": "<div class=\"l-switcher\" style=\"--switcher-threshold: 40rem\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Free</p></section>\n  <section class=\"c-card\"><p class=\"u-margin-0\">Team</p></section>\n</div>"
+        },
+        "dont": {
+          "text": "Don't invent size modifiers.",
+          "html": "<div class=\"l-switcher l-switcher--wide\">\n  <section class=\"c-card\"><p class=\"u-margin-0\">Free</p></section>\n</div>",
+          "rule": "unknown-class"
+        }
+      }
+    ]
+  },
   "tokens": ["--space-4"],
   "related": ["l-grid", "l-sidebar"],
-  "examples": ["layouts.html"]
+  "examples": ["layouts.html"],
+  "sources": [{ "title": "Every Layout: The Switcher", "url": "https://every-layout.dev/layouts/switcher/" }]
 }

@@ -4,6 +4,7 @@
   "block": "c-button",
   "layer": "component",
   "status": "stable",
+  "since": "0.1.0",
   "description": "Triggers an action. Apply to <button>. Apply to <a> only when the control navigates. Parts have a 2px keyline and a brick edge that drops when pressed.",
   "tags": [
     "button",
@@ -50,8 +51,8 @@
   "states": [
     {
       "name": "disabled",
-      "description": "The action is unavailable. Rendered ghosted with a dashed keyline.",
-      "pair": "On <button>, also set the disabled attribute. On <a>, set aria-disabled=\"true\" and remove href."
+      "description": "The action cannot run right now. Rendered ghosted with a dashed keyline.",
+      "pair": "Prefer aria-disabled=\"true\": the button stays focusable, so link a visible reason with aria-describedby and ignore activation in your handler. The disabled attribute also works on <button> but removes it from the tab order. On <a>, set aria-disabled=\"true\" and remove href."
     },
     {
       "name": "loading",
@@ -59,6 +60,72 @@
       "pair": "Set aria-busy=\"true\" and aria-disabled=\"true\", keep the visible label (for example \"Saving…\"), and ignore activation in your handler."
     }
   ],
+  "guidelines": {
+    "whenToUse": [
+      "The control does something on this page: submits a form, saves, deletes, opens a dialog, toggles a setting.",
+      "A confirming or cancelling action in a form or `c-modal` footer.",
+      "An on/off toolbar control such as Bold or Mute, with aria-pressed."
+    ],
+    "whenNotToUse": [
+      "The control goes to another page or URL: use a plain link. Apply c-button to an <a> only when a link must look like a button, such as a start-page call to action.",
+      "Showing a status that does nothing when clicked: use `c-badge`.",
+      "Filtering or removing items in a list of tags: that is a chip, which MCSS-Lite does not ship yet."
+    ],
+    "use": [
+      "Group buttons with l-cluster; it provides the gap.",
+      "Order a button group as secondary or ghost actions first, then the primary action last.",
+      "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
+      "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
+      "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
+    ],
+    "avoid": [
+      "Adding margin to .c-button. Spacing belongs to the layout parent.",
+      "Combining two variant modifiers (for example c-button--primary c-button--ghost).",
+      "Using c-button on a <div> or <span>."
+    ],
+    "doDont": [
+      {
+        "do": {
+          "text": "Use one primary button per region, placed last in its group.",
+          "html": "<div class=\"l-cluster\">\n  <button type=\"button\" class=\"c-button c-button--ghost\">Cancel</button>\n  <button type=\"submit\" class=\"c-button c-button--primary\">Save changes</button>\n</div>"
+        },
+        "dont": {
+          "text": "Don't combine two variants on one button to make it stand out more.",
+          "html": "<button type=\"submit\" class=\"c-button c-button--primary c-button--danger\">Save changes</button>",
+          "rule": "exclusive-modifiers"
+        }
+      },
+      {
+        "do": {
+          "text": "Keep an unavailable action focusable and say why it can't run, with aria-disabled and a linked reason.",
+          "html": "<div class=\"l-stack l-stack--sm\">\n  <button type=\"button\" class=\"c-button c-button--primary\" data-state=\"disabled\" aria-disabled=\"true\" aria-describedby=\"publish-why\">Publish</button>\n  <p id=\"publish-why\" class=\"u-margin-0\">Add a title before you publish.</p>\n</div>"
+        },
+        "dont": {
+          "text": "Don't grey out a button without saying why, or set the state without its native pair.",
+          "html": "<button type=\"button\" class=\"c-button\" data-state=\"disabled\">Publish</button>",
+          "rule": "state-pair"
+        }
+      },
+      {
+        "do": {
+          "text": "Invent nothing: a warning-style action is c-button--danger or a plain button.",
+          "html": "<button type=\"button\" class=\"c-button c-button--danger\">Delete project</button>"
+        },
+        "dont": {
+          "text": "Don't guess a modifier that isn't in the contract.",
+          "html": "<button type=\"button\" class=\"c-button c-button--warning\">Delete project</button>",
+          "rule": "unknown-class"
+        }
+      }
+    ],
+    "content": [
+      "Write a verb plus the thing it acts on: \"Save changes\", \"Delete project\". Never \"OK\", \"Submit\" or \"Click here\".",
+      "Use sentence case: \"Create account\", not \"Create Account\".",
+      "Keep the label the same when a toggle changes state; aria-pressed carries the state.",
+      "A danger button names what is destroyed: \"Delete account\", not \"Confirm\".",
+      "No full stop at the end of a label."
+    ]
+  },
   "tokens": [
     "--button-background",
     "--button-background-hover",
@@ -82,25 +149,26 @@
     "--button-danger-border",
     "--button-primary-background-active"
   ],
-  "guidelines": {
-    "use": [
-      "Group buttons with l-cluster; it provides the gap.",
-      "Order a button group as secondary or ghost actions first, then the primary action last.",
-      "Write labels as verbs that name the outcome: \"Save changes\", not \"OK\".",
-      "For toggle buttons (for example a theme switch), set aria-pressed=\"true\" on the selected one; it gets the pressed style automatically.",
-      "Use c-button--danger for the confirming action of anything destructive, never c-button--primary."
-    ],
-    "avoid": [
-      "Adding margin to .c-button. Spacing belongs to the layout parent.",
-      "Combining two variant modifiers (for example c-button--primary c-button--ghost).",
-      "Using c-button on a <div> or <span>."
-    ]
-  },
   "a11y": [
     "A button needs a visible text label, or aria-label when it only contains an icon.",
     "Do not remove the :focus-visible outline.",
     "Use type=\"button\" unless the button submits a form.",
-    "c-button--sm looks compact but keeps a 44px tall hit area."
+    "c-button--sm looks compact but keeps a 44px tall hit area.",
+    "Don't disable a submit button until the form is valid. Let people submit, then show what is missing."
+  ],
+  "keyboard": [
+    {
+      "key": "Enter",
+      "action": "Activates the button."
+    },
+    {
+      "key": "Space",
+      "action": "Activates the button (not links)."
+    },
+    {
+      "key": "Tab",
+      "action": "Moves focus to the button, including one marked aria-disabled."
+    }
   ],
   "related": [
     "l-cluster",
@@ -108,5 +176,35 @@
   ],
   "examples": [
     "button.html"
+  ],
+  "sources": [
+    {
+      "title": "GOV.UK Design System: Button",
+      "url": "https://design-system.service.gov.uk/components/button/"
+    },
+    {
+      "title": "Primer: Button guidelines",
+      "url": "https://primer.style/product/components/button/guidelines/"
+    },
+    {
+      "title": "NN/g: Why disabled buttons hurt UX",
+      "url": "https://www.nngroup.com/videos/why-disabled-buttons-hurt-ux-and-how-to-fix-them/"
+    },
+    {
+      "title": "Axess Lab: Disabled buttons suck",
+      "url": "https://axesslab.com/disabled-buttons-suck/"
+    },
+    {
+      "title": "Bekk: Accessible loading button",
+      "url": "https://www.bekk.christmas/post/2023/24/accessible-loading-button"
+    },
+    {
+      "title": "Sara Soueidan: Accessible icon buttons",
+      "url": "https://www.sarasoueidan.com/blog/accessible-icon-buttons/"
+    },
+    {
+      "title": "Adrian Roselli: Be careful with dynamic accessible names",
+      "url": "https://adrianroselli.com/2020/12/be-careful-with-dynamic-accessible-names.html"
+    }
   ]
 }

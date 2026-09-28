@@ -5,8 +5,26 @@
   "layer": "component",
   "status": "deprecated",
   "replacement": "c-form-field__label",
+  "since": "0.1.0",
   "description": "Deprecated standalone label. Use c-form-field__label inside c-form-field instead; c-label will be removed in 1.0.",
   "tags": ["label"],
+  "guidelines": {
+    "whenToUse": ["Never in new code. Existing c-label markup keeps working until 1.0."],
+    "whenNotToUse": ["Labelling any form control: use `c-form-field` with c-form-field__label."],
+    "doDont": [
+      {
+        "do": {
+          "text": "Use the form-field label.",
+          "html": "<div class=\"c-form-field\">\n  <label class=\"c-form-field__label\" for=\"name\">Name</label>\n  <input class=\"c-input\" id=\"name\">\n</div>"
+        },
+        "dont": {
+          "text": "Don't use the deprecated block.",
+          "html": "<label class=\"c-label\" for=\"name2\">Name</label>",
+          "rule": "deprecated"
+        }
+      }
+    ]
+  },
   "tokens": ["--color-text-muted"],
   "related": ["c-form-field"]
 }

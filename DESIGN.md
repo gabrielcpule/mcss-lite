@@ -280,6 +280,7 @@ Tactile and literal: every part looks like it could be picked up. Contracts (mod
 - **Background:** `--card-background` (paper / night raised).
 - **Shadow Strategy:** raised by default, `--elevated` for emphasis, `--bordered` removes the shadow and keeps the keyline.
 - **Border:** 2px ink keyline (`--card-border`); `--interactive` turns it blue on hover and lifts.
+- **Clickable cards:** the link lives on `c-card__title` and its `::after` covers the card, so screen readers announce only the title. Other links and buttons in the card sit above it. Focus draws the ring around the whole card. Never wrap a card in `<a>` (the validator reports `card-link`).
 - **Internal Padding:** 1.5rem (`--card-padding`); header, body and footer separated by 1rem, footer divided by a hairline.
 
 ### Inputs / Fields
@@ -294,6 +295,12 @@ Tactile and literal: every part looks like it could be picked up. Contracts (mod
 
 ### Parts Call-out (signature, showcase pages)
 - The booklet's 1:1 box: callout fill (`--color-background-callout`), 2px ink keyline, stud radius, 1.25rem padding, listing each part's exact class beside a keylined sample. It sits next to a build stage (paper with the stud grid, raised) that it points to with a drawn arrow. Built from framework tokens in `demo/demo.css`; it is demo chrome, not a shipped `c-` block.
+
+### Part Sheets, Inventory and Content Pages (showcase)
+- More pages of the same booklet, never a docs site. A part sheet opens with the part on a keylined plate, its class as the element ID, a status sticker and "since", then numbered sections on the stud rail: Pick this part, Build it, Check your build, Spec sheet, Safe building, Words on this part, Fits with.
+- **Check your build:** ✓ panels are solid keyline cards with the live build and "validate: 0 issues"; ✗ panels are dashed error-red outlines showing the markup as code with the real validator output generated at build time, or "Guidance only" when the validator can't catch it.
+- **Status stickers:** monochrome ink-keyline tags, never status colors (One Blue Rule): stable is a solid keyline with a check, beta a dashed keyline with a wrench, deprecated a ghosted, struck-through tag.
+- **Parts inventory** sits at the back of the booklet as keylined bags per layer; **Read before you build** is the booklet's safety page: numbered notices with ✓/✗ label pairs.
 
 ## Do's and Don'ts
 

@@ -21,6 +21,8 @@ A lightweight, pure-CSS design system whose entire contract (every class, modifi
 
 ## Positioning
 
+The verifiable UI layer for agent-written HTML, in any stack. Research in September 2026 found that design systems now give agents plenty of context (MCP servers, skills, llms.txt), but almost none check what the agent writes, and no server-rendered kit validates markup against its own rules. MCSS-Lite's validator fills that gap for both audiences: coding agents and server-rendered apps (Rails, Django, Laravel, htmx, Astro).
+
 Contract-first for AI. Where Tailwind, Bootstrap or Pico leave agents to infer conventions from examples, MCSS-Lite ships the contract itself (DTCG tokens, per-block JSON contracts, generated AGENTS.md and llms.txt) plus a validator that checks the agent's output. It is the "lite" subset of the fuller MCSS architecture, which adds RDFa semantics and behavioral contracts.
 
 ## Operating Context
@@ -28,7 +30,7 @@ Contract-first for AI. Where Tailwind, Bootstrap or Pico leave agents to infer c
 - Distributed on npm as `@gabrielpule/mcss-lite`; consumers link `index.css` or `@import` it.
 - Agents read `AGENTS.md`, `llms*.txt`, `dist/mcss-lite.manifest.json` and `skills/mcss-lite/SKILL.md` from `node_modules`.
 - Designers import `dist/figma/*.tokens.json` as Figma Variables (Primitives, Semantic with Light/Dark, Component).
-- `demo/index.html` is the live showcase of every block and state.
+- `demo/index.html` is the live showcase of every block and state; `demo/components/*.html` is a generated part sheet per block (when to use, build steps, real validator output for each don't, spec, accessibility, sources); `demo/status.html` is the parts inventory and `demo/content.html` the content rules (`guidelines/content.json`).
 
 ## Capabilities and Constraints
 
@@ -38,7 +40,8 @@ Contract-first for AI. Where Tailwind, Bootstrap or Pico leave agents to infer c
 - JSON is the source of truth (`tokens/`, `components/`); CSS and docs are generated; `npm run check` fails on drift.
 - Themes: light (default), dark and auto via `data-theme`, opt-in so existing sites do not change.
 - Every custom property name from 0.1.0 is preserved.
-- Out of scope for now: an MCP server, Figma components, Code Connect.
+- Parts carry a status: stable, beta (API may change in a minor version) or deprecated, plus `since`.
+- Out of scope for now: an MCP server, Figma components, Code Connect, template partials (Nunjucks/Jinja), complex JS widgets.
 
 ## Brand Commitments
 

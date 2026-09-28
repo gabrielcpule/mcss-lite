@@ -11,8 +11,13 @@
     "name": { "type": "string", "description": "Human name, e.g. \"Button\"." },
     "block": { "type": "string", "pattern": "^[clu]-[a-z0-9-]+$|^u-\\*$", "description": "Root class, e.g. c-button. Utilities use u-*." },
     "layer": { "type": "string", "enum": ["layout", "component", "utility"] },
-    "status": { "type": "string", "enum": ["stable", "deprecated"] },
+    "status": {
+      "type": "string",
+      "enum": ["beta", "stable", "deprecated"],
+      "description": "beta: shipped and validated, but the API may change in a minor version. stable: changes only in a major version. deprecated: use the replacement."
+    },
     "replacement": { "type": "string", "description": "Class to use instead, when status is deprecated." },
+    "since": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "Package version that introduced the block." },
     "description": { "type": "string" },
     "tags": { "type": "array", "items": { "type": "string" }, "description": "HTML elements the block may be applied to." },
     "modifiers": {
@@ -99,11 +104,62 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "whenToUse": { "type": "array", "items": { "type": "string" }, "description": "Situations this part is the right choice for." },
+        "whenNotToUse": { "type": "array", "items": { "type": "string" }, "description": "Situations to pick another part. Name it in backticks, e.g. `c-badge`, and the part sheet links it." },
         "use": { "type": "array", "items": { "type": "string" } },
-        "avoid": { "type": "array", "items": { "type": "string" } }
+        "avoid": { "type": "array", "items": { "type": "string" } },
+        "doDont": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["do", "dont"],
+            "additionalProperties": false,
+            "properties": {
+              "do": {
+                "type": "object",
+                "required": ["text"],
+                "additionalProperties": false,
+                "properties": {
+                  "text": { "type": "string" },
+                  "html": { "type": "string", "description": "Markup shown on the part sheet. Must validate with 0 issues." }
+                }
+              },
+              "dont": {
+                "type": "object",
+                "required": ["text"],
+                "additionalProperties": false,
+                "properties": {
+                  "text": { "type": "string" },
+                  "html": { "type": "string", "description": "Markup shown on the part sheet with the validator's real output." },
+                  "rule": { "type": "string", "description": "Validator rule id this markup must trigger. Without it, the sheet labels the don't as guidance only." }
+                }
+              }
+            }
+          }
+        },
+        "content": { "type": "array", "items": { "type": "string" }, "description": "Writing rules for labels and text inside this part." }
       }
     },
     "a11y": { "type": "array", "items": { "type": "string" } },
+    "keyboard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "action"],
+        "additionalProperties": false,
+        "properties": { "key": { "type": "string" }, "action": { "type": "string" } }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Research the guidance is grounded in.",
+      "items": {
+        "type": "object",
+        "required": ["title", "url"],
+        "additionalProperties": false,
+        "properties": { "title": { "type": "string" }, "url": { "type": "string", "pattern": "^https://" } }
+      }
+    },
     "related": { "type": "array", "items": { "type": "string" } },
     "examples": { "type": "array", "items": { "type": "string", "pattern": "\\.html$" } }
   }

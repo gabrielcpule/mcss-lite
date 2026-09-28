@@ -21,17 +21,19 @@ const GLYPHS = {
   'c-form-field': '<path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/>',
   'c-input': '<rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/>',
   'c-modal': '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/>',
+  'c-label': '<path d="M4 8h10"/><path d="M4 15h16" stroke-dasharray="3 3"/>',
+  'u-*': '<rect x="4" y="10" width="16" height="6" rx="1"/><path d="M7 10V7h3v3M14 10V7h3v3"/>',
 };
-const glyph = (block) => (GLYPHS[block]
+export const glyph = (block) => (GLYPHS[block]
   ? `<svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[block]}</svg>`
   : '');
 
-const tag = (n) => (n > 0
+export const tag = (n) => (n > 0
   ? `<span class="demo-count"><span aria-hidden="true">${n}×</span><span class="u-sr-only">, used ${n} time${n === 1 ? '' : 's'} in this build</span></span>`
   : '');
 
 // The misfit: a brick whose studs miss the baseplate, next to one seated flush. Drawn in the keyline.
-const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title" focusable="false">
+export const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title" focusable="false">
   <title id="misfit-title">A brick tilted off its baseplate next to a brick seated flush</title>
   <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
     <rect x="8" y="92" width="136" height="16" rx="3"/>
@@ -51,8 +53,8 @@ const MISFIT_SVG = `<svg class="demo-misfit" viewBox="0 22 320 90" role="img" ar
   </g>
 </svg>`;
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l : l)).join('\n');
+export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const indent = (s, n) => s.split('\n').map((l) => (l ? ' '.repeat(n) + l : l)).join('\n');
 
 // A wrong piece an agent might invent, checked by the real validator at build time.
 const WRONG_PIECE = '<button class="c-button c-button--warning" data-state="error">Retry</button>';
@@ -96,7 +98,8 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-ring', '--color-focus-halo', '--color-background-callout', '--color-text-default'];
   const inventory = classInventory(contracts);
 
-  const partList = (list) => list.map((c) => `<li class="demo-bag__part">${glyph(c.block)}<code>${esc(c.block)}</code></li>`).join('');
+  const sheet = (c) => `components/${c.file.replace(/\.json$/, '.html')}`;
+  const partList = (list) => list.map((c) => `<li class="demo-bag__part"><a class="demo-bag__link" href="${sheet(c)}">${glyph(c.block)}<code>${esc(c.block)}</code></a></li>`).join('');
 
   // How many times a block is used in the step's canonical example: the booklet's "1x" count tag.
   const countIn = (html, block) => {
@@ -124,7 +127,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     if (!c) throw new Error(`demo/steps.json names unknown block ${block}`);
     if (c.layer === 'utility') {
       const used = c.classes.filter((u) => countIn(html, u.name) > 0);
-      return `<li class="demo-part"><span class="demo-part__head"><code class="demo-part__name">u-*</code>${tag(countIn(html, 'u-*'))}</span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> ${used.map((u) => `<code>${esc(u.name)}</code>`).join(' ')}</span><span class="demo-part__row">${c.classes.length - used.length} more in AGENTS.md</span></span></li>`;
+      return `<li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="${sheet(c)}"><code class="demo-part__name">u-*</code></a>${tag(countIn(html, 'u-*'))}</span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> ${used.map((u) => `<code>${esc(u.name)}</code>`).join(' ')}</span><span class="demo-part__row">${c.classes.length - used.length} more in AGENTS.md</span></span></li>`;
     }
     const mods = (c.modifiers ?? []).flatMap((m) => m.values.map((v) => `<code>--${esc(v.name)}</code>`)).join(' ');
     const els = (c.elements ?? []).map((e) => `<code>__${esc(e.name)}</code>`).join(' ');
@@ -134,7 +137,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
       els && `<span class="demo-part__row"><span class="demo-part__key">Elements</span> ${els}</span>`,
       states && `<span class="demo-part__row"><span class="demo-part__key">States</span> ${states}</span>`,
     ].filter(Boolean).join('');
-    return `<li class="demo-part"><span class="demo-part__head">${glyph(c.block)}<code class="demo-part__name">${esc(c.block)}</code>${tag(countIn(html, c.block))}</span>${meta ? `<span class="demo-part__meta">${meta}</span>` : ''}</li>`;
+    return `<li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="${sheet(c)}">${glyph(c.block)}<code class="demo-part__name">${esc(c.block)}</code></a>${tag(countIn(html, c.block))}</span>${meta ? `<span class="demo-part__meta">${meta}</span>` : ''}</li>`;
   };
 
   const stepHtml = (s, n) => {
@@ -229,6 +232,8 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
             <span class="u-sr-only" role="status" data-copy-status></span>
           </div>
           <ul class="demo-links" role="list">
+            <li><a href="status.html">Parts inventory: a sheet for every part</a></li>
+            <li><a href="content.html">Read before you build: content rules</a></li>
             <li><a href="../AGENTS.md">AGENTS.md: the rules for agents</a></li>
             <li><a href="../dist/mcss-lite.manifest.json">Manifest: every part as JSON</a></li>
             <li><a href="../dist/figma/">Figma variables</a></li>
@@ -252,6 +257,32 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
             <ul class="demo-swatches" role="list">${swatches.map((v) => `<li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(${v})"></span><code>${v}</code></li>`).join('')}</ul>
           </div>
         </aside>
+      </div>
+    </section>
+
+    <section class="demo-fit" aria-labelledby="fit-title">
+      <div class="l-container">
+        <div class="demo-callout demo-fit__callout l-stack">
+          <h2 class="demo-fit__title" id="fit-title">Before you start: is this the right kit?</h2>
+          <div class="demo-pick">
+            <div class="demo-pick__col">
+              <p class="demo-check__label">Good fit</p>
+              <ul class="demo-pick__list">
+                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+              </ul>
+            </div>
+            <div class="demo-pick__col demo-pick__col--other">
+              <p class="demo-check__label">Pick something else</p>
+              <ul class="demo-pick__list">
+                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+                <li>Dense data products, or a brand that must not look like building bricks.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

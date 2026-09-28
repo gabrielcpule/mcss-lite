@@ -29,3 +29,9 @@ test('the error edge is a real border so it survives forced-colors mode', () => 
 test('responsive grid never forces a column wider than its container', () => {
   assert.match(css('layout.css'), /minmax\(min\(17\.5rem, 100%\), 1fr\)/);
 });
+
+test('interactive cards stretch the title link over the card and lift other actions', () => {
+  const c = css('components.css');
+  assert.match(c, /\.c-card--interactive \.c-card__title a::after \{\s*content: "";\s*position: absolute;\s*inset: 0;/);
+  assert.match(c, /\.c-card--interactive :is\(a, button, input, select, textarea, summary, label\):not\(\.c-card__title a\) \{\s*position: relative;\s*z-index: 1;/);
+});

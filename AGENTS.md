@@ -2,7 +2,7 @@
 
 > How to build UI with MCSS-Lite: the rules, every class, every token. Read this before writing markup or CSS.
 > Generated from tokens/*.tokens.json and components/*.json by scripts/build.mjs. Do not edit by hand.
-> Package: @gabrielpule/mcss-lite@0.2.0
+> Package: @gabrielpule/mcss-lite@0.3.0
 
 ## Rules
 
@@ -69,6 +69,20 @@ Single-purpose overrides with !important. Use sparingly; reach for a layout or c
 - `u-font-mono`: Monospace font.
 - `u-truncate`: Single line with an ellipsis.
 - `u-sr-only`: Visually hidden but read by screen readers.
+
+## Content rules
+
+Labels, messages and help text follow the same rules everywhere.
+
+- **Write in sentence case.** Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels. Do: "Create account". Don't: "Create Account".
+- **Buttons say what happens.** Start with a verb and name the thing it acts on. A person should know the result before they click. Do: "Save changes". Don't: "OK".
+- **No vague labels.** "Submit", "Click here", "Yes" and "More" say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text. Do: "Download the invoice". Don't: "Click here".
+- **Errors say what went wrong and how to fix it.** Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say "invalid". Do: "Enter a date after 1 January 2020". Don't: "Invalid input".
+- **Show errors at the right moment.** Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field. Do: "There is a problem: Enter your email address". Don't: "Email is invalid (shown after the first keystroke)".
+- **Mark optional fields, not required ones.** Ask only for what you need, then add "(optional)" to the few fields people may skip. Rows of asterisks add noise and need a legend. Do: "Phone number (optional)". Don't: "Phone number *".
+- **Keep punctuation light.** No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks. Do: "Delete project". Don't: "Delete project!".
+- **Write numbers and dates the same way everywhere.** Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04. Do: "1 March 2026, 12 of 20 seats". Don't: "03/01/26, twelve of twenty seats".
+- **Write for everyone.** Use plain words, active voice and "you". Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks ("select", not "click the blue button"). Do: "Choose a plan to continue". Don't: "Just hit the big blue button, guys".
 
 ## More detail
 
