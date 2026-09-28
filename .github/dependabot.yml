@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # Keeps actions/checkout, actions/setup-node and claude-code-action current.
+  # Keeps actions/checkout and actions/setup-node current.
   - package-ecosystem: github-actions
     directory: /
     schedule:
