@@ -20,6 +20,12 @@ const STATUS_ICON = {
 };
 export const sticker = (status) => `<span class="demo-sticker demo-sticker--${status}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">${STATUS_ICON[status]}</svg>${STATUS_TEXT[status]}</span>`;
 
+const LEGEND = {
+  stable: 'Changes only in a major version.',
+  beta: 'Shipped and validated; the API may change in a minor version.',
+  deprecated: 'Still works; move to the replacement.',
+};
+
 const CHECK_ICON = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>';
 const CROSS_ICON = '<svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
@@ -258,7 +264,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     }
 
     const steps = buildSteps(c);
-    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li>${s}</li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example)}` : ''}`);
+    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>\n${code(example)}` : ''}`);
 
     if (g.doDont?.length) {
       add('check', 'Check your build', `<p class="demo-step__text">Each piece that doesn't fit was run through <code>mcss-lite validate</code> when this page was built. The output below is real.</p>
@@ -309,7 +315,7 @@ ${c.keyboard.map((k) => `      <tr><th scope="row"><kbd>${esc(k.key)}</kbd></th>
           <p class="demo-sheet__kicker">Part sheet ${index + 1} of ${sheets.length} · ${layerName}</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">${esc(c.block)}</span> ${esc(c.name)}</h1>
           <div class="l-cluster">${sticker(c.status)}${c.since ? `<span class="demo-sheet__since">Since ${esc(c.since)}</span>` : ''}</div>
-          <p class="demo-hero__lede">${rich(c.description)}</p>${deprecated}
+          <p class="demo-hero__lede">${rich(autoCode(c.description))}</p>${deprecated}
         </div>
       </div>
     </header>
@@ -355,9 +361,7 @@ ${list.map((c) => `        <tr><th scope="row"><a class="demo-inventory-table__p
         <h1 class="demo-sheet__title">Parts inventory</h1>
         <p class="demo-hero__lede">Every part MCSS-Lite ships, with its status. Anything not listed here doesn't exist, and <code>mcss-lite validate</code> rejects it.</p>
         <ul class="l-cluster demo-legend" role="list">
-          <li>${sticker('stable')} Changes only in a major version.</li>
-          <li>${sticker('beta')} Shipped and validated; the API may change in a minor version.</li>
-          <li>${sticker('deprecated')} Still works; move to the replacement.</li>
+${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)).map(([st, text]) => `          <li>${sticker(st)} ${text}</li>`).join('\n')}
         </ul>
       </div>
     </header>
@@ -401,6 +405,9 @@ ${content.rules.map((r, i) => `          <li class="demo-notice" id="${esc(r.id)
     return shell({ title: content.title, description: content.intro, rel: '', rail: [], main });
   }
 }
+
+// Bare class names in prose (c-button, l-stack__x, u-sr-only) render as code.
+const autoCode = (s) => s.replace(/(^|[\s(])([clu]-[a-z0-9]+(?:(?:--|__|-)[a-z0-9]+)*)(?=[\s.,;:)]|$)/g, '$1`$2`');
 
 const firstSentence = (s) => s.split(/(?<=\.)\s/)[0];
 

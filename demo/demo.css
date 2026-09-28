@@ -784,7 +784,6 @@
 
 .demo-sheet__kicker {
   margin: 0;
-  font-family: var(--font-family-display);
   font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
   color: var(--color-text-subtle);
@@ -873,7 +872,7 @@
   border-style: dashed;
   color: var(--color-text-muted);
   text-decoration: line-through;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: var(--border-width-thick);
 }
 
 /* Pick this part / Pick another part */
@@ -914,7 +913,7 @@
 
 .demo-build-steps li {
   display: grid;
-  grid-template-columns: 2rem 1fr;
+  grid-template-columns: 2rem minmax(0, 1fr);
   gap: var(--space-3);
   align-items: baseline;
   counter-increment: build;
@@ -982,8 +981,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-family: var(--font-family-display);
-  font-weight: var(--font-weight-extrabold);
+  font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
 }
 
@@ -1186,7 +1184,7 @@
   height: 3rem;
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-full);
-  background-color: var(--color-background-callout);
+  background-color: var(--color-background-raised);
   font-family: var(--font-family-display);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-extrabold);
@@ -1265,6 +1263,7 @@
 
   .demo-spec td[data-label]::before {
     content: attr(data-label) ": ";
+    content: attr(data-label) ": " / "";
     font-weight: var(--font-weight-bold);
   }
 }
@@ -1310,7 +1309,7 @@
 
 .demo-bag__link:hover code,
 .demo-part__link:hover code {
-  box-shadow: inset 0 0 0 2px var(--color-border-keyline);
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--color-border-keyline);
 }
 
 .demo-fit {
@@ -1321,4 +1320,26 @@
 .demo-fit__title {
   margin: 0;
   font-size: var(--font-size-2xl);
+}
+
+/* Review fixes: the wrong piece stays visible, the inventory bag holds its table without a second box,
+   the sticky rail never covers what receives focus. */
+.demo-checks .demo-code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.demo-bag--wide .demo-spec table {
+  border: 0;
+  background-color: transparent;
+}
+
+.demo-code,
+.demo-checks__card,
+.demo-sheet__section {
+  scroll-margin-block-start: var(--space-20);
+}
+
+.demo-fit__callout .demo-pick__col {
+  background-color: var(--color-background-raised);
 }

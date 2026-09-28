@@ -261,24 +261,26 @@ ${steps.map((st, i) => `      <li><a class="demo-rail__stud" href="#step-${i + 1
     </section>
 
     <section class="demo-fit" aria-labelledby="fit-title">
-      <div class="l-container l-stack">
-        <h2 class="demo-fit__title" id="fit-title">Is this the right kit?</h2>
-        <div class="demo-pick">
-          <div class="demo-pick__col">
-            <p class="demo-check__label">Good fit</p>
-            <ul class="demo-pick__list">
-              <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
-              <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
-              <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
-            </ul>
-          </div>
-          <div class="demo-pick__col demo-pick__col--other">
-            <p class="demo-check__label">Pick something else</p>
-            <ul class="demo-pick__list">
-              <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
-              <li>A React component API with typed props: shadcn/ui or Primer React.</li>
-              <li>Dense data products, or a brand that must not look like building bricks.</li>
-            </ul>
+      <div class="l-container">
+        <div class="demo-callout demo-fit__callout l-stack">
+          <h2 class="demo-fit__title" id="fit-title">Before you start: is this the right kit?</h2>
+          <div class="demo-pick">
+            <div class="demo-pick__col">
+              <p class="demo-check__label">Good fit</p>
+              <ul class="demo-pick__list">
+                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+              </ul>
+            </div>
+            <div class="demo-pick__col demo-pick__col--other">
+              <p class="demo-check__label">Pick something else</p>
+              <ul class="demo-pick__list">
+                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+                <li>Dense data products, or a brand that must not look like building bricks.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
