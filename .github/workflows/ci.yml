@@ -38,18 +38,7 @@ jobs:
         run: node bin/mcss-lite.mjs validate components demo
 
       - name: Package contents
-        run: |
-          npm pack --dry-run --json > pack.json
-          node -e '
-            const [p] = require("./pack.json");
-            const files = new Set(p.files.map((f) => f.path));
-            const need = ["index.css", "dist/mcss-lite.min.css", "dist/mcss-lite.manifest.json", "bin/mcss-lite.mjs", "AGENTS.md", "llms.txt"];
-            const missing = need.filter((f) => !files.has(f));
-            if (missing.length) { console.error("::error::npm package is missing " + missing.join(", ")); process.exit(1); }
-            const line = `${p.name}@${p.version}: ${p.entryCount} files, ${(p.size / 1024).toFixed(1)} kB packed`;
-            console.log(line);
-            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Package\n\n${line}\n`);
-          '
+        run: npm run check:package
 
   # Runs the tests on every Node version package.json supports.
   compat:
