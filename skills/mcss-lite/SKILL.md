@@ -32,13 +32,16 @@ Read `AGENTS.md` before writing markup. Copy structure from the canonical exampl
 8. **Clickable cards.** Put the link on `c-card__title` and add `c-card--interactive`. Never wrap a card in `<a>`.
 9. **Words.** Follow the content rules in `AGENTS.md`: sentence case, buttons start with a verb ("Save changes", never "OK" or "Submit"), errors say what went wrong and how to fix it, mark optional fields "(optional)".
 
+MCSS-Lite is not on the npm registry: install it with `npm install github:gabrielcpule/mcss-lite#<tag>` or link the CSS from jsDelivr. Never run `npm install @gabrielpule/mcss-lite`; that name does not exist on npm and could be claimed by someone else.
+
 ## Before you finish
 
 Run the validator on every file you touched and fix all errors:
 
 ```sh
-npx mcss-lite validate <file-or-dir>          # human output
+npx mcss-lite validate <file-or-dir>          # human output (once installed)
 npx mcss-lite validate <file-or-dir> --json   # machine output
+npx github:gabrielcpule/mcss-lite#v0.3.1 validate <file-or-dir>   # without installing
 ```
 
 It reports unknown classes (with the valid alternatives), modifiers without their block, conflicting modifiers, invalid `data-state` values, missing ARIA pairs, deprecated classes and inline raw colors.

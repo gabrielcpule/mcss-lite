@@ -27,7 +27,7 @@ Contract-first for AI. Where Tailwind, Bootstrap or Pico leave agents to infer c
 
 ## Operating Context
 
-- Distributed on npm as `@gabrielpule/mcss-lite`; consumers link `index.css` or `@import` it.
+- Distributed from GitHub release tags, not the npm registry (a supply-chain choice): CSS from jsDelivr (`cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@vX.Y.Z/…`), installs via `npm install github:gabrielcpule/mcss-lite#vX.Y.Z`. The package name `@gabrielpule/mcss-lite` is only the local folder name.
 - Agents read `AGENTS.md`, `llms*.txt`, `dist/mcss-lite.manifest.json` and `skills/mcss-lite/SKILL.md` from `node_modules`.
 - Designers import `dist/figma/*.tokens.json` as Figma Variables (Primitives, Semantic with Light/Dark, Component).
 - `demo/index.html` is the live showcase of every block and state; `demo/components/*.html` is a generated part sheet per block (when to use, build steps, real validator output for each don't, spec, accessibility, sources); `demo/status.html` is the parts inventory and `demo/content.html` the content rules (`guidelines/content.json`).

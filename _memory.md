@@ -45,6 +45,10 @@ Working memory for AI sessions on this repo. Read it at the start of a session; 
 - Hosted demo: https://www.gabrielpule.work/design-system, served from Gabriel's portfolio repo (`gabrielcpule/New-new-new-portf`, Next.js on Vercel) as static files in `public/design-system/`. After changing the demo here, run `pnpm sync:design-system` in the portfolio repo (`scripts/sync-design-system.mjs`) and deploy.
 - Branches: `claude/design-system-ai-mcss-lite-4mhmop` (merged as #1), `claude/design-system-access-yybz83` (hosting link merged as #2; now PR A "Part sheets")
 
+## Distribution (2026-09-28)
+
+Not on npm, by choice (supply-chain risk). Releases are GitHub tags; CSS via jsDelivr, installs via `github:gabrielcpule/mcss-lite#vX.Y.Z`. URLs are generated from package.json (`scripts/lib/release.mjs`). Claude sessions can't push tags (HTTP 403), so Gabriel creates each tag and release on GitHub. PR B decisions (grilling): toggle ships native-first; alert severity = icon + hidden prefix (`alert-severity`); `clickable-div` only for click triggers; `--ignore`/inline ignore for warnings only; Figma push after PR B.
+
 ## Part sheets round (2026-09-28)
 
 PR A (0.3.0) on `claude/design-system-access-yybz83`: 16 part sheets, parts inventory, content rules, guidance backfill, clickable-card fix. Impeccable critique 29/40, audit 14/20 on the new pages; all 9 findings fixed in one batch (P1: build-step grid, hidden wrong piece; P2: Rubik on labels, yellow numeral discs, boxed inventory table, stacked-cell labels; P3: class names in ledes, fit panel as call-out, rail covering focus). Next: PR B (0.4.0) new parts + content lint; re-sync the portfolio after merge.

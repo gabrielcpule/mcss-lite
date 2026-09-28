@@ -46,7 +46,7 @@ Point your agent at the docs, for example in your project's `AGENTS.md` or `CLAU
 
 ```md
 UI uses MCSS-Lite. Before writing markup, read node_modules/@gabrielpule/mcss-lite/AGENTS.md.
-After editing markup, run `npx mcss-lite validate <path>` and fix every error.
+After editing markup, run `npx mcss-lite validate <path>` (or `npx github:gabrielcpule/mcss-lite#v0.3.1 validate <path>` without installing) and fix every error.
 ```
 
 For Claude Code, copy the skill into your project: `cp -r node_modules/@gabrielpule/mcss-lite/skills/mcss-lite .claude/skills/`.
@@ -93,20 +93,32 @@ The full MCSS spec includes RDFa semantic annotations, a strict 5-layer cascade 
 
 ## Install
 
+MCSS-Lite is not on the npm registry. Releases are Git tags on GitHub, so there is no registry account or publish token to steal: your copy comes straight from this repository at a pinned tag.
+
+**From the CDN** (no build step), pinned to a release:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gabrielcpule/mcss-lite@v0.3.1/dist/mcss-lite.min.css">
+```
+
+**From GitHub**, with any package manager:
+
 ```bash
-npm install @gabrielpule/mcss-lite
+npm install github:gabrielcpule/mcss-lite#v0.3.1   # or: pnpm add / yarn add / bun add
 ```
 
 ```html
 <link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/index.css">
 <!-- or one file, no @import chain -->
-<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.css">
+<link rel="stylesheet" href="node_modules/@gabrielpule/mcss-lite/dist/mcss-lite.min.css">
 ```
 
-Or import in your CSS build:
+Or import it in your CSS build: `@import '@gabrielpule/mcss-lite';`
 
-```css
-@import '@gabrielpule/mcss-lite';
+**The validator** runs from the install (`npx mcss-lite validate <path>`) or straight from GitHub without installing:
+
+```bash
+npx github:gabrielcpule/mcss-lite#v0.3.1 validate src/
 ```
 
 ## Usage
