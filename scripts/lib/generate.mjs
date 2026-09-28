@@ -202,6 +202,8 @@ function buildManifest(pkg, tokenRows, contracts, examples, content) {
     themes: THEMES,
     rules: RULES,
     contentRules: content.rules,
+    // The booklet's generated pages, so hosts can mirror them without a directory listing.
+    pages: ['demo/index.html', 'demo/status.html', 'demo/content.html', ...contracts.map((c) => `demo/components/${c.file.replace(/\.json$/, '.html')}`)],
     blocks: contracts.map(({ file, $schema, ...c }) => ({
       ...c,
       examples: (examples.get(c.block) ?? []).map((e) => ({ file: `components/${e.file}`, html: e.html })),

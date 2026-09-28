@@ -119,6 +119,27 @@
       "dont": "Just hit the big blue button, guys"
     }
   ],
+  "pages": [
+    "demo/index.html",
+    "demo/status.html",
+    "demo/content.html",
+    "demo/components/center.html",
+    "demo/components/cluster.html",
+    "demo/components/container.html",
+    "demo/components/grid.html",
+    "demo/components/section.html",
+    "demo/components/sidebar.html",
+    "demo/components/stack.html",
+    "demo/components/switcher.html",
+    "demo/components/badge.html",
+    "demo/components/button.html",
+    "demo/components/card.html",
+    "demo/components/form-field.html",
+    "demo/components/input.html",
+    "demo/components/label.html",
+    "demo/components/modal.html",
+    "demo/components/utilities.html"
+  ],
   "blocks": [
     {
       "name": "Center",

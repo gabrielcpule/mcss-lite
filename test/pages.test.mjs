@@ -65,3 +65,8 @@ test('a "don\'t" that names a rule really triggers it', () => {
     }
   }
 });
+
+test('the manifest lists exactly the generated booklet pages', () => {
+  const manifest = JSON.parse(files.get('dist/mcss-lite.manifest.json'));
+  assert.deepEqual([...manifest.pages].sort(), pages.map(([rel]) => rel).sort());
+});
