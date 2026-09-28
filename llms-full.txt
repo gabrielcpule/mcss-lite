@@ -9,7 +9,7 @@
 1. **Components never set their own outer margin.** Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing.
 2. **Layout, then component, then utility, then token.** Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only.
 3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning.
-4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).
+4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy). Checkboxes, radios and toggles are the exception: their states are native (checked, disabled, aria-invalid) and never use data-state.
 5. **Theme with semantic tokens, never raw values.** Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode.
 
 ## Setup
@@ -39,7 +39,7 @@ npx github:gabrielcpule/mcss-lite#v0.3.1 validate path/to/file.html   # without 
 
 Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).
 
-| Class | Layer | Modifiers | Elements | data-state | Use for |
+| Class | Layer | Modifiers | Elements | States | Use for |
 |---|---|---|---|---|---|
 | `l-center` | layout | — | — | — | Centers a block horizontally at reading width without side gutters. |
 | `l-cluster` | layout | — | — | — | Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags. |
@@ -52,10 +52,13 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
 | `c-button` | component | --primary --secondary --ghost --danger · --sm --lg | — | disabled loading | Triggers an action. |
 | `c-card` | component | --elevated --bordered · --interactive | __header __title __body __footer | — | A raised surface that groups related content, such as a summary, a settings group or a list item. |
-| `c-form-field` | component | — | __label __help __error | — | Wraps one form control with its label, help text and error message. |
+| `c-checkbox` | component | — | __input __label __hint | :checked :indeterminate :disabled [aria-invalid="true"] | A native checkbox with its label: pick any number of options, or confirm one statement. |
+| `c-form-field` | component | — | __label __help __error | error | Wraps one form control with its label, help text and error message. |
 | `c-input` | component | — | — | error success disabled | Single-line text entry. |
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
+| `c-radio` | component | — | __input __label __hint | :checked :disabled | A native radio button with its label: pick exactly one option from a short, visible list. |
+| `c-toggle` | component | — | __input __label __hint | :checked :disabled loading | An on/off switch built on a native checkbox with role="switch": the setting applies as soon as it changes. |
 
 ## Content rules
 
@@ -1024,6 +1027,136 @@ A raised surface that groups related content, such as a summary, a settings grou
 </div>
 ```
 
+### Checkbox — `c-checkbox`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A native checkbox with its label: pick any number of options, or confirm one statement.
+
+**When to use:**
+- Choosing any number of options from a short list, including none.
+- Confirming one statement before submitting, such as agreeing to terms.
+- A setting that is saved when the form is submitted, not straight away.
+
+**When not to use:**
+- Exactly one option must be chosen: use `c-radio`.
+- The setting takes effect the moment it changes, with no submit button: use `c-toggle`.
+- More than about 7 options: use a `c-input` on a <select multiple> or a searchable list.
+
+**Apply to:** `<div>`
+
+**Elements:**
+- `c-checkbox__input` (required): The native control. Carries every state: checked, disabled, aria-invalid. On `<input>`.
+- `c-checkbox__label` (required): The visible label, linked with for/id. Clicking it toggles the control and pads the hit area. On `<label>`.
+- `c-checkbox__hint`: Optional one-line hint under the label, linked with aria-describedby. On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `:checked` (native): Selected: the box seats and fills with ink, with a paper tick. Use the checked attribute, never data-state.
+- `:indeterminate` (native): Mixed: some, not all, of the options below it are selected. Drawn as a flat bar. Set input.indeterminate = true from JavaScript; HTML has no attribute for it. It is a display state, never a submitted value.
+- `:disabled` (native): Cannot be changed. Dashed keyline, ghosted label. Use the disabled attribute, and say nearby why it is unavailable.
+- `[aria-invalid="true"]` (native): Needs attention, e.g. an unticked agreement on submit. Red keyline with a heavier bottom edge. Set aria-invalid="true" and aria-describedby pointing at the c-form-field__error message.
+
+**Structure:**
+- Order: c-checkbox__input, then c-checkbox__label, then an optional c-checkbox__hint.
+- Group related checkboxes in fieldset.c-form-field with a legend.c-form-field__label, stacked with l-stack--sm.
+
+**Do:**
+- Write labels as positive statements: "Email me about new releases".
+- Put the group question in the legend and keep each label short.
+
+**Don't:**
+- Negative labels such as "Don't email me": people tick them wrongly.
+- Using a checkbox to trigger an action immediately; that is a toggle or a button.
+
+**Do (example):** Group related checkboxes in a fieldset with a legend that asks the question.
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Which updates do you want?</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="news-releases" name="news" value="releases" checked>
+      <label class="c-checkbox__label" for="news-releases">New releases</label>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="news-security" name="news" value="security">
+      <label class="c-checkbox__label" for="news-security">Security notices</label>
+    </div>
+  </div>
+</fieldset>
+```
+
+**Don't (example):** Don't fake the checked state with data-state: it isn't submitted and screen readers never hear it. (`mcss-lite validate` reports `[invalid-state]`)
+
+```html
+<div class="c-checkbox" data-state="checked">
+  <input class="c-checkbox__input" type="checkbox" id="terms-fake">
+  <label class="c-checkbox__label" for="terms-fake">I agree to the terms</label>
+</div>
+```
+
+**Do (example):** Show an unticked agreement as an error with aria-invalid and a linked message.
+
+```html
+<div class="c-form-field">
+  <div class="c-checkbox">
+    <input class="c-checkbox__input" type="checkbox" id="terms" aria-invalid="true" aria-describedby="terms-error">
+    <label class="c-checkbox__label" for="terms">I agree to the terms of service</label>
+  </div>
+  <p class="c-form-field__error" id="terms-error">Agree to the terms of service to create an account.</p>
+</div>
+```
+
+**Don't (example):** Don't leave the input without its element class: it keeps the browser's default look and misses every state.
+
+```html
+<div class="c-checkbox">
+  <input type="checkbox" id="plain">
+  <span class="c-checkbox__hint">Hint without a label</span>
+</div>
+```
+
+**Content:**
+- Labels are positive statements in sentence case, with no full stop.
+- The legend asks the question; the labels are the answers.
+- Mark an optional group "(optional)" in the legend.
+
+**Accessibility:**
+- Keep the native <input type="checkbox">: it brings the role, the checked state, Space to toggle and form submission for free.
+- Every checkbox needs a <label for> on c-checkbox__label; a group needs fieldset + legend.
+- The box is 24px and the label extends the hit area; never hide the input with display: none.
+- aria-invalid is allowed on a checkbox; on a group, put data-state="error" on the fieldset instead.
+
+**Keyboard:**
+- Tab: Moves focus to the next checkbox.
+- Space: Ticks or clears the focused checkbox.
+
+**Tokens:** `--checkbox-size`, `--checkbox-background`, `--checkbox-border`, `--checkbox-checked-background`, `--checkbox-mark`, `--checkbox-radius`
+
+**Example** (`components/checkbox.html`):
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Which updates do you want? (optional)</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-releases" name="updates" value="releases" checked>
+      <label class="c-checkbox__label" for="updates-releases">New releases</label>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-security" name="updates" value="security" aria-describedby="updates-security-hint">
+      <label class="c-checkbox__label" for="updates-security">Security notices</label>
+      <p class="c-checkbox__hint" id="updates-security-hint">Sent within a day of a fix.</p>
+    </div>
+    <div class="c-checkbox">
+      <input class="c-checkbox__input" type="checkbox" id="updates-digest" name="updates" value="digest" disabled aria-describedby="updates-digest-hint">
+      <label class="c-checkbox__label" for="updates-digest">Monthly digest</label>
+      <p class="c-checkbox__hint" id="updates-digest-hint">Coming in March 2027.</p>
+    </div>
+  </div>
+</fieldset>
+```
+
 ### Form field — `c-form-field`
 
 Wraps one form control with its label, help text and error message.
@@ -1041,6 +1174,9 @@ Wraps one form control with its label, help text and error message.
 - `c-form-field__label` (required): The field label. On `<label>`/`<legend>`.
 - `c-form-field__help`: Hint shown below the control. On `<p>`/`<div>`/`<span>`.
 - `c-form-field__error`: Error message shown when the control has data-state="error". On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `data-state="error"`: A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline. Set aria-describedby on the fieldset pointing at its c-form-field__error; ARIA doesn't allow aria-invalid on a fieldset or a radio.
 
 **Structure:**
 - Order: c-form-field__label, then the control (c-input), then c-form-field__help and/or c-form-field__error.
@@ -1140,8 +1276,8 @@ Single-line text entry. Also styles <textarea> and <select>.
 - Multi-line text on a <textarea>, or a choice from many options on a <select>.
 
 **When not to use:**
-- Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).
-- A yes/no setting: a checkbox (coming in 0.4.0).
+- Choosing among 2 to 6 visible options: `c-radio` buttons read faster than a select.
+- A yes/no choice: `c-checkbox`, or `c-toggle` when it applies straight away.
 - Showing a value that cannot change: plain text, not a read-only input.
 
 **Apply to:** `<input>`, `<textarea>`, `<select>`
@@ -1372,6 +1508,226 @@ A dialog over the page that blocks interaction until dismissed. Works on <dialog
 </div>
 ```
 
+### Radio — `c-radio`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+A native radio button with its label: pick exactly one option from a short, visible list.
+
+**When to use:**
+- Exactly one choice from 2 to 6 options that people should compare side by side.
+- A choice where seeing every option helps the decision, such as a delivery speed or a plan.
+
+**When not to use:**
+- Any number of options may be chosen: use `c-checkbox`.
+- An on/off setting that applies immediately: use `c-toggle`.
+- More than about 7 options: use a `c-input` on a <select>.
+
+**Apply to:** `<div>`
+
+**Elements:**
+- `c-radio__input` (required): The native control. Carries every state: checked, disabled. On `<input>`.
+- `c-radio__label` (required): The visible label, linked with for/id. Clicking it toggles the control and pads the hit area. On `<label>`.
+- `c-radio__hint`: Optional one-line hint under the label, linked with aria-describedby. On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `:checked` (native): Selected: an ink stud seated in the ring. Use the checked attribute, never data-state.
+- `:disabled` (native): Cannot be chosen. Dashed ring, ghosted label. Use the disabled attribute, and say nearby why it is unavailable.
+
+**Structure:**
+- Order: c-radio__input, then c-radio__label, then an optional c-radio__hint.
+- Every radio group lives in fieldset.c-form-field with a legend.c-form-field__label; all radios in it share one name.
+- Show a group error with data-state="error" on the fieldset, aria-describedby pointing at its c-form-field__error.
+
+**Do:**
+- Preselect the safest or most common option when there is one; leave the group empty when every answer needs a conscious choice.
+- Order options logically: by size, frequency or time, not alphabetically by accident.
+
+**Don't:**
+- A single radio button on its own: it can never be cleared.
+- Radios that trigger navigation or reveal large sections without warning.
+
+**Do (example):** Put the group in a fieldset with a legend, and give every radio the same name.
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Delivery speed</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="speed-standard" name="speed" value="standard" checked aria-describedby="speed-standard-hint">
+      <label class="c-radio__label" for="speed-standard">Standard</label>
+      <p class="c-radio__hint" id="speed-standard-hint">3 to 5 working days, free.</p>
+    </div>
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="speed-next" name="speed" value="next-day">
+      <label class="c-radio__label" for="speed-next">Next day</label>
+    </div>
+  </div>
+</fieldset>
+```
+
+**Don't (example):** Don't mark a group error with aria-invalid on each radio; ARIA doesn't allow it there. Put the error on the fieldset. (`mcss-lite validate` reports `[state-pair]`)
+
+```html
+<fieldset class="c-form-field" data-state="error">
+  <legend class="c-form-field__label">Delivery speed</legend>
+  <div class="c-radio">
+    <input class="c-radio__input" type="radio" id="speed-x" name="speed-x" value="standard">
+    <label class="c-radio__label" for="speed-x">Standard</label>
+  </div>
+</fieldset>
+```
+
+**Content:**
+- The legend asks the question; each label is a short answer in sentence case.
+- Use a hint for the detail that decides the choice: price, time, consequence.
+
+**Accessibility:**
+- Keep native <input type="radio"> elements sharing one name: the browser handles arrow keys and single selection.
+- Wrap the group in fieldset + legend so the question is read with every option.
+- Link hints with aria-describedby on the input.
+
+**Keyboard:**
+- Tab: Moves focus into the group, to the checked radio (or the first), and out again.
+- Arrow keys: Move to and select the next or previous radio.
+- Space: Selects the focused radio if nothing is selected.
+
+**Tokens:** `--checkbox-size`, `--checkbox-background`, `--checkbox-border`, `--radio-dot`
+
+**Example** (`components/radio.html`):
+
+```html
+<fieldset class="c-form-field">
+  <legend class="c-form-field__label">Delivery speed</legend>
+  <div class="l-stack l-stack--sm">
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="delivery-standard" name="delivery" value="standard" checked aria-describedby="delivery-standard-hint">
+      <label class="c-radio__label" for="delivery-standard">Standard</label>
+      <p class="c-radio__hint" id="delivery-standard-hint">3 to 5 working days, free.</p>
+    </div>
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="delivery-next" name="delivery" value="next-day" aria-describedby="delivery-next-hint">
+      <label class="c-radio__label" for="delivery-next">Next day</label>
+      <p class="c-radio__hint" id="delivery-next-hint">Order by 4pm, £4.99.</p>
+    </div>
+    <div class="c-radio">
+      <input class="c-radio__input" type="radio" id="delivery-same" name="delivery" value="same-day" disabled>
+      <label class="c-radio__label" for="delivery-same">Same day (not available in your area)</label>
+    </div>
+  </div>
+</fieldset>
+```
+
+### Toggle — `c-toggle`
+
+**Beta:** shipped and validated; the API may change in a minor version.
+
+An on/off switch built on a native checkbox with role="switch": the setting applies as soon as it changes.
+
+**When to use:**
+- A setting that takes effect immediately, with no save or submit button: notifications, dark mode, a feature flag.
+- A system state people expect to flip back and forth.
+
+**When not to use:**
+- A choice inside a form that is saved on submit: use `c-checkbox`.
+- Choosing between two named options that are not on/off, such as "Monthly" and "Yearly": use `c-radio`.
+- Triggering an action, such as "Export": use `c-button`.
+
+**Apply to:** `<div>`
+
+**Elements:**
+- `c-toggle__input` (required): The native control: <input type="checkbox" role="switch">. Carries checked and disabled. On `<input>`.
+- `c-toggle__label` (required): The name of the setting, linked with for/id. It stays the same when the switch flips. On `<label>`.
+- `c-toggle__hint`: Optional one-line hint under the label, linked with aria-describedby. On `<p>`/`<div>`/`<span>`.
+
+**States:**
+- `:checked` (native): On: the thumb slides to the end on an ink track and shows a tick. Use the checked attribute; role="switch" makes screen readers say on and off.
+- `:disabled` (native): Cannot be changed. Dashed track, ghosted label. Use the disabled attribute, and say nearby why it is unavailable.
+- `data-state="loading"`: The change is being saved. The track turns neutral with moving stripes. Set aria-busy="true" on the c-toggle and disable the input until the save finishes.
+
+**Structure:**
+- Order: c-toggle__input, then c-toggle__label, then an optional c-toggle__hint.
+
+**Do:**
+- Save the change straight away and show that it saved; if it can fail, use the loading state and report errors next to the switch.
+- Label the setting, not the action: "Email notifications", and let the switch say on or off.
+
+**Don't:**
+- Labels that change with the state ("Turn on" / "Turn off"): people can't tell which is current.
+- A div with a click handler drawn to look like a switch; it has no role, no keyboard and no state.
+
+**Do (example):** Build the switch on a real checkbox with role="switch" and a fixed noun label.
+
+```html
+<div class="c-toggle">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="notify" checked aria-describedby="notify-hint">
+  <label class="c-toggle__label" for="notify">Email notifications</label>
+  <p class="c-toggle__hint" id="notify-hint">Applies straight away.</p>
+</div>
+```
+
+**Don't (example):** Don't fake the on state with data-state: the control has to carry it. (`mcss-lite validate` reports `[invalid-state]`)
+
+```html
+<div class="c-toggle" data-state="checked">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="notify-fake">
+  <label class="c-toggle__label" for="notify-fake">Email notifications</label>
+</div>
+```
+
+**Do (example):** While a change saves, mark the switch busy and disable the input.
+
+```html
+<div class="c-toggle" data-state="loading" aria-busy="true">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="beta" checked disabled>
+  <label class="c-toggle__label" for="beta">Beta features</label>
+</div>
+```
+
+**Don't (example):** Don't show the loading stripes without aria-busy; screen readers can't tell the save is still running. (`mcss-lite validate` reports `[state-pair]`)
+
+```html
+<div class="c-toggle" data-state="loading">
+  <input class="c-toggle__input" type="checkbox" role="switch" id="beta-x" checked disabled>
+  <label class="c-toggle__label" for="beta-x">Beta features</label>
+</div>
+```
+
+**Content:**
+- Toggle labels are nouns naming the setting, in sentence case: "Dark mode", not "Enable dark mode".
+- Never change the label when the state changes.
+
+**Accessibility:**
+- Use <input type="checkbox" role="switch">: screen readers that know switches say "on" and "off", and the rest still say "checked".
+- The thumb shows a tick when on and a bar when off, so state never relies on position or color alone.
+- Movement stops under prefers-reduced-motion.
+
+**Keyboard:**
+- Tab: Moves focus to the switch.
+- Space: Turns the setting on or off.
+
+**Tokens:** `--toggle-track-off`, `--toggle-track-on`, `--toggle-thumb`, `--toggle-border`, `--toggle-mark`, `--color-action-loading-stripe`
+
+**Example** (`components/toggle.html`):
+
+```html
+<div class="l-stack l-stack--sm">
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="setting-email" checked aria-describedby="setting-email-hint">
+    <label class="c-toggle__label" for="setting-email">Email notifications</label>
+    <p class="c-toggle__hint" id="setting-email-hint">Applies straight away.</p>
+  </div>
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="setting-digest">
+    <label class="c-toggle__label" for="setting-digest">Weekly digest</label>
+  </div>
+  <div class="c-toggle" data-state="loading" aria-busy="true">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="setting-beta" checked disabled>
+    <label class="c-toggle__label" for="setting-beta">Beta features</label>
+  </div>
+</div>
+```
+
 ## Utilities
 
 Single-purpose overrides with !important. Use sparingly; reach for a layout or component first.
@@ -1560,6 +1916,18 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
 | `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--checkbox-size` | `--space-6` | 1.5rem |
+| `--checkbox-background` | `--color-background-interactive` | #ffffff / #14294d |
+| `--checkbox-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
+| `--checkbox-checked-background` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--checkbox-mark` | `--color-text-inverse` | #ffffff / #0f2140 |
+| `--checkbox-radius` | `--border-radius-base` | 0.25rem |
+| `--radio-dot` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--toggle-track-off` | `--color-background-muted` | #e9ecef / #27436f |
+| `--toggle-track-on` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--toggle-thumb` | `--color-background-interactive` | #ffffff / #14294d |
+| `--toggle-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--toggle-mark` | `--color-text-default` | #1a1d20 / #e6edf4 |
 
 ## Primitive colors (do not use in components)
 

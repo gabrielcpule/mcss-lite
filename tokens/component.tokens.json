@@ -146,5 +146,53 @@
     "shadow": {
       "$value": "{shadow.elevated}"
     }
+  },
+  "checkbox": {
+    "size": {
+      "$value": "{space.6}",
+      "$description": "Box and ring size for checkbox and radio (24px)."
+    },
+    "background": {
+      "$value": "{color.background.interactive}"
+    },
+    "border": {
+      "$value": "{color.border.interactive}"
+    },
+    "checked-background": {
+      "$value": "{color.text.default}",
+      "$description": "Checked fill: the ink of a seated piece, not action blue."
+    },
+    "mark": {
+      "$value": "{color.text.inverse}",
+      "$description": "Tick and bar drawn on the checked fill."
+    },
+    "radius": {
+      "$value": "{border-radius.base}"
+    }
+  },
+  "radio": {
+    "dot": {
+      "$value": "{color.text.default}",
+      "$description": "The ink stud seated in a checked radio."
+    }
+  },
+  "toggle": {
+    "track-off": {
+      "$value": "{color.background.muted}"
+    },
+    "track-on": {
+      "$value": "{color.text.default}",
+      "$description": "On: an ink track, like a pressed piece."
+    },
+    "thumb": {
+      "$value": "{color.background.interactive}"
+    },
+    "border": {
+      "$value": "{color.border.keyline}"
+    },
+    "mark": {
+      "$value": "{color.text.default}",
+      "$description": "Tick (on) or bar (off) drawn on the thumb."
+    }
   }
 }

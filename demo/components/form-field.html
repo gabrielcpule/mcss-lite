@@ -47,7 +47,7 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <p class="demo-sheet__kicker">Part sheet 12 of 16 · Component</p>
+          <p class="demo-sheet__kicker">Part sheet 13 of 19 · Component</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-form-field</span> Form field</h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Since 0.1.0</span></div>
           <p class="demo-hero__lede">Wraps one form control with its label, help text and error message.</p>
@@ -82,7 +82,7 @@
           <p class="demo-step__numeral" aria-hidden="true">2</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="build-title">Build it</h2>
-<ol class="demo-build-steps"><li><span>Start with <code>&lt;div&gt;</code> and add <code>class="c-form-field"</code>.</span></li><li><span>Add the required parts: <code>c-form-field__label</code>.</span></li><li><span>Add the parts you need: <code>c-form-field__help</code>, <code>c-form-field__error</code>.</span></li></ol>
+<ol class="demo-build-steps"><li><span>Start with <code>&lt;div&gt;</code> and add <code>class="c-form-field"</code>.</span></li><li><span>Add the required parts: <code>c-form-field__label</code>.</span></li><li><span>Add the parts you need: <code>c-form-field__help</code>, <code>c-form-field__error</code>.</span></li><li><span>Set a state with <code>data-state</code> and add its paired attribute: <code>error</code>.</span></li></ol>
 <div class="demo-sheet__stage">
   <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <div class="demo-stage">
@@ -255,6 +255,15 @@
 </div>
 <div class="demo-spec">
   <table>
+    <caption>States</caption>
+    <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>data-state=&quot;error&quot;</code></th><td data-label="Meaning">A group of checkboxes or radios needs attention. Put it on the fieldset: the controls in it take the error keyline.</td><td data-label="Pair it with">Set aria-describedby on the fieldset pointing at its c-form-field__error; ARIA doesn't allow aria-invalid on a fieldset or a radio.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="demo-spec">
+  <table>
     <caption>Tokens</caption>
     <thead><tr><th scope="col">Token</th><th scope="col">Value (light / dark)</th></tr></thead>
     <tbody>
@@ -300,7 +309,7 @@
           <p class="demo-step__numeral" aria-hidden="true">7</p>
           <div class="l-stack demo-sheet__body">
             <h2 class="demo-step__title" id="fits-title">Fits with</h2>
-<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code>c-input</code></a></li><li class="demo-bag__part"><a href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li></ul>
+<ul class="demo-bag__list demo-fits" role="list"><li class="demo-bag__part"><a href="input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code>c-input</code></a></li><li class="demo-bag__part"><a href="stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li><li class="demo-bag__part"><a href="checkbox.html"><code>c-checkbox</code></a></li><li class="demo-bag__part"><a href="radio.html"><code>c-radio</code></a></li></ul>
           </div>
         </div>
       </div>
@@ -311,7 +320,7 @@
       <ul class="demo-sheet__sources-list"><li><a href="https://design-system.service.gov.uk/components/error-message">GOV.UK Design System: Error message</a></li><li><a href="https://design-system.service.gov.uk/patterns/validation">GOV.UK Design System: Validation</a></li><li><a href="https://www.nngroup.com/articles/errors-forms-design-guidelines/">NN/g: Error-message guidelines for forms</a></li><li><a href="https://www.nngroup.com/articles/required-fields/">NN/g: Marking required fields in forms</a></li></ul>
     </section>
     <nav class="demo-sheet__pager l-container" aria-label="Part sheets">
-      <a class="demo-sheet__prev" href="card.html"><span aria-hidden="true">←</span> <code>c-card</code></a>
+      <a class="demo-sheet__prev" href="checkbox.html"><span aria-hidden="true">←</span> <code>c-checkbox</code></a>
       <a href="../status.html">All parts</a>
       <a class="demo-sheet__next" href="input.html"><code>c-input</code> <span aria-hidden="true">→</span></a>
     </nav>

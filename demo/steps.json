@@ -51,6 +51,16 @@
       "example": "form-field.html"
     },
     {
+      "title": "Fit the checks and switches",
+      "text": "Checkboxes pick any number, radios pick exactly one, a toggle applies straight away. All three keep the native input, so every state is a real attribute, not a class.",
+      "blocks": [
+        "c-checkbox",
+        "c-radio",
+        "c-toggle"
+      ],
+      "example": "choices.html"
+    },
+    {
       "title": "Fit the dialog",
       "text": "Prefer a native dialog opened with showModal(). The preview below is contained; the button opens the real thing.",
       "blocks": [

@@ -224,7 +224,19 @@ const DATA = {
     {"name":"modal/background","type":"COLOR","css":"--modal-background","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/raised"}}},
     {"name":"modal/backdrop","type":"COLOR","css":"--modal-backdrop","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/overlay"}}},
     {"name":"modal/border","type":"COLOR","css":"--modal-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/keyline"}}},
-    {"name":"modal/radius","type":"FLOAT","css":"--modal-radius","scopes":["CORNER_RADIUS"],"values":{"Value":{"alias":"MCSS-Lite / Primitives::border-radius/lg"}}}
+    {"name":"modal/radius","type":"FLOAT","css":"--modal-radius","scopes":["CORNER_RADIUS"],"values":{"Value":{"alias":"MCSS-Lite / Primitives::border-radius/lg"}}},
+    {"name":"checkbox/size","type":"FLOAT","css":"--checkbox-size","description":"Box and ring size for checkbox and radio (24px).","scopes":[],"values":{"Value":{"alias":"MCSS-Lite / Primitives::space/6"}}},
+    {"name":"checkbox/background","type":"COLOR","css":"--checkbox-background","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/interactive"}}},
+    {"name":"checkbox/border","type":"COLOR","css":"--checkbox-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/interactive"}}},
+    {"name":"checkbox/checked-background","type":"COLOR","css":"--checkbox-checked-background","description":"Checked fill: the ink of a seated piece, not action blue.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
+    {"name":"checkbox/mark","type":"COLOR","css":"--checkbox-mark","description":"Tick and bar drawn on the checked fill.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/inverse"}}},
+    {"name":"checkbox/radius","type":"FLOAT","css":"--checkbox-radius","scopes":["CORNER_RADIUS"],"values":{"Value":{"alias":"MCSS-Lite / Primitives::border-radius/base"}}},
+    {"name":"radio/dot","type":"COLOR","css":"--radio-dot","description":"The ink stud seated in a checked radio.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
+    {"name":"toggle/track-off","type":"COLOR","css":"--toggle-track-off","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/muted"}}},
+    {"name":"toggle/track-on","type":"COLOR","css":"--toggle-track-on","description":"On: an ink track, like a pressed piece.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}},
+    {"name":"toggle/thumb","type":"COLOR","css":"--toggle-thumb","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/background/interactive"}}},
+    {"name":"toggle/border","type":"COLOR","css":"--toggle-border","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/border/keyline"}}},
+    {"name":"toggle/mark","type":"COLOR","css":"--toggle-mark","description":"Tick (on) or bar (off) drawn on the thumb.","scopes":["ALL_FILLS","STROKE_COLOR"],"values":{"Value":{"alias":"MCSS-Lite / Semantic::color/text/default"}}}
   ]}
 ],
 "effectStyles":[

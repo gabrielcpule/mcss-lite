@@ -9,7 +9,7 @@
 1. **Components never set their own outer margin.** Never add margin to a c-* root element. Put components inside a layout primitive (l-stack, l-cluster, l-grid, l-sidebar, l-switcher) and let it provide the spacing.
 2. **Layout, then component, then utility, then token.** Solve a need with an l-* layout primitive first, then a c-* component and its modifiers, then a u-* utility. Only write custom CSS as a last resort, and then use var(--token) values only.
 3. **Never invent class or token names.** Use only the classes, modifiers, elements, data-state values and tokens listed in this file. If something is missing, write custom CSS with existing tokens instead of guessing a name such as c-button--warning.
-4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).
+4. **States use data-state plus the native or ARIA pair.** Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy). Checkboxes, radios and toggles are the exception: their states are native (checked, disabled, aria-invalid) and never use data-state.
 5. **Theme with semantic tokens, never raw values.** Never hard-code colors (#hex, rgb()) or pixel spacing. Use semantic tokens (--color-text-default, --color-action-primary…) or component tokens (--button-primary-background…). Primitive color tokens (--color-gray-*, --color-blue-*) do not adapt to dark mode.
 
 ## Setup
@@ -39,7 +39,7 @@ npx github:gabrielcpule/mcss-lite#v0.3.1 validate path/to/file.html   # without 
 
 Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).
 
-| Class | Layer | Modifiers | Elements | data-state | Use for |
+| Class | Layer | Modifiers | Elements | States | Use for |
 |---|---|---|---|---|---|
 | `l-center` | layout | — | — | — | Centers a block horizontally at reading width without side gutters. |
 | `l-cluster` | layout | — | — | — | Horizontal group that wraps, with a gap and vertically centered items: button groups, badge lists, tags. |
@@ -52,10 +52,13 @@ Modifier groups are separated by `·`. Within a group, pick at most one (for exa
 | `c-badge` | component | --primary --success --warning --error --info | — | — | A short, non-interactive label for status or category, such as "Beta" or "Paid". |
 | `c-button` | component | --primary --secondary --ghost --danger · --sm --lg | — | disabled loading | Triggers an action. |
 | `c-card` | component | --elevated --bordered · --interactive | __header __title __body __footer | — | A raised surface that groups related content, such as a summary, a settings group or a list item. |
-| `c-form-field` | component | — | __label __help __error | — | Wraps one form control with its label, help text and error message. |
+| `c-checkbox` | component | — | __input __label __hint | :checked :indeterminate :disabled [aria-invalid="true"] | A native checkbox with its label: pick any number of options, or confirm one statement. |
+| `c-form-field` | component | — | __label __help __error | error | Wraps one form control with its label, help text and error message. |
 | `c-input` | component | — | — | error success disabled | Single-line text entry. |
 | `c-label` | component | — | — | — | Deprecated standalone label. **Deprecated → `c-form-field__label`.** |
 | `c-modal` | component | — | __backdrop __container __header __title __close __body __footer | closed | A dialog over the page that blocks interaction until dismissed. |
+| `c-radio` | component | — | __input __label __hint | :checked :disabled | A native radio button with its label: pick exactly one option from a short, visible list. |
+| `c-toggle` | component | — | __input __label __hint | :checked :disabled loading | An on/off switch built on a native checkbox with role="switch": the setting applies as soon as it changes. |
 
 ## Utilities
 

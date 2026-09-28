@@ -4,6 +4,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
+import { stateLabel } from './contracts.mjs';
 import { glyph, esc, indent, MISFIT_SVG } from './demo.mjs';
 
 export const sheetFile = (c) => c.file.replace(/\.json$/, '.html');
@@ -154,7 +155,10 @@ ${body}
       steps.push(`${m.exclusive ? 'Pick at most one' : 'Add any'} ${esc(m.group)} modifier: ${m.values.map((v) => `<code>--${esc(v.name)}</code>`).join(', ')}.`);
     }
     for (const p of c.customProperties ?? []) steps.push(`Tune <code>${esc(p.name)}</code> inline if the default (<code>${esc(p.default)}</code>) doesn't fit.`);
-    if (c.states?.length) steps.push(`Set a state with <code>data-state</code> and add its paired attribute: ${c.states.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
+    const dataStates = (c.states ?? []).filter((s) => !s.native);
+    const nativeStates = (c.states ?? []).filter((s) => s.native);
+    if (nativeStates.length) steps.push(`Set state on the native control, never with data-state: ${nativeStates.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
+    if (dataStates.length) steps.push(`Set a state with <code>data-state</code> and add its paired attribute: ${dataStates.map((s) => `<code>${esc(s.name)}</code>`).join(', ')}.`);
     if (c.layer === 'layout') steps.push('Put the parts inside. The layout sets the space between them, so they need no margins.');
     return steps;
   }
@@ -235,7 +239,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     out.push(table('Elements', ['Class', 'On', 'What it does'], (c.elements ?? []).map((e) => [`<code>${esc(c.block)}__${esc(e.name)}</code>${e.required ? ' <span class="demo-spec__muted">required</span>' : ''}`, (e.tags ?? []).map((t) => `<code>&lt;${esc(t)}&gt;</code>`).join(' ') || '–', esc(e.description)])));
     out.push(table('Custom properties', ['Property', 'Default', 'What it does'], (c.customProperties ?? []).map((p) => [`<code>${esc(p.name)}</code>`, `<code>${esc(p.default)}</code>`, esc(p.description)])));
     if (c.layer !== 'layout') {
-      out.push(table('States', ['data-state', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(s.name)}</code>`, esc(s.description), esc(s.pair ?? '–')])));
+      out.push(table('States', ['State', 'Meaning', 'Pair it with'], (c.states ?? []).map((s) => [`<code>${esc(stateLabel(s))}</code>`, esc(s.description), esc(s.pair ?? '–')])));
       out.push(table('Tokens', ['Token', 'Value (light / dark)'], (c.tokens ?? []).map((t) => [`<code>${esc(t)}</code>`, tokenValue(t)])));
     }
     return out.filter(Boolean).join('\n');

@@ -61,7 +61,7 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
     for (const m of css.matchAll(/\.([cl]-[a-z0-9-]+)\[data-state="([a-z-]+)"\]/g)) {
       cssStates.add(`${m[1]}:${m[2]}`);
       const contract = contracts.find((c) => c.block === m[1]);
-      if (!contract?.states?.some((s) => s.name === m[2])) {
+      if (!contract?.states?.some((s) => s.name === m[2] && !s.native)) {
         errors.push(`src/${file}:${lineOf(css, m.index)}: state ${m[1]}[data-state="${m[2]}"] is not in the ${m[1]} contract`);
       }
     }
@@ -84,9 +84,18 @@ export function runChecks(root, { css: cssOverrides = {}, skipFreshness = false 
   for (const [name, info] of inventory) {
     if (!cssClasses.has(name)) errors.push(`components/${info.contract.file}: ${name} has no CSS in src/`);
   }
+  const allCss = HAND_WRITTEN_CSS.map((f) => stripComments(cssOverrides[f] ?? readFileSync(join(root, 'src', f), 'utf8'))).join('\n');
   for (const c of contracts) {
     for (const s of c.states ?? []) {
-      if (!cssStates.has(`${c.block}:${s.name}`)) errors.push(`components/${c.file}: state ${s.name} has no ${c.block}[data-state="${s.name}"] rule`);
+      if (s.native) {
+        // A native state is styled on the block or one of its elements, e.g. .c-checkbox__input:checked.
+        const sel = s.selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (!new RegExp(`\\.${c.block}(?:__[a-z0-9-]+)?${sel}`).test(allCss)) {
+          errors.push(`components/${c.file}: native state ${s.name} has no .${c.block}…${s.selector} rule`);
+        }
+      } else if (!cssStates.has(`${c.block}:${s.name}`)) {
+        errors.push(`components/${c.file}: state ${s.name} has no ${c.block}[data-state="${s.name}"] rule`);
+      }
     }
   }
 

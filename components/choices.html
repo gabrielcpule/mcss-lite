@@ -1,0 +1,36 @@
+<form class="l-stack" novalidate>
+  <fieldset class="c-form-field">
+    <legend class="c-form-field__label">Plan</legend>
+    <div class="l-stack l-stack--sm">
+      <div class="c-radio">
+        <input class="c-radio__input" type="radio" id="plan-team" name="plan" value="team" checked aria-describedby="plan-team-hint">
+        <label class="c-radio__label" for="plan-team">Team</label>
+        <p class="c-radio__hint" id="plan-team-hint">Up to 20 seats, billed monthly.</p>
+      </div>
+      <div class="c-radio">
+        <input class="c-radio__input" type="radio" id="plan-business" name="plan" value="business">
+        <label class="c-radio__label" for="plan-business">Business</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="c-form-field" data-state="error" aria-describedby="addons-error">
+    <legend class="c-form-field__label">Add-ons</legend>
+    <div class="l-stack l-stack--sm">
+      <div class="c-checkbox">
+        <input class="c-checkbox__input" type="checkbox" id="addon-sso" name="addons" value="sso">
+        <label class="c-checkbox__label" for="addon-sso">Single sign-on</label>
+      </div>
+      <div class="c-checkbox">
+        <input class="c-checkbox__input" type="checkbox" id="addon-audit" name="addons" value="audit">
+        <label class="c-checkbox__label" for="addon-audit">Audit log</label>
+      </div>
+    </div>
+    <p class="c-form-field__error" id="addons-error">Choose at least one add-on for the Business plan.</p>
+  </fieldset>
+
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="plan-renew" checked>
+    <label class="c-toggle__label" for="plan-renew">Automatic renewal</label>
+  </div>
+</form>

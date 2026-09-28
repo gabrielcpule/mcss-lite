@@ -47,7 +47,7 @@
       <div class="l-container demo-sheet__head-grid">
         <div class="demo-sheet__plate"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg></div>
         <div class="l-stack l-stack--sm">
-          <p class="demo-sheet__kicker">Part sheet 13 of 16 · Component</p>
+          <p class="demo-sheet__kicker">Part sheet 14 of 19 · Component</p>
           <h1 class="demo-sheet__title"><span class="demo-sheet__id">c-input</span> Input</h1>
           <div class="l-cluster"><span class="demo-sticker demo-sticker--stable"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7"/></svg>Stable</span><span class="demo-sheet__since">Since 0.1.0</span></div>
           <p class="demo-hero__lede">Single-line text entry. Also styles &lt;textarea&gt; and &lt;select&gt;.</p>
@@ -68,7 +68,7 @@
   </div>
   <div class="demo-pick__col demo-pick__col--other">
     <p class="demo-check__label">Pick another part for</p>
-    <ul class="demo-pick__list"><li>Choosing among 2 to 6 visible options: radio buttons read faster than a select (coming in 0.4.0).</li><li>A yes/no setting: a checkbox (coming in 0.4.0).</li><li>Showing a value that cannot change: plain text, not a read-only input.</li></ul>
+    <ul class="demo-pick__list"><li>Choosing among 2 to 6 visible options: <a href="radio.html"><code>c-radio</code></a> buttons read faster than a select.</li><li>A yes/no choice: <a href="checkbox.html"><code>c-checkbox</code></a>, or <a href="toggle.html"><code>c-toggle</code></a> when it applies straight away.</li><li>Showing a value that cannot change: plain text, not a read-only input.</li></ul>
   </div>
 </div>
           </div>
@@ -193,11 +193,11 @@
 <div class="demo-spec">
   <table>
     <caption>States</caption>
-    <thead><tr><th scope="col">data-state</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
+    <thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Pair it with</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><code>error</code></th><td data-label="Meaning">The value is invalid. Adds a heavier bottom edge so the state does not rely on color.</td><td data-label="Pair it with">Set aria-invalid=&quot;true&quot; and aria-describedby pointing at the c-form-field__error message.</td></tr>
-      <tr><th scope="row"><code>success</code></th><td data-label="Meaning">The value was validated successfully.</td><td data-label="Pair it with">–</td></tr>
-      <tr><th scope="row"><code>disabled</code></th><td data-label="Meaning">The field cannot be edited. Rendered ghosted with a dashed keyline.</td><td data-label="Pair it with">Also set the disabled attribute.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;error&quot;</code></th><td data-label="Meaning">The value is invalid. Adds a heavier bottom edge so the state does not rely on color.</td><td data-label="Pair it with">Set aria-invalid=&quot;true&quot; and aria-describedby pointing at the c-form-field__error message.</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;success&quot;</code></th><td data-label="Meaning">The value was validated successfully.</td><td data-label="Pair it with">–</td></tr>
+      <tr><th scope="row"><code>data-state=&quot;disabled&quot;</code></th><td data-label="Meaning">The field cannot be edited. Rendered ghosted with a dashed keyline.</td><td data-label="Pair it with">Also set the disabled attribute.</td></tr>
     </tbody>
   </table>
 </div>

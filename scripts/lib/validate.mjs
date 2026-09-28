@@ -1,5 +1,5 @@
 // Validates HTML/JSX markup against the MCSS-Lite contracts. Regex-based tokenizer, no dependencies.
-import { classInventory, stateInventory } from './contracts.mjs';
+import { classInventory, stateInventory, nativeStateInventory } from './contracts.mjs';
 
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
 const PREFIXED = /^[clu]-[a-z0-9]/;
@@ -27,6 +27,7 @@ function levenshtein(a, b) {
 export function createValidator(contracts) {
   const inventory = classInventory(contracts);
   const states = stateInventory(contracts);
+  const nativeStates = nativeStateInventory(contracts);
   const names = [...inventory.keys()];
   const suggest = (cls) => {
     const best = names.map((n) => [n, levenshtein(cls, n)]).sort((a, b) => a[1] - b[1])[0];
@@ -101,7 +102,10 @@ export function createValidator(contracts) {
         const blocks = classes.filter((c) => inventory.get(c)?.kind === 'block');
         if (blocks.length) {
           const allowed = blocks.some((b) => states.get(b)?.has(dataState));
-          if (!allowed) {
+          const native = blocks.map((b) => nativeStates.get(b)?.get(dataState)).find(Boolean);
+          if (!allowed && native) {
+            report('error', 'invalid-state', at, `"${dataState}" is a native state of ${blocks.join(', ')}: don't use data-state. ${native.pair ?? `Style comes from ${native.selector}.`}`);
+          } else if (!allowed) {
             const list = blocks.map((b) => `${b}: ${[...(states.get(b) ?? [])].join(', ') || 'none'}`).join('; ');
             report('error', 'invalid-state', at, `data-state="${dataState}" is not a state of ${blocks.join(', ')} (allowed: ${list}).`);
           } else {
@@ -148,8 +152,17 @@ function checkStatePair(tag, attrs, state, warn) {
     }
     if (tag === 'a' && attr(attrs, 'aria-disabled') !== 'true') warn('data-state="disabled" on <a> also needs aria-disabled="true".');
   }
-  if (state === 'error' && attr(attrs, 'aria-invalid') !== 'true') warn('data-state="error" also needs aria-invalid="true" and aria-describedby pointing at the error message.');
-  if (state === 'loading' && (attr(attrs, 'aria-busy') !== 'true' || attr(attrs, 'aria-disabled') !== 'true')) {
-    warn('data-state="loading" also needs aria-busy="true" and aria-disabled="true".');
+  // ARIA 1.2 doesn't allow aria-invalid on a fieldset: a group error is linked with aria-describedby instead.
+  if (state === 'error' && tag === 'fieldset') {
+    if (!attr(attrs, 'aria-describedby')) warn('data-state="error" on a <fieldset> also needs aria-describedby pointing at the c-form-field__error message.');
+  } else if (state === 'error' && attr(attrs, 'aria-invalid') !== 'true') {
+    warn('data-state="error" also needs aria-invalid="true" and aria-describedby pointing at the error message.');
+  }
+  if (state === 'loading') {
+    if (formControl && (attr(attrs, 'aria-busy') !== 'true' || attr(attrs, 'aria-disabled') !== 'true')) {
+      warn('data-state="loading" also needs aria-busy="true" and aria-disabled="true".');
+    } else if (!formControl && attr(attrs, 'aria-busy') !== 'true') {
+      warn('data-state="loading" also needs aria-busy="true".');
+    }
   }
 }

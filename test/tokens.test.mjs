@@ -72,6 +72,14 @@ const PAIRS = [
   // The ring is drawn with a 2px offset, so it sits on the surrounding background, not on the button fill.
   ['color.border.interactive', 'color.background.interactive', 3],
   ['color.border.interactive', 'color.background.interactive-hover', 3],
+  // Checkbox, radio and toggle (0.4.0): the ink fill against the page, its mark, and the toggle thumb's edge on both tracks.
+  ['color.text.inverse', 'color.text.default', 3],
+  ['color.text.default', 'color.background.raised', 3],
+  ['color.border.interactive', 'color.background.default', 3],
+  ['color.border.interactive', 'color.background.raised', 3],
+  ['color.border.keyline', 'color.background.muted', 3],
+  ['color.text.default', 'color.background.interactive', 4.5],
+  ['color.border.error', 'color.background.raised', 3],
 ];
 
 for (const mode of MODES) {

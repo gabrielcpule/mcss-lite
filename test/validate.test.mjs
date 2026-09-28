@@ -83,3 +83,18 @@ test('CLI: unknown command exits 2; explicitly named files are checked whatever 
   assert.equal(run('validate', md), 1);
   assert.equal(run('validate', dir), 2, 'a directory with no markup files is a usage error');
 });
+
+test('native states (checked, indeterminate…) are refused as data-state, with a hint', () => {
+  const [issue] = validate('<div class="c-checkbox" data-state="checked"><input class="c-checkbox__input" type="checkbox" id="a"><label class="c-checkbox__label" for="a">Agree</label></div>');
+  assert.equal(issue.rule, 'invalid-state');
+  assert.match(issue.message, /native state of c-checkbox/);
+  assert.deepEqual(validate('<div class="c-toggle" data-state="loading" aria-busy="true"><input class="c-toggle__input" type="checkbox" role="switch" id="t" disabled><label class="c-toggle__label" for="t">Beta</label></div>'), []);
+});
+
+test('a group error on a fieldset pairs with aria-describedby, not aria-invalid', () => {
+  const group = (extra) => `<fieldset class="c-form-field" data-state="error"${extra}><legend class="c-form-field__label">Plan</legend><p class="c-form-field__error" id="e">Choose a plan.</p></fieldset>`;
+  assert.deepEqual(validate(group(' aria-describedby="e"')), []);
+  const [issue] = validate(group(''));
+  assert.equal(issue.rule, 'state-pair');
+  assert.match(issue.message, /aria-describedby/);
+});

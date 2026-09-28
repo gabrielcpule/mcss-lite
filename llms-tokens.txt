@@ -172,6 +172,18 @@ Optional overrides. They are unset by default; each component falls back to the 
 | `--modal-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
 | `--modal-radius` | `--border-radius-lg` | 0.5rem |
 | `--modal-shadow` | `--shadow-elevated` | 0 2px 0 #1a1d20, 0 10px 24px -4px rgb(26 29 32 / 0.22) / 0 2px 0 rgb(0 0 0 / 0.7), 0 12px 28px -4px rgb(0 0 0 / 0.6) |
+| `--checkbox-size` | `--space-6` | 1.5rem |
+| `--checkbox-background` | `--color-background-interactive` | #ffffff / #14294d |
+| `--checkbox-border` | `--color-border-interactive` | #1a1d20 / #a9bacb |
+| `--checkbox-checked-background` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--checkbox-mark` | `--color-text-inverse` | #ffffff / #0f2140 |
+| `--checkbox-radius` | `--border-radius-base` | 0.25rem |
+| `--radio-dot` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--toggle-track-off` | `--color-background-muted` | #e9ecef / #27436f |
+| `--toggle-track-on` | `--color-text-default` | #1a1d20 / #e6edf4 |
+| `--toggle-thumb` | `--color-background-interactive` | #ffffff / #14294d |
+| `--toggle-border` | `--color-border-keyline` | #1a1d20 / #cfdae5 |
+| `--toggle-mark` | `--color-text-default` | #1a1d20 / #e6edf4 |
 
 ## Primitive colors (do not use in components)
 

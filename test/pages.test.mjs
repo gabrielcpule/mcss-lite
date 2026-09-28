@@ -48,6 +48,9 @@ test('the schema accepts beta and since, and rejects unknown statuses', () => {
   assert.deepEqual(validateSchema(schema, { ...base, status: 'beta', since: '0.4.0' }), []);
   assert.ok(validateSchema(schema, { ...base, status: 'experimental' }).length > 0);
   assert.ok(validateSchema(schema, { ...base, status: 'stable', since: 'soon' }).length > 0);
+  const state = (s) => validateSchema(schema, { ...base, status: 'beta', states: [s] });
+  assert.deepEqual(state({ name: 'checked', description: 'On.', native: true, selector: ':checked' }), []);
+  assert.ok(state({ name: 'checked', description: 'On.', native: true }).some((e) => /selector/.test(e)), 'a native state needs its selector');
 });
 
 test('snippet ids are namespaced together with their references', () => {

@@ -45,10 +45,18 @@ export function classInventory(contracts) {
   return map;
 }
 
-// block -> Set of allowed data-state values
+// block -> Set of allowed data-state values. Native states (checked, aria-invalid…) are not data-state values.
 export function stateInventory(contracts) {
-  return new Map(contracts.filter((c) => c.layer !== 'utility').map((c) => [c.block, new Set((c.states ?? []).map((s) => s.name))]));
+  return new Map(contracts.filter((c) => c.layer !== 'utility').map((c) => [c.block, new Set((c.states ?? []).filter((s) => !s.native).map((s) => s.name))]));
 }
+
+// block -> Map of native state name -> state, for hints when someone writes data-state="checked".
+export function nativeStateInventory(contracts) {
+  return new Map(contracts.map((c) => [c.block, new Map((c.states ?? []).filter((s) => s.native).map((s) => [s.name, s]))]));
+}
+
+// How a state is written in markup: data-state="error", or the native selector (:checked).
+export const stateLabel = (s) => (s.native ? s.selector : `data-state="${s.name}"`);
 
 export const localCustomProperties = (contracts) =>
   new Set(contracts.flatMap((c) => (c.customProperties ?? []).map((p) => p.name)));

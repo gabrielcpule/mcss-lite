@@ -338,6 +338,283 @@
     color: var(--color-text-error);
   }
 
+  /* A group of checkboxes or radios: the fieldset carries the error, the controls wear it. */
+  fieldset.c-form-field {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .c-form-field[data-state="error"] :is(.c-checkbox__input, .c-radio__input) {
+    border-color: var(--color-border-error);
+    border-block-end-width: var(--border-width-thicker);
+  }
+
+  /* === Checkbox, radio, toggle ===
+     A native control beside its label. Every state is native (checked, disabled, aria-invalid), so the
+     browser keeps the role, the keyboard and form submission. The label is 44px tall and pads the hit area. */
+  .c-checkbox,
+  .c-radio,
+  .c-toggle {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    color: var(--color-text-default);
+  }
+
+  .c-checkbox__label,
+  .c-radio__label,
+  .c-toggle__label {
+    display: flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    padding-inline-start: var(--space-3);
+    cursor: pointer;
+  }
+
+  .c-checkbox__hint,
+  .c-radio__hint,
+  .c-toggle__hint {
+    grid-column: 2;
+    margin: calc(-1 * var(--space-2)) 0 0;
+    padding-inline-start: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-subtle);
+  }
+
+  /* The box and the ring: a small brick on its 2px edge. */
+  .c-checkbox__input,
+  .c-radio__input {
+    appearance: none;
+    display: grid;
+    place-content: center;
+    flex: none;
+    inline-size: var(--checkbox-size, var(--space-6));
+    block-size: var(--checkbox-size, var(--space-6));
+    margin: 0;
+    border: var(--border-width-thick) solid var(--checkbox-border, var(--color-border-interactive));
+    border-radius: var(--checkbox-radius, var(--border-radius-base));
+    background-color: var(--checkbox-background, var(--color-background-interactive));
+    box-shadow: var(--shadow-raised);
+    cursor: pointer;
+    print-color-adjust: exact;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  /* Round means pick one: the radio is a stud seen from above. */
+  .c-radio__input {
+    border-radius: var(--border-radius-full);
+  }
+
+  /* Pressing seats the part; it springs back when released, so a checked box stays level with its label. */
+  .c-checkbox__input:active:not(:disabled),
+  .c-radio__input:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: none;
+  }
+
+  /* Checked: seated and ink-filled, like a pressed piece. Blue stays for actions. */
+  .c-checkbox__input:checked,
+  .c-checkbox__input:indeterminate {
+    border-color: var(--checkbox-checked-background, var(--color-text-default));
+    background-color: var(--checkbox-checked-background, var(--color-text-default));
+    box-shadow: none;
+  }
+
+  /* The tick, drawn with two borders; it draws in from the top when checked. */
+  .c-checkbox__input::before {
+    content: "";
+    inline-size: 0.375rem;
+    block-size: 0.6875rem;
+    border: solid var(--checkbox-mark, var(--color-text-inverse));
+    border-width: 0 0.1875rem 0.1875rem 0;
+    transform: translateY(-0.0625rem) rotate(45deg);
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path var(--duration-fast) var(--ease-out);
+  }
+
+  .c-checkbox__input:checked::before {
+    clip-path: inset(0);
+  }
+
+  /* Mixed: a flat bar, never a value. Set from JavaScript (input.indeterminate = true). */
+  .c-checkbox__input:indeterminate::before {
+    inline-size: 0.625rem;
+    block-size: 0;
+    border-width: 0 0 0.1875rem;
+    transform: none;
+    clip-path: inset(0);
+  }
+
+  .c-radio__input::before {
+    content: "";
+    inline-size: 0.625rem;
+    block-size: 0.625rem;
+    border-radius: var(--border-radius-full);
+    background-color: var(--radio-dot, var(--color-text-default));
+    transform: scale(0);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .c-radio__input:checked {
+    border-color: var(--radio-dot, var(--color-text-default));
+    box-shadow: none;
+  }
+
+  .c-radio__input:checked::before {
+    transform: scale(1);
+  }
+
+  /* Error: red keyline plus a heavier bottom edge, so it never relies on hue alone. */
+  .c-checkbox__input[aria-invalid="true"] {
+    border-color: var(--color-border-error);
+    border-block-end-width: var(--border-width-thicker);
+  }
+
+  :is(.c-checkbox__input[aria-invalid="true"], .c-form-field[data-state="error"] :is(.c-checkbox__input, .c-radio__input)):focus-visible {
+    outline-color: var(--color-focus-ring-error);
+  }
+
+  /* === Toggle ===
+     A thumb brick sliding in a keylined channel. It shows a bar when off and a tick when on,
+     so the state never relies on its position or color alone. */
+  .c-toggle__input {
+    appearance: none;
+    position: relative;
+    flex: none;
+    inline-size: 3rem;
+    block-size: 1.5rem;
+    margin: 0;
+    border: var(--border-width-thick) solid var(--toggle-border, var(--color-border-keyline));
+    border-radius: var(--border-radius-base);
+    background-color: var(--toggle-track-off, var(--color-background-muted));
+    cursor: pointer;
+    print-color-adjust: exact;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .c-toggle__input::before,
+  .c-toggle__input::after {
+    content: "";
+    position: absolute;
+    transition: inset-inline-start var(--duration-fast) var(--ease-out);
+  }
+
+  /* The thumb. */
+  .c-toggle__input::before {
+    inset-block-start: 0.125rem;
+    inset-inline-start: 0.125rem;
+    inline-size: 1rem;
+    block-size: 1rem;
+    border: var(--border-width-thick) solid var(--toggle-border, var(--color-border-keyline));
+    border-radius: var(--border-radius-sm);
+    background-color: var(--toggle-thumb, var(--color-background-interactive));
+  }
+
+  /* Off: a bar on the thumb. */
+  .c-toggle__input::after {
+    inset-block-start: calc(0.625rem - 1px);
+    inset-inline-start: 0.375rem;
+    inline-size: 0.5rem;
+    block-size: 0;
+    border-block-start: var(--border-width-thick) solid var(--toggle-mark, var(--color-text-default));
+  }
+
+  .c-toggle__input:checked {
+    background-color: var(--toggle-track-on, var(--color-text-default));
+  }
+
+  .c-toggle__input:checked::before {
+    inset-inline-start: calc(100% - 1.125rem);
+  }
+
+  /* On: a tick on the thumb. */
+  .c-toggle__input:checked::after {
+    inset-block-start: 0.3125rem;
+    inset-inline-start: calc(100% - 0.75rem);
+    inline-size: 0.25rem;
+    block-size: 0.5rem;
+    border: solid var(--toggle-mark, var(--color-text-default));
+    border-width: 0 var(--border-width-thick) var(--border-width-thick) 0;
+    transform: rotate(45deg);
+  }
+
+  /* Saving: a neutral track with moving stripes, so it reads as neither on nor off yet. */
+  .c-toggle[data-state="loading"] .c-toggle__input {
+    cursor: progress;
+    background-color: var(--toggle-track-off, var(--color-background-muted));
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-action-loading-stripe) 0 0.5rem,
+      transparent 0.5rem 1rem
+    );
+    background-size: 200% 100%;
+    animation: c-button-loading 1.2s linear infinite;
+  }
+
+  /* Disabled: ghosted with a dashed keyline, like every other part. A saving toggle stays solid. */
+  .c-checkbox__input:disabled,
+  .c-radio__input:disabled,
+  .c-toggle__input:disabled {
+    border-style: dashed;
+    box-shadow: none;
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  :is(.c-checkbox__input, .c-radio__input, .c-toggle__input):disabled + :is(.c-checkbox__label, .c-radio__label, .c-toggle__label) {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  .c-toggle[data-state="loading"] .c-toggle__input:disabled {
+    border-style: solid;
+    opacity: 1;
+    cursor: progress;
+  }
+
+  .c-toggle[data-state="loading"] .c-toggle__input:disabled + .c-toggle__label {
+    color: var(--color-text-default);
+    cursor: progress;
+  }
+
+  /* Forced colors: native checkboxes and radios are the most reliable; the toggle redraws in system colors. */
+  @media (forced-colors: active) {
+    .c-checkbox__input,
+    .c-radio__input {
+      appearance: auto;
+      box-shadow: none;
+    }
+
+    .c-checkbox__input::before,
+    .c-radio__input::before {
+      content: none;
+    }
+
+    .c-toggle__input {
+      forced-color-adjust: none;
+      border-color: ButtonText;
+      background-color: Canvas;
+    }
+
+    .c-toggle__input:checked {
+      background-color: Highlight;
+    }
+
+    .c-toggle__input::before {
+      border-color: ButtonText;
+      background-color: Canvas;
+    }
+
+    .c-toggle__input::after {
+      border-color: ButtonText;
+    }
+  }
+
   /* === Badge / Tag === */
   .c-badge {
     display: inline-flex;

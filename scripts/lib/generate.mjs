@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import {
   loadTokens, tokensForMode, tokenToCss, resolvedCss, isAlias, aliasPath, isFigmaExcluded, MODES,
 } from './tokens.mjs';
-import { loadContracts, loadExamples } from './contracts.mjs';
+import { loadContracts, loadExamples, stateLabel } from './contracts.mjs';
 import { buildDemo } from './demo.mjs';
 import { buildPages } from './pages.mjs';
 import { cdnUrl, gitSpec } from './release.mjs';
@@ -30,7 +30,7 @@ export const RULES = [
   {
     id: 'states',
     title: 'States use data-state plus the native or ARIA pair',
-    text: 'Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy).',
+    text: 'Express component state with data-state="…" (for example data-state="error"), and always add the paired native attribute or ARIA listed for that state (disabled, aria-invalid, aria-busy). Checkboxes, radios and toggles are the exception: their states are native (checked, disabled, aria-invalid) and never use data-state.',
   },
   {
     id: 'theming',
@@ -304,12 +304,12 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     '',
     'Modifier groups are separated by `·`. Within a group, pick at most one (for example `c-button--primary` or `c-button--ghost`, never both; `l-grid--3-col` or `l-grid--responsive`, never both). Modifiers from different groups combine (`c-button--primary c-button--sm`).',
     '',
-    '| Class | Layer | Modifiers | Elements | data-state | Use for |',
+    '| Class | Layer | Modifiers | Elements | States | Use for |',
     '|---|---|---|---|---|---|',
     ...contracts.filter((c) => c.layer !== 'utility').map((c) => {
       const mods = (c.modifiers ?? []).map((m) => m.values.map((v) => `--${v.name}`).join(' ')).join(' · ') || '—';
       const els = (c.elements ?? []).map((e) => `__${e.name}`).join(' ') || '—';
-      const states = (c.states ?? []).map((s) => s.name).join(' ') || '—';
+      const states = (c.states ?? []).map((s) => (s.native ? s.selector : s.name)).join(' ') || '—';
       const status = c.status === 'deprecated' ? ` **Deprecated → \`${c.replacement}\`.**` : '';
       return `| \`${c.block}\` | ${c.layer} | ${mods} | ${els} | ${states} | ${firstSentence(c.description)}${status} |`;
     }),
@@ -347,7 +347,7 @@ function buildDocs(pkg, tokenRows, contracts, examples, content) {
     }
     if (c.states?.length) {
       out.push('**States:**');
-      for (const s of c.states) out.push(`- \`data-state="${s.name}"\`: ${s.description}${s.pair ? ` ${s.pair}` : ''}`);
+      for (const s of c.states) out.push(`- \`${stateLabel(s)}\`${s.native ? ' (native)' : ''}: ${s.description}${s.pair ? ` ${s.pair}` : ''}`);
       out.push('');
     }
     if (c.customProperties?.length) {

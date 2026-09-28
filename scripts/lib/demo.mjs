@@ -3,7 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
-import { classInventory } from './contracts.mjs';
+import { classInventory, stateLabel } from './contracts.mjs';
 import { cdnUrl, gitSpec } from './release.mjs';
 
 // Authored part glyphs: one per block, drawn in the 2px ink keyline (24px grid).
@@ -132,7 +132,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     }
     const mods = (c.modifiers ?? []).flatMap((m) => m.values.map((v) => `<code>--${esc(v.name)}</code>`)).join(' ');
     const els = (c.elements ?? []).map((e) => `<code>__${esc(e.name)}</code>`).join(' ');
-    const states = (c.states ?? []).map((s) => `<code>data-state="${esc(s.name)}"</code>`).join(' ');
+    const states = (c.states ?? []).map((s) => `<code>${esc(stateLabel(s))}</code>`).join(' ');
     const meta = [
       mods && `<span class="demo-part__row"><span class="demo-part__key">Modifiers</span> ${mods}</span>`,
       els && `<span class="demo-part__row"><span class="demo-part__key">Elements</span> ${els}</span>`,
