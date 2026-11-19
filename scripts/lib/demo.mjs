@@ -84,8 +84,7 @@ ${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === 
 
 // Head assets shared by every page. The theme is set before first paint, so a saved dark theme never
 // flashes light; the library's @import files are preloaded so they don't wait for index.css. demo.js is
-// deferred but render-blocking, so its pagereveal listener (the page turn's direction) is in place before
-// the first frame.
+// deferred but render-blocking, so the sticky chrome is measured before the first frame.
 const LIB_FILES = ['tokens', 'global', 'layout', 'components', 'utilities'];
 export const demoHead = (rel) => `<script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="${rel}fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -392,7 +391,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const stepHtml = (s, n) => {
     const layout = stepLayout(s);
     const isModal = s.blocks.includes('c-modal');
-    const stageClass = ['demo-stage', isModal && 'demo-stage--contain', s.wide && 'demo-stage--baseplate demo-exploded', !isModal && !s.wide && 'demo-settle'].filter(Boolean).join(' ');
+    const stageClass = ['demo-stage', isModal && 'demo-stage--contain', s.wide && 'demo-stage--baseplate', !isModal && !s.wide && 'demo-settle'].filter(Boolean).join(' ');
     // Stage links point back to this step so the demo never leads to a 404.
     const stage = (isModal ? inlinePreview(example(s.example)) : example(s.example)).replace(new RegExp(`href="(?!#${ICON_PREFIX})[^"]*"`, 'g'), `href="#step-${n}"`);
     const present = partsIn(example(s.example));
@@ -418,6 +417,17 @@ ${indent(stage, 2)}
     const extra = isModal
       ? `\n<div class="l-cluster demo-stage-actions">\n  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>\n</div>`
       : '';
+    // The baseplate is built plainly; its own switch, on the stage's top edge, pulls just this build apart
+    // with the Exploded view's motion (CSS reads the switch, so it works without JS too).
+    const plateSwitch = s.wide
+      ? `<div class="demo-plate-switch">
+  <div class="c-toggle">
+    <input class="c-toggle__input" type="checkbox" role="switch" id="plate-explode" aria-describedby="plate-explode-hint">
+    <label class="c-toggle__label" for="plate-explode">Exploded view of this build</label>
+    <p class="c-toggle__hint u-sr-only" id="plate-explode-hint">Outlines each layout in this build and tags every part. The Exploded view switch in the build bar does the same for the whole page.</p>
+  </div>
+</div>\n`
+      : '';
     const open = (cls) => `<section class="${cls}" id="step-${n}" aria-labelledby="step-${n}-title">`;
     // A sheet is one column: the step, its parts, then the build.
     if (layout === 'sheet') {
@@ -432,7 +442,7 @@ ${indent([intro, calloutHtml, `${figure}${extra}`].join('\n'), 2)}
 ${indent(`${intro}\n${calloutHtml}`, 6)}
     </div>
     <div class="demo-step__build">
-${indent(`${layout === 'split' ? `${ARROW_SVG}\n` : ''}${figure}${extra}`, 6)}
+${indent(`${layout === 'split' ? `${ARROW_SVG}\n` : ''}${plateSwitch}${figure}${extra}`, 6)}
     </div>
   </div>
 </section>`;

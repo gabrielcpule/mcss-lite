@@ -8,7 +8,7 @@
   "steps": [
     {
       "title": "Lay the baseplate",
-      "text": "Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.",
+      "text": "Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Switch the build below to its exploded view to see each layout as a dashed outline.",
       "blocks": [
         "l-section",
         "l-container",

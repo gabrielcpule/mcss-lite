@@ -206,7 +206,7 @@
                 <p class="demo-step__numeral" aria-hidden="true">1</p>
                 <div class="demo-step__words">
                   <h2 class="demo-step__title" id="step-1-title"><span class="u-sr-only">Step 1: </span>Lay the baseplate</h2>
-                  <p class="demo-step__text">Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.</p>
+                  <p class="demo-step__text">Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Switch the build below to its exploded view to see each layout as a dashed outline.</p>
                 </div>
               </div>
               <div class="demo-callout">
@@ -216,7 +216,14 @@
               </div>
             </div>
             <div class="demo-step__build">
-              <figure class="demo-stage demo-stage--baseplate demo-exploded">
+              <div class="demo-plate-switch">
+                <div class="c-toggle" data-part="c-toggle">
+                  <input class="c-toggle__input" type="checkbox" role="switch" id="plate-explode" aria-describedby="plate-explode-hint">
+                  <label class="c-toggle__label" for="plate-explode">Exploded view of this build</label>
+                  <p class="c-toggle__hint u-sr-only" id="plate-explode-hint">Outlines each layout in this build and tags every part. The Exploded view switch in the build bar does the same for the whole page.</p>
+                </div>
+              </div>
+              <figure class="demo-stage demo-stage--baseplate">
                 <section class="l-section l-section--sm" data-part="l-section l-section--sm">
                   <div class="l-container" data-part="l-container">
                     <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
