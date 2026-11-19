@@ -107,10 +107,11 @@
   }
 }
 
-/* The agent row: AGENTS.md, then a folded menu of every file an agent reads. The menu opens in the
-   flow (it never floats), so it can't run under the sticky switch bar below the hero. Its fixed basis
-   keeps the summary on the same line whether the menu is open or shut. */
+/* The agent row: AGENTS.md, then a folded menu of every file an agent reads. The menu floats over the
+   page below the row (popover layer, above the sticky switch bar) instead of pushing content down. It
+   is anchored to the row, not the summary, so on a phone it can use the row's full width. */
 .proto-j .proto-j-agents {
+  position: relative;
   align-items: flex-start;
 }
 
@@ -126,9 +127,19 @@
   min-inline-size: 0;
 }
 
+/* The list floats, so the open summary keeps its closed height (demo.css adds a gap under open summaries). */
+.proto-j .proto-j-menu[open] > summary {
+  margin-block-end: 0;
+}
+
 .proto-j .proto-j-menu__list {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-1));
+  inset-inline-start: 0;
+  z-index: var(--z-index-popover);
   display: grid;
-  max-inline-size: 24rem;
+  inline-size: max-content;
+  max-inline-size: min(24rem, 100%);
   margin: 0;
   padding: var(--space-2) var(--space-4);
   list-style: none;
@@ -872,7 +883,7 @@
 @media (prefers-reduced-motion: no-preference) {
   /* Everything in the hero is in place by about 700ms. */
   .proto-j .proto-j-line > span {
-    animation: proto-j-rise 600ms var(--ease-out-expo) both;
+    animation: proto-j-rise 600ms var(--ease-out-expo) backwards;
   }
 
   .proto-j .proto-j-line + .proto-j-line > span {
@@ -880,18 +891,18 @@
   }
 
   .proto-j .proto-j-lede {
-    animation: proto-j-up 450ms var(--ease-out-expo) 140ms both;
+    animation: proto-j-up 450ms var(--ease-out-expo) 140ms backwards;
   }
 
   .proto-j .proto-j-get > * {
-    animation: proto-j-up 450ms var(--ease-out-expo) 180ms both;
+    animation: proto-j-up 450ms var(--ease-out-expo) 180ms backwards;
   }
 
   .proto-j .proto-j-get > :nth-child(2) { animation-delay: 210ms; }
   .proto-j .proto-j-get > :nth-child(3) { animation-delay: 240ms; }
 
   .proto-j .proto-j-box {
-    animation: proto-j-drop 700ms var(--ease-out-expo) 60ms both;
+    animation: proto-j-drop 700ms var(--ease-out-expo) 60ms backwards;
   }
 
   /* Progressive: only where scroll-driven animation exists. The animation fills forwards only, so a
