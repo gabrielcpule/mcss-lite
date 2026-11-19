@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="demo.css">
 </head>
-<body class="demo">
+<body class="demo demo-home">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
     <symbol id="mcss-icon-arrow-right" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12h14"/><path vector-effect="non-scaling-stroke" d="M13 6l6 6-6 6"/></symbol>
     <symbol id="mcss-icon-check" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12.5l4.5 4.5L19 7"/></symbol>
@@ -59,513 +59,635 @@
   </header>
 
   <main id="main">
-    <section class="demo-hero" aria-labelledby="demo-title">
-      <div class="l-container demo-hero__grid">
-        <div class="demo-hero__claim">
-          <h1 class="demo-hero__title" id="demo-title">Build UI from declared parts</h1>
+    <section class="l-section demo-hero" data-part="l-section" aria-labelledby="demo-title">
+      <div class="l-container demo-hero__grid" data-part="l-container">
+        <div class="l-stack demo-hero__claim" data-part="l-stack">
+          <h1 class="demo-hero__title" id="demo-title"><span class="demo-hero__line"><span>Build UI from</span></span> <span class="demo-hero__line"><span>declared parts</span></span></h1>
           <p class="demo-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
-          <div class="demo-proof">
-            <p class="demo-proof__guess"><span class="demo-proof__key">An agent guesses</span> <code>c-button--warning</code></p>
-            <p class="demo-proof__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist.</span></p>
-            <p><a href="#wrong-piece">See the piece that doesn't fit</a></p>
-          </div>
-          <div class="demo-install">
-            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr><span class="demo-code__token">mcss-lite</span>@v0.4.1/<wbr>dist/<wbr><span class="demo-code__token">mcss-lite.min.css</span>"&gt;</code>
-            <button type="button" class="c-button c-button--sm" data-copy="install-cmd" data-copied="Stylesheet link copied.">Copy</button>
-          </div>
-          <p class="demo-install__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
-          <p class="demo-links"><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></p>
         </div>
 
-        <aside class="demo-inventory" aria-labelledby="inventory-title">
-          <h2 class="demo-inventory__title" id="inventory-title">What's in the box</h2>
-          <div class="demo-bag">
-            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">1</span> Layouts <span class="demo-bag__count">8 parts</span></h3>
-            <ul class="demo-bag__list" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="components/center.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 12h8"/></svg><code>l-center</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/container.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="M6 4v16M18 4v16"/></svg><code>l-container</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/grid.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/section.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/></svg><code>l-section</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/sidebar.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16" rx="1"/><rect x="11" y="4" width="10" height="16" rx="1"/></svg><code>l-sidebar</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/switcher.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><path d="M7 15v4h10v-4"/><path d="M15 17l2 2 2-2"/></svg><code>l-switcher</code></a></li></ul>
+        <div class="l-stack demo-hero__get" data-part="l-stack">
+          <div class="demo-install">
+            <code class="demo-install__cmd" id="install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr><span class="demo-code__token">mcss-lite</span>@v0.4.1/<wbr>dist/<wbr><span class="demo-code__token">mcss-lite.min.css</span>"&gt;</code>
+            <button type="button" class="c-button c-button--sm" data-part="c-button c-button--sm" data-copy="install-cmd" data-copied="Stylesheet link copied.">Copy</button>
           </div>
-          <div class="demo-bag">
-            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">2</span> Components <span class="demo-bag__count">11 parts + 1 deprecated</span></h3>
-            <ul class="demo-bag__list" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="components/alert.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg><code>c-alert</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/card.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code>c-card</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-checkbox</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code>c-icon</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code>c-input</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code>c-modal</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/radio.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg><code>c-radio</code></a></li><li class="demo-bag__part"><a class="demo-bag__link" href="components/toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code>c-toggle</code></a></li></ul>
+          <p class="demo-install__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
+          <div class="l-cluster demo-agents" data-part="l-cluster">
+            <a class="demo-agents__link" href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a>
+            <details class="demo-details demo-agents__menu">
+              <summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>For your agent</summary>
+              <ul class="demo-agents__list" role="list">
+                <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token</span></li>
+                <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/llms.txt">llms.txt</a> <span>A short index that points to the full docs</span></li>
+                <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/skills/mcss-lite/SKILL.md">The mcss-lite skill</a> <span>SKILL.md: where each answer lives, and the rules</span></li>
+              </ul>
+            </details>
           </div>
-          <div class="demo-bag">
-            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">3</span> Utilities <span class="demo-bag__count">15 classes</span></h3>
-            <ul class="demo-bag__list" role="list"><li class="demo-bag__part"><a class="demo-bag__link" href="components/utilities.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="6" rx="1"/><path d="M7 10V7h3v3M14 10V7h3v3"/></svg><code>u-*</code></a></li></ul>
+        </div>
+
+        <div class="demo-hero__cover">
+          <div class="demo-lid">
+            <p class="demo-lid__set"><span class="demo-lid__key">Set</span> <span class="demo-lid__num">0.4.1</span></p>
+            <p class="demo-lid__count"><span class="demo-lid__num">19</span> parts <span class="demo-lid__sep" aria-hidden="true"></span> <span class="demo-lid__num">113</span> tokens</p>
           </div>
-          <div class="demo-bag">
-            <h3 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">4</span> Tokens <span class="demo-bag__count">113 to use</span></h3>
-            <p class="demo-bag__note">51 semantic and 62 component tokens, built on 137 primitives you don't use directly.</p>
-            <ul class="demo-swatches" role="list"><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-primary)"></span><code>--color-action-primary</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-danger)"></span><code>--color-action-danger</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-focus-halo)"></span><code>--color-focus-halo</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-callout)"></span><code>--color-background-callout</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-canvas)"></span><code>--color-background-canvas</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-text-default)"></span><code>--color-text-default</code></li></ul>
+          <figure class="demo-stage demo-art demo-exploded" aria-labelledby="art-caption">
+            <article inert class="c-card c-card--elevated demo-art__card" data-part="c-card c-card--elevated">
+              <header class="c-card__header">
+                <div class="l-cluster" data-part="l-cluster">
+                  <p class="c-card__title">Try the beta</p>
+                  <span class="c-badge c-badge--info" data-part="c-badge c-badge--info">Beta</span>
+                </div>
+              </header>
+              <div class="c-card__body">
+                <form class="l-stack" data-part="l-stack">
+                  <div class="c-form-field demo-art__field" data-part="c-form-field">
+                    <label class="c-form-field__label" for="box-email">Work email</label>
+                    <input class="c-input" id="box-email" type="email" autocomplete="email">
+                    <span class="demo-tag demo-tag--part demo-art__input-tag" aria-hidden="true">c-input</span>
+                  </div>
+                  <div class="l-cluster" data-part="l-cluster">
+                    <button type="submit" class="c-button c-button--primary" data-part="c-button c-button--primary">Create account</button>
+                  </div>
+                </form>
+              </div>
+            </article>
+            <figcaption class="demo-art__caption" id="art-caption"><span class="u-sr-only">The picture on the box: a sign-up card built only from MCSS-Lite parts, each part tagged with its class. </span><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></figcaption>
+          </figure>
+          <div class="demo-misfit-note">
+            <svg class="demo-misfit-note__brick" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg>
+            <div class="demo-misfit-note__text">
+              <p>Not in this set: <code>c-button--warning</code>, an agent's guess.</p>
+              <p class="demo-misfit-note__msg"><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist.</p>
+              <p><a href="#wrong-piece">See the piece that doesn't fit</a></p>
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
 
-    <nav class="demo-rail" aria-label="Build steps">
-      <ol class="demo-rail__list" role="list" style="--demo-studs: 9">
-        <li><a class="demo-rail__stud" href="#step-1" data-rail="step-1" data-label="Lay the baseplate"><span class="u-sr-only">Step 1: Lay the baseplate</span><span aria-hidden="true">1</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-2" data-rail="step-2" data-label="Seat the buttons in a cluster"><span class="u-sr-only">Step 2: Seat the buttons in a cluster</span><span aria-hidden="true">2</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-3" data-rail="step-3" data-label="Snap on the badges"><span class="u-sr-only">Step 3: Snap on the badges</span><span aria-hidden="true">3</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-4" data-rail="step-4" data-label="Place cards on the grid"><span class="u-sr-only">Step 4: Place cards on the grid</span><span aria-hidden="true">4</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-5" data-rail="step-5" data-label="Build the form"><span class="u-sr-only">Step 5: Build the form</span><span aria-hidden="true">5</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-6" data-rail="step-6" data-label="Fit the checks and switches"><span class="u-sr-only">Step 6: Fit the checks and switches</span><span aria-hidden="true">6</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-7" data-rail="step-7" data-label="Raise the signals"><span class="u-sr-only">Step 7: Raise the signals</span><span aria-hidden="true">7</span></a></li>
-        <li><a class="demo-rail__stud" href="#step-8" data-rail="step-8" data-label="Fit the dialog"><span class="u-sr-only">Step 8: Fit the dialog</span><span aria-hidden="true">8</span></a></li>
-        <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
-      </ol>
-      <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a step"></p>
-    </nav>
-
-<section class="demo-step demo-step--wide" id="step-1" aria-labelledby="step-1-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">1</p>
-        <h2 class="demo-step__title" id="step-1-title"><span class="u-sr-only">Step 1: </span>Lay the baseplate</h2>
-        <p class="demo-step__text">Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/section.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/></svg><code class="demo-part__name">l-section</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--sm</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/container.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="M6 4v16M18 4v16"/></svg><code class="demo-part__name">l-container</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--narrow</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code class="demo-part__name">l-stack</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--sm</code> <code>--lg</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/center.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 12h8"/></svg><code class="demo-part__name">l-center</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/sidebar.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16" rx="1"/><rect x="11" y="4" width="10" height="16" rx="1"/></svg><code class="demo-part__name">l-sidebar</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__sidebar</code> <code>__content</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/switcher.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><path d="M7 15v4h10v-4"/><path d="M15 17l2 2 2-2"/></svg><code class="demo-part__name">l-switcher</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code>c-card</code><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times in this build</span></span></span> <span class="demo-also"><code>u-text-center</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+    <div class="demo-buildbar">
+      <div class="l-container demo-buildbar__inner">
+        <nav class="demo-buildbar__steps" aria-label="Build steps">
+          <ol class="demo-rail__list" role="list">
+            <li><a class="demo-rail__stud" href="#step-1" data-rail="step-1" data-label="Lay the baseplate"><span class="u-sr-only">Step 1: Lay the baseplate</span><span aria-hidden="true">1</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-2" data-rail="step-2" data-label="Seat the buttons in a cluster"><span class="u-sr-only">Step 2: Seat the buttons in a cluster</span><span aria-hidden="true">2</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-3" data-rail="step-3" data-label="Snap on the badges"><span class="u-sr-only">Step 3: Snap on the badges</span><span aria-hidden="true">3</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-4" data-rail="step-4" data-label="Place cards on the grid"><span class="u-sr-only">Step 4: Place cards on the grid</span><span aria-hidden="true">4</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-5" data-rail="step-5" data-label="Build the form"><span class="u-sr-only">Step 5: Build the form</span><span aria-hidden="true">5</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-6" data-rail="step-6" data-label="Fit the checks and switches"><span class="u-sr-only">Step 6: Fit the checks and switches</span><span aria-hidden="true">6</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-7" data-rail="step-7" data-label="Raise the signals"><span class="u-sr-only">Step 7: Raise the signals</span><span aria-hidden="true">7</span></a></li>
+            <li><a class="demo-rail__stud" href="#step-8" data-rail="step-8" data-label="Fit the dialog"><span class="u-sr-only">Step 8: Fit the dialog</span><span aria-hidden="true">8</span></a></li>
+            <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+          </ol>
+          <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a step"></p>
+        </nav>
+        <div class="demo-buildbar__inspect">
+          <div class="c-toggle">
+            <input class="c-toggle__input" type="checkbox" role="switch" id="explode" aria-describedby="explode-hint">
+            <label class="c-toggle__label" for="explode">Exploded view</label>
+            <p class="c-toggle__hint u-sr-only" id="explode-hint">Outlines every layout on this page and tags every part with its class, like the picture on the box.</p>
+          </div>
+          <ul class="demo-keys" role="list">
+            <li><span class="demo-keys__key demo-keys__key--layout" aria-hidden="true">l-</span> Layout</li>
+            <li><span class="demo-keys__key demo-keys__key--part" aria-hidden="true">c-</span> Component</li>
+          </ul>
         </div>
       </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage demo-stage--baseplate">
-          <section class="l-section l-section--sm">
-            <div class="l-container">
-              <div class="l-stack l-stack--lg">
-                <h3>Projects</h3>
+    </div>
 
-                <div class="l-sidebar">
-                  <nav class="l-sidebar__sidebar" aria-label="Filters">
-                    <div class="l-stack l-stack--sm">
-                      <a class="c-button c-button--ghost c-button--sm" href="#step-1" aria-current="page">All projects</a>
-                      <a class="c-button c-button--ghost c-button--sm" href="#step-1">My projects</a>
-                    </div>
-                  </nav>
-                  <div class="l-sidebar__content">
-                    <div class="l-grid l-grid--3-col">
-                      <article class="c-card">
-                        <h4 class="c-card__title">Atlas</h4>
-                        <p class="c-card__body">12 pages</p>
-                      </article>
-                      <article class="c-card">
-                        <h4 class="c-card__title">Borealis</h4>
-                        <p class="c-card__body">4 pages</p>
-                      </article>
-                      <article class="c-card">
-                        <h4 class="c-card__title">Cirrus</h4>
-                        <p class="c-card__body">7 pages</p>
-                      </article>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="l-switcher" style="--switcher-threshold: 40rem">
-                  <div class="c-card">Side by side on wide screens</div>
-                  <div class="c-card">Stacked on narrow screens</div>
-                </div>
-
-                <div class="l-center">
-                  <p class="u-text-center">Centered at reading width.</p>
-                </div>
-              </div>
+    <section class="l-section demo-box" data-part="l-section" aria-labelledby="box-title">
+      <div class="l-container" data-part="l-container">
+        <div class="l-sidebar" data-part="l-sidebar">
+          <div class="l-sidebar__sidebar">
+            <div class="l-stack demo-box__intro" data-part="l-stack">
+              <h2 class="demo-heading" id="box-title">What's in the box</h2>
+              <p class="demo-text">One stylesheet, packed in four bags. Every name links to its part sheet: when to use it, how to build it and what the validator says when it's wrong.</p>
+              <p class="demo-set"><span class="demo-set__key">Set</span> <span class="demo-set__num">0.4.1</span></p>
             </div>
-          </section>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="demo-step" id="step-2" aria-labelledby="step-2-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">2</p>
-        <h2 class="demo-step__title" id="step-2-title"><span class="u-sr-only">Step 2: </span>Seat the buttons in a cluster</h2>
-        <p class="demo-step__text">l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code class="demo-part__name">l-cluster</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code class="demo-part__name">c-button</code></a><span class="demo-count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--secondary</code> <code>--ghost</code> <code>--danger</code> <code>--sm</code> <code>--lg</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;disabled&quot;</code> <code>data-state=&quot;loading&quot;</code></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
-        </div>
-      </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage">
-          <div class="l-cluster">
-            <button type="button" class="c-button c-button--ghost">Cancel</button>
-            <button type="button" class="c-button">Save draft</button>
-            <button type="button" class="c-button c-button--primary">Publish post</button>
           </div>
-
-          <div class="l-cluster">
-            <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
-            <button type="button" class="c-button c-button--secondary">Duplicate post</button>
-            <button type="button" class="c-button c-button--lg">Create a project</button>
-          </div>
-
-          <div class="l-stack l-stack--sm">
-            <div class="l-cluster">
-              <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="schedule-reason">Schedule post</button>
-              <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
-            </div>
-            <p class="u-margin-0" id="schedule-reason">Add a publish date to schedule the post.</p>
-          </div>
-
-          <div class="l-cluster" role="group" aria-label="View">
-            <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
-            <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
-          </div>
-
-          <button type="button" class="c-button c-button--danger">Delete project</button>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="demo-step" id="step-3" aria-labelledby="step-3-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">3</p>
-        <h2 class="demo-step__title" id="step-3-title"><span class="u-sr-only">Step 3: </span>Snap on the badges</h2>
-        <p class="demo-step__text">Short status labels. The text carries the meaning; the color only reinforces it.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code class="demo-part__name">c-badge</code></a><span class="demo-count"><span aria-hidden="true">6×</span><span class="u-sr-only">, used 6 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--success</code> <code>--warning</code> <code>--error</code> <code>--info</code></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
-        </div>
-      </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage">
-          <div class="l-cluster">
-            <span class="c-badge">Draft</span>
-            <span class="c-badge c-badge--primary">New</span>
-            <span class="c-badge c-badge--success">Active</span>
-            <span class="c-badge c-badge--warning">Expiring</span>
-            <span class="c-badge c-badge--error">Failed</span>
-            <span class="c-badge c-badge--info">Beta</span>
-          </div>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="demo-step" id="step-4" aria-labelledby="step-4-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">4</p>
-        <h2 class="demo-step__title" id="step-4-title"><span class="u-sr-only">Step 4: </span>Place cards on the grid</h2>
-        <p class="demo-step__text">l-grid sets the gap. Cards group related content; an interactive card is one real link. A utility such as u-margin-0 is the last resort, for the one override no part covers.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/grid.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code class="demo-part__name">l-grid</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--2-col</code> <code>--3-col</code> <code>--4-col</code> <code>--responsive</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/card.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code class="demo-part__name">c-card</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--elevated</code> <code>--bordered</code> <code>--interactive</code></span><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__header</code> <code>__title</code> <code>__body</code> <code>__footer</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/utilities.html"><code class="demo-part__name">u-*</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> <code>u-margin-0</code></span><span class="demo-part__row"><a href="components/utilities.html">14 more on the utilities sheet</a></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
-        </div>
-      </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage">
-          <div class="l-grid l-grid--responsive">
-            <article class="c-card">
-              <header class="c-card__header">
-                <div class="l-cluster">
-                  <h3 class="c-card__title">Team plan</h3>
-                  <span class="c-badge c-badge--success">Active</span>
-                </div>
-              </header>
+          <div class="l-sidebar__content">
+            <article class="c-card demo-pack" data-part="c-card" aria-label="Packing list">
               <div class="c-card__body">
-                <p class="u-margin-0">12 of 20 seats used. Renews on 1 March.</p>
+                <ol class="demo-pack__list" role="list">
+                  <li class="demo-pack__row">
+                    <h3 class="demo-pack__head"><span class="demo-pack__bag" aria-hidden="true">1</span><span class="demo-pack__name">Layouts</span><span class="demo-pack__leader" aria-hidden="true"></span><span class="demo-pack__count">8</span><span class="demo-pack__unit">parts</span></h3>
+                    <ul class="l-cluster demo-pack__parts" data-part="l-cluster" role="list"><li><a href="components/center.html"><code>l-center</code></a></li><li><a href="components/cluster.html"><code>l-cluster</code></a></li><li><a href="components/container.html"><code>l-container</code></a></li><li><a href="components/grid.html"><code>l-grid</code></a></li><li><a href="components/section.html"><code>l-section</code></a></li><li><a href="components/sidebar.html"><code>l-sidebar</code></a></li><li><a href="components/stack.html"><code>l-stack</code></a></li><li><a href="components/switcher.html"><code>l-switcher</code></a></li></ul>
+                  </li>
+                  <li class="demo-pack__row">
+                    <h3 class="demo-pack__head"><span class="demo-pack__bag" aria-hidden="true">2</span><span class="demo-pack__name">Components</span><span class="demo-pack__leader" aria-hidden="true"></span><span class="demo-pack__count">11</span><span class="demo-pack__unit">parts</span></h3>
+                    <ul class="l-cluster demo-pack__parts" data-part="l-cluster" role="list"><li><a href="components/alert.html"><code>c-alert</code></a></li><li><a href="components/badge.html"><code>c-badge</code></a></li><li><a href="components/button.html"><code>c-button</code></a></li><li><a href="components/card.html"><code>c-card</code></a></li><li><a href="components/checkbox.html"><code>c-checkbox</code></a></li><li><a href="components/form-field.html"><code>c-form-field</code></a></li><li><a href="components/icon.html"><code>c-icon</code></a></li><li><a href="components/input.html"><code>c-input</code></a></li><li><a href="components/modal.html"><code>c-modal</code></a></li><li><a href="components/radio.html"><code>c-radio</code></a></li><li><a href="components/toggle.html"><code>c-toggle</code></a></li><li><span class="c-badge" data-part="c-badge">Plus 1 deprecated</span></li></ul>
+                  </li>
+                  <li class="demo-pack__row">
+                    <h3 class="demo-pack__head"><span class="demo-pack__bag" aria-hidden="true">3</span><span class="demo-pack__name">Utilities</span><span class="demo-pack__leader" aria-hidden="true"></span><span class="demo-pack__count">15</span><span class="demo-pack__unit">classes</span></h3>
+                    <p class="demo-pack__note">Single-purpose overrides such as <code>u-sr-only</code>, <code>u-margin-0</code> and <code>u-truncate</code>. <a href="components/utilities.html">See all 15 utilities</a></p>
+                  </li>
+                  <li class="demo-pack__row">
+                    <h3 class="demo-pack__head"><span class="demo-pack__bag" aria-hidden="true">4</span><span class="demo-pack__name">Tokens</span><span class="demo-pack__leader" aria-hidden="true"></span><span class="demo-pack__count">113</span><span class="demo-pack__unit">to use</span></h3>
+                    <p class="demo-pack__note">51 semantic and 62 component tokens, built on 137 primitives you don't use directly.</p>
+                    <ul class="demo-swatches" role="list"><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-primary)"></span><code>--color-action-primary</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-danger)"></span><code>--color-action-danger</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-focus-halo)"></span><code>--color-focus-halo</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-callout)"></span><code>--color-background-callout</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-canvas)"></span><code>--color-background-canvas</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-text-default)"></span><code>--color-text-default</code></li></ul>
+                  </li>
+                </ol>
               </div>
               <footer class="c-card__footer">
-                <div class="l-cluster">
-                  <button type="button" class="c-button c-button--sm">Manage seats</button>
-                </div>
+                <p class="u-margin-0"><a href="status.html">Parts inventory</a> lists every part with its status and the version it arrived in.</p>
               </footer>
             </article>
-
-            <article class="c-card c-card--interactive">
-              <div class="c-card__header">
-                <h3 class="c-card__title"><a href="#step-4">Atlas</a></h3>
-              </div>
-              <div class="c-card__body">
-                <p class="u-margin-0">Updated 2 hours ago</p>
-              </div>
-            </article>
-
-            <section class="c-card c-card--bordered">
-              <div class="c-card__body">
-                <p class="u-margin-0">Invoices go to finance@example.com on the 1st of each month.</p>
-              </div>
-            </section>
           </div>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="demo-step" id="step-5" aria-labelledby="step-5-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">5</p>
-        <h2 class="demo-step__title" id="step-5-title"><span class="u-sr-only">Step 5: </span>Build the form</h2>
-        <p class="demo-step__text">Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code class="demo-part__name">c-form-field</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__label</code> <code>__help</code> <code>__error</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code class="demo-part__name">c-input</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code> <code>data-state=&quot;success&quot;</code> <code>data-state=&quot;disabled&quot;</code></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
         </div>
       </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage">
-          <form class="l-stack" novalidate>
-            <div class="c-form-field">
-              <label class="c-form-field__label" for="email">Work email</label>
-              <input class="c-input" id="email" type="email" autocomplete="email" aria-describedby="email-help">
-              <p class="c-form-field__help" id="email-help">We'll send the invite here.</p>
-            </div>
+    </section>
 
-            <div class="c-form-field">
-              <label class="c-form-field__label" for="password">Password</label>
-              <input class="c-input" id="password" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error">
-              <p class="c-form-field__error" id="password-error">Use at least 12 characters.</p>
-            </div>
-
-            <div class="c-form-field">
-              <label class="c-form-field__label" for="org">Organization</label>
-              <input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled>
-            </div>
-
-            <div class="l-cluster">
-              <button type="submit" class="c-button c-button--primary">Create account</button>
-            </div>
-          </form>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="demo-step demo-step--wide demo-step--inset" id="step-6" aria-labelledby="step-6-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">6</p>
-        <h2 class="demo-step__title" id="step-6-title"><span class="u-sr-only">Step 6: </span>Fit the checks and switches</h2>
-        <p class="demo-step__text">Checkboxes pick any number, radios pick exactly one, a toggle applies straight away. All three keep the native input, so every state is a real attribute, not a class.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code class="demo-part__name">c-checkbox</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__input</code> <code>__label</code> <code>__hint</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>:checked</code> <code>:indeterminate</code> <code>:disabled</code> <code>[aria-invalid=&quot;true&quot;]</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/radio.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg><code class="demo-part__name">c-radio</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__input</code> <code>__label</code> <code>__hint</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>:checked</code> <code>:disabled</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code class="demo-part__name">c-toggle</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__input</code> <code>__label</code> <code>__hint</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>:checked</code> <code>:disabled</code> <code>data-state=&quot;loading&quot;</code></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span></p>
-        </div>
-      </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage">
-          <form class="l-grid l-grid--2-col" novalidate>
-            <fieldset class="c-form-field">
-              <legend class="c-form-field__label">Plan</legend>
-              <div class="l-stack l-stack--sm">
-                <div class="c-radio">
-                  <input class="c-radio__input" type="radio" id="plan-team" name="plan" value="team" aria-describedby="plan-team-hint">
-                  <label class="c-radio__label" for="plan-team">Team</label>
-                  <p class="c-radio__hint" id="plan-team-hint">Up to 20 seats, billed monthly.</p>
-                </div>
-                <div class="c-radio">
-                  <input class="c-radio__input" type="radio" id="plan-business" name="plan" value="business" checked>
-                  <label class="c-radio__label" for="plan-business">Business</label>
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <section class="demo-step demo-step--wide" id="step-1" aria-labelledby="step-1-title">
+          <div class="demo-step__grid">
+            <div class="demo-step__head">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral" aria-hidden="true">1</p>
+                <div class="demo-step__words">
+                  <h2 class="demo-step__title" id="step-1-title"><span class="u-sr-only">Step 1: </span>Lay the baseplate</h2>
+                  <p class="demo-step__text">Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.</p>
                 </div>
               </div>
-            </fieldset>
+              <div class="demo-callout">
+                <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+                <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/section.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h20M2 18h20"/><rect x="6" y="9" width="12" height="6" rx="1"/></svg><code class="demo-part__name">l-section</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--sm</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/container.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="M6 4v16M18 4v16"/></svg><code class="demo-part__name">l-container</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--narrow</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/stack.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code class="demo-part__name">l-stack</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--sm</code> <code>--lg</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/center.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 12h8"/></svg><code class="demo-part__name">l-center</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/sidebar.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16" rx="1"/><rect x="11" y="4" width="10" height="16" rx="1"/></svg><code class="demo-part__name">l-sidebar</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__sidebar</code> <code>__content</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/switcher.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><path d="M7 15v4h10v-4"/><path d="M15 17l2 2 2-2"/></svg><code class="demo-part__name">l-switcher</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></li></ul>
+                <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code>c-card</code><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times in this build</span></span></span> <span class="demo-also"><code>u-text-center</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+              </div>
+            </div>
+            <div class="demo-step__build">
+              <figure class="demo-stage demo-stage--baseplate demo-exploded">
+                <section class="l-section l-section--sm" data-part="l-section l-section--sm">
+                  <div class="l-container" data-part="l-container">
+                    <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+                      <h3>Projects</h3>
 
-            <div class="l-stack">
-              <fieldset class="c-form-field" data-state="error" aria-describedby="addons-error">
-                <legend class="c-form-field__label">Add-ons</legend>
-                <div class="l-stack l-stack--sm">
-                  <div class="c-checkbox">
-                    <input class="c-checkbox__input" type="checkbox" id="addon-sso" name="addons" value="sso">
-                    <label class="c-checkbox__label" for="addon-sso">Single sign-on</label>
+                      <div class="l-sidebar" data-part="l-sidebar">
+                        <nav class="l-sidebar__sidebar" aria-label="Filters">
+                          <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                            <a class="c-button c-button--ghost c-button--sm" data-part="c-button" href="#step-1" aria-current="page">All projects</a>
+                            <a class="c-button c-button--ghost c-button--sm" data-part="c-button" href="#step-1">My projects</a>
+                          </div>
+                        </nav>
+                        <div class="l-sidebar__content">
+                          <div class="l-grid l-grid--3-col" data-part="l-grid l-grid--3-col">
+                            <article class="c-card" data-part="c-card">
+                              <h4 class="c-card__title">Atlas</h4>
+                              <p class="c-card__body">12 pages</p>
+                            </article>
+                            <article class="c-card" data-part="c-card">
+                              <h4 class="c-card__title">Borealis</h4>
+                              <p class="c-card__body">4 pages</p>
+                            </article>
+                            <article class="c-card" data-part="c-card">
+                              <h4 class="c-card__title">Cirrus</h4>
+                              <p class="c-card__body">7 pages</p>
+                            </article>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="l-switcher" data-part="l-switcher" style="--switcher-threshold: 40rem">
+                        <div class="c-card" data-part="c-card">Side by side on wide screens</div>
+                        <div class="c-card" data-part="c-card">Stacked on narrow screens</div>
+                      </div>
+
+                      <div class="l-center" data-part="l-center">
+                        <p class="u-text-center">Centered at reading width.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="c-checkbox">
-                    <input class="c-checkbox__input" type="checkbox" id="addon-audit" name="addons" value="audit">
-                    <label class="c-checkbox__label" for="addon-audit">Audit log</label>
+                </section>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <div class="l-grid l-grid--2-col demo-steprow__pair" data-part="l-grid l-grid--2-col">
+          <section class="demo-step demo-step--sheet l-stack" data-part="l-stack" id="step-2" aria-labelledby="step-2-title">
+            <div class="demo-step__intro">
+              <p class="demo-step__numeral" aria-hidden="true">2</p>
+              <div class="demo-step__words">
+                <h2 class="demo-step__title" id="step-2-title"><span class="u-sr-only">Step 2: </span>Seat the buttons in a cluster</h2>
+                <p class="demo-step__text">l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.</p>
+              </div>
+            </div>
+            <div class="demo-callout">
+              <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+              <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code class="demo-part__name">l-cluster</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code class="demo-part__name">c-button</code></a><span class="demo-count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--secondary</code> <code>--ghost</code> <code>--danger</code> <code>--sm</code> <code>--lg</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;disabled&quot;</code> <code>data-state=&quot;loading&quot;</code></span></span></li></ul>
+              <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+            </div>
+            <figure class="demo-stage demo-settle">
+              <div class="l-cluster" data-part="l-cluster">
+                <button type="button" class="c-button c-button--ghost" data-part="c-button">Cancel</button>
+                <button type="button" class="c-button" data-part="c-button">Save draft</button>
+                <button type="button" class="c-button c-button--primary" data-part="c-button">Publish post</button>
+              </div>
+
+              <div class="l-cluster" data-part="l-cluster">
+                <button type="button" class="c-button c-button--secondary c-button--sm" data-part="c-button">Export CSV</button>
+                <button type="button" class="c-button c-button--secondary" data-part="c-button">Duplicate post</button>
+                <button type="button" class="c-button c-button--lg" data-part="c-button">Create a project</button>
+              </div>
+
+              <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                <div class="l-cluster" data-part="l-cluster">
+                  <button type="button" class="c-button" data-part="c-button" data-state="disabled" aria-disabled="true" aria-describedby="schedule-reason">Schedule post</button>
+                  <button type="button" class="c-button" data-part="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+                </div>
+                <p class="u-margin-0" id="schedule-reason">Add a publish date to schedule the post.</p>
+              </div>
+
+              <div class="l-cluster" data-part="l-cluster" role="group" aria-label="View">
+                <button type="button" class="c-button c-button--sm" data-part="c-button" aria-pressed="true">List</button>
+                <button type="button" class="c-button c-button--sm" data-part="c-button" aria-pressed="false">Grid</button>
+              </div>
+
+              <button type="button" class="c-button c-button--danger" data-part="c-button">Delete project</button>
+            </figure>
+          </section>
+          <section class="demo-step demo-step--sheet l-stack" data-part="l-stack" id="step-3" aria-labelledby="step-3-title">
+            <div class="demo-step__intro">
+              <p class="demo-step__numeral" aria-hidden="true">3</p>
+              <div class="demo-step__words">
+                <h2 class="demo-step__title" id="step-3-title"><span class="u-sr-only">Step 3: </span>Snap on the badges</h2>
+                <p class="demo-step__text">Short status labels. The text carries the meaning; the color only reinforces it.</p>
+              </div>
+            </div>
+            <div class="demo-callout">
+              <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+              <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/badge.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code class="demo-part__name">c-badge</code></a><span class="demo-count"><span aria-hidden="true">6×</span><span class="u-sr-only">, used 6 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--success</code> <code>--warning</code> <code>--error</code> <code>--info</code></span></span></li></ul>
+              <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+            </div>
+            <figure class="demo-stage demo-settle">
+              <div class="l-cluster" data-part="l-cluster">
+                <span class="c-badge" data-part="c-badge">Draft</span>
+                <span class="c-badge c-badge--primary" data-part="c-badge">New</span>
+                <span class="c-badge c-badge--success" data-part="c-badge">Active</span>
+                <span class="c-badge c-badge--warning" data-part="c-badge">Expiring</span>
+                <span class="c-badge c-badge--error" data-part="c-badge">Failed</span>
+                <span class="c-badge c-badge--info" data-part="c-badge">Beta</span>
+              </div>
+            </figure>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <section class="demo-step demo-step--split" id="step-4" aria-labelledby="step-4-title">
+          <div class="demo-step__grid">
+            <div class="demo-step__head">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral" aria-hidden="true">4</p>
+                <div class="demo-step__words">
+                  <h2 class="demo-step__title" id="step-4-title"><span class="u-sr-only">Step 4: </span>Place cards on the grid</h2>
+                  <p class="demo-step__text">l-grid sets the gap. Cards group related content; an interactive card is one real link. A utility such as u-margin-0 is the last resort, for the one override no part covers.</p>
+                </div>
+              </div>
+              <div class="demo-callout">
+                <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+                <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/grid.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code class="demo-part__name">l-grid</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--2-col</code> <code>--3-col</code> <code>--4-col</code> <code>--responsive</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/card.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M3 16h18"/></svg><code class="demo-part__name">c-card</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--elevated</code> <code>--bordered</code> <code>--interactive</code></span><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__header</code> <code>__title</code> <code>__body</code> <code>__footer</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/utilities.html"><code class="demo-part__name">u-*</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Used here</span> <code>u-margin-0</code></span><span class="demo-part__row"><a href="components/utilities.html">14 more on the utilities sheet</a></span></span></li></ul>
+                <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/></svg><code>c-badge</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+              </div>
+            </div>
+            <div class="demo-step__build">
+              <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <figure class="demo-stage demo-settle">
+                <div class="l-grid l-grid--responsive" data-part="l-grid l-grid--responsive">
+                  <article class="c-card" data-part="c-card">
+                    <header class="c-card__header">
+                      <div class="l-cluster" data-part="l-cluster">
+                        <h3 class="c-card__title">Team plan</h3>
+                        <span class="c-badge c-badge--success" data-part="c-badge">Active</span>
+                      </div>
+                    </header>
+                    <div class="c-card__body">
+                      <p class="u-margin-0">12 of 20 seats used. Renews on 1 March.</p>
+                    </div>
+                    <footer class="c-card__footer">
+                      <div class="l-cluster" data-part="l-cluster">
+                        <button type="button" class="c-button c-button--sm" data-part="c-button">Manage seats</button>
+                      </div>
+                    </footer>
+                  </article>
+
+                  <article class="c-card c-card--interactive" data-part="c-card">
+                    <div class="c-card__header">
+                      <h3 class="c-card__title"><a href="#step-4">Atlas</a></h3>
+                    </div>
+                    <div class="c-card__body">
+                      <p class="u-margin-0">Updated 2 hours ago</p>
+                    </div>
+                  </article>
+
+                  <section class="c-card c-card--bordered" data-part="c-card">
+                    <div class="c-card__body">
+                      <p class="u-margin-0">Invoices go to finance@example.com on the 1st of each month.</p>
+                    </div>
+                  </section>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <section class="demo-step demo-step--split" id="step-5" aria-labelledby="step-5-title">
+          <div class="demo-step__grid">
+            <div class="demo-step__head">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral" aria-hidden="true">5</p>
+                <div class="demo-step__words">
+                  <h2 class="demo-step__title" id="step-5-title"><span class="u-sr-only">Step 5: </span>Build the form</h2>
+                  <p class="demo-step__text">Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.</p>
+                </div>
+              </div>
+              <div class="demo-callout">
+                <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+                <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code class="demo-part__name">c-form-field</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__label</code> <code>__help</code> <code>__error</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code class="demo-part__name">c-input</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code> <code>data-state=&quot;success&quot;</code> <code>data-state=&quot;disabled&quot;</code></span></span></li></ul>
+                <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+              </div>
+            </div>
+            <div class="demo-step__build">
+              <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <figure class="demo-stage demo-settle">
+                <form class="l-stack" data-part="l-stack" novalidate>
+                  <div class="c-form-field" data-part="c-form-field">
+                    <label class="c-form-field__label" for="email">Work email</label>
+                    <input class="c-input" id="email" type="email" autocomplete="email" aria-describedby="email-help">
+                    <p class="c-form-field__help" id="email-help">We'll send the invite here.</p>
+                  </div>
+
+                  <div class="c-form-field" data-part="c-form-field">
+                    <label class="c-form-field__label" for="password">Password</label>
+                    <input class="c-input" id="password" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error">
+                    <p class="c-form-field__error" id="password-error">Use at least 12 characters.</p>
+                  </div>
+
+                  <div class="c-form-field" data-part="c-form-field">
+                    <label class="c-form-field__label" for="org">Organization</label>
+                    <input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled>
+                  </div>
+
+                  <div class="l-cluster" data-part="l-cluster">
+                    <button type="submit" class="c-button c-button--primary" data-part="c-button">Create account</button>
+                  </div>
+                </form>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <section class="demo-step demo-step--wide demo-step--inset" id="step-6" aria-labelledby="step-6-title">
+          <div class="demo-step__grid">
+            <div class="demo-step__head">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral" aria-hidden="true">6</p>
+                <div class="demo-step__words">
+                  <h2 class="demo-step__title" id="step-6-title"><span class="u-sr-only">Step 6: </span>Fit the checks and switches</h2>
+                  <p class="demo-step__text">Checkboxes pick any number, radios pick exactly one, a toggle applies straight away. All three keep the native input, so every state is a real attribute, not a class.</p>
+                </div>
+              </div>
+              <div class="demo-callout">
+                <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+                <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/checkbox.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><code class="demo-part__name">c-checkbox</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__input</code> <code>__label</code> <code>__hint</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>:checked</code> <code>:indeterminate</code> <code>:disabled</code> <code>[aria-invalid=&quot;true&quot;]</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/radio.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg><code class="demo-part__name">c-radio</code></a><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__input</code> <code>__label</code> <code>__hint</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>:checked</code> <code>:disabled</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/toggle.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="13" y="9.5" width="6" height="5" rx="1"/></svg><code class="demo-part__name">c-toggle</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__input</code> <code>__label</code> <code>__hint</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>:checked</code> <code>:disabled</code> <code>data-state=&quot;loading&quot;</code></span></span></li></ul>
+                <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="7" rx="1"/><rect x="9.5" y="4" width="5" height="7" rx="1"/><rect x="16" y="4" width="5" height="7" rx="1"/><rect x="3" y="13" width="5" height="7" rx="1"/><rect x="9.5" y="13" width="5" height="7" rx="1"/></svg><code>l-grid</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span></p>
+              </div>
+            </div>
+            <div class="demo-step__build">
+              <figure class="demo-stage demo-settle">
+                <form class="l-grid l-grid--2-col" data-part="l-grid l-grid--2-col" novalidate>
+                  <fieldset class="c-form-field" data-part="c-form-field">
+                    <legend class="c-form-field__label">Plan</legend>
+                    <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                      <div class="c-radio" data-part="c-radio">
+                        <input class="c-radio__input" type="radio" id="plan-team" name="plan" value="team" aria-describedby="plan-team-hint">
+                        <label class="c-radio__label" for="plan-team">Team</label>
+                        <p class="c-radio__hint" id="plan-team-hint">Up to 20 seats, billed monthly.</p>
+                      </div>
+                      <div class="c-radio" data-part="c-radio">
+                        <input class="c-radio__input" type="radio" id="plan-business" name="plan" value="business" checked>
+                        <label class="c-radio__label" for="plan-business">Business</label>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <div class="l-stack" data-part="l-stack">
+                    <fieldset class="c-form-field" data-part="c-form-field" data-state="error" aria-describedby="addons-error">
+                      <legend class="c-form-field__label">Add-ons</legend>
+                      <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                        <div class="c-checkbox" data-part="c-checkbox">
+                          <input class="c-checkbox__input" type="checkbox" id="addon-sso" name="addons" value="sso">
+                          <label class="c-checkbox__label" for="addon-sso">Single sign-on</label>
+                        </div>
+                        <div class="c-checkbox" data-part="c-checkbox">
+                          <input class="c-checkbox__input" type="checkbox" id="addon-audit" name="addons" value="audit">
+                          <label class="c-checkbox__label" for="addon-audit">Audit log</label>
+                        </div>
+                      </div>
+                      <p class="c-form-field__error" id="addons-error">Choose at least one add-on for the Business plan.</p>
+                    </fieldset>
+
+                    <div class="c-toggle" data-part="c-toggle">
+                      <input class="c-toggle__input" type="checkbox" role="switch" id="plan-renew" checked>
+                      <label class="c-toggle__label" for="plan-renew">Automatic renewal</label>
+                    </div>
+                  </div>
+                </form>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <section class="demo-step demo-step--wide demo-step--inset" id="step-7" aria-labelledby="step-7-title">
+          <div class="demo-step__grid">
+            <div class="demo-step__head">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral" aria-hidden="true">7</p>
+                <div class="demo-step__words">
+                  <h2 class="demo-step__title" id="step-7-title"><span class="u-sr-only">Step 7: </span>Raise the signals</h2>
+                  <p class="demo-step__text">Alerts are printed notices, not bricks: paper and a keyline, no shadow. Severity shows three ways at once, as a shaped icon, a hidden word and a heavier bottom edge, so it never rests on color.</p>
+                </div>
+              </div>
+              <div class="demo-callout">
+                <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+                <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/alert.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg><code class="demo-part__name">c-alert</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--info</code> <code>--success</code> <code>--warning</code> <code>--error</code></span><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__icon</code> <code>__body</code> <code>__title</code> <code>__actions</code> <code>__close</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code class="demo-part__name">c-icon</code></a><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--sm</code> <code>--lg</code></span></span></li></ul>
+                <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>u-sr-only</code><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+              </div>
+            </div>
+            <div class="demo-step__build">
+              <figure class="demo-stage demo-settle">
+                <div class="l-stack" data-part="l-stack">
+                  <div class="c-alert c-alert--info" data-part="c-alert">
+                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+                    <div class="c-alert__body">
+                      <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
+                      <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
+                    </div>
+                  </div>
+                  <div class="c-alert c-alert--success" data-part="c-alert">
+                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                    <div class="c-alert__body">
+                      <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+                      <p>Acme Inc. will get it by email in a few minutes.</p>
+                    </div>
+                  </div>
+                  <div class="c-alert c-alert--warning" data-part="c-alert">
+                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+                    <div class="c-alert__body">
+                      <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
+                      <p>Choose a plan to keep your 4 projects.</p>
+                      <div class="c-alert__actions l-cluster" data-part="l-cluster">
+                        <a class="c-button c-button--primary c-button--sm" data-part="c-button" href="#step-7">Choose a plan</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="c-alert c-alert--error" data-part="c-alert">
+                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+                    <div class="c-alert__body">
+                      <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
+                      <p>The connection dropped. Check your network and save again.</p>
+                    </div>
+                    <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
                   </div>
                 </div>
-                <p class="c-form-field__error" id="addons-error">Choose at least one add-on for the Business plan.</p>
-              </fieldset>
-
-              <div class="c-toggle">
-                <input class="c-toggle__input" type="checkbox" role="switch" id="plan-renew" checked>
-                <label class="c-toggle__label" for="plan-renew">Automatic renewal</label>
-              </div>
+              </figure>
             </div>
-          </form>
-        </figure>
+          </div>
+        </section>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="demo-step demo-step--wide demo-step--inset" id="step-7" aria-labelledby="step-7-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">7</p>
-        <h2 class="demo-step__title" id="step-7-title"><span class="u-sr-only">Step 7: </span>Raise the signals</h2>
-        <p class="demo-step__text">Alerts are printed notices, not bricks: paper and a keyline, no shadow. Severity shows three ways at once, as a shaped icon, a hidden word and a heavier bottom edge, so it never rests on color.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/alert.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><rect x="5" y="8" width="5" height="5" rx="1"/><path d="M13 9h6M13 13h4M2 19h20"/></svg><code class="demo-part__name">c-alert</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--info</code> <code>--success</code> <code>--warning</code> <code>--error</code></span><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__icon</code> <code>__body</code> <code>__title</code> <code>__actions</code> <code>__close</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/icon.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 3"/><path d="M8 12.5l3 3 5-6"/></svg><code class="demo-part__name">c-icon</code></a><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--sm</code> <code>--lg</code></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>u-sr-only</code><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
-        </div>
+    <div class="l-section demo-steprow" data-part="l-section">
+      <div class="l-container" data-part="l-container">
+        <section class="demo-step demo-step--split" id="step-8" aria-labelledby="step-8-title">
+          <div class="demo-step__grid">
+            <div class="demo-step__head">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral" aria-hidden="true">8</p>
+                <div class="demo-step__words">
+                  <h2 class="demo-step__title" id="step-8-title"><span class="u-sr-only">Step 8: </span>Fit the dialog</h2>
+                  <p class="demo-step__text">Prefer a native dialog opened with showModal(). The preview below is contained; the button opens the real thing.</p>
+                </div>
+              </div>
+              <div class="demo-callout">
+                <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+                <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code class="demo-part__name">c-modal</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__backdrop</code> <code>__container</code> <code>__header</code> <code>__title</code> <code>__close</code> <code>__body</code> <code>__footer</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;closed&quot;</code></span></span></li></ul>
+                <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span></p>
+              </div>
+            </div>
+            <div class="demo-step__build">
+              <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <figure class="demo-stage demo-stage--contain" inert aria-hidden="true">
+                <div class="c-modal" role="dialog" aria-labelledby="delete-title">
+                  <div class="c-modal__backdrop"></div>
+                  <div class="c-modal__container">
+                    <header class="c-modal__header">
+                      <h2 class="c-modal__title" id="delete-title">Delete project?</h2>
+                      <button type="button" class="c-modal__close" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+                    </header>
+                    <div class="c-modal__body">
+                      <p class="u-margin-0">Atlas and its 12 pages will be deleted. This can't be undone.</p>
+                    </div>
+                    <footer class="c-modal__footer">
+                      <button type="button" class="c-button c-button--ghost" data-part="c-button">Keep project</button>
+                      <button type="button" class="c-button c-button--danger" data-part="c-button">Delete project</button>
+                    </footer>
+                  </div>
+                </div>
+              </figure>
+              <div class="l-cluster demo-stage-actions" data-part="l-cluster">
+                <button type="button" class="c-button c-button--secondary" data-part="c-button" data-open-dialog="demo-dialog">Open as a real dialog</button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage">
-          <div class="l-stack">
-            <div class="c-alert c-alert--info">
-              <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
-              <div class="c-alert__body">
-                <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
-                <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
-              </div>
-            </div>
-            <div class="c-alert c-alert--success">
-              <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
-              <div class="c-alert__body">
-                <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
-                <p>Acme Inc. will get it by email in a few minutes.</p>
-              </div>
-            </div>
-            <div class="c-alert c-alert--warning">
-              <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
-              <div class="c-alert__body">
-                <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
-                <p>Choose a plan to keep your 4 projects.</p>
-                <div class="c-alert__actions l-cluster">
-                  <a class="c-button c-button--primary c-button--sm" href="#step-7">Choose a plan</a>
+    </div>
+
+    <section class="l-section demo-step demo-wrong" data-part="l-section" id="wrong-piece" aria-labelledby="wrong-title">
+      <div class="l-container" data-part="l-container">
+        <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+          <div class="l-sidebar demo-wrong__head" data-part="l-sidebar">
+            <div class="l-sidebar__content">
+              <div class="demo-step__intro">
+                <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
+                <div class="demo-step__words">
+                  <h2 class="demo-heading" id="wrong-title">This piece doesn't fit</h2>
+                  <p class="demo-text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found 4 problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
                 </div>
               </div>
             </div>
-            <div class="c-alert c-alert--error">
-              <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
-              <div class="c-alert__body">
-                <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
-                <p>The connection dropped. Check your network and save again.</p>
-              </div>
-              <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+            <div class="l-sidebar__sidebar demo-wrong__art">
+              <svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title" focusable="false">
+                <title id="misfit-title">A brick tilted off its baseplate next to a brick seated flush</title>
+                <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+                  <rect x="8" y="92" width="136" height="16" rx="3"/>
+                  <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
+                  <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
+                    <g class="demo-misfit__wobble">
+                      <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
+                      <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
+                    </g>
+                  </g>
+                  <rect x="176" y="92" width="136" height="16" rx="3"/>
+                  <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
+                  <g class="demo-misfit__good">
+                    <rect x="186" y="56" width="112" height="30" rx="3"/>
+                    <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
+                  </g>
+                </g>
+              </svg>
             </div>
           </div>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="demo-step" id="step-8" aria-labelledby="step-8-title">
-  <div class="l-container">
-    <div class="demo-step__grid">
-      <div class="demo-step__head">
-        <p class="demo-step__numeral" aria-hidden="true">8</p>
-        <h2 class="demo-step__title" id="step-8-title"><span class="u-sr-only">Step 8: </span>Fit the dialog</h2>
-        <p class="demo-step__text">Prefer a native dialog opened with showModal(). The preview below is contained; the button opens the real thing.</p>
-        <div class="demo-callout">
-          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
-          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="components/modal.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M16 6l2 2M18 6l-2 2"/></svg><code class="demo-part__name">c-modal</code></a><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__backdrop</code> <code>__container</code> <code>__header</code> <code>__title</code> <code>__close</code> <code>__body</code> <code>__footer</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;closed&quot;</code></span></span></li></ul>
-          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">2×</span><span class="u-sr-only">, used 2 times in this build</span></span></span></p>
-        </div>
-      </div>
-      <div class="demo-step__build">
-        <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <figure class="demo-stage demo-stage--contain" inert aria-hidden="true">
-          <div class="c-modal" role="dialog" aria-labelledby="delete-title">
-            <div class="c-modal__backdrop"></div>
-            <div class="c-modal__container">
-              <header class="c-modal__header">
-                <h2 class="c-modal__title" id="delete-title">Delete project?</h2>
-                <button type="button" class="c-modal__close" aria-label="Close"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
-              </header>
-              <div class="c-modal__body">
-                <p class="u-margin-0">Atlas and its 12 pages will be deleted. This can't be undone.</p>
-              </div>
-              <footer class="c-modal__footer">
-                <button type="button" class="c-button c-button--ghost">Keep project</button>
-                <button type="button" class="c-button c-button--danger">Delete project</button>
-              </footer>
-            </div>
-          </div>
-        </figure>
-        <div class="l-cluster demo-stage-actions">
-          <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section class="demo-step demo-wrong" id="wrong-piece" aria-labelledby="wrong-title">
-      <div class="l-container l-stack l-stack--lg">
-        <div class="demo-wrong__head">
-          <div>
-            <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
-            <h2 class="demo-wrong__title" id="wrong-title">This piece doesn't fit</h2>
-            <p class="demo-step__text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found 4 problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
-          </div>
-          <svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="misfit-title" focusable="false">
-  <title id="misfit-title">A brick tilted off its baseplate next to a brick seated flush</title>
-  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="8" y="92" width="136" height="16" rx="3"/>
-    <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
-    <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
-      <g class="demo-misfit__wobble">
-        <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
-        <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
-      </g>
-    </g>
-    <rect x="176" y="92" width="136" height="16" rx="3"/>
-    <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
-    <g class="demo-misfit__good">
-      <rect x="186" y="56" width="112" height="30" rx="3"/>
-      <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
-    </g>
-  </g>
-</svg>
-        </div>
-        <div class="demo-wrong__pair">
-          <div class="demo-check l-stack">
-            <p class="demo-check__label">What the agent wrote</p>
-            <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">c-form</span>&quot;&gt;
+          <div class="l-grid l-grid--2-col demo-wrong__pair" data-part="l-grid l-grid--2-col">
+            <div class="l-stack" data-part="l-stack">
+              <h3 class="demo-label">What the agent wrote</h3>
+              <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">c-form</span>&quot;&gt;
   &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; placeholder=&quot;Work email&quot;&gt;
   &lt;p style=&quot;color: #d93025&quot;&gt;We never share your email.&lt;/p&gt;
   &lt;button class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Submit&lt;/button&gt;
 &lt;/form&gt;</code></pre>
-            <p class="demo-check__label">validate: 1 error, 3 warnings</p>
-            <ol class="demo-check__issues demo-wrong__issues" role="list"><li class="demo-check__issue--error"><span class="demo-wrong__line">Line 1</span> <strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-form</span>&quot;. Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for=&quot;<span class="demo-code__token">its-id</span>&quot;&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder &quot;Work email&quot; disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 4</span> <strong>warning</strong> &quot;Submit&quot; says nothing out of context. Name the action and its object, e.g. &quot;Save changes&quot; or &quot;Download the invoice&quot;. <code>[content-vague]</code></li></ol>
-          </div>
-          <div class="demo-wrong__fit l-stack">
-            <p class="demo-check__label">The piece that fits</p>
-            <figure class="demo-stage">
-              <form class="l-stack">
-                <div class="c-form-field">
-                  <label class="c-form-field__label" for="signup-email">Work email</label>
-                  <input class="c-input" type="email" id="signup-email" aria-describedby="signup-email-help">
-                  <p class="c-form-field__help" id="signup-email-help">We never share your email.</p>
+              <div class="c-alert c-alert--error" data-part="c-alert c-alert--error">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Error: </span>validate: 1 error, 3 warnings</p>
+                  <ol class="demo-check__issues demo-wrong__issues" role="list"><li class="demo-check__issue--error"><span class="demo-wrong__line">Line 1</span> <strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-form</span>&quot;. Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for=&quot;<span class="demo-code__token">its-id</span>&quot;&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder &quot;Work email&quot; disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 4</span> <strong>warning</strong> &quot;Submit&quot; says nothing out of context. Name the action and its object, e.g. &quot;Save changes&quot; or &quot;Download the invoice&quot;. <code>[content-vague]</code></li></ol>
                 </div>
-                <div class="l-cluster">
-                  <button type="submit" class="c-button c-button--primary">Create account</button>
-                </div>
-              </form>
-            </figure>
-            <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">l-stack</span>&quot;&gt;
+              </div>
+            </div>
+            <div class="l-stack" data-part="l-stack">
+              <h3 class="demo-label">The piece that fits</h3>
+              <figure class="demo-stage">
+                <form class="l-stack" data-part="l-stack">
+                  <div class="c-form-field" data-part="c-form-field">
+                    <label class="c-form-field__label" for="signup-email">Work email</label>
+                    <input class="c-input" type="email" id="signup-email" aria-describedby="signup-email-help">
+                    <p class="c-form-field__help" id="signup-email-help">We never share your email.</p>
+                  </div>
+                  <div class="l-cluster" data-part="l-cluster">
+                    <button type="submit" class="c-button c-button--primary" data-part="c-button c-button--primary">Create account</button>
+                  </div>
+                </form>
+              </figure>
+              <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">l-stack</span>&quot;&gt;
   &lt;div class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
     &lt;label class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot; for=&quot;<span class="demo-code__token">signup-email</span>&quot;&gt;Work email&lt;/label&gt;
     &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; id=&quot;<span class="demo-code__token">signup-email</span>&quot; <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">signup-email-help</span>&quot;&gt;
@@ -575,45 +697,59 @@
     &lt;button type=&quot;submit&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Create account&lt;/button&gt;
   &lt;/div&gt;
 &lt;/form&gt;</code></pre>
-            <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
+              <div class="c-alert c-alert--success" data-part="c-alert c-alert--success">
+                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                <div class="c-alert__body">
+                  <p class="c-alert__title"><span class="u-sr-only">Success: </span>validate: 0 issues</p>
+                  <p>A labelled field, help text in a token color and a button that names its action.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="demo-end" id="take-it" aria-labelledby="end-title">
-      <div class="l-container demo-end__grid">
-        <div class="demo-end__plate l-stack">
-          <h2 class="demo-step__title" id="end-title">Take the parts with you</h2>
-          <p class="demo-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
-          <ul class="demo-end__links" role="list">
-            <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
-            <li><a href="../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
-            <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
-            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
-          </ul>
-          <p class="demo-end__recap"><svg class="demo-seated-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="24" width="40" height="5" rx="1"/><rect x="9" y="12" width="30" height="12" rx="2"/><path d="M14 12V8h5v4M29 12V8h5v4"/></g></svg><span>The agent's form: 4 problems caught by <code>validate</code>, 0 in the rebuild.</span></p>
-          <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
-          <p class="demo-end__author">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
-        </div>
-        <div class="demo-end__fit l-stack">
-          <h2 class="demo-end__fit-title" id="fit-title">Is this the right kit?</h2>
-          <div class="demo-pick">
-            <div class="demo-pick__col">
-              <p class="demo-check__label">Good fit</p>
-              <ul class="demo-pick__list">
-                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
-                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
-                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+    <section class="l-section demo-end" data-part="l-section" id="take-it" aria-labelledby="end-title">
+      <div class="l-container" data-part="l-container">
+        <div class="l-grid l-grid--2-col demo-end__grid" data-part="l-grid l-grid--2-col">
+          <article class="c-card c-card--elevated demo-end__plate" data-part="c-card c-card--elevated" aria-labelledby="end-title">
+            <header class="c-card__header">
+              <h2 class="c-card__title demo-end__title" id="end-title">Take the parts with you</h2>
+            </header>
+            <div class="c-card__body l-stack" data-part="l-stack">
+              <p>Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+              <ul class="demo-end__links" role="list">
+                <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+                <li><a href="../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+                <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+                <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
               </ul>
+              <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
             </div>
-            <div class="demo-pick__col demo-pick__col--other">
-              <p class="demo-check__label">Pick something else</p>
-              <ul class="demo-pick__list">
-                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
-                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
-                <li>Dense data products, or a brand that must not look like building bricks.</li>
-              </ul>
+            <footer class="c-card__footer">
+              <p class="u-margin-0">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+            </footer>
+          </article>
+          <div class="l-stack demo-end__fit" data-part="l-stack">
+            <h2 class="demo-heading demo-end__fit-title" id="fit-title">Is this the right kit?</h2>
+            <div class="demo-pick">
+              <div class="demo-pick__col">
+                <h3 class="demo-label">Good fit</h3>
+                <ul class="demo-pick__list">
+                  <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+                  <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+                  <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+                </ul>
+              </div>
+              <div class="demo-pick__col demo-pick__col--other">
+                <h3 class="demo-label">Pick something else</h3>
+                <ul class="demo-pick__list">
+                  <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+                  <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+                  <li>Dense data products, or a brand that must not look like building bricks.</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 {
-  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it.",
+  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it. Step layout: wide (the baseplate) or layout \"inset\" put the stage under the step at full width; layout \"sheet\" steps come in pairs that sit side by side; any other step puts its stage beside the call-out.",
   "author": {
     "name": "Gabriel Pule",
     "url": "https://www.gabrielpule.work",
@@ -27,7 +27,8 @@
         "l-cluster",
         "c-button"
       ],
-      "example": "button.html"
+      "example": "button.html",
+      "layout": "sheet"
     },
     {
       "title": "Snap on the badges",
@@ -35,7 +36,8 @@
       "blocks": [
         "c-badge"
       ],
-      "example": "badge.html"
+      "example": "badge.html",
+      "layout": "sheet"
     },
     {
       "title": "Place cards on the grid",

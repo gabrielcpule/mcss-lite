@@ -31,9 +31,16 @@
   white-space: nowrap;
 }
 
+/* The npm line is one long command: on phones it may break anywhere rather than run off the page. */
 .demo-install__alt code {
   white-space: normal;
   overflow-wrap: anywhere;
+}
+
+@media (min-width: 30rem) {
+  .demo-install__alt code {
+    white-space: nowrap;
+  }
 }
 
 .demo-skip {
@@ -117,25 +124,16 @@
   color: var(--color-text-subtle);
 }
 
-/* First viewport */
-.demo-hero {
-  padding-block: var(--space-12) var(--space-10);
+/* Ledes on the inventory and content pages (the overview has its own hero, further down). */
+.demo-hero__lede {
+  max-width: 58ch;
+  margin-block-end: var(--space-6);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
 }
 
-/* The claim stands alone at reading width; the parts inventory lies sideways below it. */
-.demo-hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-10);
-}
-
-.demo-hero__claim {
-  max-inline-size: 46rem;
-}
-
-/* The proof and the install box share the claim's right edge. */
-.demo-hero .demo-proof,
-.demo-hero .demo-install {
+.demo-install {
   inline-size: 100%;
   max-inline-size: none;
 }
@@ -162,9 +160,6 @@
   flex-wrap: nowrap;
   align-items: center;
   gap: var(--space-3);
-  width: fit-content;
-  max-width: 100%;
-  margin-block-end: var(--space-6);
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
   background-color: var(--color-background-raised);
   border: var(--border-width-thick) solid var(--color-border-keyline);
@@ -183,69 +178,10 @@
 }
 
 .demo-install__alt {
-  max-width: 48ch;
-  margin-block: calc(var(--space-3) * -1) var(--space-6);
+  max-width: 60ch;
+  margin: 0;
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
-}
-
-.demo-links {
-  display: grid;
-  gap: var(--space-1);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-weight: var(--font-weight-semibold);
-}
-
-.demo-links a {
-  display: inline-flex;
-  align-items: center;
-  min-block-size: 2.75rem;
-}
-
-/* Parts inventory */
-.demo-inventory {
-  padding: var(--space-6);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
-  box-shadow: var(--shadow-elevated);
-  display: grid;
-  gap: var(--space-4);
-}
-
-.demo-inventory__title {
-  margin: 0;
-  font-size: var(--font-size-xl);
-}
-
-/* In the hero the box lies sideways, below the claim. Four bags don't fit one row without crushing
-   their chips, so they sit two by two on six tracks: layouts beside components, then the single
-   utilities chip in a narrow bag beside a wide tokens bag whose swatches can flow. */
-.demo-hero .demo-inventory__title {
-  grid-column: 1 / -1;
-}
-
-@media (min-width: 40rem) {
-  .demo-hero .demo-inventory {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
-  .demo-hero .demo-bag {
-    grid-column: span 3;
-  }
-}
-
-/* Only once the narrow utilities bag can hold its heading on one line. */
-@media (min-width: 54rem) {
-  .demo-hero .demo-bag:nth-of-type(3) {
-    grid-column: span 2;
-  }
-
-  .demo-hero .demo-bag:nth-of-type(4) {
-    grid-column: span 4;
-  }
 }
 
 /* Each bag is a keylined, sealed parts bag: a folded top edge over a subtle fill. */
@@ -490,71 +426,6 @@
   margin-block-start: var(--space-4);
 }
 
-/* Step 1: a full-width baseplate; every layout primitive is outlined and tagged. */
-.demo-stage--baseplate :where([class^="l-"], [class*=" l-"]) {
-  position: relative;
-  outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
-  outline-offset: 2px;
-}
-
-.demo-stage--baseplate :where([class^="l-"], [class*=" l-"])::before {
-  content: attr(class);
-  position: absolute;
-  inset-block-start: calc(var(--space-3) * -1 - 2px);
-  inset-inline-start: var(--space-2);
-  z-index: 1;
-  padding: 0 var(--space-1);
-  border-radius: var(--border-radius-sm);
-  background-color: var(--color-background-callout);
-  color: var(--color-text-default);
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-xs);
-  line-height: 1.5;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-/* Nested primitives that share a top edge keep their tags apart. */
-.demo-stage--baseplate .l-container::before {
-  inset-inline: auto var(--space-2);
-}
-
-/* Each outlined primitive gets a strip for its tag, so tags never sit on the parts or on each other. */
-.demo-stage--baseplate :where([class^="l-"], [class*=" l-"]) {
-  padding-block: var(--space-6) var(--space-2);
-}
-
-/* Nested outlines step inward on the sides too, so a child that fills its parent never draws on the
-   parent's line. The container keeps its own gutters. Only on phones and from 60rem: in between, the
-   stage shrinks to its content's width (the step grid is a column there), and the extra inset would
-   widen it past the point where the sidebar stops stacking, crushing the grid's cards. */
-.demo-stage--baseplate {
-  --demo-plate-inset: var(--space-2);
-}
-
-@media (max-width: 40rem), (min-width: 60rem) {
-  .demo-stage--baseplate :where([class^="l-"], [class*=" l-"]):not(.l-container) {
-    padding-inline: var(--demo-plate-inset);
-  }
-}
-
-/* On phones the outer section outline would only add a fifth nested box. */
-@media (max-width: 40rem) {
-  .demo-stage--baseplate {
-    --demo-plate-inset: var(--space-1);
-  }
-
-  .demo-stage--baseplate .l-section {
-    outline: 0;
-    padding-block: 0;
-    padding-inline: 0;
-  }
-
-  .demo-stage--baseplate .l-section::before {
-    content: none;
-  }
-}
-
 /* Contains the fixed-position modal preview inside the stage. */
 .demo-stage--contain {
   position: relative;
@@ -668,7 +539,7 @@
 
 /* The column rail needs a gutter wide enough for its labels, so they never cover the page. */
 @media (min-width: 100rem) {
-  .demo-rail__now {
+  .demo-rail .demo-rail__now {
     display: none;
   }
 
@@ -682,18 +553,13 @@
     border: 0;
   }
 
-  .demo-rail__list {
+  .demo-rail .demo-rail__list {
     flex-direction: column;
     gap: var(--space-2);
   }
 
-  .demo-rail__stud {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-
   /* The step title slides out beside the stud on hover and keyboard focus. */
-  .demo-rail__stud::after {
+  .demo-rail .demo-rail__stud::after {
     content: attr(data-label);
     position: absolute;
     inset-inline-start: calc(100% + var(--space-2));
@@ -716,8 +582,8 @@
     pointer-events: none;
   }
 
-  .demo-rail__stud:hover::after,
-  .demo-rail__stud:focus-visible::after {
+  .demo-rail .demo-rail__stud:hover::after,
+  .demo-rail .demo-rail__stud:focus-visible::after {
     opacity: 1;
     transform: none;
   }
@@ -755,15 +621,7 @@
   stroke: var(--color-text-default);
 }
 
-/* The wrong piece */
-.demo-check {
-  padding: var(--space-6);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) solid var(--color-border-error);
-  border-radius: var(--border-radius-base);
-  box-shadow: var(--shadow-raised);
-}
-
+/* Validator results */
 .demo-check__label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
@@ -817,120 +675,6 @@
   background-color: var(--color-background-raised);
   color: var(--color-text-subtle);
   font-size: var(--font-size-sm);
-}
-
-/* Parts drop into place along the arrow, press onto their 2px brick edge, and settle.
-   Content is visible throughout; only the position moves. */
-@keyframes demo-seat {
-  0% { transform: translateY(calc(var(--space-4) * -1)); }
-  70% { transform: translateY(2px); }
-  100% { transform: none; }
-}
-
-@keyframes demo-draw {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-
-.demo-step.is-seating .demo-stage {
-  animation: demo-seat var(--duration-slower) var(--ease-out-expo) both;
-}
-
-.demo-step.is-seating .demo-callout {
-  animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
-}
-
-.demo-step.is-seating .demo-arrow {
-  animation: demo-draw var(--duration-slower) var(--ease-out) both;
-}
-
-@media (min-width: 60rem) {
-  .demo-step--wide .demo-step__grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-8);
-  }
-
-  .demo-step--wide .demo-step__head {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    grid-template-rows: auto auto 1fr;
-    column-gap: var(--space-16);
-    align-items: start;
-  }
-
-  .demo-step--wide .demo-step__head > :not(.demo-callout) {
-    grid-column: 1;
-  }
-
-  .demo-step--wide .demo-callout {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-  }
-
-  .demo-step--wide .demo-arrow {
-    display: none;
-  }
-
-  .demo-step__grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-16);
-  }
-
-  /* The arrow leaves from the step title, not from beside the numeral: its tail sits on the title's
-     centre line. That is the numeral's line box (6rem at this width, line-height 0.9) plus its margin
-     plus half the title's line box, less the tail's own height inside the drawing (y 8 of a 120×40
-     viewBox, so 1/15 of the arrow's width). */
-  .demo-arrow {
-    --demo-arrow-width: calc(var(--space-16) + 0.25rem);
-    display: block;
-    inset-inline-start: calc(var(--space-16) * -1 - 0.5rem);
-    inset-block-start: calc(6rem * 0.9 + var(--space-2) + var(--font-size-2xl) * var(--line-height-tight) / 2 - var(--demo-arrow-width) / 15);
-    width: var(--demo-arrow-width);
-  }
-}
-
-/* Inset steps: the parts seat one after another. The call-out keeps the same gap to the stage as
-   every other step; sinking it into the stage read as two boxes colliding. Showcase only. */
-.demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert) {
-  animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: calc(var(--demo-i, 0) * 70ms + var(--duration-base));
-}
-
-/* The switch flips once, after it has seated: the thumb slides, then its tick appears. */
-@keyframes demo-slide {
-  from { inset-inline-start: 0.125rem; }
-}
-
-@keyframes demo-appear {
-  from { opacity: 0; }
-}
-
-.demo-step--inset.is-seating .c-toggle__input:checked::before {
-  animation: demo-slide var(--duration-slow) var(--ease-out) both;
-  animation-delay: calc(var(--duration-slower) * 2);
-}
-
-.demo-step--inset.is-seating .c-toggle__input:checked::after {
-  animation: demo-appear var(--duration-fast) var(--ease-out) both;
-  animation-delay: calc(var(--duration-slower) * 2 + var(--duration-slow));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert),
-  .demo-step--inset.is-seating .c-toggle__input:checked::before,
-  .demo-step--inset.is-seating .c-toggle__input:checked::after {
-    animation: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .demo-rail__stud { transition: none; }
-  .demo-step.is-seating .demo-stage,
-  .demo-step.is-seating .demo-callout,
-  .demo-step.is-seating .demo-arrow,
-  .demo-step.is-seating .demo-misfit__wobble {
-    animation: none;
-  }
 }
 
 /* ===== Part sheets, parts inventory and "Read before you build" =====
@@ -1570,114 +1314,6 @@
   box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-keyline);
 }
 
-/* Hero proof: the validator's first rejection, a glance before the build. */
-.demo-proof {
-  display: grid;
-  gap: var(--space-2);
-  max-inline-size: 36rem;
-  margin-block-end: var(--space-6);
-  padding: var(--space-4);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) dashed var(--color-border-error);
-  border-radius: var(--border-radius-base);
-}
-
-.demo-proof p {
-  margin: 0;
-}
-
-.demo-proof__key {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-}
-
-.demo-proof__verdict {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-2);
-  align-items: start;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-error);
-}
-
-.demo-proof__verdict .demo-mark {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-block-start: 0.05em;
-}
-
-.demo-proof a {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* Closing: what to take away, who made it, and whether it's the right kit. */
-/* The last page of the booklet: two plates on the canvas. */
-.demo-end {
-  padding-block: var(--space-16);
-}
-
-.demo-end__plate {
-  padding: var(--space-8) var(--space-6);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
-  box-shadow: var(--shadow-elevated);
-}
-
-.demo-end__grid {
-  display: grid;
-  gap: var(--space-10);
-}
-
-.demo-end__links {
-  display: grid;
-  gap: var(--space-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.demo-end__links li {
-  display: grid;
-  gap: var(--space-1);
-}
-
-.demo-end__links a {
-  font-weight: var(--font-weight-semibold);
-}
-
-.demo-end__links span {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}
-
-.demo-end__author {
-  padding-block-start: var(--space-4);
-  border-block-start: var(--border-width-thin) solid var(--color-border-default);
-  color: var(--color-text-muted);
-}
-
-.demo-end__fit-title {
-  margin: 0;
-  font-size: var(--font-size-xl);
-}
-
-.demo-end .demo-pick__col {
-  box-shadow: var(--shadow-raised);
-}
-
-.demo-end .demo-pick__col--other {
-  box-shadow: none;
-}
-
-@media (min-width: 60rem) {
-  .demo-end__grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: start;
-  }
-}
-
 /* Copyable code on part sheets. */
 .demo-code-block {
   position: relative;
@@ -1767,102 +1403,6 @@
   box-shadow: var(--shadow-elevated);
 }
 
-/* Phones: each step shows the result first, then the parts it used. */
-@media (max-width: 59.99rem) {
-  .demo-step__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .demo-step__head {
-    display: contents;
-  }
-
-  .demo-step__build {
-    order: 1;
-    margin-block: var(--space-6);
-  }
-
-  .demo-step__grid > .demo-step__head > .demo-callout {
-    order: 2;
-  }
-}
-
-/* The finale: a full-width band, one scale up from a step. */
-.demo-wrong {
-  padding-block: var(--space-20);
-  background-color: var(--color-background-raised);
-  border-block: var(--border-width-thick) solid var(--color-border-keyline);
-}
-
-.demo-wrong__head {
-  display: grid;
-  gap: var(--space-6);
-  align-items: end;
-}
-
-.demo-wrong__title {
-  margin: 0 0 var(--space-4);
-  font-family: var(--font-family-display);
-  font-size: clamp(var(--font-size-3xl), 5vw, var(--font-size-5xl));
-  font-weight: var(--font-weight-extrabold);
-  line-height: var(--line-height-tight);
-  letter-spacing: -0.02em;
-}
-
-.demo-wrong__pair {
-  display: grid;
-  gap: var(--space-6);
-  align-items: start;
-}
-
-.demo-wrong__fit {
-  padding: var(--space-6);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
-  box-shadow: var(--shadow-raised);
-}
-
-.demo-wrong .demo-check {
-  border-style: dashed;
-  box-shadow: none;
-}
-
-.demo-wrong__issues {
-  counter-reset: none;
-}
-
-.demo-wrong__line {
-  display: inline-block;
-  min-inline-size: 3.5rem;
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}
-
-@media (min-width: 60rem) {
-  .demo-wrong__head {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--space-16);
-  }
-
-  .demo-wrong__pair {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-}
-
-.demo-end__proof {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}
-
-.demo-wrong__pair > *,
-.demo-wrong__head > * {
-  min-width: 0;
-}
-
 /* ✓ panels: one column that can shrink, so opened markup scrolls inside the card, never the page. */
 .demo-checks__card {
   grid-template-columns: minmax(0, 1fr);
@@ -1884,12 +1424,7 @@
   box-shadow: 0 0 0 5px var(--color-focus-halo);
 }
 
-/* Links in the closing plate are full targets; each sits right on top of its description. */
-.demo-end__links li {
-  gap: 0;
-}
-
-.demo-end__links a,
+/* Links in the call-outs are full targets. */
 .demo-part__row a {
   display: inline-flex;
   align-items: center;
@@ -1933,19 +1468,1071 @@
   }
 }
 
-/* The closing plate echoes the finale: one seated brick and its result. */
-.demo-end__recap {
-  display: flex;
+/* ===== The overview page (index.html) =====
+   The front of the box, one sticky build bar, the packing list, the steps, the misfit and the closing,
+   each built from the kit's own l- and c- parts. Every rule here is scoped to .demo-home or to a class
+   only this page uses, so part sheets, the inventory and the content page keep their own look. */
+
+.demo-heading {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+}
+
+.demo-text {
+  max-inline-size: 58ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+.demo-label {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ---------- The front of the box ---------- */
+.demo-hero {
+  padding-block: var(--space-12) var(--space-16);
+}
+
+/* Phones read the claim, then the box art, then how to install it. */
+.demo-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "claim" "cover" "get";
+  gap: var(--space-10);
+}
+
+.demo-hero__claim {
+  grid-area: claim;
+  min-width: 0;
+  gap: var(--space-5);
+}
+
+.demo-hero__get {
+  grid-area: get;
+  min-width: 0;
+}
+
+.demo-hero__cover {
+  display: grid;
+  grid-area: cover;
+  min-width: 0;
+}
+
+/* From 60rem the claim and the install sit on the left, top-aligned so opening the agent menu never
+   shifts anything; the box stands on the right. */
+@media (min-width: 60rem) {
+  .demo-hero__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "claim cover" "get cover";
+    gap: var(--space-8) var(--space-12);
+    align-items: start;
+  }
+
+  .demo-hero__claim {
+    padding-block-start: var(--space-8);
+  }
+}
+
+.demo-hero__title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* Each line rises out of its own mask on load. */
+.demo-hero__line {
+  display: block;
+  overflow: clip;
+  padding-block: 0.14em 0.12em;
+  margin-block: -0.14em -0.12em;
+}
+
+.demo-hero__line > span {
+  display: inline-block;
+}
+
+.demo-hero .demo-hero__lede {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* The agent row: AGENTS.md, then a folded list of every file an agent reads. The list floats over the
+   page (popover layer, above the sticky build bar) instead of pushing content down. It is anchored to
+   the row, not the summary, so on a phone it can use the row's full width. */
+.demo-agents {
+  position: relative;
+  align-items: flex-start;
+}
+
+.demo-agents__link {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--color-background-subtle);
-  border-radius: var(--border-radius-base);
+  min-block-size: 2.75rem;
   font-weight: var(--font-weight-semibold);
 }
 
-.demo-seated-mini {
+.demo-agents__menu {
+  flex: 1 1 10rem;
+  min-inline-size: 0;
+}
+
+.demo-agents__menu[open] > summary {
+  margin-block-end: 0;
+}
+
+.demo-agents__list {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-1));
+  inset-inline-start: 0;
+  z-index: var(--z-index-popover);
+  display: grid;
+  inline-size: max-content;
+  max-inline-size: min(24rem, 100%);
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  list-style: none;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-elevated);
+}
+
+.demo-agents__list li {
+  display: grid;
+  padding-block: var(--space-1) var(--space-2);
+}
+
+.demo-agents__list li + li {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.demo-agents__list a {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-agents__list span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* The box: a lid band with the set number and piece count, then the picture of the finished build. */
+.demo-lid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+}
+
+.demo-lid p {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-lid__set {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.demo-lid__key {
+  font-size: var(--font-size-sm);
+}
+
+.demo-lid__num {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.demo-lid__set .demo-lid__num {
+  font-size: var(--font-size-3xl);
+}
+
+.demo-lid__count {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+}
+
+/* A stud seen from above separates the counts. */
+.demo-lid__sep {
+  align-self: center;
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  margin-inline: var(--space-1);
+  border: var(--border-width-thick) solid currentColor;
+  border-radius: var(--border-radius-full);
+}
+
+.demo-art {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-5);
+  padding: var(--space-10) var(--space-6) var(--space-5);
+  border-block-start-width: 0;
+  border-radius: 0 0 var(--border-radius-base) var(--border-radius-base);
+  overflow: visible;
+}
+
+.demo-art > * + * {
+  margin-block-start: 0;
+}
+
+.demo-art__card {
+  inline-size: min(100%, 24rem);
+}
+
+.demo-art__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-art__caption .demo-mark {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  color: var(--color-text-success);
+}
+
+/* The misfit: one small note under the box. */
+.demo-misfit-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  margin-block-start: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.demo-misfit-note__text p {
+  margin: 0;
+}
+
+.demo-misfit-note__brick {
+  inline-size: 2.5rem;
+  block-size: 1.75rem;
+  color: var(--color-border-error);
+}
+
+.demo-misfit-note__msg {
+  color: var(--color-text-error);
+}
+
+.demo-misfit-note a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------- The build bar: the step studs and the Exploded view switch, one sticky row ---------- */
+.demo-buildbar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-index-sticky);
+  padding-block: var(--space-2);
+  background-color: var(--color-background-raised);
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-buildbar__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2) var(--space-6);
+}
+
+.demo-buildbar__steps {
+  min-width: 0;
+}
+
+/* The studs scroll sideways when they don't fit; the list keeps room for their focus rings. */
+.demo-buildbar .demo-rail__list {
+  justify-content: flex-start;
+  margin: calc(var(--space-2) * -1);
+  padding: var(--space-2);
+}
+
+.demo-buildbar .demo-rail__now {
+  text-align: start;
+}
+
+.demo-buildbar__inspect {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
+}
+
+.demo-keys {
+  display: none;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.demo-keys li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.demo-keys__key {
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+.demo-keys__key--layout {
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+  outline: var(--border-width-thick) dashed var(--color-border-strong);
+  outline-offset: 2px;
+}
+
+.demo-keys__key--part {
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+}
+
+@media (min-width: 64rem) {
+  .demo-keys {
+    display: flex;
+  }
+}
+
+/* Phones: one short row, so the bar never covers more than it did as a plain step rail. The step name
+   under the studs gives way to the switch, whose label folds onto two lines. */
+@media (max-width: 47.99rem) {
+  .demo-buildbar__inner {
+    gap: var(--space-3);
+  }
+
+  .demo-buildbar .demo-rail__now {
+    display: none;
+  }
+
+  .demo-buildbar .c-toggle__label {
+    max-inline-size: 5.5rem;
+    padding-inline-start: var(--space-2);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-tight);
+  }
+}
+
+/* The bar is sticky at every width on this page, so jumps and focus always clear it. */
+:root:has(.demo-buildbar) {
+  scroll-padding-block-start: 7rem;
+}
+
+/* ---------- What's in the box: a packing list ---------- */
+.demo-set {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: stretch;
+  margin: 0;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-set__key {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-inline-end: var(--border-width-thick) solid var(--color-border-keyline);
+  font-size: var(--font-size-sm);
+}
+
+.demo-set__num {
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-pack__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-pack__row {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+}
+
+.demo-pack__row + .demo-pack__row {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.demo-pack__row:first-child {
+  padding-block-start: 0;
+}
+
+.demo-pack__row:last-child {
+  padding-block-end: 0;
+}
+
+.demo-pack__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.demo-pack__bag {
+  display: inline-grid;
   flex: none;
-  inline-size: 3rem;
+  place-items: center;
+  align-self: center;
+  inline-size: 2rem;
   block-size: 2rem;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+}
+
+/* Dot leaders, as in a printed parts list. */
+.demo-pack__leader {
+  flex: 1;
+  min-inline-size: var(--space-4);
+  border-block-end: var(--border-width-thick) dotted var(--color-border-strong);
+  transform: translateY(calc(var(--space-1) * -1));
+}
+
+.demo-pack__count {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-pack__unit {
+  min-inline-size: 4.5ch;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-pack__parts {
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-pack__parts a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  text-decoration: none;
+}
+
+.demo-pack__parts a code {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-text-default);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.demo-pack__parts a:hover code {
+  background-color: var(--color-background-interactive-hover);
+  color: var(--color-text-link);
+}
+
+/* Seated brick: pressing drops the chip onto its edge. */
+.demo-pack__parts a:active code {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.demo-pack__note {
+  max-inline-size: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Steps ---------- */
+/* The steps print on a paper band between the box and the misfit: one row per step, two for sheets. */
+.demo-steprow {
+  background-color: var(--color-background-default);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.demo-box + .demo-steprow {
+  border-block-start: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-home .demo-steprow .demo-step {
+  padding-block: 0;
+  border-block-start: 0;
+}
+
+/* Every step opens the same way: the numeral beside the title and its text. */
+.demo-step__intro {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.demo-home .demo-step__intro .demo-step__numeral {
+  flex: none;
+  min-inline-size: 1ch;
+  margin: 0;
+}
+
+.demo-step__words {
+  min-width: 0;
+}
+
+.demo-home .demo-step__intro .demo-step__title {
+  margin: 0 0 var(--space-2);
+  text-wrap: balance;
+}
+
+.demo-home .demo-step__intro .demo-step__text {
+  margin: 0;
+}
+
+.demo-step__head {
+  display: grid;
+  gap: var(--space-6);
+  align-content: start;
+}
+
+.demo-step--sheet {
+  gap: var(--space-6);
+}
+
+/* When the pair stacks, the second sheet starts as far down as a new row would. */
+.demo-steprow__pair {
+  align-items: start;
+  row-gap: var(--space-16);
+}
+
+@media (min-width: 60rem) {
+  /* Split: the step and its parts on the left, the build on the right, the arrow between. */
+  .demo-step--split .demo-step__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-16);
+  }
+
+  /* Wide: the step beside its parts, the build under both at full width. */
+  .demo-step--wide .demo-step__head {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-16);
+  }
+
+  /* The arrow leaves from the step title: its tail sits on the centre line of the title's first line,
+     which starts at the top of the step (the numeral sits beside it). That is half the title's line box,
+     less the tail's own height inside the drawing (y 8 of a 120×40 viewBox, so 1/15 of its width). */
+  .demo-step--split .demo-arrow {
+    --demo-arrow-width: calc(var(--space-16) + 0.25rem);
+    display: block;
+    inset-inline-start: calc(var(--space-16) * -1 - 0.5rem);
+    inset-block-start: calc(var(--font-size-2xl) * var(--line-height-tight) / 2 - var(--demo-arrow-width) / 15);
+    width: var(--demo-arrow-width);
+  }
+}
+
+/* Below 60rem a step is one column, and it shows its result before the parts it used. */
+@media (max-width: 59.99rem) {
+  .demo-step__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .demo-step__head {
+    display: contents;
+  }
+
+  .demo-step__build {
+    order: 1;
+    margin-block: var(--space-6);
+  }
+
+  .demo-step__head > .demo-callout {
+    order: 2;
+  }
+}
+
+/* Sheets sit side by side down to the grid's own breakpoint; below it, they also put the build first. */
+@media (max-width: 48rem) {
+  .demo-step--sheet > .demo-stage {
+    order: 1;
+  }
+
+  .demo-step--sheet > .demo-callout {
+    order: 2;
+  }
+}
+
+/* ---------- The misfit: the last step ---------- */
+.demo-home .demo-wrong {
+  padding-block: var(--space-16);
+  border-block-start: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.demo-wrong__head {
+  align-items: center;
+}
+
+.demo-wrong__art {
+  display: flex;
+  justify-content: center;
+}
+
+.demo-wrong__pair {
+  align-items: start;
+}
+
+.demo-wrong__head > *,
+.demo-wrong__pair > * {
+  min-width: 0;
+}
+
+.demo-wrong .c-alert__title {
+  margin: 0;
+}
+
+.demo-wrong .c-alert__body > p {
+  margin: var(--space-2) 0 0;
+}
+
+.demo-wrong__issues {
+  margin-block-start: var(--space-3);
+}
+
+.demo-wrong__line {
+  display: inline-block;
+  min-inline-size: 3.5rem;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Closing ---------- */
+.demo-end__grid {
+  align-items: start;
+}
+
+.demo-end__title,
+.demo-end__fit-title {
+  font-size: var(--font-size-2xl);
+}
+
+/* The kit question lines up with the plate's title, inside its keyline and padding. */
+.demo-end__fit-title {
+  padding-block-start: calc(var(--space-6) + var(--border-width-thick));
+}
+
+.demo-end__links {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-end__links li {
+  display: grid;
+  padding-block: var(--space-2);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.demo-end__links li:first-child {
+  border-block-start: 0;
+}
+
+.demo-end__links a {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.demo-end__links span,
+.demo-end__proof {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.demo-end .demo-pick__col {
+  box-shadow: var(--shadow-raised);
+}
+
+.demo-end .demo-pick__col--other {
+  box-shadow: none;
+}
+
+@media (max-width: 40rem) {
+  .demo-heading {
+    font-size: var(--font-size-2xl);
+  }
+
+  .demo-pack__count {
+    font-size: var(--font-size-3xl);
+  }
+
+  .demo-art {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* ---------- Exploded view ----------
+   demo.mjs writes each layout's and component's block and modifier classes into data-part. A tag prints
+   that text as generated content with empty alt text (content: … / ""), so it never reaches the
+   accessibility tree, and it stays hidden until the Exploded view switch is on. The box art and step 1's
+   baseplate (.demo-exploded) are always pulled apart, by the very same rules, so turning the switch on
+   neither tags them twice nor changes their size. Selectors sit in :where() so these rules weigh no more
+   than one attribute selector and the file order decides. */
+:where(.demo-home) [data-part] {
+  position: relative;
+}
+
+/* A tag near the right edge of a phone must never widen the page; clip, unlike hidden, keeps the build
+   bar sticky. */
+.demo-home main {
+  overflow-x: clip;
+}
+
+:where(.demo-home) [data-part]::before,
+.demo-tag {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(var(--space-3) * -1 - 2px);
+  inset-inline-start: var(--space-2);
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-align: start;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+:where(.demo-home) [data-part]::before {
+  content: attr(data-part);
+  content: attr(data-part) / "";
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(calc(var(--space-2) * -1));
+  transition:
+    opacity var(--duration-slow) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo),
+    visibility 0s linear var(--duration-slow);
+}
+
+/* Components: an ink tag on the part's top edge. Layouts: a yellow tag on their dashed outline. */
+:where(.demo-home) [data-part^="c-"]::before,
+.demo-tag--part {
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+}
+
+/* A component's tag hangs from its top corner, so small parts in a row (badges, compact buttons) keep
+   their tags apart. */
+:where(.demo-home) [data-part^="c-"]::before {
+  inset-inline-start: 0;
+}
+
+:where(.demo-home) [data-part^="l-"] {
+  outline: var(--border-width-thick) dashed transparent;
+  outline-offset: 2px;
+  transition:
+    padding var(--duration-slow) var(--ease-out-expo),
+    outline-color var(--duration-fast) var(--ease-out);
+}
+
+/* The page frame: each section's tag sits in its own top padding, each container's above it at the end.
+   Neither draws an outline or makes room, since their edges are the page's. */
+:where(.demo-home main) > [data-part^="l-section"]::before {
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-4);
+}
+
+:where(.demo-home main) > [data-part^="l-section"] > [data-part^="l-container"]::before {
+  inset-block-start: calc(var(--space-8) * -1);
+  inset-inline: auto var(--space-4);
+}
+
+/* The Copy button carries its tag under its end, clear of the command beside it. */
+:where(.demo-install) [data-part]::before {
+  inset-block: auto calc(var(--space-3) * -1 - 2px);
+  inset-inline: auto 0;
+}
+
+/* Inside a build, nested containers keep their tag clear of the first child's. */
+:where(.demo-stage) [data-part^="l-container"]::before {
+  inset-inline: auto var(--space-2);
+}
+
+:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part]::before {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* Layouts pull apart: a dashed outline, and a strip on top so a child's tag never meets its parent's. */
+:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *)) {
+  padding-block: var(--space-6) var(--space-2);
+  outline-color: var(--color-border-strong);
+}
+
+/* Nested outlines step inward on the sides too, so a child that fills its parent never draws on the
+   parent's line; containers keep their own gutters. */
+:where(.demo-home) {
+  --demo-plate-inset: var(--space-2);
+}
+
+:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *, [data-part^="l-container"])) {
+  padding-inline: var(--demo-plate-inset);
+}
+
+/* Step 1's baseplate takes the side inset only on phones and from 60rem: in between, its sidebar would
+   stop stacking and crush the grid's cards. */
+@media (min-width: 40.01rem) and (max-width: 59.99rem) {
+  .demo-stage--baseplate [data-part^="l-"]:not([data-part^="l-container"]) {
+    padding-inline: 0;
+  }
+}
+
+/* A field's label sits on its top edge, so the field makes room for its tag. A fieldset's legend sits
+   above any padding, so a group keeps the tag on its top edge instead. */
+:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="c-form-field"]:not(fieldset) {
+  padding-block-start: var(--space-5);
+}
+
+:where(.demo-home) [data-part^="c-form-field"]:not(fieldset)::before {
+  inset-block-start: 0;
+}
+
+/* The box art: the card's tag on its bottom edge, so it never meets the tags inside the card. An input
+   can't carry generated content, so its tag is a hidden span on the input's top edge, at the end. */
+:where(.demo-art) .demo-art__card::before {
+  inset-block: auto calc(var(--space-3) * -1);
+  inset-inline: auto var(--space-3);
+}
+
+.demo-art__field {
+  position: relative;
+}
+
+.demo-art__input-tag {
+  inset-block: auto calc(2.75rem - var(--space-2));
+  inset-inline: auto var(--space-3);
+}
+
+/* Step 1's baseplate on phones: the outer section outline would only add a fifth nested box. */
+@media (max-width: 40rem) {
+  :where(.demo-home) {
+    --demo-plate-inset: var(--space-1);
+  }
+
+  .demo-stage--baseplate > [data-part^="l-section"] {
+    padding: 0;
+    outline: 0;
+  }
+
+  .demo-stage--baseplate > [data-part^="l-section"]::before {
+    content: none;
+  }
+}
+
+/* The packing list's intro stays in view beside the list, clear of the build bar. */
+@media (min-width: 48rem) {
+  .demo-box__intro {
+    position: sticky;
+    inset-block-start: calc(var(--space-24) + var(--space-2));
+  }
+}
+
+/* ---------- Motion: the hero entrance and the parts settling into each build ---------- */
+@keyframes demo-rise {
+  from { transform: translateY(105%); }
+}
+
+@keyframes demo-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-3));
+  }
+}
+
+@keyframes demo-drop {
+  from { transform: translateY(calc(var(--space-3) * -1)) scale(0.98); }
+}
+
+/* Exploded to seated: each part starts spread from its slot behind a dashed outline and settles in.
+   No 100% keyframe: the end state is the part's own style, so outlines, focus rings and pressed
+   buttons come back untouched. */
+@keyframes demo-settle {
+  0% {
+    transform: translateY(calc(var(--demo-spread, 0) * var(--demo-unit, var(--space-4))));
+    outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+    outline-offset: 2px;
+  }
+
+  85% {
+    transform: none;
+    outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes demo-draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* The wrong brick drops once and lands askew. */
+@keyframes demo-misfit-drop {
+  from { transform: translateY(-12px) rotate(10deg); }
+  to { transform: none; }
+}
+
+/* The switch in step 6 flips once, after its parts have settled: the thumb slides, then its tick appears. */
+@keyframes demo-slide {
+  from { inset-inline-start: 0.125rem; }
+}
+
+@keyframes demo-appear {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The hero is in place within 0.8s. "backwards" fills only before each start, so no transform
+     lingers to trap the floating agent list under the build bar. */
+  .demo-hero__line > span {
+    animation: demo-rise 600ms var(--ease-out-expo) backwards;
+  }
+
+  .demo-hero__line + .demo-hero__line > span {
+    animation-delay: 70ms;
+  }
+
+  .demo-hero .demo-hero__lede {
+    animation: demo-up 450ms var(--ease-out-expo) 140ms backwards;
+  }
+
+  .demo-hero__get > * {
+    animation: demo-up 450ms var(--ease-out-expo) 180ms backwards;
+  }
+
+  .demo-hero__get > :nth-child(2) { animation-delay: 210ms; }
+  .demo-hero__get > :nth-child(3) { animation-delay: 240ms; }
+
+  .demo-hero__cover {
+    animation: demo-drop 700ms var(--ease-out-expo) 60ms backwards;
+  }
+
+  /* demo.js adds .is-seating once a step scrolls into view. */
+  .demo-step.is-seating .demo-arrow {
+    animation: demo-draw var(--duration-slower) var(--ease-out) both;
+  }
+
+  .demo-step.is-seating .demo-misfit__wobble {
+    animation: demo-misfit-drop var(--duration-slower) var(--ease-out-expo) 200ms both;
+  }
+
+  .demo-step--inset.is-seating .c-toggle__input:checked::before {
+    animation: demo-slide var(--duration-slow) var(--ease-out) both;
+    animation-delay: calc(var(--duration-slower) * 2);
+  }
+
+  .demo-step--inset.is-seating .c-toggle__input:checked::after {
+    animation: demo-appear var(--duration-fast) var(--ease-out) both;
+    animation-delay: calc(var(--duration-slower) * 2 + var(--duration-slow));
+  }
+
+  /* Progressive: only where scroll-driven animation exists. The animation fills forwards only, so a
+     stage that hasn't reached the viewport shows its settled default, and the spread starts at entry 0%,
+     while the stage is still below the fold. */
+  @supports (animation-timeline: view()) {
+    .demo-settle {
+      --demo-unit: var(--space-4);
+      view-timeline: --demo-settle block;
+    }
+
+    :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *) {
+      animation: demo-settle linear forwards;
+      animation-timeline: --demo-settle;
+      animation-range: entry 0% entry 100%;
+    }
+
+    :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(2) { --demo-spread: -0.75; }
+    :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-last-child(2) { --demo-spread: 0.75; }
+    :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(2):nth-last-child(2) { --demo-spread: 0; }
+    :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):first-child { --demo-spread: -1.5; }
+    :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):last-child { --demo-spread: 1.5; }
+
+    @media (max-width: 40rem) {
+      .demo-settle {
+        --demo-unit: var(--space-3);
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.demo-home) [data-part],
+  :where(.demo-home) [data-part]::before,
+  .demo-pack__parts a code,
+  .demo-rail__stud {
+    transition: none;
+  }
 }

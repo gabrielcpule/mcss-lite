@@ -1,4 +1,4 @@
-// Demo behaviour: theme switch, copy button, native dialog, step-in motion. No dependencies.
+// Demo behaviour: theme switch, copy button, native dialog, step rail, step-in motion. No dependencies.
 (() => {
   const root = document.documentElement;
   const THEMES = ['light', 'dark', 'auto'];
@@ -143,14 +143,20 @@
   });
   document.addEventListener('toggle', markScrollers, true); // folded markup measures once it opens
 
-  // Step-in motion: parts drop into place along the arrow. Content is visible without it.
+  // A floating disclosure (the overview's "For your agent" list) closes on Escape or a click elsewhere.
+  document.querySelectorAll('.demo-agents__menu').forEach((menu) => {
+    document.addEventListener('click', (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); }
+    });
+  });
+
+  // Step-in motion: the arrow draws and the misfit drops once a step is in view (the parts themselves
+  // settle with a CSS scroll timeline). Content is visible without it.
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        // Parts in an inset step seat one after another.
-        entry.target.querySelectorAll('.demo-step--inset .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert)')
-          .forEach((part, i) => part.style.setProperty('--demo-i', i));
         entry.target.classList.add('is-seating');
         io.unobserve(entry.target);
       });
