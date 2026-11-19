@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="variant-g.css">
   <link rel="stylesheet" href="variant-h.css">
   <link rel="stylesheet" href="variant-i.css">
+  <link rel="stylesheet" href="variant-j.css">
 </head>
 <body class="demo">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
@@ -67,7 +68,7 @@
     </div>
   </header>
   <!-- PROTOTYPE (throwaway, branch prototype/landing-look): three landing-page variants on one route,
-       switchable with ?variant=A–I, the floating bar below, or the arrow keys. Not part of the build. -->
+       switchable with ?variant=A–J, the floating bar below, or the arrow keys. Not part of the build. -->
   <div id="main-slot"><p class="proto-loading">Loading variant…</p></div>
 
   <nav class="proto-switcher" aria-label="Prototype variants">
@@ -88,6 +89,7 @@
       { key: 'G', name: 'Built from its own parts (design-superpowers:design)', file: 'variant-g.html' },
       { key: 'H', name: 'Laid in courses (design-superpowers:creative)', file: 'variant-h.html' },
       { key: 'I', name: 'Hands-on booklet (design-skills:interaction-design)', file: 'variant-i.html' },
+      { key: 'J', name: 'G + A hero + F motion (picked)', file: 'variant-j.html' },
     ];
     const params = new URLSearchParams(location.search);
     const idx = Math.max(0, VARIANTS.findIndex((v) => v.key === (params.get('variant') || 'A').toUpperCase()));

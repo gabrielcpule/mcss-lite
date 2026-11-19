@@ -1,0 +1,929 @@
+/* PROTOTYPE variant J: G's page "Built from its own parts", with A's box-cover hero and F's motion.
+   Every selector is scoped under .proto-j. Tokens only.
+   One tag language: the hero's box art is permanently exploded with the same rules the "Exploded view"
+   switch applies to the whole page (dashed outline and yellow tag for layouts, ink tag for components). */
+
+.proto-j ::selection {
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+}
+
+/* ---------- Hero: the front of the box (from A) ---------- */
+.proto-j .proto-j-hero {
+  padding-block: var(--space-12) var(--space-16);
+}
+
+/* Phones read claim, then the box art, then how to install it. */
+.proto-j .proto-j-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "claim" "cover" "get";
+  gap: var(--space-10);
+}
+
+.proto-j .proto-j-claim {
+  grid-area: claim;
+  min-width: 0;
+  gap: var(--space-5);
+}
+
+.proto-j .proto-j-get {
+  grid-area: get;
+  min-width: 0;
+}
+
+.proto-j .proto-j-cover {
+  display: grid;
+  grid-area: cover;
+  min-width: 0;
+}
+
+/* From 60rem the claim and the install sit on the left, top-aligned so opening the agent menu never
+   shifts anything above it; the box stands on the right. */
+@media (min-width: 60rem) {
+  .proto-j .proto-j-hero__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "claim cover" "get cover";
+    gap: var(--space-8) var(--space-12);
+    align-items: start;
+  }
+
+  .proto-j .proto-j-claim {
+    padding-block-start: var(--space-8);
+  }
+}
+
+.proto-j .proto-j-title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* Each line rises out of its own mask on load (from F). */
+.proto-j .proto-j-line {
+  display: block;
+  overflow: clip;
+  padding-block: 0.14em 0.12em;
+  margin-block: -0.14em -0.12em;
+}
+
+.proto-j .proto-j-line > span {
+  display: inline-block;
+}
+
+.proto-j .proto-j-lede {
+  max-inline-size: 58ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  text-wrap: pretty;
+}
+
+.proto-j .proto-j-get .demo-install {
+  margin: 0;
+}
+
+.proto-j .proto-j-alt {
+  max-inline-size: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* The npm line is one long command: on phones it may break anywhere rather than run off the page. */
+.proto-j .proto-j-alt code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 30rem) {
+  .proto-j .proto-j-alt code {
+    white-space: nowrap;
+  }
+}
+
+/* The agent row: AGENTS.md, then a folded menu of every file an agent reads. The menu opens in the
+   flow (it never floats), so it can't run under the sticky switch bar below the hero. Its fixed basis
+   keeps the summary on the same line whether the menu is open or shut. */
+.proto-j .proto-j-agents {
+  align-items: flex-start;
+}
+
+.proto-j .proto-j-agents__link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-j .proto-j-menu {
+  flex: 1 1 10rem;
+  min-inline-size: 0;
+}
+
+.proto-j .proto-j-menu__list {
+  display: grid;
+  max-inline-size: 24rem;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  list-style: none;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-j .proto-j-menu__list li {
+  display: grid;
+  padding-block: var(--space-1) var(--space-2);
+}
+
+.proto-j .proto-j-menu__list li + li {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-j .proto-j-menu__list a {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-j .proto-j-menu__list span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* The box: a lid band with the set number and piece count, then the picture of the finished build. */
+.proto-j .proto-j-cover__lid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+}
+
+.proto-j .proto-j-cover__lid p {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-j .proto-j-cover__set {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.proto-j .proto-j-cover__key {
+  font-size: var(--font-size-sm);
+}
+
+.proto-j .proto-j-cover__num {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.proto-j .proto-j-cover__set .proto-j-cover__num {
+  font-size: var(--font-size-3xl);
+}
+
+.proto-j .proto-j-cover__count {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+}
+
+/* A stud seen from above separates the counts. */
+.proto-j .proto-j-cover__sep {
+  align-self: center;
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  margin-inline: var(--space-1);
+  border: var(--border-width-thick) solid currentColor;
+  border-radius: var(--border-radius-full);
+}
+
+.proto-j .proto-j-art {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-5);
+  padding: var(--space-10) var(--space-6) var(--space-5);
+  border-block-start-width: 0;
+  border-radius: 0 0 var(--border-radius-base) var(--border-radius-base);
+  overflow: visible;
+}
+
+.proto-j .proto-j-art > * + * {
+  margin-block-start: 0;
+}
+
+.proto-j .proto-j-art__card {
+  inline-size: min(100%, 24rem);
+}
+
+.proto-j .proto-j-art__field {
+  position: relative;
+}
+
+.proto-j .proto-j-art__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-j .proto-j-art__caption .demo-mark {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  color: var(--color-text-success);
+}
+
+/* The misfit: one small caption under the box. */
+.proto-j .proto-j-misfit-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  margin-block-start: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.proto-j .proto-j-misfit-note__text p {
+  margin: 0;
+}
+
+.proto-j .proto-j-misfit-note__brick {
+  inline-size: 2.5rem;
+  block-size: 1.75rem;
+  color: var(--color-border-error);
+}
+
+.proto-j .proto-j-misfit-note__msg {
+  color: var(--color-text-error);
+}
+
+.proto-j .proto-j-misfit-note a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+
+.proto-j-heading {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+}
+
+.proto-j-text {
+  max-inline-size: 58ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+.proto-j-label {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ---------- The exploded-view switch plate ---------- */
+.proto-j-inspect {
+  z-index: var(--z-index-sticky);
+  padding-block: var(--space-2);
+}
+
+@media (min-width: 48rem) {
+  .proto-j-inspect {
+    position: sticky;
+    inset-block-start: 0;
+  }
+}
+
+.proto-j-inspect__plate {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-5) var(--space-2) var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-j-inspect .c-toggle__hint {
+  max-inline-size: 46ch;
+}
+
+.proto-j-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.proto-j-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.proto-j-legend__key {
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+.proto-j-legend__key--layout {
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+  outline: var(--border-width-thick) dashed var(--color-border-strong);
+  outline-offset: 2px;
+}
+
+.proto-j-legend__key--part {
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+}
+
+/* ---------- What's in the box: a packing list ---------- */
+.proto-j .proto-j-box__intro[data-part] {
+  position: sticky;
+  inset-block-start: var(--space-24);
+}
+
+.proto-j-box__set {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: stretch;
+  margin: 0;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-j-box__set-key {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-inline-end: var(--border-width-thick) solid var(--color-border-keyline);
+  font-size: var(--font-size-sm);
+}
+
+.proto-j-box__set-num {
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+}
+
+.proto-j-packing__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-j-row {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+}
+
+.proto-j-row + .proto-j-row {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-j-row:first-child {
+  padding-block-start: 0;
+}
+
+.proto-j-row:last-child {
+  padding-block-end: 0;
+}
+
+.proto-j-row__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.proto-j-row__bag {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  align-self: center;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+}
+
+/* Dot leaders, as in a printed parts list. */
+.proto-j-row__leader {
+  flex: 1;
+  min-inline-size: var(--space-4);
+  border-block-end: var(--border-width-thick) dotted var(--color-border-strong);
+  transform: translateY(calc(var(--space-1) * -1));
+}
+
+.proto-j-row__count {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.proto-j-row__unit {
+  min-inline-size: 4.5ch;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-j-row__parts {
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-j-row__parts a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  text-decoration: none;
+}
+
+.proto-j-row__parts a code {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-raised);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-text-default);
+  transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.proto-j-row__parts a:hover code {
+  background-color: var(--color-background-interactive-hover);
+  color: var(--color-text-link);
+}
+
+/* Seated brick: pressing drops the chip onto its edge. */
+.proto-j-row__parts a:active code {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.proto-j-row__note {
+  max-inline-size: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Build steps: two sheets side by side ---------- */
+.proto-j-steps {
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+  background-color: var(--color-background-default);
+}
+
+.proto-j-steps__grid {
+  align-items: start;
+}
+
+.proto-j-sheet__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.proto-j .proto-j-sheet__num {
+  flex: none;
+  min-inline-size: 1ch;
+  margin: 0;
+}
+
+.proto-j-sheet__title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+}
+
+.proto-j-sheet__text {
+  max-inline-size: 48ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.proto-j-steps__more {
+  margin: 0;
+  padding-block-start: var(--space-6);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-muted);
+}
+
+.proto-j-steps__more a {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------- The misfit ---------- */
+.proto-j-misfit__head {
+  align-items: center;
+}
+
+.proto-j-misfit__art {
+  display: flex;
+  justify-content: center;
+}
+
+.proto-j-misfit .l-grid {
+  align-items: start;
+}
+
+.proto-j-issues {
+  margin-block-start: var(--space-3);
+}
+
+.proto-j .c-alert__title {
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+.proto-j .c-alert__body > p {
+  margin: var(--space-2) 0 0;
+}
+
+/* ---------- Closing ---------- */
+.proto-j-end {
+  padding-block-start: 0;
+}
+
+.proto-j-end__grid {
+  align-items: start;
+}
+
+.proto-j .proto-j-end__title,
+.proto-j-end__fit .proto-j-heading {
+  font-size: var(--font-size-2xl);
+}
+
+/* The kit question lines up with the plate's title, inside its keyline and padding. */
+.proto-j-end__fit .proto-j-heading {
+  padding-block-start: calc(var(--space-6) + var(--border-width-thick));
+}
+
+.proto-j-links {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-j-links li {
+  display: grid;
+  gap: 0;
+  padding-block: var(--space-2);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-j-links li:first-child {
+  border-block-start: 0;
+}
+
+.proto-j-links a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-j-links span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.proto-j-end__proof {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ---------- Exploded view ---------- */
+/* Every tagged part anchors its tag; the tag stays hidden (and out of the accessibility tree:
+   the alt text after the slash is empty) until the switch is on. */
+.proto-j [data-part] {
+  position: relative;
+}
+
+.proto-j [data-part]::before {
+  content: attr(data-part);
+  content: attr(data-part) / "";
+}
+
+/* The tag look, shared by the switch's tags and the box art's span tag. */
+.proto-j [data-part]::before,
+.proto-j .proto-j-tag {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-3);
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-align: start;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.proto-j [data-part]::before {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(calc(var(--space-2) * -1));
+  transition:
+    opacity var(--duration-slow) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo),
+    visibility 0s linear var(--duration-slow);
+}
+
+/* Components: an ink tag sitting on the part's top edge. */
+.proto-j [data-part^="c-"]::before,
+.proto-j .proto-j-tag--part {
+  inset-block-start: calc(var(--space-3) * -1);
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+}
+
+/* Sections: the tag sits in the section's own top padding, at the start. */
+.proto-j [data-part^="l-section"]::before {
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-4);
+}
+
+/* Containers: the tag sits above the container, at the end, clear of the section's tag. */
+.proto-j [data-part^="l-container"]::before {
+  inset-block-start: calc(var(--space-8) * -1);
+  inset-inline: auto var(--space-4);
+}
+
+.proto-j [data-part^="l-"] {
+  outline: var(--border-width-thick) dashed transparent;
+  outline-offset: 2px;
+  transition:
+    padding var(--duration-slow) var(--ease-out-expo),
+    outline-color var(--duration-fast) var(--ease-out);
+}
+
+.proto-j:has(#j-explode:checked) [data-part]::before {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* Inner layouts pull apart: a strip on top for the tag, an inset on the other sides, so nested
+   outlines never draw on each other. */
+.proto-j:has(#j-explode:checked) [data-part^="l-"]:not([data-part^="l-section"]):not([data-part^="l-container"]) {
+  padding: var(--space-10) var(--space-3) var(--space-3);
+  outline-color: var(--color-border-strong);
+}
+
+/* Containers carry only their tag: their edge is the page gutter, and a second outline there would
+   draw on top of the inner layout's line. */
+.proto-j [data-part^="l-container"] {
+  outline: 0;
+}
+
+/* The stage keeps its stud grid; inside it, parts seat with a little more room when pulled apart. */
+.proto-j:has(#j-explode:checked) .proto-j-stage > * + * {
+  margin-block-start: var(--space-6);
+}
+
+.proto-j:has(#j-explode:checked) .c-form-field[data-part] {
+  padding-block-start: var(--space-6);
+}
+
+.proto-j .c-form-field[data-part]::before {
+  inset-block-start: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-j [data-part],
+  .proto-j [data-part]::before,
+  .proto-j-row__parts a code {
+    transition: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  /* On phones, keep the plate compact and the outlines from eating the measure. */
+  .proto-j:has(#j-explode:checked) [data-part^="l-"]:not([data-part^="l-section"]):not([data-part^="l-container"]) {
+    padding: var(--space-8) var(--space-1) var(--space-1);
+  }
+
+  .proto-j-row__count {
+    font-size: var(--font-size-3xl);
+  }
+
+  .proto-j-heading {
+    font-size: var(--font-size-2xl);
+  }
+
+  .proto-j .proto-j-box__intro[data-part] {
+    position: relative;
+  }
+
+  /* The npm line is one unbroken command: shrink it to fit a phone instead of overflowing. */
+  .proto-j .proto-j-alt code {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ---------- The box art: one build, always pulled apart ---------- */
+/* The same tags and pulled-apart layouts the switch applies to the page, held on for good. Turning the
+   switch on matches these parts with identical values, so the box art doesn't change or double-tag. */
+.proto-j .proto-j-art [data-part]::before {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.proto-j .proto-j-art [data-part^="l-"] {
+  padding: var(--space-10) var(--space-3) var(--space-3);
+  outline-color: var(--color-border-strong);
+}
+
+/* Tag placement inside the small card, so no two tags meet: the card's tag on its bottom edge, the
+   badge's just above the badge. */
+.proto-j .proto-j-art__card[data-part]::before {
+  inset-block: auto calc(var(--space-3) * -1);
+  inset-inline: auto var(--space-3);
+}
+
+.proto-j .proto-j-art .c-badge[data-part]::before {
+  inset-block: auto calc(100% + var(--space-1));
+  inset-inline-start: 0;
+}
+
+/* An input can't carry a pseudo-element, so its tag is a span on the input's top edge, at the end. */
+.proto-j .proto-j-art__input-tag {
+  inset-block: auto calc(2.75rem - var(--space-2));
+  inset-inline: auto var(--space-3);
+}
+
+/* Anchored parts clear the sticky switch bar when reached by link or by keyboard. */
+@media (min-width: 48rem) {
+  .proto-j [id],
+  .proto-j :is(a, button, input, summary) {
+    scroll-margin-block-start: calc(var(--space-24) + var(--space-4));
+  }
+}
+
+@media (max-width: 40rem) {
+  .proto-j .proto-j-art [data-part^="l-"] {
+    padding: var(--space-8) var(--space-1) var(--space-1);
+  }
+
+  .proto-j .proto-j-art {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* ---------- Motion (from F): the hero entrance and the scroll settle, nothing else ---------- */
+@keyframes proto-j-rise {
+  from { transform: translateY(105%); }
+}
+
+@keyframes proto-j-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-3));
+  }
+}
+
+@keyframes proto-j-drop {
+  from { transform: translateY(calc(var(--space-3) * -1)) scale(0.98); }
+}
+
+/* Exploded to seated: each part starts spread from its slot behind a dashed outline and settles in.
+   No 100% keyframe: the end state is the part's own style, so the switch's outlines, focus rings and
+   pressed buttons all come back untouched. */
+@keyframes proto-j-seat {
+  0% {
+    transform: translateY(calc(var(--proto-j-spread, 0) * var(--proto-j-unit, var(--space-4))));
+    outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+    outline-offset: 2px;
+  }
+
+  85% {
+    transform: none;
+    outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Everything in the hero is in place by about 700ms. */
+  .proto-j .proto-j-line > span {
+    animation: proto-j-rise 600ms var(--ease-out-expo) both;
+  }
+
+  .proto-j .proto-j-line + .proto-j-line > span {
+    animation-delay: 70ms;
+  }
+
+  .proto-j .proto-j-lede {
+    animation: proto-j-up 450ms var(--ease-out-expo) 140ms both;
+  }
+
+  .proto-j .proto-j-get > * {
+    animation: proto-j-up 450ms var(--ease-out-expo) 180ms both;
+  }
+
+  .proto-j .proto-j-get > :nth-child(2) { animation-delay: 210ms; }
+  .proto-j .proto-j-get > :nth-child(3) { animation-delay: 240ms; }
+
+  .proto-j .proto-j-box {
+    animation: proto-j-drop 700ms var(--ease-out-expo) 60ms both;
+  }
+
+  /* Progressive: only where scroll-driven animation exists. The animation fills forwards only, so a
+     stage that hasn't reached the viewport yet shows its settled default; the spread state starts at
+     entry 0%, while the stage is still below the fold. */
+  @supports (animation-timeline: view()) {
+    .proto-j .proto-j-settle {
+      --proto-j-unit: var(--space-4);
+      view-timeline: --proto-j-settle block;
+    }
+
+    .proto-j .proto-j-settle > :not(form),
+    .proto-j .proto-j-settle > form > * {
+      animation: proto-j-seat linear forwards;
+      animation-timeline: --proto-j-settle;
+      animation-range: entry 0% entry 100%;
+    }
+
+    .proto-j .proto-j-settle > :nth-child(1) { --proto-j-spread: -2; }
+    .proto-j .proto-j-settle > :nth-child(2) { --proto-j-spread: -1; }
+    .proto-j .proto-j-settle > :nth-child(3) { --proto-j-spread: 0; }
+    .proto-j .proto-j-settle > :nth-child(4) { --proto-j-spread: 1; }
+    .proto-j .proto-j-settle > :nth-child(5) { --proto-j-spread: 2; }
+    .proto-j .proto-j-settle > form > :nth-child(1) { --proto-j-spread: -1.5; }
+    .proto-j .proto-j-settle > form > :nth-child(2) { --proto-j-spread: -0.5; }
+    .proto-j .proto-j-settle > form > :nth-child(3) { --proto-j-spread: 0.5; }
+    .proto-j .proto-j-settle > form > :nth-child(4) { --proto-j-spread: 1.5; }
+
+    @media (max-width: 40rem) {
+      .proto-j .proto-j-settle {
+        --proto-j-unit: var(--space-3);
+      }
+    }
+  }
+}
