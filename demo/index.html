@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="demo.css">
   <script src="demo.js" defer blocking="render"></script>
 </head>
-<body class="demo demo-home">
+<body class="demo demo-home demo-explodable">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
     <symbol id="mcss-icon-arrow-right" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12h14"/><path vector-effect="non-scaling-stroke" d="M13 6l6 6-6 6"/></symbol>
     <symbol id="mcss-icon-check" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12.5l4.5 4.5L19 7"/></symbol>
@@ -89,24 +89,24 @@
         <div class="demo-hero__cover">
           <div class="demo-lid">
             <p class="demo-lid__set"><span class="demo-lid__key">Set</span> <span class="demo-lid__num">0.4.1</span></p>
-            <p class="demo-lid__count"><span class="demo-lid__num">19</span> parts <span class="demo-lid__sep" aria-hidden="true"></span> <span class="demo-lid__num">113</span> tokens</p>
+            <p class="demo-lid__count"><span class="demo-lid__item"><span class="demo-lid__num">19</span> parts</span> <span class="demo-lid__item"><span class="demo-lid__sep" aria-hidden="true"></span> <span class="demo-lid__num">113</span> tokens</span></p>
           </div>
           <figure class="demo-stage demo-art demo-exploded" aria-labelledby="art-caption">
-            <article inert class="c-card c-card--elevated demo-art__card" data-part="c-card c-card--elevated">
+            <article style="--demo-tag-delay: 0ms" inert class="c-card c-card--elevated demo-art__card" data-part="c-card c-card--elevated">
               <header class="c-card__header">
-                <div class="l-cluster" data-part="l-cluster">
+                <div style="--demo-tag-delay: 55ms" class="l-cluster" data-part="l-cluster">
                   <p class="c-card__title">Try the beta</p>
-                  <span class="c-badge c-badge--info" data-part="c-badge c-badge--info">Beta</span>
+                  <span style="--demo-tag-delay: 100ms" class="c-badge c-badge--info" data-part="c-badge c-badge--info">Beta</span>
                 </div>
               </header>
               <div class="c-card__body">
-                <form class="l-stack" data-part="l-stack">
-                  <div class="c-form-field demo-art__field" data-part="c-form-field">
+                <form style="--demo-tag-delay: 170ms" class="l-stack" data-part="l-stack">
+                  <div style="--demo-tag-delay: 210ms" class="c-form-field demo-art__field" data-part="c-form-field">
                     <label class="c-form-field__label" for="box-email">Work email</label>
-                    <span class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" id="box-email" type="email" autocomplete="email"></span>
+                    <span style="--demo-tag-delay: 270ms" class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" id="box-email" type="email" autocomplete="email"></span>
                   </div>
-                  <div class="l-cluster" data-part="l-cluster">
-                    <button type="submit" class="c-button c-button--primary" data-part="c-button c-button--primary">Create account</button>
+                  <div style="--demo-tag-delay: 320ms" class="l-cluster" data-part="l-cluster">
+                    <button style="--demo-tag-delay: 385ms" type="submit" class="c-button c-button--primary" data-part="c-button c-button--primary">Create account</button>
                   </div>
                 </form>
               </div>

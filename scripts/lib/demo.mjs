@@ -248,6 +248,77 @@ export function checkStepLayouts(steps) {
   });
 }
 
+// Exploded view: every layout and component carries its block and modifier classes in data-part, which
+// the page's CSS prints as a tag (generated content with empty alt text, so screen readers skip it).
+// In the step builds parts sit close together, so there a component's tag names its block only.
+// Inputs and icons are replaced elements that can't hold generated content, so each is wrapped in a
+// span of its own size that carries the tag instead. A modal is fixed-position, so it gets no tag.
+const REPLACED = ['c-input', 'c-icon'];
+const UNTAGGED = ['c-modal', ...REPLACED];
+export function partTagger(inventory) {
+  const partNames = (cls, short) => cls.split(/\s+/).filter((name) => {
+    const info = inventory.get(name);
+    if (!info) return false;
+    if (short && info.kind === 'modifier' && info.contract.layer === 'component') return false;
+    return info.kind === 'block' || info.kind === 'modifier';
+  });
+  return (html, { short = false } = {}) => html
+    .replace(/<input\b[^>]*>|<svg\b[^>]*>[\s\S]*?<\/svg>/g, (el) => {
+      const names = partNames(el.match(/^<[a-z]+\b[^>]*?\sclass="([^"]*)"/)?.[1] ?? '', short);
+      const block = names.map((n) => inventory.get(n).block).find((b) => REPLACED.includes(b));
+      return block ? `<span class="demo-replaced demo-replaced--${block.slice(2)}" data-part="${names.join(' ')}">${el}</span>` : el;
+    })
+    .replace(/<[a-z][a-z0-9-]*\b[^>]*?\sclass="([^"]*)"/g, (open, cls) => {
+      const parts = partNames(cls, short).filter((name) => !UNTAGGED.includes(inventory.get(name).block));
+      return parts.length ? `${open} data-part="${parts.join(' ')}"` : open;
+    });
+}
+
+// The picture on a box cover is always exploded. Once the cover has settled, its tags arrive one by one
+// at uneven gaps (40 to 70ms), like hands placing labels; the delays are written in at build time.
+const TAG_GAPS = [0, 55, 45, 70, 40, 60, 50, 65];
+export const staggerArt = (html) => html.replace(/<figure class="demo-stage demo-art[\s\S]*?<\/figure>/, (fig) => {
+  let i = 0;
+  let t = 0;
+  return fig.replace(/(<[a-z][a-z0-9-]*\b)([^>]*?\sdata-part=")/g, (m, open, rest) => {
+    if (/\sstyle="/.test(rest)) throw new Error('staggerArt: a tagged part in the box art already has a style attribute');
+    t += TAG_GAPS[i++ % TAG_GAPS.length];
+    return `${open} style="--demo-tag-delay: ${t}ms"${rest}`;
+  });
+});
+
+// The sticky bar under the header on the three booklet pages: the page's own jump studs (steps, bags or
+// rules) and the Exploded view switch. One ink marker glides between the studs to the current one.
+export function stickyBar({ label, now, studs, extra = '' }) {
+  return `<div class="demo-buildbar">
+  <div class="l-container demo-buildbar__inner">
+    <nav class="demo-buildbar__steps" aria-label="${esc(label)}">
+      <ol class="demo-rail__list" role="list">
+${studs.map(({ id, name, sr, mark }) => `        <li><a class="demo-rail__stud" href="#${id}" data-rail="${id}" data-label="${esc(name)}"><span class="u-sr-only">${esc(sr)}</span><span aria-hidden="true">${mark}</span></a></li>`).join('\n')}${extra ? `\n${extra}` : ''}
+      </ol>
+      <p class="demo-rail__now" aria-hidden="true" data-rail-now="${esc(now)}"></p>
+    </nav>
+    <div class="demo-buildbar__inspect">
+      <div class="c-toggle">
+        <input class="c-toggle__input" type="checkbox" role="switch" id="explode" aria-describedby="explode-hint">
+        <label class="c-toggle__label" for="explode">Exploded view</label>
+        <p class="c-toggle__hint u-sr-only" id="explode-hint">Outlines every layout on this page and tags every part with its class, like the picture on the box.</p>
+      </div>
+      <ul class="demo-keys" role="list">
+        <li><span class="demo-keys__key demo-keys__key--layout" aria-hidden="true">l-</span> Layout</li>
+        <li><span class="demo-keys__key demo-keys__key--part" aria-hidden="true">c-</span> Component</li>
+      </ul>
+    </div>
+  </div>
+</div>`;
+}
+
+// A box lid: the set number on the left, the counts on the right, each count in Rubik.
+export const lid = (pkg, counts) => `<div class="demo-lid">
+  <p class="demo-lid__set"><span class="demo-lid__key">Set</span> <span class="demo-lid__num">${esc(pkg.version)}</span></p>
+  <p class="demo-lid__count">${counts.map(([n, unit], i) => `<span class="demo-lid__item">${i ? '<span class="demo-lid__sep" aria-hidden="true"></span> ' : ''}<span class="demo-lid__num">${n}</span> ${unit}</span>`).join(' ')}</p>
+</div>`;
+
 export function buildDemo(root, pkg, contracts, tokenRows) {
   const { steps, author } = loadBooklet(root);
   checkStepLayouts(steps);
@@ -298,29 +369,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
     return counts;
   };
 
-  // Exploded view: every layout and component carries its block and modifier classes in data-part, which
-  // the page's CSS prints as a tag (generated content with empty alt text, so screen readers skip it).
-  // In the step builds parts sit close together, so there a component's tag names its block only.
-  // Inputs and icons are replaced elements that can't hold generated content, so each is wrapped in a
-  // span of its own size that carries the tag instead. A modal is fixed-position, so it gets no tag.
-  const REPLACED = ['c-input', 'c-icon'];
-  const UNTAGGED = ['c-modal', ...REPLACED];
-  const partNames = (cls, short) => cls.split(/\s+/).filter((name) => {
-    const info = inventory.get(name);
-    if (!info) return false;
-    if (short && info.kind === 'modifier' && info.contract.layer === 'component') return false;
-    return info.kind === 'block' || info.kind === 'modifier';
-  });
-  const tagParts = (html, { short = false } = {}) => html
-    .replace(/<input\b[^>]*>|<svg\b[^>]*>[\s\S]*?<\/svg>/g, (el) => {
-      const names = partNames(el.match(/^<[a-z]+\b[^>]*?\sclass="([^"]*)"/)?.[1] ?? '', short);
-      const block = names.map((n) => inventory.get(n).block).find((b) => REPLACED.includes(b));
-      return block ? `<span class="demo-replaced demo-replaced--${block.slice(2)}" data-part="${names.join(' ')}">${el}</span>` : el;
-    })
-    .replace(/<[a-z][a-z0-9-]*\b[^>]*?\sclass="([^"]*)"/g, (open, cls) => {
-      const parts = partNames(cls, short).filter((name) => !UNTAGGED.includes(inventory.get(name).block));
-      return parts.length ? `${open} data-part="${parts.join(' ')}"` : open;
-    });
+  const tagParts = partTagger(inventory);
 
   const callout = (block, html) => {
     const c = byBlock.get(block);
@@ -442,10 +491,7 @@ ${indent(body, 2)}
     </div>
 
     <div class="demo-hero__cover">
-      <div class="demo-lid">
-        <p class="demo-lid__set"><span class="demo-lid__key">Set</span> <span class="demo-lid__num">${esc(pkg.version)}</span></p>
-        <p class="demo-lid__count"><span class="demo-lid__num">${partTotal}</span> parts <span class="demo-lid__sep" aria-hidden="true"></span> <span class="demo-lid__num">${tokenTotal}</span> tokens</p>
-      </div>
+${indent(lid(pkg, [[partTotal, 'parts'], [tokenTotal, 'tokens']]), 6)}
       <figure class="demo-stage demo-art demo-exploded" aria-labelledby="art-caption">
 ${indent(BOX_ART.replace('<article class="c-card', '<article inert class="c-card'), 8)}
         <figcaption class="demo-art__caption" id="art-caption"><span class="u-sr-only">The picture on the box: a sign-up card built only from MCSS-Lite parts, each part tagged with its class. </span>${CHECK_MARK}<span><code>validate</code>: 0 issues</span></figcaption>
@@ -588,28 +634,12 @@ ${indent(FINALE_RIGHT, 12)}
 </section>`;
 
   // One sticky bar: the step studs and the Exploded view switch.
-  const bar = `<div class="demo-buildbar">
-  <div class="l-container demo-buildbar__inner">
-    <nav class="demo-buildbar__steps" aria-label="Build steps">
-      <ol class="demo-rail__list" role="list">
-${steps.map((st, i) => `        <li><a class="demo-rail__stud" href="#step-${i + 1}" data-rail="step-${i + 1}" data-label="${esc(st.title)}"><span class="u-sr-only">Step ${i + 1}: ${esc(st.title)}</span><span aria-hidden="true">${i + 1}</span></a></li>`).join('\n')}
-        <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn't fit"><span class="u-sr-only">The piece that doesn't fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
-      </ol>
-      <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a step"></p>
-    </nav>
-    <div class="demo-buildbar__inspect">
-      <div class="c-toggle">
-        <input class="c-toggle__input" type="checkbox" role="switch" id="explode" aria-describedby="explode-hint">
-        <label class="c-toggle__label" for="explode">Exploded view</label>
-        <p class="c-toggle__hint u-sr-only" id="explode-hint">Outlines every layout on this page and tags every part with its class, like the picture on the box.</p>
-      </div>
-      <ul class="demo-keys" role="list">
-        <li><span class="demo-keys__key demo-keys__key--layout" aria-hidden="true">l-</span> Layout</li>
-        <li><span class="demo-keys__key demo-keys__key--part" aria-hidden="true">c-</span> Component</li>
-      </ul>
-    </div>
-  </div>
-</div>`;
+  const bar = stickyBar({
+    label: 'Build steps',
+    now: 'Jump to a step',
+    studs: steps.map((st, i) => ({ id: `step-${i + 1}`, name: st.title, sr: `Step ${i + 1}: ${st.title}`, mark: i + 1 })),
+    extra: '        <li><a class="demo-rail__stud demo-rail__stud--wrong" href="#wrong-piece" data-rail="wrong-piece" data-label="This piece doesn\'t fit"><span class="u-sr-only">The piece that doesn\'t fit</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>',
+  });
 
   return `<!doctype html>
 <!-- GENERATED by scripts/build.mjs from demo/steps.json and components/*.json. Do not edit. -->
@@ -621,13 +651,13 @@ ${steps.map((st, i) => `        <li><a class="demo-rail__stud" href="#step-${i +
   <meta name="description" content="${esc(pkg.description)}">
   ${demoHead('')}
 </head>
-<body class="demo demo-home">
+<body class="demo demo-home demo-explodable">
 ${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#main">Skip to the page</a>
   ${demoBar(pkg, '', 'index.html')}
 
   <main id="main">
-${indentHtml(tagParts(hero), 4)}
+${indentHtml(staggerArt(tagParts(hero)), 4)}
 
 ${indentHtml(bar, 4)}
 

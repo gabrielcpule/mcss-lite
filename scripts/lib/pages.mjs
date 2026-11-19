@@ -4,9 +4,9 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
-import { stateLabel } from './contracts.mjs';
+import { stateLabel, classInventory } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, tokenNote, ARROW_SVG } from './demo.mjs';
+import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, tokenNote, ARROW_SVG, partTagger, staggerArt, stickyBar, lid } from './demo.mjs';
 
 // Markup and token tables shorter than this stay open: folding them costs more than it saves.
 const FOLD_MIN = 4;
@@ -61,6 +61,7 @@ const dialogPreview = (html) => html
 
 export function buildPages({ root, pkg, contracts, tokenRows }) {
   const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
+  const tagParts = partTagger(classInventory(contracts));
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const tokens = new Map(tokenRows.map((t) => [t.name, t]));
   const sheets = contracts;
@@ -84,7 +85,7 @@ export function buildPages({ root, pkg, contracts, tokenRows }) {
 
   // ---------- shell ----------
 
-  function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>', extra = '' }) {
+  function shell({ title, description, rel, rail, main, current = null, source = '<code>components/*.json</code>', extra = '', bodyClass = 'demo' }) {
     const railHtml = rail.length
       ? `\n    <nav class="demo-rail demo-rail--labelled" aria-label="Sections">
     <ol class="demo-rail__list" role="list" style="--demo-studs: ${rail.length}">
@@ -103,7 +104,7 @@ ${rail.map(([id, label], n) => `      <li><a class="demo-rail__stud" href="#${id
   <meta name="description" content="${esc(description)}">
   ${demoHead(rel)}
 </head>
-<body class="demo">
+<body class="${bodyClass}">
 ${inlineSprite(loadIcons(root), pkg)}
   <a class="demo-skip" href="#main">Skip to the page</a>
   ${demoBar(pkg, rel, current)}
@@ -387,12 +388,49 @@ ${fits}${sources}
     });
   }
 
+  // ---------- the front of the box, for the inventory and content pages ----------
+
+  // The same split head as the overview: the title (two lines, each rising from its own mask) and the
+  // lede on the left, and on the right a box with a lid band and a live specimen, always exploded.
+  function boxHead({ id, lines, lede, counts, art, caption }) {
+    return `<section class="l-section demo-hero demo-hero--page" aria-labelledby="${id}">
+  <div class="l-container demo-hero__grid">
+    <div class="l-stack demo-hero__claim">
+      <h1 class="demo-hero__title" id="${id}">${lines.map((l) => `<span class="demo-hero__line"><span>${esc(l)}</span></span>`).join(' ')}</h1>
+      <p class="demo-hero__lede">${lede}</p>
+    </div>
+    <div class="demo-hero__cover">
+${indent(lid(pkg, counts), 6)}
+      <figure class="demo-stage demo-art demo-exploded" aria-labelledby="${id}-art">
+${indent(art, 8)}
+        <figcaption class="demo-art__caption" id="${id}-art">${caption}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>`;
+  }
+
   // ---------- parts inventory ----------
 
   function inventoryPage() {
-    const bag = (n, title, list) => `<div class="demo-bag demo-bag--wide">
-  <h2 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">${n}</span> ${title} <span class="demo-bag__count">${partCount(list)}</span></h2>
-  <div class="demo-spec demo-inventory-table">
+    const layouts = contracts.filter((c) => c.layer === 'layout');
+    const components = contracts.filter((c) => c.layer === 'component');
+    const utilities = contracts.filter((c) => c.layer === 'utility');
+    const BAGS = [
+      ['layouts', 'Layouts', layouts],
+      ['components', 'Components', components],
+      ['utilities', 'Utilities', utilities],
+    ];
+    // Each bag is a bordered card with a sealed top fold; its head is a cluster, its table the parts list.
+    const bag = (n, key, title, list) => `<section class="c-card c-card--bordered demo-bag" id="bag-${key}" aria-labelledby="bag-${key}-title">
+  <header class="c-card__header">
+    <div class="l-cluster demo-bag__head">
+      <span class="demo-bag__num" aria-hidden="true">${n}</span>
+      <h2 class="c-card__title demo-bag__title" id="bag-${key}-title">${title}</h2>
+      <span class="demo-bag__count">${partCount(list)}</span>
+    </div>
+  </header>
+  <div class="c-card__body demo-spec demo-inventory-table">
     <table>
       <caption class="u-sr-only">${title}</caption>
       <thead><tr><th scope="col">Part</th><th scope="col">Status</th><th scope="col">Since</th><th scope="col">Notes</th></tr></thead>
@@ -401,59 +439,119 @@ ${list.map((c) => `        <tr><th scope="row"><a class="demo-bag__link demo-inv
       </tbody>
     </table>
   </div>
-</div>`;
-    const layouts = contracts.filter((c) => c.layer === 'layout');
-    const components = contracts.filter((c) => c.layer === 'component');
-    const utilities = contracts.filter((c) => c.layer === 'utility');
-    const tokensBag = `<div class="demo-bag demo-bag--wide">
-  <h2 class="demo-bag__head"><span class="demo-bag__num" aria-hidden="true">4</span> Tokens <span class="demo-bag__count">${tokenRows.filter((t) => t.tier !== 'primitive').length} to use</span></h2>
-  <p class="demo-bag__note">${tokenNote(tokenRows)} Every token with its light and dark value is in <a href="../llms-tokens.txt"><code>llms-tokens.txt</code></a>; each part sheet lists the tokens it reads.</p>
-</div>`;
-    const main = `    <header class="demo-sheet__head">
-      <div class="l-container l-stack l-stack--sm">
-        <h1 class="demo-sheet__title">Parts inventory</h1>
-        <p class="demo-hero__lede">The back of the booklet: every part MCSS-Lite ships, with its status. Anything not listed here doesn't exist, and <code>mcss-lite validate</code> rejects it.</p>
-        <ul class="l-cluster demo-legend" role="list">
-${Object.entries(LEGEND).filter(([st]) => contracts.some((c) => c.status === st)).map(([st, text]) => `          <li>${sticker(st)} ${text}</li>`).join('\n')}
-        </ul>
-      </div>
-    </header>
-    <section class="demo-step demo-sheet__section" aria-label="All parts">
-      <div class="l-container l-stack">
-${indent([bag(1, 'Layouts', layouts), bag(2, 'Components', components), bag(3, 'Utilities', utilities), tokensBag].join('\n'), 8)}
-      </div>
-    </section>`;
-    return shell({ title: 'Parts inventory', description: 'Every MCSS-Lite part with its status.', rel: '', rail: [], main, current: 'status.html' });
+</section>`;
+    const tokensBag = `<section class="c-card c-card--bordered demo-bag" id="bag-tokens" aria-labelledby="bag-tokens-title">
+  <header class="c-card__header">
+    <div class="l-cluster demo-bag__head">
+      <span class="demo-bag__num" aria-hidden="true">4</span>
+      <h2 class="c-card__title demo-bag__title" id="bag-tokens-title">Tokens</h2>
+      <span class="demo-bag__count">${tokenRows.filter((t) => t.tier !== 'primitive').length} to use</span>
+    </div>
+  </header>
+  <div class="c-card__body">
+    <p class="demo-bag__note">${tokenNote(tokenRows)} Every token with its light and dark value is in <a href="../llms-tokens.txt"><code>llms-tokens.txt</code></a>; each part sheet lists the tokens it reads.</p>
+  </div>
+</section>`;
+
+    // The specimen on the box: the status stickers, each beside the first real part that carries it.
+    const statuses = Object.keys(LEGEND).filter((st) => contracts.some((c) => c.status === st));
+    const legend = `<ul class="l-stack l-stack--sm demo-legend" role="list">
+${statuses.map((st) => {
+    const c = contracts.find((x) => x.status === st);
+    return `  <li class="l-cluster demo-legend__row">${sticker(st)}<a class="demo-bag__link demo-legend__part" href="components/${sheetFile(c)}">${glyph(c.block)}<code>${esc(c.block)}</code></a><span class="demo-legend__text">${LEGEND[st]}</span></li>`;
+  }).join('\n')}
+</ul>`;
+    if (validate(legend).length) throw new Error('inventory head: the sticker specimen must validate cleanly');
+    const counts = statuses.map((st) => [contracts.filter((c) => c.status === st).length, STATUS_TEXT[st].toLowerCase()]);
+    const head = boxHead({
+      id: 'inventory-title',
+      lines: ['Parts', 'inventory'],
+      lede: 'The back of the booklet: every part MCSS-Lite ships, with its status and the version it arrived in. Anything not listed here doesn\'t exist, and <code>mcss-lite validate</code> rejects it.',
+      counts,
+      art: legend,
+      caption: `${CHECK_ICON}<span>One sticker per status · <code>validate</code>: 0 issues</span>`,
+    });
+    const bags = `<section class="l-section demo-bags" aria-label="All parts">
+  <div class="l-container">
+    <div class="l-stack l-stack--lg">
+${indent([...BAGS.map(([key, title, list], i) => bag(i + 1, key, title, list)), tokensBag].join('\n'), 6)}
+    </div>
+  </div>
+</section>`;
+    const bar = stickyBar({
+      label: 'Bags',
+      now: 'Jump to a bag',
+      studs: [...BAGS.map(([key, title]) => [key, title]), ['tokens', 'Tokens']].map(([key, title], i) => ({ id: `bag-${key}`, name: title, sr: `Bag ${i + 1}: ${title}`, mark: i + 1 })),
+    });
+    const main = [staggerArt(tagParts(head)), bar, tagParts(bags)].map((x) => indent(x, 4)).join('\n\n');
+    return shell({ title: 'Parts inventory', description: 'Every MCSS-Lite part with its status.', rel: '', rail: [], main, current: 'status.html', bodyClass: 'demo demo-explodable' });
   }
 
   // ---------- read before you build ----------
 
   function contentPage() {
-    const main = `    <header class="demo-sheet__head">
-      <div class="l-container l-stack l-stack--sm">
-        <h1 class="demo-sheet__title">${esc(content.title)}</h1>
-        <p class="demo-hero__lede">${rich(content.intro, 'components/')}</p>
-      </div>
-    </header>
-    <section class="demo-step demo-sheet__section" aria-labelledby="rules-title">
-      <div class="l-container l-stack">
-        <h2 class="u-sr-only" id="rules-title">Content rules</h2>
-        <ol class="demo-notices" role="list">
-${content.rules.map((r, i) => `          <li class="demo-notice" id="${esc(r.id)}">
+    // The specimen on the box: the first rule the validator checks, as a ✓/✗ pair of real buttons. The
+    // build fails if the right label stops passing or the wrong one stops tripping its rule.
+    const rule = content.rules.find((r) => r.enforcedBy);
+    const button = (text) => `<button type="button" class="c-button">${esc(text)}</button>`;
+    const doIssues = validate(button(rule.do));
+    const dontIssues = validate(button(rule.dont));
+    if (doIssues.length) throw new Error(`content head: "${rule.do}" must validate cleanly`);
+    const caught = dontIssues.find((x) => x.rule === rule.enforcedBy);
+    if (!caught) throw new Error(`content head: "${rule.dont}" must trip [${rule.enforcedBy}]`);
+    const pair = `<div class="l-stack demo-labelpair" inert>
+  <div class="l-cluster demo-labelpair__row demo-labelpair__row--do">
+    ${CHECK_ICON}
+    ${button(rule.do)}
+    <span class="demo-labelpair__verdict"><code>validate</code>: 0 issues</span>
+  </div>
+  <div class="l-cluster demo-labelpair__row demo-labelpair__row--dont">
+    ${CROSS_ICON}
+    <!-- mcss-lite-ignore ${esc(rule.enforcedBy)}: the label that doesn't fit, shown on purpose -->
+    ${button(rule.dont)}
+    <span class="demo-labelpair__verdict demo-labelpair__verdict--issue demo-check__issue--${esc(caught.level)}"><strong>${esc(caught.level)}</strong> ${codeTokens(caught.message)} <code>[${esc(caught.rule)}]</code></span>
+  </div>
+</div>`;
+    const checked = content.rules.filter((r) => r.enforcedBy).length;
+    const head = boxHead({
+      id: 'content-title',
+      lines: ['Read before', 'you build'],
+      lede: rich(content.intro, 'components/'),
+      counts: [[content.rules.length, 'rules'], [checked, 'checked by the validator']],
+      art: pair,
+      caption: `<span class="u-sr-only">The rule "${esc(rule.title)}" on two real buttons: "${esc(rule.do)}" passes the validator with 0 issues; "${esc(rule.dont)}" gets a ${esc(caught.level)}: ${esc(caught.message)} </span><span aria-hidden="true">${esc(rule.title)}, checked by <code>mcss-lite validate</code></span>`,
+    });
+    const notices = `<section class="l-section demo-rules" aria-labelledby="rules-title">
+  <div class="l-container">
+    <h2 class="u-sr-only" id="rules-title">Content rules</h2>
+    <ol class="l-stack demo-notices" role="list">
+${content.rules.map((r, i) => `      <li class="c-card c-card--bordered demo-notice" id="${esc(r.id)}">
+        <div class="l-sidebar demo-notice__layout">
+          <div class="l-sidebar__content demo-notice__main">
             <p class="demo-notice__num" aria-hidden="true">${i + 1}</p>
             <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">${esc(r.title)}</h3>
-              <p>${rich(r.text)}</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do">${CHECK_ICON}<span class="u-sr-only">Do: </span>${esc(r.do)}</p>
-                <p class="demo-notice__dont">${CROSS_ICON}<span class="u-sr-only">Don't: </span>${esc(r.dont)}</p>
-              </div>${r.enforcedBy ? `\n              <p class="demo-notice__checked">Checked by <code>mcss-lite validate</code> <code>[${esc(r.enforcedBy)}]</code></p>` : ''}
+              <h3 class="c-card__title demo-notice__title">${esc(r.title)}</h3>
+              <p>${rich(r.text)}</p>${r.enforcedBy ? `\n              <p class="demo-notice__checked">Checked by <code>mcss-lite validate</code> <code>[${esc(r.enforcedBy)}]</code></p>` : ''}
             </div>
-          </li>`).join('\n')}
-        </ol>
-      </div>
-    </section>`;
-    return shell({ title: content.title, description: content.intro, rel: '', rail: [], main, current: 'content.html', source: '<code>guidelines/content.json</code>' });
+          </div>
+          <div class="l-sidebar__sidebar">
+            <div class="l-stack l-stack--sm demo-notice__pair">
+              <p class="demo-notice__do">${CHECK_ICON}<span class="u-sr-only">Do: </span><span>${esc(r.do)}</span></p>
+              <p class="demo-notice__dont">${CROSS_ICON}<span class="u-sr-only">Don't: </span><span>${esc(r.dont)}</span></p>
+            </div>
+          </div>
+        </div>
+      </li>`).join('\n')}
+    </ol>
+  </div>
+</section>`;
+    const bar = stickyBar({
+      label: 'Rules',
+      now: 'Jump to a rule',
+      studs: content.rules.map((r, i) => ({ id: r.id, name: r.title, sr: `Rule ${i + 1}: ${r.title}`, mark: i + 1 })),
+    });
+    const main = [staggerArt(tagParts(head)), bar, tagParts(notices)].map((x) => indent(x, 4)).join('\n\n');
+    return shell({ title: content.title, description: content.intro, rel: '', rail: [], main, current: 'content.html', source: '<code>guidelines/content.json</code>', bodyClass: 'demo demo-explodable' });
   }
 }
 

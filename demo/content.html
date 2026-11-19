@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="demo.css">
   <script src="demo.js" defer blocking="render"></script>
 </head>
-<body class="demo">
+<body class="demo demo-explodable">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
     <symbol id="mcss-icon-arrow-right" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12h14"/><path vector-effect="non-scaling-stroke" d="M13 6l6 6-6 6"/></symbol>
     <symbol id="mcss-icon-check" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 12.5l4.5 4.5L19 7"/></symbol>
@@ -59,136 +59,259 @@
     </div>
   </header>
   <main id="main">
-    <header class="demo-sheet__head">
-      <div class="l-container l-stack l-stack--sm">
-        <h1 class="demo-sheet__title">Read before you build</h1>
-        <p class="demo-hero__lede">Words are parts too. These rules keep labels, messages and help text consistent across every screen, whether a person or an agent writes them. They follow the GOV.UK Design System, GitLab Pajamas and NN/g research.</p>
+    <section class="l-section demo-hero demo-hero--page" data-part="l-section" aria-labelledby="content-title">
+      <div class="l-container demo-hero__grid" data-part="l-container">
+        <div class="l-stack demo-hero__claim" data-part="l-stack">
+          <h1 class="demo-hero__title" id="content-title"><span class="demo-hero__line"><span>Read before</span></span> <span class="demo-hero__line"><span>you build</span></span></h1>
+          <p class="demo-hero__lede">Words are parts too. These rules keep labels, messages and help text consistent across every screen, whether a person or an agent writes them. They follow the GOV.UK Design System, GitLab Pajamas and NN/g research.</p>
+        </div>
+        <div class="demo-hero__cover">
+          <div class="demo-lid">
+            <p class="demo-lid__set"><span class="demo-lid__key">Set</span> <span class="demo-lid__num">0.4.1</span></p>
+            <p class="demo-lid__count"><span class="demo-lid__item"><span class="demo-lid__num">11</span> rules</span> <span class="demo-lid__item"><span class="demo-lid__sep" aria-hidden="true"></span> <span class="demo-lid__num">2</span> checked by the validator</span></p>
+          </div>
+          <figure class="demo-stage demo-art demo-exploded" aria-labelledby="content-title-art">
+            <div style="--demo-tag-delay: 0ms" class="l-stack demo-labelpair" data-part="l-stack" inert>
+              <div style="--demo-tag-delay: 55ms" class="l-cluster demo-labelpair__row demo-labelpair__row--do" data-part="l-cluster">
+                <svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                <button style="--demo-tag-delay: 100ms" type="button" class="c-button" data-part="c-button">Create account</button>
+                <span class="demo-labelpair__verdict"><code>validate</code>: 0 issues</span>
+              </div>
+              <div style="--demo-tag-delay: 170ms" class="l-cluster demo-labelpair__row demo-labelpair__row--dont" data-part="l-cluster">
+                <svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                <!-- mcss-lite-ignore content-case: the label that doesn't fit, shown on purpose -->
+                <button style="--demo-tag-delay: 210ms" type="button" class="c-button" data-part="c-button">Create Account</button>
+                <span class="demo-labelpair__verdict demo-labelpair__verdict--issue demo-check__issue--warning"><strong>warning</strong> &quot;Create Account&quot; is in Title Case. Write in sentence case: capitalize only the first word and proper nouns. <code>[content-case]</code></span>
+              </div>
+            </div>
+            <figcaption class="demo-art__caption" id="content-title-art"><span class="u-sr-only">The rule "Write in sentence case" on two real buttons: "Create account" passes the validator with 0 issues; "Create Account" gets a warning: &quot;Create Account&quot; is in Title Case. Write in sentence case: capitalize only the first word and proper nouns. </span><span aria-hidden="true">Write in sentence case, checked by <code>mcss-lite validate</code></span></figcaption>
+          </figure>
+        </div>
       </div>
-    </header>
-    <section class="demo-step demo-sheet__section" aria-labelledby="rules-title">
-      <div class="l-container l-stack">
+    </section>
+
+    <div class="demo-buildbar">
+      <div class="l-container demo-buildbar__inner">
+        <nav class="demo-buildbar__steps" aria-label="Rules">
+          <ol class="demo-rail__list" role="list">
+            <li><a class="demo-rail__stud" href="#sentence-case" data-rail="sentence-case" data-label="Write in sentence case"><span class="u-sr-only">Rule 1: Write in sentence case</span><span aria-hidden="true">1</span></a></li>
+            <li><a class="demo-rail__stud" href="#button-verbs" data-rail="button-verbs" data-label="Buttons say what happens"><span class="u-sr-only">Rule 2: Buttons say what happens</span><span aria-hidden="true">2</span></a></li>
+            <li><a class="demo-rail__stud" href="#no-vague-labels" data-rail="no-vague-labels" data-label="No vague labels"><span class="u-sr-only">Rule 3: No vague labels</span><span aria-hidden="true">3</span></a></li>
+            <li><a class="demo-rail__stud" href="#error-messages" data-rail="error-messages" data-label="Errors say what went wrong and how to fix it"><span class="u-sr-only">Rule 4: Errors say what went wrong and how to fix it</span><span aria-hidden="true">4</span></a></li>
+            <li><a class="demo-rail__stud" href="#error-timing" data-rail="error-timing" data-label="Show errors at the right moment"><span class="u-sr-only">Rule 5: Show errors at the right moment</span><span aria-hidden="true">5</span></a></li>
+            <li><a class="demo-rail__stud" href="#optional-fields" data-rail="optional-fields" data-label="Mark optional fields, not required ones"><span class="u-sr-only">Rule 6: Mark optional fields, not required ones</span><span aria-hidden="true">6</span></a></li>
+            <li><a class="demo-rail__stud" href="#positive-choices" data-rail="positive-choices" data-label="Write choices as positive statements"><span class="u-sr-only">Rule 7: Write choices as positive statements</span><span aria-hidden="true">7</span></a></li>
+            <li><a class="demo-rail__stud" href="#setting-names" data-rail="setting-names" data-label="Name the setting, not the action"><span class="u-sr-only">Rule 8: Name the setting, not the action</span><span aria-hidden="true">8</span></a></li>
+            <li><a class="demo-rail__stud" href="#punctuation" data-rail="punctuation" data-label="Keep punctuation light"><span class="u-sr-only">Rule 9: Keep punctuation light</span><span aria-hidden="true">9</span></a></li>
+            <li><a class="demo-rail__stud" href="#numbers-dates" data-rail="numbers-dates" data-label="Write numbers and dates the same way everywhere"><span class="u-sr-only">Rule 10: Write numbers and dates the same way everywhere</span><span aria-hidden="true">10</span></a></li>
+            <li><a class="demo-rail__stud" href="#inclusive" data-rail="inclusive" data-label="Write for everyone"><span class="u-sr-only">Rule 11: Write for everyone</span><span aria-hidden="true">11</span></a></li>
+          </ol>
+          <p class="demo-rail__now" aria-hidden="true" data-rail-now="Jump to a rule"></p>
+        </nav>
+        <div class="demo-buildbar__inspect">
+          <div class="c-toggle">
+            <input class="c-toggle__input" type="checkbox" role="switch" id="explode" aria-describedby="explode-hint">
+            <label class="c-toggle__label" for="explode">Exploded view</label>
+            <p class="c-toggle__hint u-sr-only" id="explode-hint">Outlines every layout on this page and tags every part with its class, like the picture on the box.</p>
+          </div>
+          <ul class="demo-keys" role="list">
+            <li><span class="demo-keys__key demo-keys__key--layout" aria-hidden="true">l-</span> Layout</li>
+            <li><span class="demo-keys__key demo-keys__key--part" aria-hidden="true">c-</span> Component</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section class="l-section demo-rules" data-part="l-section" aria-labelledby="rules-title">
+      <div class="l-container" data-part="l-container">
         <h2 class="u-sr-only" id="rules-title">Content rules</h2>
-        <ol class="demo-notices" role="list">
-          <li class="demo-notice" id="sentence-case">
-            <p class="demo-notice__num" aria-hidden="true">1</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Write in sentence case</h3>
-              <p>Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Create account</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Create Account</p>
+        <ol class="l-stack demo-notices" data-part="l-stack" role="list">
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="sentence-case">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">1</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Write in sentence case</h3>
+                  <p>Capitalize only the first word and proper nouns in labels, titles, buttons and badges. Title Case is harder to scan and reads as shouting in long labels.</p>
+                  <p class="demo-notice__checked">Checked by <code>mcss-lite validate</code> <code>[content-case]</code></p>
+                </div>
               </div>
-              <p class="demo-notice__checked">Checked by <code>mcss-lite validate</code> <code>[content-case]</code></p>
-            </div>
-          </li>
-          <li class="demo-notice" id="button-verbs">
-            <p class="demo-notice__num" aria-hidden="true">2</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Buttons say what happens</h3>
-              <p>Start with a verb and name the thing it acts on. A person should know the result before they click.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Save changes</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>OK</p>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Create account</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Create Account</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="no-vague-labels">
-            <p class="demo-notice__num" aria-hidden="true">3</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">No vague labels</h3>
-              <p>&quot;Submit&quot;, &quot;Click here&quot;, &quot;Yes&quot; and &quot;More&quot; say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Download the invoice</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Click here</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="button-verbs">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">2</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Buttons say what happens</h3>
+                  <p>Start with a verb and name the thing it acts on. A person should know the result before they click.</p>
+                </div>
               </div>
-              <p class="demo-notice__checked">Checked by <code>mcss-lite validate</code> <code>[content-vague]</code></p>
-            </div>
-          </li>
-          <li class="demo-notice" id="error-messages">
-            <p class="demo-notice__num" aria-hidden="true">4</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Errors say what went wrong and how to fix it</h3>
-              <p>Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say &quot;invalid&quot;.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Enter a date after 1 January 2020</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Invalid input</p>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Save changes</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>OK</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="error-timing">
-            <p class="demo-notice__num" aria-hidden="true">5</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Show errors at the right moment</h3>
-              <p>Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>There is a problem: Enter your email address</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Email is invalid (shown after the first keystroke)</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="no-vague-labels">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">3</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">No vague labels</h3>
+                  <p>&quot;Submit&quot;, &quot;Click here&quot;, &quot;Yes&quot; and &quot;More&quot; say nothing out of context. Screen reader users often hear a list of every link or button on the page, with no surrounding text.</p>
+                  <p class="demo-notice__checked">Checked by <code>mcss-lite validate</code> <code>[content-vague]</code></p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Download the invoice</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Click here</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="optional-fields">
-            <p class="demo-notice__num" aria-hidden="true">6</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Mark optional fields, not required ones</h3>
-              <p>Ask only for what you need, then add &quot;(optional)&quot; to the few fields people may skip. Rows of asterisks add noise and need a legend.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Phone number (optional)</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Phone number *</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="error-messages">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">4</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Errors say what went wrong and how to fix it</h3>
+                  <p>Name the problem in plain words and tell the person what to do. Don't blame, don't use codes, don't say &quot;invalid&quot;.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Enter a date after 1 January 2020</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Invalid input</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="positive-choices">
-            <p class="demo-notice__num" aria-hidden="true">7</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Write choices as positive statements</h3>
-              <p>A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Email me about new releases</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Don't email me about new releases</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="error-timing">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">5</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Show errors at the right moment</h3>
+                  <p>Check a field when the person leaves it or submits the form, not while they type its first value. Once a field shows an error, clear it as soon as the value is fixed. After a failed submit, list every error at the top of the form, each linked to its field.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>There is a problem: Enter your email address</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Email is invalid (shown after the first keystroke)</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="setting-names">
-            <p class="demo-notice__num" aria-hidden="true">8</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Name the setting, not the action</h3>
-              <p>A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like &quot;Turn on&quot; leave people guessing which state is current.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Dark mode</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Enable dark mode</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="optional-fields">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">6</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Mark optional fields, not required ones</h3>
+                  <p>Ask only for what you need, then add &quot;(optional)&quot; to the few fields people may skip. Rows of asterisks add noise and need a legend.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Phone number (optional)</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Phone number *</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="punctuation">
-            <p class="demo-notice__num" aria-hidden="true">9</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Keep punctuation light</h3>
-              <p>No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Delete project</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Delete project!</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="positive-choices">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">7</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Write choices as positive statements</h3>
+                  <p>A checkbox label is a statement the person agrees with by ticking it. Negatives make them untick to say yes, and people get it wrong.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Email me about new releases</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Don't email me about new releases</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="numbers-dates">
-            <p class="demo-notice__num" aria-hidden="true">10</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Write numbers and dates the same way everywhere</h3>
-              <p>Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04.</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>1 March 2026, 12 of 20 seats</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>03/01/26, twelve of twenty seats</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="setting-names">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">8</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Name the setting, not the action</h3>
+                  <p>A toggle's label names what it controls and never changes; the switch itself says on or off. Labels like &quot;Turn on&quot; leave people guessing which state is current.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Dark mode</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Enable dark mode</span></p>
+                </div>
               </div>
             </div>
           </li>
-          <li class="demo-notice" id="inclusive">
-            <p class="demo-notice__num" aria-hidden="true">11</p>
-            <div class="l-stack l-stack--sm">
-              <h3 class="demo-notice__title">Write for everyone</h3>
-              <p>Use plain words, active voice and &quot;you&quot;. Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks (&quot;select&quot;, not &quot;click the blue button&quot;).</p>
-              <div class="demo-notice__pair">
-                <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span>Choose a plan to continue</p>
-                <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span>Just hit the big blue button, guys</p>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="punctuation">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">9</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Keep punctuation light</h3>
+                  <p>No full stops on buttons, titles, labels or badges. Use full stops in help text and messages that are sentences. Avoid exclamation marks.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Delete project</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Delete project!</span></p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="numbers-dates">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">10</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Write numbers and dates the same way everywhere</h3>
+                  <p>Use numerals for numbers, the full month name in dates and a consistent time format. Avoid ambiguous dates like 03/04.</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>1 March 2026, 12 of 20 seats</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>03/01/26, twelve of twenty seats</span></p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="c-card c-card--bordered demo-notice" data-part="c-card c-card--bordered" id="inclusive">
+            <div class="l-sidebar demo-notice__layout" data-part="l-sidebar">
+              <div class="l-sidebar__content demo-notice__main">
+                <p class="demo-notice__num" aria-hidden="true">11</p>
+                <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                  <h3 class="c-card__title demo-notice__title">Write for everyone</h3>
+                  <p>Use plain words, active voice and &quot;you&quot;. Avoid idioms, jargon and gendered defaults. Describe what something does, not how it looks (&quot;select&quot;, not &quot;click the blue button&quot;).</p>
+                </div>
+              </div>
+              <div class="l-sidebar__sidebar">
+                <div class="l-stack l-stack--sm demo-notice__pair" data-part="l-stack l-stack--sm">
+                  <p class="demo-notice__do"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span class="u-sr-only">Do: </span><span>Choose a plan to continue</span></p>
+                  <p class="demo-notice__dont"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="u-sr-only">Don't: </span><span>Just hit the big blue button, guys</span></p>
+                </div>
               </div>
             </div>
           </li>

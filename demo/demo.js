@@ -15,17 +15,31 @@
   setTheme(new URLSearchParams(location.search).get('theme') || saved || 'light');
   choices.forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeChoice)));
 
+  // Last input: keyboard-initiated changes show their result at once, without motion. Scrolling with a
+  // wheel or a finger counts as pointing again.
+  let viaKeys = false;
+  let pressing = false;
+  document.addEventListener('keydown', () => { viaKeys = true; }, true);
+  document.addEventListener('pointerdown', () => { viaKeys = false; pressing = true; }, true);
+  document.addEventListener('pointerup', () => { pressing = false; }, true);
+  ['wheel', 'touchstart'].forEach((type) => document.addEventListener(type, () => { viaKeys = false; }, { capture: true, passive: true }));
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+
+  // Copy buttons: the label crossfades to a check and "Copied" (CSS), then comes back about 1.6s later.
+  // The status line below the page announces it; the button keeps its name.
   const copyStatus = document.querySelector('[data-copy-status]');
   const copyKeys = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘C' : 'Ctrl+C';
   document.querySelectorAll('[data-copy]').forEach((button) => {
-    const label = button.innerHTML;
+    button.classList.add('demo-copy');
+    button.innerHTML = `<span class="demo-copy__label">${button.innerHTML}</span><span class="demo-copy__done" aria-hidden="true"><svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg><span>Copied</span></span>`;
+    const done = button.querySelector('.demo-copy__done > span');
     let reset;
     button.addEventListener('click', async () => {
       clearTimeout(reset);
       const text = document.getElementById(button.dataset.copy).textContent;
       try {
         await navigator.clipboard.writeText(text);
-        button.textContent = 'Copied';
+        done.textContent = 'Copied';
         if (copyStatus) copyStatus.textContent = button.dataset.copied || 'Copied.';
       } catch {
         // No clipboard access: select the text so Ctrl+C / Cmd+C copies it.
@@ -33,10 +47,12 @@
         range.selectNodeContents(document.getElementById(button.dataset.copy));
         getSelection().removeAllRanges();
         getSelection().addRange(range);
-        button.textContent = `Selected: press ${copyKeys}`;
+        done.textContent = `Selected: press ${copyKeys}`;
         if (copyStatus) copyStatus.textContent = `Text selected. Press ${copyKeys} to copy it.`;
       }
-      reset = setTimeout(() => { button.innerHTML = label; }, 2000);
+      button.classList.toggle('is-instant', viaKeys);
+      button.classList.add('is-copied');
+      reset = setTimeout(() => button.classList.remove('is-copied'), 1600);
     });
   });
 
@@ -56,16 +72,9 @@
     dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
   });
 
-  // Last input: keyboard-initiated changes show their result at once, without motion.
-  let viaKeys = false;
-  let pressing = false;
-  document.addEventListener('keydown', () => { viaKeys = true; }, true);
-  document.addEventListener('pointerdown', () => { viaKeys = false; pressing = true; }, true);
-  document.addEventListener('pointerup', () => { pressing = false; }, true);
-  const calm = matchMedia('(prefers-reduced-motion: reduce)');
-
   // The sticky chrome's real heights, for the bars below it and for scroll padding. On phones the
-  // wordmark and theme rows tuck up under the top edge and only the page links stay.
+  // wordmark and theme rows tuck up under the top edge and only the page links stay; the build bar
+  // sticks under them at every width.
   const bar = document.querySelector('.demo-bar');
   const buildbar = document.querySelector('.demo-buildbar');
   const rail = document.querySelector('.demo-rail');
@@ -96,6 +105,22 @@
     ['mouseleave', 'blur'].forEach((type) => a.addEventListener(type, () => show(studs.get(currentId))));
   });
   show(studs.get(currentId));
+  // The build bar's ink marker glides to the current stud (CSS moves it with transform). It lands at once
+  // the first time, after a resize, and when the jump came from the keyboard.
+  const markList = buildbar?.querySelector('.demo-rail__list');
+  let placed = false;
+  const mark = (stud, instant = !placed || viaKeys) => {
+    if (!markList) return;
+    markList.classList.toggle('has-current', Boolean(stud));
+    if (!stud) return;
+    markList.classList.toggle('is-instant', instant);
+    markList.classList.toggle('is-wrong', stud.classList.contains('demo-rail__stud--wrong'));
+    markList.style.setProperty('--demo-stud-x', `${stud.offsetLeft}px`);
+    markList.style.setProperty('--demo-stud-y', `${stud.offsetTop}px`);
+    placed = true;
+    if (instant) requestAnimationFrame(() => requestAnimationFrame(() => markList.classList.remove('is-instant')));
+  };
+  addEventListener('resize', () => mark(studs.get(currentId), true));
   const targets = [...studs.keys()].map((id) => document.getElementById(id)).filter(Boolean);
   if (targets.length) {
     const setCurrent = (id) => {
@@ -105,6 +130,7 @@
         if (key === id) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
       });
       if (!document.activeElement?.matches('[data-rail]')) show(studs.get(id));
+      mark(studs.get(id));
       // A rail that scrolls sideways keeps the current stud in view (without moving the page).
       const stud = studs.get(id);
       const list = stud?.closest('ol');
@@ -151,6 +177,7 @@
         else if (currentId) {
           currentId = null;
           studs.forEach((a) => a.removeAttribute('aria-current'));
+          mark(null);
           if (!document.activeElement?.matches('[data-rail]')) show(null);
         }
       });
@@ -211,7 +238,7 @@
       if (!menu.open || closing) return;
       if (focus) summary.focus();
       const done = () => { clearTimeout(closing); closing = 0; menu.classList.remove('is-closing'); menu.open = false; };
-      if (!animate || calm.matches) { done(); return; }
+      if (!animate) { done(); return; } // with reduced motion the CSS only fades it
       menu.classList.add('is-closing');
       closing = setTimeout(done, 200); // in case the animation never runs
       list.addEventListener('animationend', done, { once: true });
@@ -229,18 +256,28 @@
     });
   });
 
-  // The Exploded view switch pulls the page's layouts apart (or settles them back) with animated padding.
+  // The Exploded view switch (on all three booklet pages) pulls the page's layouts apart (or settles them back) with animated padding.
   // The page scrolls along, frame by frame, so the part being read stays put. Flipped from the keyboard,
   // the tags show at once.
   const explode = document.getElementById('explode');
   const chrome = '.demo-bar, .demo-buildbar';
   // The element under the middle of the screen (or just beside it, if the middle is a big box or a
-  // gap), never the sticky bars.
+  // gap), never the sticky bars. A point that lands in a layout's padding or gap hits the layout itself,
+  // whose contents move inside it as the padding changes, so the anchor goes down to the part nearest
+  // the point.
+  const nearest = (el, y) => {
+    const gap = (k) => { const r = k.getBoundingClientRect(); return y < r.top ? r.top - y : Math.max(0, y - r.bottom); };
+    for (let kids; (kids = [...el.children].filter((k) => k.getBoundingClientRect().width > 1)).length;) {
+      el = kids.reduce((a, k) => (gap(k) < gap(a) ? k : a));
+    }
+    return el;
+  };
   const anchorAt = () => {
     let best = null;
     for (const [x, y] of [[0.5, 0.5], [0.5, 0.45], [0.5, 0.55], [0.3, 0.5], [0.7, 0.5]]) {
-      const el = document.elementFromPoint(innerWidth * x, innerHeight * y);
-      if (!el || el === root || el === document.body || el.closest(chrome)) continue;
+      const hit = document.elementFromPoint(innerWidth * x, innerHeight * y);
+      if (!hit || hit === root || hit === document.body || hit.closest(chrome)) continue;
+      const el = nearest(hit, innerHeight * y);
       const h = el.getBoundingClientRect().height;
       if (h < innerHeight / 2) return el;
       if (!best || h < best.getBoundingClientRect().height) best = el;
@@ -273,17 +310,20 @@
   // settle with a CSS scroll timeline). Content is visible without it, and the CSS moves nothing unless
   // prefers-reduced-motion is no-preference. Steps seen while motion was reduced get their turn if the
   // setting changes.
+  // Inset steps (6 and 7) seat their parts on a clock, so they start as soon as their stage peeks in.
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting || calm.matches) return;
-        entry.target.classList.add('is-seating');
-        io.unobserve(entry.target);
-      });
-    }, { rootMargin: '0px 0px -15% 0px' });
+    const seat = (entries, io) => entries.forEach((entry) => {
+      if (!entry.isIntersecting || calm.matches) return;
+      entry.target.closest('.demo-step').classList.add('is-seating');
+      io.unobserve(entry.target);
+    });
+    const io = new IntersectionObserver(seat, { rootMargin: '0px 0px -15% 0px' });
+    const peek = new IntersectionObserver(seat);
     const watch = () => document.querySelectorAll('.demo-step:not(.is-seating)').forEach((step) => {
-      io.unobserve(step);
-      io.observe(step);
+      const inset = step.classList.contains('demo-step--inset') && step.querySelector('.demo-stage');
+      const [obs, el] = inset ? [peek, inset] : [io, step];
+      obs.unobserve(el);
+      obs.observe(el);
     });
     watch();
     calm.addEventListener('change', watch);

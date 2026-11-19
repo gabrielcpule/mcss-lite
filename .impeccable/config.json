@@ -29,6 +29,15 @@
         ],
         "createdAt": "2026-09-25T23:34:28.106Z",
         "reason": "Claude verified computed styles: demo-install/callout/stage/check have 8-24px padding from demo.css tokens; static scan does not read the linked stylesheet"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "demo/demo.css"
+        ],
+        "createdAt": "2026-11-19T21:53:03.909Z",
+        "reason": "user confirmed: wants Exploded view's padding growth motion kept ('I like that motion actually'); demo.js anchors the scroll. These are the only layout transitions in demo.css (the 350ms growth and its 1ms reduced-motion hook)."
       }
     ]
   }

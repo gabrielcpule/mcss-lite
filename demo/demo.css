@@ -20,14 +20,15 @@
   --demo-bar-stuck: calc(var(--demo-bar-height) - var(--demo-bar-tuck));
   --demo-buildbar-height: 5.5rem;
   --demo-rail-height: 5.75rem;
-  /* The page turn's slide: a strong ease-in-out, so the page leaves and lands with intent. The kit's
+  /* The page turn's slide: an in-out cubic, gentle enough that both pages are seen crossing. The kit's
      --ease-in-out is the browser's gentle curve. */
-  --demo-ease-turn: cubic-bezier(0.77, 0, 0.175, 1);
+  --demo-ease-turn: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @media (max-width: 47.99rem) {
   :root {
     --demo-bar-height: 7rem;
+    --demo-buildbar-height: 3.5rem;
   }
 }
 
@@ -189,13 +190,9 @@
   color: var(--color-text-muted);
 }
 
-/* Each bag is a keylined, sealed parts bag: a folded top edge over a subtle fill. */
+/* Each inventory bag is a bordered c-card sealed with a folded top edge. */
 .demo-bag {
-  padding: var(--space-4);
-  background-color: var(--color-background-subtle);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
   border-block-start-width: var(--border-width-thicker);
-  border-radius: var(--border-radius-base);
 }
 
 .demo-bag__part {
@@ -205,9 +202,9 @@
 }
 
 .demo-bag__note {
-  margin: var(--space-3) 0 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-subtle);
+  max-inline-size: 70ch;
+  margin: 0;
+  color: var(--color-text-muted);
 }
 
 .demo-glyph {
@@ -224,13 +221,8 @@
   justify-self: start;
 }
 
-.demo-bag__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3);
-  margin-block-end: var(--space-3);
-  font-weight: var(--font-weight-bold);
+.demo-bag__title {
+  margin: 0;
 }
 
 .demo-bag__num {
@@ -248,6 +240,7 @@
 .demo-bag__count {
   margin-inline-start: auto;
   font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
   font-variant-numeric: tabular-nums;
 }
 
@@ -474,7 +467,8 @@
   z-index: var(--z-index-sticky);
   padding-block: var(--space-2);
   background-color: var(--color-background-raised);
-  border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
+  /* Keylined top and bottom like the booklet pages' build bar; the top one tucks under the header's. */
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
 }
 
 .demo-rail__list {
@@ -1099,22 +1093,58 @@
   min-block-size: 2.75rem;
 }
 
-/* Parts inventory: bags per layer at the back of the booklet. */
+/* Parts inventory: the sticker specimen on the box, then one bag per layer. */
 .demo-legend {
+  inline-size: min(100%, 26rem);
   margin: 0;
   padding: 0;
   list-style: none;
   font-size: var(--font-size-sm);
 }
 
-.demo-legend li {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
+.demo-legend__row {
+  gap: 0 var(--space-3);
 }
 
-.demo-bag--wide {
-  background-color: var(--color-background-raised);
+.demo-legend__text {
+  flex: 1 1 100%;
+  color: var(--color-text-muted);
+}
+
+/* Read before you build: the ✓/✗ label pair on the box, real buttons that differ only in their words. */
+.demo-labelpair {
+  inline-size: min(100%, 24rem);
+}
+
+.demo-labelpair__row {
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width-thick) solid transparent;
+  border-radius: var(--border-radius-base);
+}
+
+.demo-labelpair__row--do .demo-mark {
+  color: var(--color-text-success);
+}
+
+/* Dashed red: the label that doesn't fit, as on every ✗ panel. */
+.demo-labelpair__row--dont {
+  border-color: var(--color-border-error);
+  border-style: dashed;
+}
+
+.demo-labelpair__row--dont .demo-mark {
+  color: var(--color-text-error);
+}
+
+.demo-labelpair__verdict {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.demo-labelpair__verdict--issue {
+  flex: 1 1 100%;
+  font-weight: var(--font-weight-normal);
 }
 
 .demo-inventory-table__part {
@@ -1138,16 +1168,13 @@
   list-style: decimal;
 }
 
-.demo-notice {
+/* A notice is a bordered c-card: the numeral beside the rule, the ✓/✗ labels in a sidebar that drops
+   under the rule when the card is narrow. */
+.demo-notice__main {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: var(--space-4);
-  padding: var(--space-5);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-base);
-  box-shadow: var(--shadow-raised);
-  scroll-margin-block-start: var(--space-16);
+  align-items: start;
 }
 
 .demo-notice__num {
@@ -1174,18 +1201,19 @@
   font-size: var(--font-size-lg);
 }
 
-.demo-notice__pair {
-  display: grid;
-  gap: var(--space-2);
-  max-inline-size: 60ch;
+.demo-notice__layout > .l-sidebar__sidebar {
+  flex-basis: 18rem;
 }
 
+/* The labels print like the check-your-build panels: ✓ on a solid keyline, ✗ on a dashed red one. */
 .demo-notice__do,
 .demo-notice__dont {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding-block: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -1194,6 +1222,8 @@
 }
 
 .demo-notice__dont {
+  border-color: var(--color-border-error);
+  border-style: dashed;
   color: var(--color-text-muted);
 }
 
@@ -1247,8 +1277,7 @@
     align-items: center;
   }
 
-  .demo-pick,
-  .demo-notice__pair {
+  .demo-pick {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1287,7 +1316,7 @@
 
 /* Review fixes: the wrong piece stays visible, the inventory bag holds its table without a second box,
    the sticky rail never covers what receives focus. */
-.demo-bag--wide .demo-spec table {
+.demo-inventory-table table {
   border: 0;
   background-color: transparent;
 }
@@ -1339,6 +1368,48 @@
   position: absolute;
   inset-block-start: var(--space-2);
   inset-inline-end: var(--space-2);
+}
+
+/* Copy buttons (demo.js wraps the label): the label crossfades with a 2px blur to a check and "Copied"
+   in 200ms, and comes back faster (120ms) about 1.6s later. Both labels share one grid cell, so the
+   button never changes width. Copied from the keyboard (.is-instant), it swaps at once. */
+.demo .demo-copy {
+  display: inline-grid;
+  place-items: center;
+}
+
+.demo-copy__label,
+.demo-copy__done {
+  grid-area: 1 / 1;
+  transition:
+    opacity 120ms var(--ease-out),
+    filter 120ms var(--ease-out);
+}
+
+.demo-copy__done {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.demo-copy.is-copied .demo-copy__label {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.demo-copy.is-copied .demo-copy__done {
+  opacity: 1;
+  filter: none;
+}
+
+.demo-copy.is-copied :is(.demo-copy__label, .demo-copy__done) {
+  transition-duration: 200ms;
+}
+
+.demo-copy.is-instant :is(.demo-copy__label, .demo-copy__done) {
+  transition: none;
 }
 
 /* On phones the Copy button gets a strip of its own above the code: long class names can't wrap,
@@ -1727,6 +1798,14 @@ html {
   gap: var(--space-1) var(--space-2);
 }
 
+/* A count never breaks from its unit. */
+.demo-lid__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
 /* A stud seen from above separates the counts. */
 .demo-lid__sep {
   align-self: center;
@@ -1801,9 +1880,10 @@ html {
   font-weight: var(--font-weight-semibold);
 }
 
-/* ---------- The build bar: the step studs and the Exploded view switch, one sticky row ---------- */
-/* From 48rem it sticks right under the header, its top keyline tucked under the header's bottom one so
-   the two never double up. On phones only the header sticks and the bar scrolls with the page. */
+/* ---------- The build bar: the page's studs and the Exploded view switch, one sticky row ----------
+   The overview's steps, the inventory's bags and the content page's rules. It sticks right under the
+   header at every width, its top keyline tucked under the header's bottom one so the two never double
+   up; on phones it slims to one 44px row. */
 .demo-buildbar {
   position: sticky;
   inset-block-start: calc(var(--demo-bar-stuck) - var(--border-width-thick));
@@ -1826,9 +1906,67 @@ html {
 
 /* The studs scroll sideways when they don't fit; the list keeps room for their focus rings. */
 .demo-buildbar .demo-rail__list {
+  position: relative;
   justify-content: flex-start;
   margin: calc(var(--space-2) * -1);
   padding: var(--space-2);
+}
+
+/* One ink marker, seated 2px down like a pressed brick, glides to the current stud (demo.js sets its
+   place). It moves with transform only, 200ms ease-out, and lands at once when the jump came from the
+   keyboard (.is-instant). The current stud turns clear so the marker shows through it. */
+.demo-buildbar .demo-rail__list::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-text-default);
+  opacity: 0;
+  transform: translate(var(--demo-stud-x, 0), calc(var(--demo-stud-y, 0) + 2px));
+  transition:
+    transform var(--duration-base) var(--ease-out-expo),
+    opacity var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+  transition-duration: 200ms, var(--duration-fast), var(--duration-fast);
+  pointer-events: none;
+}
+
+.demo-buildbar .demo-rail__list.has-current::before {
+  opacity: 1;
+}
+
+.demo-buildbar .demo-rail__list.is-wrong::before {
+  background-color: var(--color-action-danger);
+}
+
+.demo-buildbar .demo-rail__list.is-instant::before {
+  transition: none;
+}
+
+.demo-buildbar .demo-rail__stud {
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    scale var(--duration-fast) var(--ease-out);
+}
+
+.demo-buildbar .demo-rail__stud[aria-current="step"],
+.demo-buildbar .demo-rail__stud[aria-current="step"]:hover {
+  background-color: transparent;
+  color: var(--color-text-inverse);
+}
+
+.demo-buildbar .demo-rail__stud--wrong[aria-current="step"] {
+  color: var(--color-text-on-danger);
+}
+
+.demo-buildbar .is-instant .demo-rail__stud {
+  transition: none;
 }
 
 .demo-buildbar .demo-rail__now {
@@ -1884,11 +2022,13 @@ html {
   }
 }
 
-/* Phones: one short row, so the bar never covers more than it did as a plain step rail. The step name
-   under the studs gives way to the switch, whose label folds onto two lines. */
+/* Phones: a slim bar that keeps sticking under the header, so Exploded view stays in reach mid-page.
+   One 44px row: the studs scroll sideways beside a compact switch whose label folds onto two lines, the
+   step name under the studs gives way, and the bar's own padding shrinks to a stud gap. With the
+   header's row of page links the sticky chrome stays near 106px. */
 @media (max-width: 47.99rem) {
   .demo-buildbar {
-    position: relative;
+    padding-block: var(--space-1);
   }
 
   .demo-buildbar__inner {
@@ -1907,11 +2047,9 @@ html {
   }
 }
 
-/* From 48rem jumps and focus clear the header and the build bar under it. */
-@media (min-width: 48rem) {
-  :root:has(.demo-buildbar) {
-    scroll-padding-block-start: calc(var(--demo-bar-stuck) - var(--border-width-thick) + var(--demo-buildbar-height) + var(--space-4));
-  }
+/* Jumps and focus clear the header and the build bar under it, at every width. */
+:root:has(.demo-buildbar) {
+  scroll-padding-block-start: calc(var(--demo-bar-stuck) - var(--border-width-thick) + var(--demo-buildbar-height) + var(--space-4));
 }
 
 /* ---------- What's in the box: a packing list ---------- */
@@ -2028,6 +2166,7 @@ html {
 }
 
 .demo-pack__parts a code {
+  display: inline-block;
   padding: var(--space-1) var(--space-2);
   border: var(--border-width-thick) solid var(--color-border-keyline);
   border-radius: var(--border-radius-base);
@@ -2036,8 +2175,9 @@ html {
   color: var(--color-text-default);
   transition:
     background-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+    box-shadow var(--duration-fast) var(--ease-out),
+    translate var(--duration-fast) var(--ease-out),
+    scale var(--duration-fast) var(--ease-out);
 }
 
 .demo-pack__parts a:hover code {
@@ -2045,9 +2185,8 @@ html {
   color: var(--color-text-link);
 }
 
-/* Seated brick: pressing drops the chip onto its edge. */
+/* Pressing seats the chip: it loses its edge (and, with motion, settles back and gives a little). */
 .demo-pack__parts a:active code {
-  transform: translateY(2px);
   box-shadow: none;
 }
 
@@ -2304,7 +2443,7 @@ html {
    scale in. The box art and step 1's baseplate (.demo-exploded) are always pulled apart by the very
    same rules, so the switch neither tags them twice nor resizes them. Selectors sit in :where() so
    these rules weigh no more than one attribute selector and the file order decides. */
-:where(.demo-home) {
+:where(.demo-explodable) {
   /* Nested outlines step inward by this much in the always-exploded builds. */
   --demo-plate-inset: var(--space-2);
   /* A tag is one line of extra-small mono. */
@@ -2313,7 +2452,7 @@ html {
   --demo-tag-exit: calc(var(--duration-fast) * 2 / 3);
 }
 
-:where(.demo-home) [data-part] {
+:where(.demo-explodable) [data-part] {
   position: relative;
 }
 
@@ -2330,11 +2469,11 @@ html {
 
 /* A tag near the right edge of a phone must never widen the page; clip, unlike hidden, keeps the bars
    sticky. */
-.demo-home main {
+.demo-explodable main {
   overflow-x: clip;
 }
 
-:where(.demo-home) [data-part]::before {
+:where(.demo-explodable) [data-part]::before {
   content: attr(data-part) / "";
   position: absolute;
   z-index: 2;
@@ -2364,7 +2503,7 @@ html {
     visibility 0s linear var(--demo-tag-exit);
 }
 
-:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part]::before {
+:where(.demo-exploded, .demo-explodable:has(#explode:checked)) [data-part]::before {
   visibility: visible;
   opacity: 1;
   scale: 1;
@@ -2386,7 +2525,7 @@ html {
 
 /* Components: an ink tag hanging from the part's top corner, so small parts in a row (badges, compact
    buttons) keep their tags apart. Layouts: a yellow tag on their dashed outline. */
-:where(.demo-home) [data-part^="c-"]::before {
+:where(.demo-explodable) [data-part^="c-"]::before {
   inset-inline-start: 0;
   background-color: var(--color-text-default);
   color: var(--color-text-inverse);
@@ -2394,19 +2533,19 @@ html {
 
 /* An input's tag sits on its top edge at the end, clear of the label above it; an icon's hangs under
    it, clear of the button, alert or tile that holds it. */
-:where(.demo-home) .demo-replaced--input::before {
+:where(.demo-explodable) .demo-replaced--input::before {
   inset-inline: auto var(--space-2);
   transform-origin: 100% 100%;
 }
 
-:where(.demo-home) .demo-replaced--icon::before {
+:where(.demo-explodable) .demo-replaced--icon::before {
   inset-block: calc(100% + var(--space-1)) auto;
   inset-inline-start: 50%;
   translate: -50% 0;
   transform-origin: 50% 0;
 }
 
-:where(.demo-home) :is([data-part^="l-"], [data-part^="c-form-field"]) {
+:where(.demo-explodable) :is([data-part^="l-"], [data-part^="c-form-field"]) {
   outline: var(--border-width-thick) dashed transparent;
   outline-offset: 2px;
   transition: padding var(--duration-slow) var(--ease-out-expo);
@@ -2414,12 +2553,12 @@ html {
 
 /* The page frame: each section's tag sits in its own top padding, each container's above it at the end.
    Neither draws an outline, since their edges are the page's. */
-:where(.demo-home main) > [data-part^="l-section"]::before {
+:where(.demo-explodable main) > [data-part^="l-section"]::before {
   inset-block-start: var(--space-3);
   inset-inline-start: var(--space-4);
 }
 
-:where(.demo-home main) > [data-part^="l-section"] > [data-part^="l-container"]::before {
+:where(.demo-explodable main) > [data-part^="l-section"] > [data-part^="l-container"]::before {
   inset-block-start: calc(var(--space-8) * -1);
   inset-inline: auto var(--space-4);
   transform-origin: 100% 100%;
@@ -2440,14 +2579,14 @@ html {
 
 /* Layouts pull apart: a dashed outline, and a strip on top so a child's tag never meets its parent's.
    The page frame (sections and their containers) keeps its own edges. */
-:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *)) {
+:where(.demo-exploded, .demo-explodable:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *)) {
   padding-block: var(--space-6) var(--space-2);
   outline-color: var(--color-border-strong);
 }
 
 /* Nested outlines step inward on the sides too, so a child that fills its parent never draws on the
    parent's line; containers keep their own gutters. */
-:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *, [data-part^="l-container"])) {
+:where(.demo-exploded, .demo-explodable:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *, [data-part^="l-container"])) {
   padding-inline: var(--demo-plate-inset);
 }
 
@@ -2461,24 +2600,24 @@ html {
 
 /* Compact toggles in a group (step 2's List and Grid) are narrower than their tags: every second one
    hangs its tag under its bottom edge, so neighbouring tags never touch. */
-:where(.demo-home) [role="group"] > [data-part^="c-"]:nth-child(even)::before {
+:where(.demo-explodable) [role="group"] > [data-part^="c-"]:nth-child(even)::before {
   inset-block: auto calc(var(--space-3) * -1 - var(--border-width-thick));
   transform-origin: 0 0;
 }
 
 /* A field's label sits on its top edge, so the field makes room for its tag. A fieldset's legend sits
    above any padding, so a group keeps the tag on its top edge instead. */
-:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="c-form-field"]:not(fieldset) {
+:where(.demo-exploded, .demo-explodable:has(#explode:checked)) [data-part^="c-form-field"]:not(fieldset) {
   padding-block-start: var(--space-5);
 }
 
-:where(.demo-home) [data-part^="c-form-field"]:not(fieldset)::before {
+:where(.demo-explodable) [data-part^="c-form-field"]:not(fieldset)::before {
   inset-block-start: 0;
 }
 
 /* A group's tag goes to the end of its top edge, clear of the stack of choices that starts under its
    legend. */
-:where(.demo-home) fieldset[data-part^="c-form-field"]::before {
+:where(.demo-explodable) fieldset[data-part^="c-form-field"]::before {
   inset-inline: auto 0;
   transform-origin: 100% 100%;
 }
@@ -2492,7 +2631,7 @@ html {
 
 /* Step 1's baseplate on phones: the outer section outline would only add a fifth nested box. */
 @media (max-width: 40rem) {
-  :where(.demo-home) {
+  :where(.demo-explodable) {
     --demo-plate-inset: var(--space-1);
   }
 
@@ -2552,10 +2691,37 @@ html {
   to { clip-path: inset(0 0 0 0); }
 }
 
-/* The wrong brick drops once and lands askew. */
+/* The wrong brick drops once and lands askew: it falls, rocks 2° past its tilt and settles. */
 @keyframes demo-misfit-drop {
-  from { transform: translateY(-12px) rotate(10deg); }
-  to { transform: none; }
+  0% {
+    transform: translateY(-14px) rotate(6deg);
+    animation-timing-function: var(--ease-out);
+  }
+
+  70% {
+    transform: rotate(-2deg);
+    animation-timing-function: var(--ease-in-out);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+/* A tag arriving on the box art, and a fade for state changes under reduced motion. */
+@keyframes demo-tag-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+@keyframes demo-fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes demo-fade-out {
+  to { opacity: 0; }
 }
 
 /* The switch in step 6 flips once, after its parts have settled: the thumb slides, then its tick appears. */
@@ -2594,24 +2760,57 @@ html {
     animation: demo-drop 700ms var(--ease-out-expo) 60ms backwards;
   }
 
+  /* Once the box has settled, its tags arrive one by one at uneven gaps (demo.mjs writes each delay).
+     Decorative: the art is inert and nothing waits for it. */
+  .demo-hero .demo-art [data-part]::before {
+    animation: demo-tag-in var(--duration-fast) var(--ease-out) backwards;
+    animation-delay: calc(480ms + var(--demo-tag-delay, 0ms));
+  }
+
   /* demo.js adds .is-seating once a step scrolls into view. */
   .demo-step.is-seating .demo-arrow {
     animation: demo-draw var(--duration-slower) var(--ease-out) both;
   }
 
   .demo-step.is-seating .demo-misfit__wobble {
-    animation: demo-misfit-drop var(--duration-slower) var(--ease-out-expo) 200ms both;
+    animation: demo-misfit-drop 450ms 100ms both;
   }
 
+  /* Steps 6 and 7 (inset) seat on a clock instead of the scroll: once their stage starts to show, each
+     part settles in 250ms, 150ms after the one before, so the last is seated by 700ms. Step 6's switch
+     then flips: the thumb moves (200ms, ease-in-out) and its tick appears. */
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *) {
+    animation: none;
+  }
+
+  .demo-step--inset.is-seating :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *) {
+    animation: demo-settle 250ms var(--ease-out) backwards;
+    animation-timeline: auto;
+    animation-delay: calc(var(--demo-seat, 0) * 150ms);
+  }
+
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(2) { --demo-seat: 1; }
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(3) { --demo-seat: 2; }
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(n + 4) { --demo-seat: 3; }
+
   .demo-step--inset.is-seating .c-toggle__input:checked::before {
-    animation: demo-slide var(--duration-slow) var(--ease-out) both;
-    animation-delay: calc(var(--duration-slower) * 2);
+    animation: demo-slide 200ms var(--ease-in-out) both;
+    animation-delay: 400ms;
   }
 
   .demo-step--inset.is-seating .c-toggle__input:checked::after {
     animation: demo-appear var(--duration-fast) var(--ease-out) both;
-    animation-delay: calc(var(--duration-slower) * 2 + var(--duration-slow));
+    animation-delay: 600ms;
   }
+
+  .demo-step--inset .demo-settle {
+    --demo-unit: calc((var(--space-6) - var(--space-2)) / 1.5);
+  }
+
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):first-child { --demo-spread: -1.5; }
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(2):not(:last-child) { --demo-spread: -0.75; }
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-last-child(2):not(:first-child) { --demo-spread: 0.75; }
+  .demo-step--inset :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):last-child { --demo-spread: 1.5; }
 
   /* Progressive: only where scroll-driven animation exists. The animation fills forwards only, so a
      stage that hasn't reached the viewport shows its settled default, and the spread starts at entry 0%,
@@ -2638,22 +2837,89 @@ html {
   }
 }
 
-/* Reduced motion: tags and the agent list still fade, gently; nothing moves, grows or slides. */
+/* Micro-interactions. Parts you can press give a little (scale 0.97) while held; part chips and the
+   inventory's part links lift 2px under a mouse (hover motion only for a fine pointer that hovers). All
+   transform-only, 150ms ease-out, and none of it under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .demo-rail__stud:active,
+  .demo-copy:active,
+  .demo-pack__parts a:active code,
+  .demo-bag__link:active {
+    scale: 0.97;
+  }
+
+  .demo-bag__link {
+    transition: translate var(--duration-fast) var(--ease-out), scale var(--duration-fast) var(--ease-out);
+  }
+
+  .demo .demo-copy {
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out),
+      scale var(--duration-fast) var(--ease-out);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .demo-pack__parts a:hover code,
+  .demo-bag__link:hover {
+    translate: 0 -2px;
+  }
+
+  .demo-pack__parts a:active code,
+  .demo-bag__link:active {
+    translate: 0 0;
+  }
+}
+
+/* Reduced motion: state changes (the agent list, tags, the Copy label, the stud marker) keep a short
+   fade; nothing moves, grows, slides or scales. */
 @media (prefers-reduced-motion: reduce) {
+  .demo-agents__menu[open]:not(.is-instant) .demo-agents__list {
+    animation: demo-fade-in var(--duration-fast) var(--ease-out);
+  }
+
+  .demo-agents__menu.is-closing .demo-agents__list {
+    animation: demo-fade-out calc(var(--duration-fast) * 2 / 3) var(--ease-out) forwards;
+  }
+
+  .demo-buildbar .demo-rail__list::before {
+    transition: opacity var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .demo-buildbar .demo-rail__stud {
+    transition-property: background-color, color, border-color;
+  }
+
+  .demo-copy__label,
+  .demo-copy__done {
+    filter: none;
+    transition-property: opacity;
+  }
+
+  /* The disclosure chevron turns at once, and so does the switch's thumb (the kit's own reduced-motion
+     list in src/components.css leaves the thumb out). */
+  .demo-details__chevron,
+  .demo .c-toggle__input::before {
+    transition: none;
+  }
+
   /* The page pulls apart at once. The 1ms is not motion: it only lets demo.js read where the reader
      was before the padding lands, so its one correction keeps them in place. */
-  :where(.demo-home) :is([data-part^="l-"], [data-part^="c-form-field"]) {
+  :where(.demo-explodable) :is([data-part^="l-"], [data-part^="c-form-field"]) {
     transition: padding 1ms linear;
   }
 
-  :where(.demo-home) [data-part]::before {
+  :where(.demo-explodable) [data-part]::before {
     scale: 1;
     transition:
       opacity var(--demo-tag-exit) var(--ease-out),
       visibility 0s linear var(--demo-tag-exit);
   }
 
-  :where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part]::before {
+  :where(.demo-exploded, .demo-explodable:has(#explode:checked)) [data-part]::before {
     transition: opacity var(--duration-fast) var(--ease-out), visibility 0s;
   }
 
@@ -2722,9 +2988,11 @@ html {
     border-radius: var(--border-radius-lg);
     box-shadow: 0 0 0 var(--border-width-thick) var(--color-border-keyline), var(--shadow-elevated);
     mix-blend-mode: normal;
-    /* Zoom out (0 to 250ms), slide (150 to 400ms), zoom in (350 to 500ms): each overlaps the next. */
-    --demo-turn-slide: var(--duration-base) var(--demo-ease-turn) var(--duration-fast) both;
-    --demo-turn-zoom-in: var(--duration-fast) var(--ease-out-expo) calc(var(--duration-slower) - var(--duration-fast)) both;
+    /* Zoom out (0 to 250ms), slide (150 to 650ms), zoom in (500 to 750ms): each overlaps the next. The
+       slide gets the longest share so both pages are seen crossing the canvas as boxes; squeezed into
+       250ms it read as a blink. */
+    --demo-turn-slide: var(--duration-slower) var(--demo-ease-turn) var(--duration-fast) both;
+    --demo-turn-zoom-in: var(--duration-base) var(--ease-out-expo) var(--duration-slower) both;
   }
 
   html:active-view-transition-type(forward)::view-transition-old(root) {
