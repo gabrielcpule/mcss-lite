@@ -525,20 +525,29 @@
 }
 
 /* Nested outlines step inward on the sides too, so a child that fills its parent never draws on the
-   parent's line. The container keeps its own gutters. */
-.demo-stage--baseplate :where([class^="l-"], [class*=" l-"]):not(.l-container) {
-  padding-inline: var(--space-2);
+   parent's line. The container keeps its own gutters. Only on phones and from 60rem: in between, the
+   stage shrinks to its content's width (the step grid is a column there), and the extra inset would
+   widen it past the point where the sidebar stops stacking, crushing the grid's cards. */
+.demo-stage--baseplate {
+  --demo-plate-inset: var(--space-2);
+}
+
+@media (max-width: 40rem), (min-width: 60rem) {
+  .demo-stage--baseplate :where([class^="l-"], [class*=" l-"]):not(.l-container) {
+    padding-inline: var(--demo-plate-inset);
+  }
 }
 
 /* On phones the outer section outline would only add a fifth nested box. */
 @media (max-width: 40rem) {
-  .demo-stage--baseplate :where([class^="l-"], [class*=" l-"]):not(.l-container) {
-    padding-inline: var(--space-1);
+  .demo-stage--baseplate {
+    --demo-plate-inset: var(--space-1);
   }
 
   .demo-stage--baseplate .l-section {
     outline: 0;
     padding-block: 0;
+    padding-inline: 0;
   }
 
   .demo-stage--baseplate .l-section::before {
