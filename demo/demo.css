@@ -867,10 +867,16 @@
     gap: var(--space-16);
   }
 
+  /* The arrow leaves from the step title, not from beside the numeral: its tail sits on the title's
+     centre line. That is the numeral's line box (6rem at this width, line-height 0.9) plus its margin
+     plus half the title's line box, less the tail's own height inside the drawing (y 8 of a 120×40
+     viewBox, so 1/15 of the arrow's width). */
   .demo-arrow {
+    --demo-arrow-width: calc(var(--space-16) + 0.25rem);
     display: block;
     inset-inline-start: calc(var(--space-16) * -1 - 0.5rem);
-    width: calc(var(--space-16) + 0.25rem);
+    inset-block-start: calc(6rem * 0.9 + var(--space-2) + var(--font-size-2xl) * var(--line-height-tight) / 2 - var(--demo-arrow-width) / 15);
+    width: var(--demo-arrow-width);
   }
 }
 
