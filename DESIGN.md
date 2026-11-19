@@ -329,7 +329,7 @@ Tactile and literal: every part looks like it could be picked up. Contracts (mod
 - **Disclosures:** "Show markup" and "Show tokens" are link-colored summaries with a chevron that turns when open. Markup that doesn't fit has no Copy button.
 - **Code:** blocks wrap between attributes, never inside a class name (`codeTokens()` keeps hyphenated names whole); inline code never breaks. Markup under a stage that already shows the result folds into a "Markup" disclosure with a Copy button; a ✗ panel's markup stays open, because it is the evidence. Validator messages take their level's color: errors in error red, warnings in warning amber.
 - **Check your build:** each ✗ panel carries a small misfit brick and sizes to its own content. In the big misfit drawing the seated brick is ink, not blue: blue only means "act". Color tokens in the spec sheet show a live swatch that follows the theme.
-- **Inset steps:** the booklet's newer steps set the call-out onto a full-width stage, one stud deep, and their parts seat one after another.
+- **Inset steps:** the booklet's newer steps put the call-out above a full-width stage, with the same gap as every other step (never sunk into the stage: that read as two boxes colliding), and their parts seat one after another.
 - **Parts inventory** sits at the back of the booklet as keylined bags per layer; **Read before you build** is the booklet's safety page: numbered notices with ✓/✗ label pairs.
 
 ## Do's and Don'ts

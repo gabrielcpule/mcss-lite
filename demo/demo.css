@@ -122,11 +122,22 @@
   padding-block: var(--space-12) var(--space-10);
 }
 
+/* The claim stands alone at reading width; the parts inventory lies sideways below it. */
 .demo-hero__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-10);
-  align-items: center;
+}
+
+.demo-hero__claim {
+  max-inline-size: 46rem;
+}
+
+/* The proof and the install box share the claim's right edge. */
+.demo-hero .demo-proof,
+.demo-hero .demo-install {
+  inline-size: 100%;
+  max-inline-size: none;
 }
 
 .demo-hero__title {
@@ -207,6 +218,34 @@
 .demo-inventory__title {
   margin: 0;
   font-size: var(--font-size-xl);
+}
+
+/* In the hero the box lies sideways, below the claim. Four bags don't fit one row without crushing
+   their chips, so they sit two by two on six tracks: layouts beside components, then the single
+   utilities chip in a narrow bag beside a wide tokens bag whose swatches can flow. */
+.demo-hero .demo-inventory__title {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 40rem) {
+  .demo-hero .demo-inventory {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .demo-hero .demo-bag {
+    grid-column: span 3;
+  }
+}
+
+/* Only once the narrow utilities bag can hold its heading on one line. */
+@media (min-width: 54rem) {
+  .demo-hero .demo-bag:nth-of-type(3) {
+    grid-column: span 2;
+  }
+
+  .demo-hero .demo-bag:nth-of-type(4) {
+    grid-column: span 4;
+  }
 }
 
 /* Each bag is a keylined, sealed parts bag: a folded top edge over a subtle fill. */
@@ -485,11 +524,30 @@
   padding-block: var(--space-6) var(--space-2);
 }
 
+/* Nested outlines step inward on the sides too, so a child that fills its parent never draws on the
+   parent's line. The container keeps its own gutters. Only on phones and from 60rem: in between, the
+   stage shrinks to its content's width (the step grid is a column there), and the extra inset would
+   widen it past the point where the sidebar stops stacking, crushing the grid's cards. */
+.demo-stage--baseplate {
+  --demo-plate-inset: var(--space-2);
+}
+
+@media (max-width: 40rem), (min-width: 60rem) {
+  .demo-stage--baseplate :where([class^="l-"], [class*=" l-"]):not(.l-container) {
+    padding-inline: var(--demo-plate-inset);
+  }
+}
+
 /* On phones the outer section outline would only add a fifth nested box. */
 @media (max-width: 40rem) {
+  .demo-stage--baseplate {
+    --demo-plate-inset: var(--space-1);
+  }
+
   .demo-stage--baseplate .l-section {
     outline: 0;
     padding-block: 0;
+    padding-inline: 0;
   }
 
   .demo-stage--baseplate .l-section::before {
@@ -813,38 +871,26 @@
     display: none;
   }
 
-  .demo-hero__grid {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    gap: var(--space-16);
-  }
-
   .demo-step__grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: var(--space-16);
   }
 
+  /* The arrow leaves from the step title, not from beside the numeral: its tail sits on the title's
+     centre line. That is the numeral's line box (6rem at this width, line-height 0.9) plus its margin
+     plus half the title's line box, less the tail's own height inside the drawing (y 8 of a 120×40
+     viewBox, so 1/15 of the arrow's width). */
   .demo-arrow {
+    --demo-arrow-width: calc(var(--space-16) + 0.25rem);
     display: block;
     inset-inline-start: calc(var(--space-16) * -1 - 0.5rem);
-    width: calc(var(--space-16) + 0.25rem);
+    inset-block-start: calc(6rem * 0.9 + var(--space-2) + var(--font-size-2xl) * var(--line-height-tight) / 2 - var(--demo-arrow-width) / 15);
+    width: var(--demo-arrow-width);
   }
 }
 
-/* Inset steps: the call-out is set onto the stage one stud deep, like an inset on a booklet page,
-   and the parts seat one after another. Showcase only. */
-@media (min-width: 60rem) {
-  .demo-step--inset .demo-callout {
-    position: relative;
-    z-index: 1;
-    margin-block-end: calc((var(--space-8) + var(--space-4)) * -1);
-    box-shadow: var(--shadow-raised);
-  }
-
-  .demo-step--inset .demo-stage {
-    padding: var(--space-10) var(--space-8) var(--space-8);
-  }
-}
-
+/* Inset steps: the parts seat one after another. The call-out keeps the same gap to the stage as
+   every other step; sinking it into the stage read as two boxes colliding. Showcase only. */
 .demo-step--inset.is-seating .demo-stage :is(.c-checkbox, .c-radio, .c-toggle, .c-alert) {
   animation: demo-seat var(--duration-slow) var(--ease-out-expo) both;
   animation-delay: calc(var(--demo-i, 0) * 70ms + var(--duration-base));
@@ -1646,6 +1692,15 @@
   position: absolute;
   inset-block-start: var(--space-2);
   inset-inline-end: var(--space-2);
+}
+
+/* On phones the Copy button gets a strip of its own above the code: long class names can't wrap,
+   so they would otherwise run under it. */
+@media (max-width: 40rem) {
+  .demo-code-block .demo-code {
+    padding-block-start: var(--space-12);
+    padding-inline-end: var(--space-4);
+  }
 }
 
 /* Folded tables: open when you need them. */
