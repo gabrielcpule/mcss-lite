@@ -1,0 +1,590 @@
+/* PROTOTYPE variant C, "The booklet spread" (throwaway, branch prototype/landing-look).
+   The page reads as an opened instruction booklet: a short cover band, an opening spread (parts on the
+   left page, contents on the right), one spread per build step, the misfit page and a back cover.
+   Every selector is scoped under .proto-c. Tokens only. */
+
+/* ---------- Short hero: one band, headline left, install right ---------- */
+.proto-c .proto-c-hero {
+  padding-block: var(--space-10) var(--space-8);
+}
+
+.proto-c .proto-c-hero__band {
+  display: grid;
+  gap: var(--space-6);
+  align-items: end;
+}
+
+.proto-c .proto-c-hero__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-family-display);
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.proto-c .proto-c-hero__lede {
+  max-inline-size: 56ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.proto-c .proto-c-hero__take {
+  display: grid;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.proto-c .proto-c-hero__take > * {
+  margin: 0;
+}
+
+.proto-c .proto-c-hero__take .demo-install {
+  inline-size: 100%;
+}
+
+@media (min-width: 60rem) {
+  .proto-c .proto-c-hero__band {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-12);
+  }
+}
+
+/* ---------- Spreads: two facing pages with a fold ---------- */
+.proto-c .proto-c-opening {
+  padding-block: var(--space-4) var(--space-12);
+}
+
+.proto-c .proto-c-step {
+  padding-block: var(--space-8);
+  border-block-start: 0;
+}
+
+.proto-c .proto-c-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.proto-c .proto-c-page {
+  position: relative;
+  min-inline-size: 0;
+  padding: var(--space-6) var(--space-5) var(--space-12);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-elevated);
+}
+
+.proto-c .proto-c-page__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-family-display);
+  font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-4xl));
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* Page numbers sit in the bottom outer corner, like a printed booklet. */
+.proto-c .proto-c-folio {
+  position: absolute;
+  inset-block-end: var(--space-4);
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-subtle);
+}
+
+.proto-c .proto-c-page--verso .proto-c-folio {
+  inset-inline-start: var(--space-5);
+}
+
+.proto-c .proto-c-page--recto .proto-c-folio {
+  inset-inline-end: var(--space-5);
+}
+
+@media (min-width: 60rem) {
+  .proto-c .proto-c-spread {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .proto-c .proto-c-page {
+    padding: var(--space-10) var(--space-10) var(--space-16);
+    box-shadow: none;
+  }
+
+  .proto-c .proto-c-page--verso {
+    grid-column: 1;
+    grid-row: 1;
+    border-inline-end: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    /* The fold: the paper curves into the spine, so it darkens toward the gutter. */
+    background-image: linear-gradient(to left, color-mix(in srgb, var(--color-background-canvas) 75%, transparent), transparent var(--space-10));
+  }
+
+  .proto-c .proto-c-page--recto {
+    grid-column: 2;
+    grid-row: 1;
+    border-inline-start: var(--border-width-thin) solid var(--color-border-strong);
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    background-image: linear-gradient(to right, color-mix(in srgb, var(--color-background-canvas) 75%, transparent), transparent var(--space-10));
+  }
+
+  .proto-c .proto-c-page--verso .proto-c-folio {
+    inset-inline-start: var(--space-10);
+    inset-block-end: var(--space-6);
+  }
+
+  .proto-c .proto-c-page--recto .proto-c-folio {
+    inset-inline-end: var(--space-10);
+    inset-block-end: var(--space-6);
+  }
+}
+
+/* ---------- Right page: Contents ---------- */
+.proto-c .proto-c-toc__list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-c .proto-c-toc__item {
+  padding-block: var(--space-2) var(--space-3);
+  border-block-end: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-c .proto-c-toc__item:last-child {
+  border-block-end: 0;
+}
+
+.proto-c .proto-c-toc__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  min-block-size: 2.75rem;
+  padding: var(--space-1) var(--space-2);
+  margin-inline: calc(var(--space-2) * -1);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-default);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.proto-c .proto-c-toc__link:hover {
+  background-color: var(--color-background-interactive-hover);
+}
+
+.proto-c .proto-c-toc__link:hover .proto-c-toc__title {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.proto-c .proto-c-toc__num {
+  flex: none;
+  inline-size: 2.25rem;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.proto-c .proto-c-toc__num svg {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+.proto-c .proto-c-toc__item--wrong .proto-c-toc__num {
+  color: var(--color-action-danger);
+}
+
+.proto-c .proto-c-toc__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+/* Dot leaders drawn as a row of studs, running to the page number. */
+.proto-c .proto-c-toc__leader {
+  flex: 1 1 var(--space-6);
+  align-self: center;
+  min-inline-size: var(--space-6);
+  block-size: var(--space-2);
+  background-image: radial-gradient(circle, var(--color-border-strong) 1.5px, transparent 2px);
+  background-size: var(--space-2) var(--space-2);
+  background-repeat: repeat-x;
+  background-position: left center;
+}
+
+.proto-c .proto-c-toc__page {
+  flex: none;
+  min-inline-size: 2ch;
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+.proto-c .proto-c-toc__parts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+  padding-inline-start: calc(2.25rem + var(--space-3));
+  font-size: var(--font-size-sm);
+}
+
+.proto-c .proto-c-toc__key {
+  color: var(--color-text-subtle);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------- Left page: what's in the box ---------- */
+.proto-c .proto-c-box {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
+
+.proto-c .proto-c-box .proto-c-page__title {
+  margin: 0;
+}
+
+.proto-c .proto-c-box__hint {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+/* A parts bag: a subtle fill sealed by a heavy top fold. */
+.proto-c .proto-c-bag {
+  min-inline-size: 0;
+  padding: var(--space-4);
+  background-color: var(--color-background-subtle);
+  border-block-start: var(--border-width-thicker) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-c .proto-c-bag-row {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 40rem) and (max-width: 59.99rem), (min-width: 75rem) {
+  .proto-c .proto-c-bag-row {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 5fr);
+  }
+}
+
+/* The narrow utilities bag puts its count on its own line instead of a ragged wrap. */
+.proto-c .proto-c-bag-row > .proto-c-bag:first-child .demo-bag__count {
+  flex-basis: 100%;
+  margin-inline-start: 0;
+}
+
+@media (max-width: 39.99rem), (min-width: 60rem) and (max-width: 74.99rem) {
+  .proto-c .proto-c-bag-row > .proto-c-bag:first-child .demo-bag__count {
+    flex-basis: auto;
+    margin-inline-start: auto;
+  }
+}
+
+.proto-c .proto-c-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+  gap: var(--space-3) var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-c .proto-c-spec__link {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+  min-block-size: 2.75rem;
+  padding-block-start: var(--space-2);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+/* Each part, drawn 1:1: a brick seated on its edge, two studs on top, its glyph on the face. */
+.proto-c .proto-c-spec__brick {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 3.5rem;
+  block-size: 2.5rem;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.proto-c .proto-c-spec__brick::before,
+.proto-c .proto-c-spec__brick::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 100%;
+  inline-size: 0.875rem;
+  block-size: 0.375rem;
+  background-color: inherit;
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-block-end: 0;
+  border-start-start-radius: var(--border-radius-sm);
+  border-start-end-radius: var(--border-radius-sm);
+}
+
+.proto-c .proto-c-spec__brick::before {
+  inset-inline-start: 0.375rem;
+}
+
+.proto-c .proto-c-spec__brick::after {
+  inset-inline-end: 0.375rem;
+}
+
+.proto-c .proto-c-spec__count {
+  margin-block-start: var(--space-1);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.proto-c .proto-c-spec__name {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-c .proto-c-spec__link:hover .proto-c-spec__brick {
+  background-color: var(--color-background-interactive-hover);
+}
+
+/* Pressing a part seats it: it drops onto its edge. */
+.proto-c .proto-c-spec__link:active .proto-c-spec__brick {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.proto-c .proto-c-spec__link:hover .proto-c-spec__name {
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--color-border-keyline);
+}
+
+.proto-c .proto-c-swatches .demo-swatch code {
+  font-size: var(--font-size-xs);
+}
+
+/* ---------- Step spreads ---------- */
+.proto-c .proto-c-step__head .demo-step__text {
+  margin-block-end: var(--space-6);
+}
+
+.proto-c .proto-c-step__build {
+  display: grid;
+  align-content: center;
+}
+
+/* Phones and tablets: a step is one page. The result comes first, then the parts it used. */
+@media (max-width: 59.99rem) {
+  .proto-c .proto-c-spread--step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-5) var(--space-12);
+    background-color: var(--color-background-raised);
+    border: var(--border-width-thick) solid var(--color-border-keyline);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .proto-c .proto-c-spread--step > .proto-c-page {
+    display: contents;
+  }
+
+  .proto-c .proto-c-spread--step .proto-c-step__head {
+    order: 0;
+  }
+
+  .proto-c .proto-c-spread--step .proto-c-step__head .demo-step__text {
+    margin-block-end: 0;
+  }
+
+  .proto-c .proto-c-spread--step .demo-stage {
+    order: 1;
+  }
+
+  .proto-c .proto-c-spread--step .demo-callout {
+    order: 2;
+  }
+
+  .proto-c .proto-c-spread--step .proto-c-page--recto .proto-c-folio {
+    display: none;
+  }
+}
+
+/* On phones the opening pages read Contents first, so their page numbers would run 3, 2: drop them. */
+@media (max-width: 59.99rem) {
+  .proto-c .proto-c-opening .proto-c-folio {
+    display: none;
+  }
+
+  .proto-c .proto-c-opening .proto-c-page {
+    padding-block-end: var(--space-6);
+  }
+}
+
+/* ---------- Skipped pages ---------- */
+.proto-c .proto-c-skip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-2) 0;
+  padding: var(--space-2) var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-muted);
+}
+
+.proto-c .proto-c-skip__pages {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-default);
+}
+
+.proto-c .proto-c-skip a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------- The misfit page ---------- */
+.proto-c .proto-c-misfit .demo-wrong__title {
+  margin-block-end: var(--space-3);
+  font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-4xl));
+}
+
+.proto-c .proto-c-misfit .demo-step__text {
+  margin-block-end: 0;
+}
+
+.proto-c .proto-c-misfit .demo-check {
+  border-style: dashed;
+  box-shadow: none;
+  min-inline-size: 0;
+}
+
+.proto-c .proto-c-misfit .demo-proof {
+  max-inline-size: none;
+  margin: 0;
+}
+
+.proto-c .proto-c-misfit .demo-misfit {
+  margin-inline: auto;
+}
+
+.proto-c .proto-c-misfit .proto-c-page {
+  align-content: start;
+}
+
+.proto-c .proto-c-misfit .demo-code {
+  min-inline-size: 0;
+}
+
+/* ---------- Back cover ---------- */
+.proto-c .proto-c-back {
+  padding-block: var(--space-8) var(--space-16);
+}
+
+.proto-c .proto-c-cover {
+  overflow: hidden;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-elevated);
+}
+
+.proto-c .proto-c-cover__grid {
+  display: grid;
+  gap: var(--space-10);
+  padding: var(--space-8) var(--space-5);
+}
+
+.proto-c .proto-c-cover .demo-step__text {
+  margin: 0;
+}
+
+.proto-c .proto-c-cover .demo-step__title {
+  margin: 0;
+}
+
+.proto-c .proto-c-cover .demo-pick__col {
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-c .proto-c-cover .demo-pick__col--other {
+  box-shadow: none;
+}
+
+/* The bottom of a back cover: the set's name and what is in it, printed in ink. */
+.proto-c .proto-c-cover__band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-c .proto-c-cover__mark {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.proto-c .proto-c-cover__count {
+  margin-inline-start: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 60rem) {
+  .proto-c .proto-c-cover__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-12);
+    padding: var(--space-12) var(--space-10);
+  }
+
+  .proto-c .proto-c-cover__band {
+    padding-inline: var(--space-10);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-c .proto-c-toc__link,
+  .proto-c .proto-c-spec__brick {
+    transition: none;
+  }
+}

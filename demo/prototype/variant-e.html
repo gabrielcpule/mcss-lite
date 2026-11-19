@@ -1,0 +1,336 @@
+<main id="main" class="proto-e">
+    <section class="demo-step proto-e-layer proto-e-layer--first" id="proto-e-baseplate" aria-labelledby="proto-e-title">
+      <div class="l-container">
+        <div class="proto-e-layer__grid">
+          <div class="proto-e-layer__head proto-e-claim">
+            <h1 class="proto-e-claim__title" id="proto-e-title">Build UI from declared parts</h1>
+            <p class="proto-e-claim__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+            <div class="demo-install">
+              <code class="demo-install__cmd" id="proto-e-install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr><span class="demo-code__token">mcss-lite</span>@v0.4.1/<wbr>dist/<wbr><span class="demo-code__token">mcss-lite.min.css</span>"&gt;</code>
+              <button type="button" class="c-button c-button--sm" data-copy="proto-e-install-cmd" data-copied="Stylesheet link copied.">Copy</button>
+            </div>
+            <p class="demo-install__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
+            <p class="demo-links"><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></p>
+          </div>
+          <div class="proto-e-tally">
+            <p class="proto-e-tally__label">Parts used so far</p>
+            <p class="proto-e-tally__count"><span class="proto-e-tally__num">2</span> <span class="proto-e-tally__of">of 19 parts<span class="proto-e-tally__so-far"> used so far</span></span></p>
+            <ul class="proto-e-tally__list" role="list"><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>l-section</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>l-container</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li></ul>
+            <p class="proto-e-tally__note">2 pieces seated, 2 new in this layer.</p>
+          </div>
+          <div class="proto-e-layer__build">
+          <figure class="demo-stage proto-e-stage">
+            <section class="l-section l-section--sm proto-e-new" data-part="l-section" aria-label="The build so far">
+              <div class="l-container proto-e-new" data-part="l-container">
+                <p class="proto-e-slot">Empty plate: the stack seats here next</p>
+              </div>
+            </section>
+          </figure>
+            <p class="proto-e-layer__caption">The baseplate. <code>l-section</code> pads the band and <code>l-container</code> sets the width and gutters. Each dashed outline is one layout. Layouts own all spacing, so every part that follows fits without its own margin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-step proto-e-layer" id="proto-e-stack" aria-labelledby="proto-e-stack-title">
+      <div class="l-container">
+        <div class="proto-e-layer__grid">
+          <div class="proto-e-layer__head">
+            <h2 class="proto-e-layer__title" id="proto-e-stack-title">Stack the rows</h2>
+            <p class="proto-e-layer__text">One <code>l-stack</code> goes inside the container. It puts the space between its children, so nothing in it sets its own margin. The heading is in, and two slots wait for the next layers.</p>
+          </div>
+          <div class="proto-e-tally">
+            <p class="proto-e-tally__label">Parts used so far</p>
+            <p class="proto-e-tally__count"><span class="proto-e-tally__num">3</span> <span class="proto-e-tally__of">of 19 parts<span class="proto-e-tally__so-far"> used so far</span></span></p>
+            <ul class="proto-e-tally__list" role="list"><li class="proto-e-tally__item"><code>l-section</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-container</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li></ul>
+            <p class="proto-e-tally__note">3 pieces seated, 1 new in this layer.</p>
+          </div>
+          <div class="proto-e-layer__build">
+          <figure class="demo-stage proto-e-stage">
+            <section class="l-section l-section--sm" data-part="l-section" aria-label="The build so far">
+              <div class="l-container" data-part="l-container">
+                <div class="l-stack l-stack--lg proto-e-new proto-e-patch" data-part="new: l-stack l-stack--lg">
+                <h3 class="proto-e-build__title">Projects</h3>
+                <p class="proto-e-slot">The buttons seat here</p>
+                <p class="proto-e-slot">The form seats here</p>
+                </div>
+              </div>
+            </section>
+          </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="demo-step proto-e-layer" id="proto-e-cluster" aria-labelledby="proto-e-cluster-title">
+      <div class="l-container">
+        <div class="proto-e-layer__grid">
+          <div class="proto-e-layer__head">
+            <h2 class="proto-e-layer__title" id="proto-e-cluster-title">Seat the buttons in a cluster</h2>
+            <p class="proto-e-layer__text"><code>l-cluster</code> lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick. This is step 2 of the full booklet, seated into the same build.</p>
+          </div>
+          <div class="proto-e-tally">
+            <p class="proto-e-tally__label">Parts used so far</p>
+            <p class="proto-e-tally__count"><span class="proto-e-tally__num">5</span> <span class="proto-e-tally__of">of 19 parts<span class="proto-e-tally__so-far"> used so far</span></span></p>
+            <ul class="proto-e-tally__list" role="list"><li class="proto-e-tally__item"><code>l-section</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-container</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-stack</code><span class="proto-e-tally__delta">+2<span class="u-sr-only"> in this layer</span></span><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>c-button</code><span class="demo-count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li></ul>
+            <p class="proto-e-tally__note">20 pieces seated, 17 new in this layer.</p>
+          </div>
+          <div class="proto-e-layer__build">
+          <figure class="demo-stage proto-e-stage">
+            <section class="l-section l-section--sm" data-part="l-section" aria-label="The build so far">
+              <div class="l-container" data-part="l-container">
+                <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+                <h3 class="proto-e-build__title proto-e-seated" inert>Projects</h3>
+                <div class="l-stack proto-e-new proto-e-patch" data-part="new: l-cluster + c-button">
+                  <div class="l-cluster">
+                    <button type="button" class="c-button c-button--ghost">Cancel</button>
+                    <button type="button" class="c-button">Save draft</button>
+                    <button type="button" class="c-button c-button--primary">Publish post</button>
+                  </div>
+                  <div class="l-cluster">
+                    <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+                    <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+                    <button type="button" class="c-button c-button--lg">Create a project</button>
+                  </div>
+                  <div class="l-stack l-stack--sm">
+                    <div class="l-cluster">
+                      <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="proto-e-schedule-c">Schedule post</button>
+                      <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+                    </div>
+                    <p class="u-margin-0" id="proto-e-schedule-c">Add a publish date to schedule the post.</p>
+                  </div>
+                  <div class="l-cluster" role="group" aria-label="View">
+                    <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+                    <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+                  </div>
+                  <button type="button" class="c-button c-button--danger">Delete project</button>
+                </div>
+                <p class="proto-e-slot">The form seats here</p>
+                </div>
+              </div>
+            </section>
+          </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="demo-step proto-e-layer" id="proto-e-form" aria-labelledby="proto-e-form-title">
+      <div class="l-container">
+        <div class="proto-e-layer__grid">
+          <div class="proto-e-layer__head">
+            <h2 class="proto-e-layer__title" id="proto-e-form-title">Build the form</h2>
+            <p class="proto-e-layer__text">Each field wraps its label, control, help and error. States live in <code>data-state</code>, paired with ARIA. This is step 5 of the full booklet.</p>
+          </div>
+          <div class="proto-e-tally">
+            <p class="proto-e-tally__label">Parts used so far</p>
+            <p class="proto-e-tally__count"><span class="proto-e-tally__num">7</span> <span class="proto-e-tally__of">of 19 parts<span class="proto-e-tally__so-far"> used so far</span></span></p>
+            <ul class="proto-e-tally__list" role="list"><li class="proto-e-tally__item"><code>l-section</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-container</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-stack</code><span class="proto-e-tally__delta">+1<span class="u-sr-only"> in this layer</span></span><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times</span></span></li><li class="proto-e-tally__item"><code>l-cluster</code><span class="proto-e-tally__delta">+1<span class="u-sr-only"> in this layer</span></span><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times</span></span></li><li class="proto-e-tally__item"><code>c-button</code><span class="proto-e-tally__delta">+1<span class="u-sr-only"> in this layer</span></span><span class="demo-count"><span aria-hidden="true">12×</span><span class="u-sr-only">, used 12 times</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>c-form-field</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item proto-e-tally__item--new"><svg class="c-icon c-icon--sm proto-e-tally__plus" aria-hidden="true" focusable="false"><use href="#mcss-icon-plus"></use></svg><span class="u-sr-only">New: </span><code>c-input</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li></ul>
+            <p class="proto-e-tally__note">29 pieces seated, 9 new in this layer.</p>
+          </div>
+          <div class="proto-e-layer__build">
+          <figure class="demo-stage proto-e-stage">
+            <section class="l-section l-section--sm" data-part="l-section" aria-label="The build so far">
+              <div class="l-container" data-part="l-container">
+                <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+                <h3 class="proto-e-build__title proto-e-seated" inert>Projects</h3>
+                <div class="l-stack proto-e-seated" data-part="l-stack" inert>
+                  <div class="l-cluster">
+                    <button type="button" class="c-button c-button--ghost">Cancel</button>
+                    <button type="button" class="c-button">Save draft</button>
+                    <button type="button" class="c-button c-button--primary">Publish post</button>
+                  </div>
+                  <div class="l-cluster">
+                    <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+                    <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+                    <button type="button" class="c-button c-button--lg">Create a project</button>
+                  </div>
+                  <div class="l-stack l-stack--sm">
+                    <div class="l-cluster">
+                      <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="proto-e-schedule-f">Schedule post</button>
+                      <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+                    </div>
+                    <p class="u-margin-0" id="proto-e-schedule-f">Add a publish date to schedule the post.</p>
+                  </div>
+                  <div class="l-cluster" role="group" aria-label="View">
+                    <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+                    <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+                  </div>
+                  <button type="button" class="c-button c-button--danger">Delete project</button>
+                </div>
+                <form class="l-stack proto-e-new proto-e-patch" data-part="new: c-form-field + c-input" novalidate>
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="proto-e-email-f">Work email</label>
+                    <input class="c-input" id="proto-e-email-f" type="email" autocomplete="email" aria-describedby="proto-e-email-help-f">
+                    <p class="c-form-field__help" id="proto-e-email-help-f">We'll send the invite here.</p>
+                  </div>
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="proto-e-password-f">Password</label>
+                    <input class="c-input" id="proto-e-password-f" type="password" data-state="error" aria-invalid="true" aria-describedby="proto-e-password-error-f">
+                    <p class="c-form-field__error" id="proto-e-password-error-f">Use at least 12 characters.</p>
+                  </div>
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="proto-e-org-f">Organization</label>
+                    <input class="c-input" id="proto-e-org-f" type="text" value="Acme Inc." data-state="disabled" disabled>
+                  </div>
+                  <div class="l-cluster">
+                    <button type="submit" class="c-button c-button--primary">Create account</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </section>
+          </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="demo-step proto-e-layer" id="proto-e-done" aria-labelledby="proto-e-done-title">
+      <div class="l-container">
+        <div class="proto-e-layer__grid">
+          <div class="proto-e-layer__head">
+            <h2 class="proto-e-layer__title" id="proto-e-done-title">The finished screen</h2>
+            <p class="proto-e-layer__text">Take the outlines away and the parts are the screen. Every part on it comes from the contract, and <code>npx mcss-lite validate</code> finds 0 issues in this build.</p>
+            <p class="proto-e-layer__aside">Badges, cards on a grid, checks and switches, signals and the dialog (steps 3–4 and 6–8) seat the same way. <a href="../index.html#step-3">See every step in the full booklet</a></p>
+          </div>
+          <div class="proto-e-tally">
+            <p class="proto-e-tally__label">Parts used so far</p>
+            <p class="proto-e-tally__count"><span class="proto-e-tally__num">7</span> <span class="proto-e-tally__of">of 19 parts<span class="proto-e-tally__so-far"> used so far</span></span></p>
+            <ul class="proto-e-tally__list" role="list"><li class="proto-e-tally__item"><code>l-section</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-container</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-stack</code><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times</span></span></li><li class="proto-e-tally__item"><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times</span></span></li><li class="proto-e-tally__item"><code>c-button</code><span class="demo-count"><span aria-hidden="true">12×</span><span class="u-sr-only">, used 12 times</span></span></li><li class="proto-e-tally__item"><code>c-form-field</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item"><code>c-input</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li></ul>
+            <p class="proto-e-tally__note">29 pieces seated, nothing loose.</p>
+          </div>
+          <div class="proto-e-layer__build">
+          <figure class="demo-stage proto-e-stage proto-e-stage--done">
+            <section class="l-section l-section--sm" data-part="l-section" inert aria-label="The build so far">
+              <div class="l-container" data-part="l-container">
+                <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+                <h3 class="proto-e-build__title">Projects</h3>
+                <div class="l-stack" data-part="l-stack">
+                  <div class="l-cluster">
+                    <button type="button" class="c-button c-button--ghost">Cancel</button>
+                    <button type="button" class="c-button">Save draft</button>
+                    <button type="button" class="c-button c-button--primary">Publish post</button>
+                  </div>
+                  <div class="l-cluster">
+                    <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+                    <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+                    <button type="button" class="c-button c-button--lg">Create a project</button>
+                  </div>
+                  <div class="l-stack l-stack--sm">
+                    <div class="l-cluster">
+                      <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="proto-e-schedule-d">Schedule post</button>
+                      <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+                    </div>
+                    <p class="u-margin-0" id="proto-e-schedule-d">Add a publish date to schedule the post.</p>
+                  </div>
+                  <div class="l-cluster" role="group" aria-label="View">
+                    <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+                    <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+                  </div>
+                  <button type="button" class="c-button c-button--danger">Delete project</button>
+                </div>
+                <form class="l-stack" data-part="l-stack" novalidate>
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="proto-e-email-d">Work email</label>
+                    <input class="c-input" id="proto-e-email-d" type="email" autocomplete="email" aria-describedby="proto-e-email-help-d">
+                    <p class="c-form-field__help" id="proto-e-email-help-d">We'll send the invite here.</p>
+                  </div>
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="proto-e-password-d">Password</label>
+                    <input class="c-input" id="proto-e-password-d" type="password" data-state="error" aria-invalid="true" aria-describedby="proto-e-password-error-d">
+                    <p class="c-form-field__error" id="proto-e-password-error-d">Use at least 12 characters.</p>
+                  </div>
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="proto-e-org-d">Organization</label>
+                    <input class="c-input" id="proto-e-org-d" type="text" value="Acme Inc." data-state="disabled" disabled>
+                  </div>
+                  <div class="l-cluster">
+                    <button type="submit" class="c-button c-button--primary">Create account</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </section>
+          </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-step proto-e-layer proto-e-layer--misfit" id="proto-e-misfit" aria-labelledby="proto-e-misfit-title">
+      <div class="l-container">
+        <div class="proto-e-layer__grid">
+          <div class="proto-e-layer__head">
+            <h2 class="proto-e-misfit__title" id="proto-e-misfit-title">This piece doesn't fit</h2>
+            <p class="proto-e-layer__text">An agent wants a warning button and guesses <code>c-button--warning</code>. The contract has no such modifier, so the validator rejects it and the build stays as it was.</p>
+          </div>
+          <div class="proto-e-tally">
+            <p class="proto-e-tally__label">Parts used so far</p>
+            <p class="proto-e-tally__count"><span class="proto-e-tally__num">7</span> <span class="proto-e-tally__of">of 19 parts<span class="proto-e-tally__so-far"> used so far</span></span></p>
+            <ul class="proto-e-tally__list" role="list"><li class="proto-e-tally__item"><code>l-section</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-container</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li><li class="proto-e-tally__item"><code>l-stack</code><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times</span></span></li><li class="proto-e-tally__item"><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">5×</span><span class="u-sr-only">, used 5 times</span></span></li><li class="proto-e-tally__item"><code>c-button</code><span class="demo-count"><span aria-hidden="true">12×</span><span class="u-sr-only">, used 12 times</span></span></li><li class="proto-e-tally__item"><code>c-form-field</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item"><code>c-input</code><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li><li class="proto-e-tally__item"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li></ul>
+            <p class="proto-e-tally__reject"><svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg><code>c-button--warning</code><span>not in the contract</span></p>
+            <p class="proto-e-tally__note">29 pieces seated. 1 piece rejected.</p>
+          </div>
+          <div class="proto-e-layer__build">
+            <figure class="demo-stage proto-e-stage proto-e-misfit-stage">
+              <div class="proto-e-misfit" aria-hidden="true"><code>c-button--warning</code></div>
+              <div class="l-cluster proto-e-seated" inert>
+                <button type="button" class="c-button c-button--ghost">Cancel</button>
+                <button type="button" class="c-button">Save draft</button>
+                <button type="button" class="c-button c-button--primary">Publish post</button>
+                <span class="proto-e-socket" aria-hidden="true"></span>
+              </div>
+            </figure>
+            <div class="proto-e-verdict">
+              <p class="proto-e-verdict__cmd"><code>npx mcss-lite validate</code></p>
+              <p class="proto-e-verdict__msg"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></span></p>
+              <p class="proto-e-verdict__more"><a href="../index.html#wrong-piece">See an agent's whole form fail four ways, and the rebuild pass</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-end" id="proto-e-take-it" aria-labelledby="proto-e-end-title">
+      <div class="l-container demo-end__grid">
+        <div class="demo-end__plate l-stack">
+          <h2 class="demo-step__title" id="proto-e-end-title">Take the parts with you</h2>
+          <p class="demo-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+          <ul class="demo-end__links" role="list">
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+            <li><a href="../../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+            <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+          </ul>
+          <p class="demo-end__recap"><svg class="demo-seated-mini" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="24" width="40" height="5" rx="1"/><rect x="9" y="12" width="30" height="12" rx="2"/><path d="M14 12V8h5v4M29 12V8h5v4"/></g></svg><span>This build: 7 parts, 29 pieces seated, 1 rejected by <code>validate</code>.</span></p>
+          <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
+          <p class="demo-end__author">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+        </div>
+        <div class="demo-end__fit l-stack">
+          <h2 class="demo-end__fit-title" id="proto-e-fit-title">Is this the right kit?</h2>
+          <div class="demo-pick">
+            <div class="demo-pick__col">
+              <p class="demo-check__label">Good fit</p>
+              <ul class="demo-pick__list">
+                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+              </ul>
+            </div>
+            <div class="demo-pick__col demo-pick__col--other">
+              <p class="demo-check__label">Pick something else</p>
+              <ul class="demo-pick__list">
+                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+                <li>Dense data products, or a brand that must not look like building bricks.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>

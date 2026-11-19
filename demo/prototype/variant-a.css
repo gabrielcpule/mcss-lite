@@ -1,0 +1,500 @@
+/* Variant A, "The box cover" (throwaway prototype). Every selector is scoped under .proto-a. Tokens only. */
+
+/* ===== Hero: the front of the box ===== */
+.proto-a .proto-a-hero {
+  padding-block: var(--space-12) var(--space-16);
+}
+
+.proto-a .proto-a-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.proto-a .proto-a-claim,
+.proto-a .proto-a-box {
+  min-width: 0;
+}
+
+.proto-a .proto-a-title {
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  text-wrap: balance;
+}
+
+@media (min-width: 60rem) {
+  .proto-a .proto-a-hero__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--space-12);
+  }
+}
+
+/* The agent row: AGENTS.md, then a folded menu of every file an agent reads. */
+.proto-a .proto-a-agents {
+  align-items: flex-start;
+}
+
+.proto-a .proto-a-agents__link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-a .proto-a-menu {
+  position: relative;
+}
+
+.proto-a .proto-a-menu__list {
+  display: grid;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  list-style: none;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-elevated);
+}
+
+.proto-a .proto-a-menu__list li {
+  display: grid;
+  padding-block: var(--space-1) var(--space-2);
+}
+
+.proto-a .proto-a-menu__list li + li {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-a .proto-a-menu__list a {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-a .proto-a-menu__list span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* From tablet width the menu drops over the page instead of pushing it down. */
+@media (min-width: 40rem) {
+  .proto-a .proto-a-menu[open] > summary {
+    margin-block-end: 0;
+  }
+
+  .proto-a .proto-a-menu__list {
+    position: absolute;
+    inset-block-start: calc(100% + var(--space-2));
+    inset-inline-start: 0;
+    z-index: var(--z-index-dropdown);
+    inline-size: 22rem;
+  }
+}
+
+/* The box: a lid band with the set number and piece count, then the picture of the finished build. */
+.proto-a .proto-a-box {
+  display: grid;
+}
+
+.proto-a .proto-a-box__lid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+}
+
+.proto-a .proto-a-box__lid p {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-a .proto-a-box__set {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.proto-a .proto-a-box__key {
+  font-size: var(--font-size-sm);
+}
+
+.proto-a .proto-a-box__num {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.proto-a .proto-a-box__set .proto-a-box__num {
+  font-size: var(--font-size-3xl);
+}
+
+.proto-a .proto-a-box__count {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+}
+
+/* A stud seen from above separates the counts. */
+.proto-a .proto-a-box__sep {
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  margin-inline: var(--space-1);
+  border: var(--border-width-thick) solid currentColor;
+  border-radius: var(--border-radius-full);
+  align-self: center;
+}
+
+.proto-a .proto-a-art {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-5);
+  padding: var(--space-10) var(--space-6) var(--space-5);
+  border-block-start-width: 0;
+  border-radius: 0 0 var(--border-radius-base) var(--border-radius-base);
+  overflow: visible;
+}
+
+.proto-a .proto-a-art > * + * {
+  margin-block-start: 0;
+}
+
+.proto-a .proto-a-art__card {
+  position: relative;
+  inline-size: min(100%, 24rem);
+}
+
+.proto-a .proto-a-art__head {
+  padding-inline-end: var(--space-2);
+}
+
+.proto-a .proto-a-art__field,
+.proto-a .proto-a-art__actions,
+.proto-a .proto-a-pinned {
+  position: relative;
+}
+
+.proto-a .proto-a-art__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-a .proto-a-art__caption .demo-mark {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  color: var(--color-text-success);
+}
+
+/* Yellow 1:1 tags pinned to the parts, the way step 1 tags its layouts. */
+.proto-a .proto-a-tag,
+.proto-a .proto-a-pinned::after,
+.proto-a .proto-a-outline::before {
+  position: absolute;
+  z-index: 1;
+  padding: 0 var(--space-1);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-background-callout);
+  box-shadow: 0 0 0 var(--border-width-thin) var(--color-border-keyline);
+  color: var(--color-text-default);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.proto-a .proto-a-tag--card {
+  inset-block-start: calc(var(--space-3) * -1);
+  inset-inline-start: var(--space-5);
+}
+
+.proto-a .proto-a-pinned::after {
+  content: attr(data-tag);
+  inset-block-end: calc(100% + var(--space-2));
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+/* The input is the field's last control: its top edge sits one control height above the field's end. */
+.proto-a .proto-a-tag--input {
+  inset-block-end: calc(2.75rem - var(--space-2));
+  inset-inline-end: var(--space-3);
+}
+
+/* Beside the button, in the row, with a short leader to the part. */
+.proto-a .proto-a-tag--button {
+  position: relative;
+  margin-inline-start: var(--space-4);
+}
+
+.proto-a .proto-a-tag--button::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 100%;
+  inline-size: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-keyline);
+}
+
+/* At phone width the row wraps: the tag moves onto the button's top edge instead. */
+@media (max-width: 29.99rem) {
+  .proto-a .proto-a-tag--button {
+    position: absolute;
+    inset-block-start: calc(var(--space-3) * -1);
+    inset-inline-start: var(--space-3);
+    margin: 0;
+  }
+
+  .proto-a .proto-a-tag--button::before {
+    content: none;
+  }
+}
+
+/* The misfit: one small caption under the box. */
+.proto-a .proto-a-misfit {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  margin-block-start: var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.proto-a .proto-a-misfit__text p {
+  margin: 0;
+}
+
+.proto-a .proto-a-misfit__brick {
+  inline-size: 2.5rem;
+  block-size: 1.75rem;
+  color: var(--color-border-error);
+}
+
+.proto-a .proto-a-misfit__msg {
+  color: var(--color-text-error);
+}
+
+.proto-a .proto-a-misfit a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ===== What's in the box: four bags in one row on wide screens ===== */
+.proto-a .proto-a-contents {
+  padding-block: var(--space-16);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-a .proto-a-contents__head {
+  display: grid;
+  gap: var(--space-3);
+  max-inline-size: 48rem;
+}
+
+.proto-a .proto-a-contents__title {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+}
+
+.proto-a .proto-a-contents__text {
+  max-inline-size: 58ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.proto-a .proto-a-bags {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+@media (min-width: 40rem) {
+  .proto-a .proto-a-bags {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* One row from 72rem. The tracks are sized so layout chips sit two to a row and token names fit whole. */
+@media (min-width: 72rem) {
+  .proto-a .proto-a-bags {
+    grid-template-columns: minmax(0, 2.7fr) minmax(0, 3.1fr) minmax(0, 1.7fr) minmax(0, 2.9fr);
+    column-gap: var(--space-3);
+  }
+
+  .proto-a .proto-a-bag {
+    padding: var(--space-3);
+  }
+}
+
+/* Each bag spans three shared rows (head, window, contents), so heads and windows line up across a row. */
+.proto-a .proto-a-bag {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  align-content: start;
+  row-gap: var(--space-3);
+  min-width: 0;
+}
+
+.proto-a .proto-a-bag > :last-child {
+  align-self: start;
+}
+
+.proto-a .proto-a-bag .demo-bag__head {
+  align-self: start;
+  margin: 0;
+}
+
+.proto-a .proto-a-bag__note {
+  margin: 0;
+}
+
+/* The bag's clear window: a stud plate with a few parts seated as they ship. */
+.proto-a .proto-a-window {
+  display: grid;
+  align-content: center;
+  gap: var(--space-5);
+  min-block-size: 9rem;
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  background-color: var(--color-background-default);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-border-keyline) 10%, transparent) 1.25px,
+    transparent 1.5px
+  );
+  background-size: var(--space-4) var(--space-4);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-a .proto-a-window--tokens {
+  padding: var(--space-4) var(--space-3);
+}
+
+/* Layout outlines, dashed like the baseplate, each with its tag. */
+.proto-a .proto-a-outline {
+  position: relative;
+  padding: var(--space-4) var(--space-2) var(--space-2);
+  outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.proto-a .proto-a-outline::before {
+  content: attr(data-tag);
+  inset-block-start: calc(var(--space-3) * -1 - 2px);
+  inset-inline-start: var(--space-2);
+}
+
+/* Utilities change one property; no outline, the tag sits inside the line's own top strip. */
+.proto-a .proto-a-outline--utility {
+  padding: var(--space-6) 0 0;
+  outline: 0;
+}
+
+.proto-a .proto-a-outline--utility::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+/* Small bricks: a keylined body on its brick edge, two studs on top. */
+.proto-a .proto-a-brick {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  inline-size: 2.5rem;
+  block-size: 1.25rem;
+  margin-block-start: var(--space-1);
+  background-color: var(--proto-a-fill, var(--color-background-raised));
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-a .proto-a-brick::before,
+.proto-a .proto-a-brick::after {
+  content: "";
+  position: absolute;
+  inset-block-end: calc(100% + var(--border-width-thick));
+  inline-size: 0.5rem;
+  block-size: 0.3rem;
+  background-color: var(--color-border-keyline);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+}
+
+.proto-a .proto-a-brick::before {
+  inset-inline-start: 0.25rem;
+}
+
+.proto-a .proto-a-brick::after {
+  inset-inline-end: 0.25rem;
+}
+
+.proto-a .proto-a-brick--wide {
+  inline-size: 4rem;
+}
+
+.proto-a .proto-a-brick--long {
+  inline-size: 7rem;
+}
+
+.proto-a .proto-a-brick--swatch {
+  inline-size: 1.75rem;
+  block-size: 1.25rem;
+}
+
+.proto-a .proto-a-tokens {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-a .proto-a-token {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  font-size: var(--font-size-xs);
+}
+
+/* ===== Steps: numeral and stage, plus folded markup under each stage ===== */
+/* On phones the stage is the full column, not shrunk to its content. */
+@media (max-width: 59.99rem) {
+  .proto-a .proto-a-step .demo-step__build {
+    align-self: stretch;
+  }
+}
+
+.proto-a .proto-a-markup {
+  margin-block-start: var(--space-4);
+}
+
+.proto-a .proto-a-skip {
+  padding-block: var(--space-6);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-a .proto-a-skip__text {
+  margin-block: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}

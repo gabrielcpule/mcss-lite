@@ -1,0 +1,833 @@
+/* Variant D, "The sorting tray" (prototype, throwaway). Tokens only; every selector under .proto-d.
+   One molded tray: the grid gap is the ink wall between compartments, so the cells share walls
+   instead of floating as separate cards. Only the tray as a whole carries a brick edge. */
+
+.proto-d {
+  --proto-d-wall: var(--border-width-thick);
+  --proto-d-studs: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-border-keyline) 12%, transparent) 1.25px,
+    transparent 1.5px
+  );
+}
+
+/* ---------- The tray ---------- */
+
+.proto-d .proto-d-traywrap {
+  padding-block: var(--space-6) var(--space-12);
+}
+
+/* The rim: a raised plastic lip around the compartments. */
+.proto-d .proto-d-rim {
+  padding: var(--space-1);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-elevated);
+}
+
+.proto-d .proto-d-tray {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--proto-d-wall);
+  padding: var(--proto-d-wall);
+  background-color: var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  overflow: hidden;
+}
+
+.proto-d .proto-d-cell {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-subtle);
+}
+
+/* Spans on phones: two columns, wide parts and headings take both. */
+.proto-d .proto-d-hero,
+.proto-d .proto-d-install,
+.proto-d .proto-d-group,
+.proto-d .proto-d-part--wide,
+.proto-d .proto-d-part--empty,
+.proto-d .proto-d-part--drawer,
+.proto-d .proto-d-part--tokens {
+  grid-column: 1 / -1;
+}
+
+/* The instruction sheet that lies in the widest compartment. */
+.proto-d .proto-d-hero {
+  justify-content: center;
+  padding: var(--space-8) var(--space-5) var(--space-6);
+  background-color: var(--color-background-raised);
+}
+
+.proto-d .proto-d-hero__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-family-display);
+  font-size: clamp(2.375rem, 5.2vw, 4.25rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.proto-d .proto-d-hero__lede {
+  max-width: 50ch;
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
+}
+
+.proto-d .proto-d-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-d .proto-d-hero__links a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+}
+
+/* The install compartment. */
+.proto-d .proto-d-install {
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background-color: var(--color-background-raised);
+}
+
+.proto-d .proto-d-install__title {
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+.proto-d .proto-d-install__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  background-color: var(--color-background-default);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-d .proto-d-install__line .c-button {
+  flex: none;
+}
+
+.proto-d .proto-d-install__cmd {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  font-size: var(--font-size-sm);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.proto-d .proto-d-install__alt {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.proto-d .proto-d-install__alt code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Group plates: the molded label at the head of each section of the tray. Ink, not blue. */
+.proto-d .proto-d-group {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-border-keyline);
+  color: var(--color-text-inverse);
+}
+
+.proto-d .proto-d-group__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: inherit;
+}
+
+.proto-d .proto-d-group__count {
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+.proto-d .proto-d-group__num,
+.proto-d .proto-d-num {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.proto-d .proto-d-group__num {
+  font-size: var(--font-size-2xl);
+  line-height: 1;
+}
+
+/* ---------- A compartment ---------- */
+
+.proto-d .proto-d-floor {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-block-size: 6.5rem;
+  padding: var(--space-4) var(--space-3);
+  background-image: var(--proto-d-studs);
+  background-size: var(--space-4) var(--space-4);
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.proto-d .proto-d-specimen {
+  max-width: 100%;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.proto-d .proto-d-specimen--fill {
+  justify-self: stretch;
+}
+
+/* The label strip: the part's name links to its sheet; the link covers the whole compartment. */
+.proto-d .proto-d-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--space-2);
+  min-block-size: 2.75rem;
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-background-raised);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.proto-d .proto-d-name {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.proto-d .proto-d-name code {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.proto-d .proto-d-name a {
+  color: var(--color-text-link);
+  text-underline-offset: 0.2em;
+}
+
+.proto-d .proto-d-name a code {
+  color: inherit;
+}
+
+.proto-d .proto-d-part .proto-d-name a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.proto-d .proto-d-part .proto-d-name a:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.proto-d .proto-d-part .proto-d-name a:focus-visible::after {
+  outline: var(--border-width-thick) solid var(--color-focus-ring);
+  outline-offset: calc(var(--space-1) * -1);
+  box-shadow: inset 0 0 0 var(--space-2) var(--color-focus-halo);
+}
+
+.proto-d .proto-d-meta {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+}
+
+/* Picking a part up: the specimen lifts out of its well and the strip lights. */
+.proto-d .proto-d-part:has(.proto-d-name a):hover .proto-d-specimen {
+  transform: translateY(calc(var(--space-1) * -1));
+}
+
+.proto-d .proto-d-part:has(.proto-d-name a):hover .proto-d-strip {
+  background-color: var(--color-background-interactive-hover);
+}
+
+/* Arriving from a pick slot below: the compartment fills with the yellow "new part" call-out. */
+.proto-d .proto-d-part[id] {
+  scroll-margin-block: var(--space-24);
+}
+
+.proto-d .proto-d-part:target .proto-d-floor {
+  background-color: var(--color-background-callout);
+}
+
+.proto-d .proto-d-part:target .proto-d-strip {
+  background-color: var(--color-background-callout);
+}
+
+/* The modal compartment holds a working opener; it sits above the stretched link. */
+.proto-d .proto-d-modal {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.proto-d .proto-d-modal__drawing {
+  width: 5rem;
+  height: auto;
+  color: var(--color-text-default);
+}
+
+/* The deprecated part's compartment stands empty. */
+.proto-d .proto-d-part--empty .proto-d-floor {
+  background-image: none;
+}
+
+.proto-d .proto-d-empty {
+  max-width: 30ch;
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.proto-d .proto-d-empty code {
+  display: inline-block;
+  margin-block-start: var(--space-1);
+  font-size: var(--font-size-xs);
+}
+
+/* Radios: two in a row inside their compartment. */
+.proto-d .proto-d-radios {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+/* Layout specimens: real l-* primitives at compartment scale, outlined the way the baseplate does. */
+.proto-d .proto-d-plate {
+  justify-self: stretch;
+}
+
+.proto-d .proto-d-plate > [class^="l-"] {
+  outline: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.proto-d .proto-d-plate .l-center {
+  max-width: 60%;
+}
+
+.proto-d .proto-d-plate .l-container {
+  padding-block: var(--space-2);
+}
+
+.proto-d .proto-d-plate .l-grid {
+  gap: var(--space-2);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.proto-d .proto-d-plate .l-section {
+  padding-block: var(--space-5);
+}
+
+.proto-d .proto-d-plate .l-sidebar {
+  gap: var(--space-2);
+}
+
+.proto-d .proto-d-plate .l-sidebar__sidebar {
+  flex-basis: 30%;
+}
+
+.proto-d .proto-d-plate .l-sidebar__content {
+  min-width: 55%;
+}
+
+.proto-d .proto-d-plate .l-cluster,
+.proto-d .proto-d-plate .l-switcher {
+  gap: var(--space-2);
+}
+
+.proto-d .proto-d-brick {
+  display: block;
+  min-inline-size: var(--space-4);
+  block-size: var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-sm);
+}
+
+.proto-d .proto-d-brick--s { inline-size: var(--space-6); }
+.proto-d .proto-d-brick--m { inline-size: var(--space-10); }
+.proto-d .proto-d-brick--tall { block-size: var(--space-10); }
+
+/* The utilities drawer: class chips. */
+.proto-d .proto-d-chips {
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.proto-d .proto-d-chips code {
+  font-size: var(--font-size-sm);
+}
+
+.proto-d .proto-d-chips__more {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* The tokens drawer. */
+.proto-d .proto-d-tokens {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.proto-d .proto-d-tokens .demo-swatch code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.proto-d .proto-d-tokens__note {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.proto-d .proto-d-part--tokens .proto-d-strip .proto-d-num,
+.proto-d .proto-d-part--drawer .proto-d-strip .proto-d-num {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-default);
+}
+
+/* ---------- Tablet: four columns ---------- */
+@media (min-width: 40rem) {
+  .proto-d .proto-d-tray {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .proto-d .proto-d-part--wide,
+  .proto-d .proto-d-part--empty {
+    grid-column: span 2;
+  }
+
+  .proto-d .proto-d-hero {
+    padding: var(--space-10) var(--space-8) var(--space-8);
+  }
+
+  .proto-d .proto-d-rim {
+    padding: var(--space-2);
+  }
+
+  .proto-d .proto-d-floor {
+    min-block-size: 7.5rem;
+  }
+}
+
+/* ---------- Desktop: six columns; the sheet and install line take the left half of the first rows ---------- */
+@media (min-width: 64rem) {
+  .proto-d .proto-d-tray {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .proto-d .proto-d-hero {
+    grid-column: 1 / 4;
+    grid-row: 1 / 3;
+  }
+
+  .proto-d .proto-d-install {
+    grid-column: 1 / 4;
+    grid-row: 3;
+  }
+
+  .proto-d .proto-d-group {
+    grid-column: span 1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: var(--space-4);
+  }
+
+  .proto-d .proto-d-group__num {
+    display: block;
+    font-size: var(--font-size-5xl);
+    line-height: 0.9;
+  }
+
+  .proto-d .proto-d-part--empty {
+    grid-column: span 1;
+  }
+
+  .proto-d .proto-d-part--drawer {
+    grid-column: span 2;
+  }
+
+  .proto-d .proto-d-part--tokens {
+    grid-column: 1 / -1;
+  }
+
+  .proto-d .proto-d-tokens {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+/* ---------- Picked from the tray ---------- */
+
+.proto-d .proto-d-picks,
+.proto-d .proto-d-misfit {
+  padding-block: var(--space-12);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-d .proto-d-section-head {
+  max-width: 44rem;
+}
+
+.proto-d .proto-d-section-title {
+  margin: 0 0 var(--space-3);
+  font-size: var(--font-size-3xl);
+}
+
+.proto-d .proto-d-section-text {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.proto-d .proto-d-steps {
+  display: grid;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.proto-d .proto-d-step {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.proto-d .proto-d-step__head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.proto-d .proto-d-step__num {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.proto-d .proto-d-step__title {
+  margin: var(--space-1) 0 var(--space-2);
+  font-size: var(--font-size-2xl);
+}
+
+.proto-d .proto-d-step__text {
+  max-width: 48ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* The pick list is a strip of the same tray: shared ink walls, one slot per part. */
+.proto-d .proto-d-pick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--proto-d-wall);
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--proto-d-wall);
+  list-style: none;
+  background-color: var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-d .proto-d-pick__slot {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-3);
+  background-color: var(--color-background-subtle);
+  font-size: var(--font-size-sm);
+}
+
+.proto-d .proto-d-pick__slot--new {
+  background-color: var(--color-background-callout);
+}
+
+.proto-d .proto-d-pick__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.proto-d .proto-d-pick__link code {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.proto-d .proto-d-pick__link:hover code {
+  text-decoration-color: currentColor;
+}
+
+.proto-d .proto-d-pick__slot:not(.proto-d-pick__slot--new) .proto-d-pick__link {
+  color: var(--color-text-muted);
+}
+
+.proto-d .proto-d-pick__slot:not(.proto-d-pick__slot--new) .demo-glyph {
+  color: var(--color-text-muted);
+}
+
+.proto-d .proto-d-pick__count {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.proto-d .proto-d-step .demo-stage {
+  min-width: 0;
+}
+
+.proto-d .proto-d-rest {
+  max-width: 70ch;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--border-radius-base);
+  background-color: var(--color-background-subtle);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 64rem) {
+  .proto-d .proto-d-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-10);
+  }
+}
+
+/* ---------- The misfit ---------- */
+
+.proto-d .proto-d-misfit__fig {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.proto-d .proto-d-tray--modifiers {
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  box-shadow: var(--shadow-raised);
+  overflow: visible;
+}
+
+.proto-d .proto-d-part--mod .proto-d-floor {
+  min-block-size: 6rem;
+}
+
+.proto-d .proto-d-part--misfit {
+  grid-column: 1 / -1;
+}
+
+/* The one compartment a piece can't seat in: its floor is outlined in dashed error red. */
+.proto-d .proto-d-part--misfit .proto-d-floor {
+  background-image: none;
+  background-color: var(--color-background-default);
+  outline: var(--border-width-thick) dashed var(--color-border-error);
+  outline-offset: calc(var(--space-2) * -1);
+}
+
+.proto-d .proto-d-part--misfit .proto-d-name code {
+  color: var(--color-text-error);
+}
+
+.proto-d .proto-d-part--misfit .proto-d-meta {
+  color: var(--color-text-error);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-d .proto-d-misfit__brick {
+  width: 100%;
+  max-width: 11rem;
+  height: auto;
+  overflow: visible;
+  color: var(--color-border-error);
+}
+
+.proto-d .proto-d-misfit__slot {
+  stroke: var(--color-border-keyline);
+}
+
+.proto-d .proto-d-misfit__tilt {
+  transform: rotate(-12deg);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.proto-d .proto-d-misfit__wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+/* The one authored motion: hover or arrive at the misfit and the brick tries to seat, then
+   falls back askew. */
+@keyframes proto-d-refuse {
+  0% { transform: translateY(-10px) rotate(8deg); }
+  55% { transform: translateY(2px) rotate(-3deg); }
+  100% { transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .proto-d .proto-d-part--misfit:hover .proto-d-misfit__wobble,
+  .proto-d .proto-d-misfit:target .proto-d-misfit__wobble {
+    animation: proto-d-refuse var(--duration-slower) var(--ease-out-expo) both;
+  }
+}
+
+.proto-d .proto-d-verdict {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-error);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-d .proto-d-verdict__cmd {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-d .proto-d-verdict__msg {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  color: var(--color-text-error);
+}
+
+.proto-d .proto-d-verdict__msg .demo-mark {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-block-start: 0.15em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.proto-d .proto-d-verdict__msg strong {
+  font-weight: var(--font-weight-bold);
+}
+
+@media (min-width: 40rem) {
+  .proto-d .proto-d-tray--modifiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .proto-d .proto-d-tray--modifiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr);
+  }
+
+  .proto-d .proto-d-part--misfit {
+    grid-column: 4;
+    grid-row: 1 / 3;
+  }
+}
+
+/* The whole agent form, folded. */
+.proto-d .proto-d-more {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-d .proto-d-more__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  min-block-size: 2.75rem;
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+.proto-d .proto-d-more__summary::-webkit-details-marker {
+  display: none;
+}
+
+.proto-d .proto-d-more__chevron {
+  flex: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.proto-d .proto-d-more[open] .proto-d-more__chevron {
+  transform: rotate(180deg);
+}
+
+.proto-d .proto-d-end {
+  padding-block-start: var(--space-4);
+}
+
+.proto-d .proto-d-more__body {
+  padding-block: var(--space-4) var(--space-3);
+}
+
+@media (min-width: 60rem) {
+  .proto-d .proto-d-more .demo-wrong__pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-d .proto-d-specimen,
+  .proto-d .proto-d-floor,
+  .proto-d .proto-d-strip {
+    transition: none;
+  }
+}

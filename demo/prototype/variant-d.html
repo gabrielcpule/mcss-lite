@@ -1,0 +1,603 @@
+<main id="main" class="proto-d">
+  <!-- Variant D, "The sorting tray": the page opens on one molded tray. Every compartment holds a real,
+       live part (inert, so it reads as a specimen) and its label strip links to the part sheet. -->
+  <section class="proto-d-traywrap" aria-labelledby="d-title">
+    <div class="l-container">
+      <div class="proto-d-rim">
+        <div class="proto-d-tray">
+
+          <div class="proto-d-cell proto-d-hero">
+            <h1 class="proto-d-hero__title" id="d-title">Build UI from declared parts</h1>
+            <p class="proto-d-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+            <ul class="proto-d-hero__links" role="list">
+              <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></li>
+              <li><a href="#d-wrong-piece">See the piece that doesn't fit</a></li>
+            </ul>
+          </div>
+
+          <div class="proto-d-cell proto-d-install">
+            <h2 class="proto-d-install__title">Add the stylesheet</h2>
+            <div class="proto-d-install__line">
+              <code class="proto-d-install__cmd" id="d-install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr>mcss-lite@v0.4.1/<wbr>dist/<wbr>mcss-lite.min.css"&gt;</code>
+              <button type="button" class="c-button c-button--sm" data-copy="d-install-cmd" data-copied="Stylesheet link copied.">Copy</button>
+            </div>
+            <p class="proto-d-install__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
+          </div>
+
+          <!-- Components -->
+          <div class="proto-d-cell proto-d-group">
+            <h2 class="proto-d-group__title">Components</h2>
+            <p class="proto-d-group__count"><span class="proto-d-group__num">11</span> parts, plus 1 deprecated</p>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-button">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen">
+                <button type="button" class="c-button c-button--primary">Publish</button>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/button.html"><code>c-button</code></a></h3>
+              <p class="proto-d-meta">6 modifiers, 2 states</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-badge">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen l-cluster">
+                <span class="c-badge">Draft</span>
+                <span class="c-badge c-badge--success">Active</span>
+                <span class="c-badge c-badge--info">Beta</span>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/badge.html"><code>c-badge</code></a></h3>
+              <p class="proto-d-meta">5 modifiers</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-toggle">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen">
+                <div class="c-toggle">
+                  <input class="c-toggle__input" type="checkbox" role="switch" id="d-tray-toggle-input" checked>
+                  <label class="c-toggle__label" for="d-tray-toggle-input">Dark mode</label>
+                </div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/toggle.html"><code>c-toggle</code></a></h3>
+              <p class="proto-d-meta">3 elements, 3 states</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-input">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-specimen--fill">
+                <label class="u-sr-only" for="d-tray-input-field">Organization</label>
+                <input class="c-input" id="d-tray-input-field" type="text" value="Acme Inc.">
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/input.html"><code>c-input</code></a></h3>
+              <p class="proto-d-meta">3 states</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-checkbox">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen">
+                <div class="c-checkbox">
+                  <input class="c-checkbox__input" type="checkbox" id="d-tray-checkbox-input" checked>
+                  <label class="c-checkbox__label" for="d-tray-checkbox-input">Audit log</label>
+                </div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/checkbox.html"><code>c-checkbox</code></a></h3>
+              <p class="proto-d-meta">3 elements, 4 native states</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-radio">
+            <div class="proto-d-floor" inert>
+              <fieldset class="proto-d-specimen proto-d-radios">
+                <legend class="u-sr-only">Plan</legend>
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="d-tray-radio-team" name="d-tray-plan" value="team">
+                  <label class="c-radio__label" for="d-tray-radio-team">Team</label>
+                </div>
+                <div class="c-radio">
+                  <input class="c-radio__input" type="radio" id="d-tray-radio-business" name="d-tray-plan" value="business" checked>
+                  <label class="c-radio__label" for="d-tray-radio-business">Business</label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/radio.html"><code>c-radio</code></a></h3>
+              <p class="proto-d-meta">3 elements, 2 native states</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-icon">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen l-cluster">
+                <svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg>
+                <svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-search"></use></svg>
+                <svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-copy"></use></svg>
+                <svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg>
+                <svg class="c-icon c-icon--lg" aria-hidden="true" focusable="false"><use href="#mcss-icon-trash"></use></svg>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/icon.html"><code>c-icon</code></a></h3>
+              <p class="proto-d-meta">20 icons, 2 sizes</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-card">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-specimen--fill">
+                <article class="c-card">
+                  <p class="c-card__title">Atlas</p>
+                  <p class="c-card__body">12 pages</p>
+                </article>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/card.html"><code>c-card</code></a></h3>
+              <p class="proto-d-meta">3 modifiers, 4 elements</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part proto-d-part--wide" id="d-tray-alert">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-specimen--fill">
+                <div class="c-alert c-alert--success">
+                  <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                  <div class="c-alert__body">
+                    <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
+                    <p>Acme Inc. will get it by email in a few minutes.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/alert.html"><code>c-alert</code></a></h3>
+              <p class="proto-d-meta">4 modifiers, 5 elements</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part proto-d-part--wide" id="d-tray-form-field">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-specimen--fill">
+                <div class="c-form-field">
+                  <label class="c-form-field__label" for="d-tray-password">Password</label>
+                  <input class="c-input" id="d-tray-password" type="password" data-state="error" aria-invalid="true" aria-describedby="d-tray-password-error">
+                  <p class="c-form-field__error" id="d-tray-password-error">Use at least 12 characters.</p>
+                </div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/form-field.html"><code>c-form-field</code></a></h3>
+              <p class="proto-d-meta">3 elements, 1 state</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part proto-d-part--wide" id="d-tray-modal">
+            <div class="proto-d-floor">
+              <div class="proto-d-specimen proto-d-modal">
+                <svg class="proto-d-modal__drawing" viewBox="0 0 96 64" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><rect x="4" y="4" width="88" height="56" rx="4" stroke-dasharray="4 4" opacity="0.5"/><rect x="18" y="14" width="60" height="38" rx="3"/><path d="M18 24h60M66 17l4 4M70 17l-4 4M46 45h12M62 45h10"/></g></svg>
+                <button type="button" class="c-button c-button--sm" data-open-dialog="d-dialog">Preview the dialog</button>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/modal.html"><code>c-modal</code></a></h3>
+              <p class="proto-d-meta">7 elements, 1 state</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part proto-d-part--empty" id="d-tray-label">
+            <div class="proto-d-floor">
+              <p class="proto-d-empty">Empty compartment. Its replacement: <code>c-form-field__label</code></p>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/label.html"><code>c-label</code></a></h3>
+              <p class="proto-d-meta">Deprecated</p>
+            </div>
+          </div>
+
+          <!-- Layouts -->
+          <div class="proto-d-cell proto-d-group">
+            <h2 class="proto-d-group__title">Layouts</h2>
+            <p class="proto-d-group__count"><span class="proto-d-group__num">8</span> parts that own all spacing</p>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-center">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-center"><span class="proto-d-brick"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/center.html"><code>l-center</code></a></h3>
+              <p class="proto-d-meta">No modifiers</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-cluster">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-cluster"><span class="proto-d-brick proto-d-brick--s"></span><span class="proto-d-brick proto-d-brick--m"></span><span class="proto-d-brick proto-d-brick--s"></span><span class="proto-d-brick proto-d-brick--m"></span><span class="proto-d-brick proto-d-brick--s"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/cluster.html"><code>l-cluster</code></a></h3>
+              <p class="proto-d-meta">No modifiers</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-container">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-container"><span class="proto-d-brick"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/container.html"><code>l-container</code></a></h3>
+              <p class="proto-d-meta">1 modifier</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-grid">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-grid l-grid--3-col"><span class="proto-d-brick"></span><span class="proto-d-brick"></span><span class="proto-d-brick"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/grid.html"><code>l-grid</code></a></h3>
+              <p class="proto-d-meta">4 modifiers</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-section">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-section l-section--sm"><span class="proto-d-brick"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/section.html"><code>l-section</code></a></h3>
+              <p class="proto-d-meta">1 modifier</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-sidebar">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-sidebar"><div class="l-sidebar__sidebar"><span class="proto-d-brick proto-d-brick--tall"></span></div><div class="l-sidebar__content"><span class="proto-d-brick proto-d-brick--tall"></span></div></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/sidebar.html"><code>l-sidebar</code></a></h3>
+              <p class="proto-d-meta">2 elements</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-stack">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-stack l-stack--sm"><span class="proto-d-brick"></span><span class="proto-d-brick"></span><span class="proto-d-brick"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/stack.html"><code>l-stack</code></a></h3>
+              <p class="proto-d-meta">2 modifiers</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part" id="d-tray-switcher">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-plate">
+                <div class="l-switcher" style="--switcher-threshold: 6rem"><span class="proto-d-brick proto-d-brick--tall"></span><span class="proto-d-brick proto-d-brick--tall"></span></div>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/switcher.html"><code>l-switcher</code></a></h3>
+              <p class="proto-d-meta">No modifiers</p>
+            </div>
+          </div>
+
+          <!-- Drawers -->
+          <div class="proto-d-cell proto-d-part proto-d-part--drawer" id="d-tray-utilities">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen l-cluster proto-d-chips">
+                <code>u-text-center</code>
+                <code>u-truncate</code>
+                <code>u-sr-only</code>
+                <code>u-margin-0</code>
+                <code>u-font-mono</code>
+                <span class="proto-d-chips__more">and 10 more</span>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../components/utilities.html"><code>u-*</code> utilities</a></h3>
+              <p class="proto-d-meta"><span class="proto-d-num">15</span> classes</p>
+            </div>
+          </div>
+
+          <div class="proto-d-cell proto-d-part proto-d-part--tokens" id="d-tray-tokens">
+            <div class="proto-d-floor" inert>
+              <div class="proto-d-specimen proto-d-specimen--fill proto-d-tokens">
+                <ul class="demo-swatches" role="list">
+                  <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-primary)"></span><code>--color-action-primary</code></li>
+                  <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-danger)"></span><code>--color-action-danger</code></li>
+                  <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-focus-halo)"></span><code>--color-focus-halo</code></li>
+                  <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-callout)"></span><code>--color-background-callout</code></li>
+                  <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-canvas)"></span><code>--color-background-canvas</code></li>
+                  <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-text-default)"></span><code>--color-text-default</code></li>
+                </ul>
+                <p class="proto-d-tokens__note">51 semantic and 62 component tokens, built on 137 primitives you don't use directly.</p>
+              </div>
+            </div>
+            <div class="proto-d-strip">
+              <h3 class="proto-d-name"><a href="../status.html">Tokens</a></h3>
+              <p class="proto-d-meta"><span class="proto-d-num">113</span> to use</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proto-d-picks" aria-labelledby="d-picks-title">
+    <div class="l-container l-stack l-stack--lg">
+      <div class="proto-d-section-head">
+        <h2 class="proto-d-section-title" id="d-picks-title">Picked from the tray</h2>
+        <p class="proto-d-section-text">Each build takes a few parts out of the tray. Yellow slots are new in that step; the plain ones were picked in an earlier step. Select a slot to find its compartment.</p>
+      </div>
+
+      <div class="proto-d-steps">
+        <article class="proto-d-step" id="d-step-2" aria-labelledby="d-step-2-title">
+          <div class="proto-d-step__head">
+            <p class="proto-d-step__num" aria-hidden="true">2</p>
+            <div>
+              <h3 class="proto-d-step__title" id="d-step-2-title"><span class="u-sr-only">Step 2: </span>Seat the buttons in a cluster</h3>
+              <p class="proto-d-step__text">l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.</p>
+            </div>
+          </div>
+          <ul class="proto-d-pick" role="list" aria-label="Parts picked for step 2">
+            <li class="proto-d-pick__slot proto-d-pick__slot--new"><a class="proto-d-pick__link" href="#d-tray-cluster"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="u-sr-only">, new in this step</span></a><span class="proto-d-pick__count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times</span></span></li>
+            <li class="proto-d-pick__slot proto-d-pick__slot--new"><a class="proto-d-pick__link" href="#d-tray-button"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="u-sr-only">, new in this step</span></a><span class="proto-d-pick__count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times</span></span></li>
+            <li class="proto-d-pick__slot"><a class="proto-d-pick__link" href="#d-tray-stack"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a><span class="proto-d-pick__count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li>
+            <li class="proto-d-pick__slot"><a class="proto-d-pick__link" href="#d-tray-utilities"><code>u-margin-0</code></a><span class="proto-d-pick__count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li>
+          </ul>
+          <figure class="demo-stage">
+            <div class="l-cluster">
+              <button type="button" class="c-button c-button--ghost">Cancel</button>
+              <button type="button" class="c-button">Save draft</button>
+              <button type="button" class="c-button c-button--primary">Publish post</button>
+            </div>
+
+            <div class="l-cluster">
+              <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+              <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+              <button type="button" class="c-button c-button--lg">Create a project</button>
+            </div>
+
+            <div class="l-stack l-stack--sm">
+              <div class="l-cluster">
+                <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="d-schedule-reason">Schedule post</button>
+                <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+              </div>
+              <p class="u-margin-0" id="d-schedule-reason">Add a publish date to schedule the post.</p>
+            </div>
+
+            <div class="l-cluster" role="group" aria-label="View">
+              <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+              <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+            </div>
+
+            <button type="button" class="c-button c-button--danger">Delete project</button>
+          </figure>
+        </article>
+
+        <article class="proto-d-step" id="d-step-5" aria-labelledby="d-step-5-title">
+          <div class="proto-d-step__head">
+            <p class="proto-d-step__num" aria-hidden="true">5</p>
+            <div>
+              <h3 class="proto-d-step__title" id="d-step-5-title"><span class="u-sr-only">Step 5: </span>Build the form</h3>
+              <p class="proto-d-step__text">Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.</p>
+            </div>
+          </div>
+          <ul class="proto-d-pick" role="list" aria-label="Parts picked for step 5">
+            <li class="proto-d-pick__slot proto-d-pick__slot--new"><a class="proto-d-pick__link" href="#d-tray-form-field"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code>c-form-field</code><span class="u-sr-only">, new in this step</span></a><span class="proto-d-pick__count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li>
+            <li class="proto-d-pick__slot proto-d-pick__slot--new"><a class="proto-d-pick__link" href="#d-tray-input"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code>c-input</code><span class="u-sr-only">, new in this step</span></a><span class="proto-d-pick__count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times</span></span></li>
+            <li class="proto-d-pick__slot"><a class="proto-d-pick__link" href="#d-tray-stack"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code></a><span class="proto-d-pick__count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li>
+            <li class="proto-d-pick__slot"><a class="proto-d-pick__link" href="#d-tray-cluster"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code></a><span class="proto-d-pick__count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li>
+            <li class="proto-d-pick__slot"><a class="proto-d-pick__link" href="#d-tray-button"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code></a><span class="proto-d-pick__count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time</span></span></li>
+          </ul>
+          <figure class="demo-stage">
+            <form class="l-stack" novalidate>
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="d-email">Work email</label>
+                <input class="c-input" id="d-email" type="email" autocomplete="email" aria-describedby="d-email-help">
+                <p class="c-form-field__help" id="d-email-help">We'll send the invite here.</p>
+              </div>
+
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="d-password">Password</label>
+                <input class="c-input" id="d-password" type="password" data-state="error" aria-invalid="true" aria-describedby="d-password-error">
+                <p class="c-form-field__error" id="d-password-error">Use at least 12 characters.</p>
+              </div>
+
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="d-org">Organization</label>
+                <input class="c-input" id="d-org" type="text" value="Acme Inc." data-state="disabled" disabled>
+              </div>
+
+              <div class="l-cluster">
+                <button type="submit" class="c-button c-button--primary">Create account</button>
+              </div>
+            </form>
+          </figure>
+        </article>
+      </div>
+
+      <p class="proto-d-rest">Steps 3 and 4, and 6 to 8, pick from the same tray in the same way: badges, cards on a grid, checks and switches, alerts and the dialog. <a href="../index.html#step-3">See every step in the booklet</a></p>
+    </div>
+  </section>
+
+  <section class="proto-d-misfit" id="d-wrong-piece" aria-labelledby="d-wrong-title">
+    <div class="l-container l-stack l-stack--lg">
+      <div class="proto-d-section-head">
+        <h2 class="proto-d-section-title" id="d-wrong-title">This piece doesn't fit</h2>
+        <p class="proto-d-section-text">An agent guessed <code>c-button--warning</code>. The tray has one compartment for each modifier <code>c-button</code> really has, and none for that one, so <code>npx mcss-lite validate</code> turns it away.</p>
+      </div>
+
+      <figure class="proto-d-misfit__fig">
+        <div class="proto-d-tray proto-d-tray--modifiers">
+          <div class="proto-d-cell proto-d-part proto-d-part--mod">
+            <div class="proto-d-floor" inert><div class="proto-d-specimen"><button type="button" class="c-button c-button--primary">Publish</button></div></div>
+            <div class="proto-d-strip"><p class="proto-d-name"><code>--primary</code></p></div>
+          </div>
+          <div class="proto-d-cell proto-d-part proto-d-part--mod">
+            <div class="proto-d-floor" inert><div class="proto-d-specimen"><button type="button" class="c-button c-button--secondary">Duplicate</button></div></div>
+            <div class="proto-d-strip"><p class="proto-d-name"><code>--secondary</code></p></div>
+          </div>
+          <div class="proto-d-cell proto-d-part proto-d-part--mod">
+            <div class="proto-d-floor" inert><div class="proto-d-specimen"><button type="button" class="c-button c-button--ghost">Cancel</button></div></div>
+            <div class="proto-d-strip"><p class="proto-d-name"><code>--ghost</code></p></div>
+          </div>
+          <div class="proto-d-cell proto-d-part proto-d-part--mod">
+            <div class="proto-d-floor" inert><div class="proto-d-specimen"><button type="button" class="c-button c-button--danger">Delete</button></div></div>
+            <div class="proto-d-strip"><p class="proto-d-name"><code>--danger</code></p></div>
+          </div>
+          <div class="proto-d-cell proto-d-part proto-d-part--mod">
+            <div class="proto-d-floor" inert><div class="proto-d-specimen"><button type="button" class="c-button c-button--sm">Export</button></div></div>
+            <div class="proto-d-strip"><p class="proto-d-name"><code>--sm</code></p></div>
+          </div>
+          <div class="proto-d-cell proto-d-part proto-d-part--mod">
+            <div class="proto-d-floor" inert><div class="proto-d-specimen"><button type="button" class="c-button c-button--lg">Create</button></div></div>
+            <div class="proto-d-strip"><p class="proto-d-name"><code>--lg</code></p></div>
+          </div>
+          <div class="proto-d-cell proto-d-part proto-d-part--misfit">
+            <div class="proto-d-floor">
+              <svg class="proto-d-misfit__brick" viewBox="0 0 160 96" role="img" aria-labelledby="d-misfit-brick-title" focusable="false">
+                <title id="d-misfit-brick-title">A brick tilted off its slot, failing to seat</title>
+                <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+                  <path class="proto-d-misfit__slot" d="M14 86h132"/>
+                  <g class="proto-d-misfit__tilt">
+                    <g class="proto-d-misfit__wobble">
+                      <rect x="36" y="38" width="88" height="32" rx="3" stroke-dasharray="7 5"/>
+                      <path d="M46 38v-8h12v8M74 38v-8h12v8M102 38v-8h12v8"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="proto-d-strip">
+              <p class="proto-d-name"><code>c-button--warning</code></p>
+              <p class="proto-d-meta">No compartment</p>
+            </div>
+          </div>
+        </div>
+        <figcaption class="proto-d-verdict">
+          <span class="proto-d-verdict__cmd"><code>npx mcss-lite validate</code></span>
+          <span class="proto-d-verdict__msg"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist.</span></span>
+        </figcaption>
+      </figure>
+
+      <details class="proto-d-more">
+        <summary class="proto-d-more__summary"><svg class="c-icon proto-d-more__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>See a whole form an agent wrote from memory: 4 problems, then 0</summary>
+        <div class="proto-d-more__body l-stack">
+          <p class="proto-d-section-text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found 4 problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
+          <div class="demo-wrong__pair">
+            <div class="demo-check l-stack">
+              <p class="demo-check__label">What the agent wrote</p>
+              <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">c-form</span>&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; placeholder=&quot;Work email&quot;&gt;
+  &lt;p style=&quot;color: #d93025&quot;&gt;We never share your email.&lt;/p&gt;
+  &lt;button class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+              <p class="demo-check__label">validate: 1 error, 3 warnings</p>
+              <ol class="demo-check__issues demo-wrong__issues" role="list"><li class="demo-check__issue--error"><span class="demo-wrong__line">Line 1</span> <strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-form</span>&quot;. Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for=&quot;<span class="demo-code__token">its-id</span>&quot;&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder &quot;Work email&quot; disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 4</span> <strong>warning</strong> &quot;Submit&quot; says nothing out of context. Name the action and its object, e.g. &quot;Save changes&quot; or &quot;Download the invoice&quot;. <code>[content-vague]</code></li></ol>
+            </div>
+            <div class="demo-wrong__fit l-stack">
+              <p class="demo-check__label">The piece that fits</p>
+              <figure class="demo-stage">
+                <form class="l-stack">
+                  <div class="c-form-field">
+                    <label class="c-form-field__label" for="d-signup-email">Work email</label>
+                    <input class="c-input" type="email" id="d-signup-email" aria-describedby="d-signup-email-help">
+                    <p class="c-form-field__help" id="d-signup-email-help">We never share your email.</p>
+                  </div>
+                  <div class="l-cluster">
+                    <button type="submit" class="c-button c-button--primary">Create account</button>
+                  </div>
+                </form>
+              </figure>
+              <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="demo-end proto-d-end" id="d-take-it" aria-labelledby="d-end-title">
+    <div class="l-container demo-end__grid">
+      <div class="demo-end__plate l-stack">
+        <h2 class="demo-step__title" id="d-end-title">Take the parts with you</h2>
+        <p class="demo-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+        <ul class="demo-end__links" role="list">
+          <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+          <li><a href="../../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+          <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+          <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+        </ul>
+        <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
+        <p class="demo-end__author">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+      </div>
+      <div class="demo-end__fit l-stack">
+        <h2 class="demo-end__fit-title" id="d-fit-title">Is this the right kit?</h2>
+        <div class="demo-pick">
+          <div class="demo-pick__col">
+            <p class="demo-check__label">Good fit</p>
+            <ul class="demo-pick__list">
+              <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+              <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+              <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+            </ul>
+          </div>
+          <div class="demo-pick__col demo-pick__col--other">
+            <p class="demo-check__label">Pick something else</p>
+            <ul class="demo-pick__list">
+              <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+              <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+              <li>Dense data products, or a brand that must not look like building bricks.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="c-modal" id="d-dialog" aria-labelledby="d-dialog-title">
+    <div class="c-modal__container">
+      <header class="c-modal__header">
+        <h2 class="c-modal__title" id="d-dialog-title">Delete project?</h2>
+        <button type="button" class="c-modal__close" data-close-dialog aria-label="Close"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+      </header>
+      <div class="c-modal__body">
+        <p class="u-margin-0">Borealis and its 4 pages will be deleted. This can't be undone.</p>
+      </div>
+      <footer class="c-modal__footer">
+        <button type="button" class="c-button c-button--ghost" data-close-dialog>Keep project</button>
+        <button type="button" class="c-button c-button--danger" data-close-dialog>Delete project</button>
+      </footer>
+    </div>
+  </dialog>
+</main>

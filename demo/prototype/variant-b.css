@@ -1,0 +1,534 @@
+/* Variant B, "Fit test first" (throwaway prototype). Every selector is scoped under .proto-b.
+   The hero is a test bench: two pieces, each on its own strip of baseplate. The agent's piece
+   doesn't seat (dashed error keyline, studs off the pitch, lifted and tilted); the rebuilt piece
+   sits flush. Tokens only. */
+
+.proto-b {
+  /* Stud geometry shared by pieces and plates: one stud every 2rem, 1rem wide, 0.5rem tall. */
+  --proto-b-pitch: var(--space-8);
+  --proto-b-stud-w: var(--space-4);
+  --proto-b-stud-h: var(--space-2);
+  overflow-x: clip;
+}
+
+/* ---------- Hero ---------- */
+
+.proto-b-hero {
+  padding-block: var(--space-12) var(--space-10);
+}
+
+.proto-b-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.proto-b-hero__head {
+  max-inline-size: 46rem;
+}
+
+.proto-b .proto-b-hero__lede {
+  margin-block-end: 0;
+}
+
+/* The bench: misfit, arrow, fit. */
+.proto-b-bench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  /* Room above for the studs and the lifted piece. */
+  margin-block-start: var(--space-12);
+}
+
+.proto-b-bay {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: end;
+  min-inline-size: 0;
+}
+
+.proto-b-piece {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-content: start;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-b-piece > * {
+  margin: 0;
+}
+
+/* Studs on top of a piece: drawn with gradients so they take tokens and keep a fixed pitch. */
+.proto-b-piece::before,
+.proto-b-plate::before {
+  --proto-b-c: var(--color-border-keyline);
+  --proto-b-f: var(--color-background-raised);
+  --proto-b-a: calc((var(--proto-b-pitch) - var(--proto-b-stud-w)) / 2);
+  --proto-b-b: calc(var(--proto-b-a) + var(--proto-b-stud-w));
+  --proto-b-w: var(--border-width-thick);
+  content: "";
+  position: absolute;
+  inset-inline: var(--space-3);
+  inset-block-start: calc((var(--proto-b-stud-h) + var(--border-width-thick)) * -1);
+  block-size: var(--proto-b-stud-h);
+  background:
+    linear-gradient(to right,
+      transparent var(--proto-b-a),
+      var(--proto-b-c) var(--proto-b-a) var(--proto-b-b),
+      transparent var(--proto-b-b)) var(--proto-b-x, 0) 0 / var(--proto-b-pitch) var(--proto-b-w) repeat-x,
+    linear-gradient(to right,
+      transparent var(--proto-b-a),
+      var(--proto-b-c) var(--proto-b-a) calc(var(--proto-b-a) + var(--proto-b-w)),
+      var(--proto-b-f) calc(var(--proto-b-a) + var(--proto-b-w)) calc(var(--proto-b-b) - var(--proto-b-w)),
+      var(--proto-b-c) calc(var(--proto-b-b) - var(--proto-b-w)) var(--proto-b-b),
+      transparent var(--proto-b-b)) var(--proto-b-x, 0) 0 / var(--proto-b-pitch) 100% repeat-x;
+}
+
+/* The fitting piece: ink keyline, brick edge, seated flush on its plate. */
+.proto-b-piece--fit {
+  box-shadow: var(--shadow-raised);
+}
+
+/* The misfit: dashed error keyline, no brick edge, studs half a pitch off, lifted and tilted
+   so it rests on one corner above the plate's studs. */
+.proto-b-piece--misfit {
+  border-style: dashed;
+  border-color: var(--color-border-error);
+  transform-origin: 100% 100%;
+  transform: translateY(calc(var(--space-5) * -1)) rotate(0.75deg);
+  /* The tilt swings the top edge sideways; keep it inside the gutter on phones. */
+  margin-inline-end: var(--space-3);
+  padding: var(--space-4);
+}
+
+.proto-b-piece--misfit::before {
+  --proto-b-c: var(--color-border-error);
+  --proto-b-x: calc(var(--proto-b-pitch) / 2);
+}
+
+.proto-b-piece__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-b-piece--misfit .proto-b-piece__label .demo-mark {
+  color: var(--color-text-error);
+}
+
+.proto-b-piece--fit .proto-b-piece__label .demo-mark {
+  color: var(--color-text-success);
+}
+
+.proto-b-piece__result {
+  font-size: var(--font-size-sm);
+}
+
+.proto-b-piece--misfit .proto-b-piece__result {
+  color: var(--color-text-error);
+}
+
+/* A strip of baseplate under each piece. */
+.proto-b-plate {
+  position: relative;
+  block-size: var(--space-4);
+  background-color: var(--color-background-subtle);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-b-plate::before {
+  --proto-b-f: var(--color-background-subtle);
+}
+
+/* The arrow between the pieces: points down on phones, across on wide screens. */
+.proto-b-bench__swap {
+  display: grid;
+  place-items: center;
+  /* The drawing is turned on phones: reserve its turned height. */
+  min-block-size: 4.5rem;
+  color: var(--color-text-default);
+}
+
+.proto-b-bench__swap svg {
+  inline-size: 4.5rem;
+  block-size: auto;
+  transform: rotate(90deg);
+}
+
+/* Code with a line gutter, so the validator's line numbers can be read off. */
+.proto-b-code {
+  counter-reset: proto-b-line;
+  font-size: var(--font-size-sm);
+}
+
+.proto-b-line {
+  display: block;
+  position: relative;
+  /* Wrapped lines hang under the code, not under the gutter. Class names stay whole. */
+  padding-inline-start: 4.5ch;
+  text-indent: -2ch;
+  overflow-wrap: anywhere;
+  counter-increment: proto-b-line;
+}
+
+.proto-b-line::before {
+  content: counter(proto-b-line);
+  content: counter(proto-b-line) / "";
+  position: absolute;
+  inset-inline-start: 0;
+  text-indent: 0;
+  color: var(--color-text-subtle);
+}
+
+/* The names that don't exist get a wavy error underline; the names that fixed them a straight one. */
+.proto-b-bad {
+  text-decoration: underline wavy var(--color-border-error);
+  text-decoration-thickness: var(--border-width-thin);
+  text-underline-offset: 0.25em;
+}
+
+.proto-b-new {
+  text-decoration: underline var(--color-border-keyline);
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.25em;
+}
+
+.proto-b-issues {
+  font-size: var(--font-size-sm);
+}
+
+.proto-b .proto-b-stage {
+  padding: var(--space-4);
+}
+
+.proto-b-markup .demo-code {
+  font-size: var(--font-size-sm);
+}
+
+.proto-b-markup[open] > summary {
+  margin-block-end: var(--space-2);
+}
+
+.proto-b-bench__note {
+  max-inline-size: 60ch;
+  margin: var(--space-6) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Install row: the Copy box, the agent menu and the jump link on one line where they fit. */
+.proto-b-install {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin-block-start: var(--space-8);
+}
+
+.proto-b .proto-b-install .demo-install {
+  margin: 0;
+}
+
+.proto-b-install__steps {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-b .proto-b-install__alt {
+  margin: var(--space-3) 0 0;
+}
+
+.proto-b-agent {
+  position: relative;
+}
+
+.proto-b .proto-b-agent[open] > summary {
+  margin-block-end: 0;
+}
+
+.proto-b-agent__menu {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: var(--space-4);
+  list-style: none;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-elevated);
+}
+
+.proto-b-agent__menu li {
+  display: grid;
+}
+
+.proto-b-agent__menu a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-b-agent__menu span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* One authored moment: on arrival the misfit drops and lands askew; the fitting piece presses
+   onto its plate and settles. Content is visible throughout; only position moves. */
+@keyframes proto-b-drop {
+  from { transform: translateY(calc(var(--space-10) * -1)) rotate(5deg); }
+}
+
+@keyframes proto-b-seat {
+  0% { transform: translateY(calc(var(--space-5) * -1)); }
+  70% { transform: translateY(var(--border-width-thick)); }
+  100% { transform: none; }
+}
+
+.proto-b-piece--misfit {
+  animation: proto-b-drop var(--duration-slower) var(--ease-out-expo) 150ms both;
+}
+
+.proto-b-piece--fit {
+  animation: proto-b-seat var(--duration-slower) var(--ease-out-expo) 650ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-b-piece--misfit,
+  .proto-b-piece--fit {
+    animation: none;
+  }
+}
+
+@media (min-width: 48rem) {
+  .proto-b-agent__menu {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 0;
+    z-index: var(--z-index-dropdown);
+    inline-size: 24rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .proto-b-agent[open] {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 60rem) {
+  .proto-b-bench {
+    grid-template-columns: minmax(0, 7fr) auto minmax(0, 6fr);
+    align-items: end;
+    gap: var(--space-4);
+  }
+
+  .proto-b-bench__swap {
+    align-self: center;
+  }
+
+  .proto-b-bench__swap {
+    min-block-size: 0;
+  }
+
+  .proto-b-bench__swap svg {
+    inline-size: 4rem;
+    transform: none;
+  }
+
+  .proto-b-piece {
+    padding: var(--space-5);
+  }
+
+  .proto-b-piece--misfit {
+    transform: translateY(calc(var(--space-6) * -1)) rotate(1.5deg);
+    margin-inline-end: 0;
+    padding: var(--space-6);
+  }
+}
+
+/* ---------- What's in the box: one band of counts that opens into the bags ---------- */
+
+.proto-b-box {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-b .proto-b-box__title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+}
+
+.proto-b-box__band {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-block-start-width: var(--border-width-thicker);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.proto-b-box__band::-webkit-details-marker {
+  display: none;
+}
+
+.proto-b-box__band:hover {
+  background-color: var(--color-background-interactive-hover);
+}
+
+.proto-b-box__cell {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border-block-end: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-b-box__cell:nth-child(odd) {
+  border-inline-end: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-b-box__num {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.proto-b-box__what {
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-b-box__sub {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-subtle);
+}
+
+.proto-b-box__open {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding: var(--space-2) var(--space-5);
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-b-box__hide,
+.proto-b-box__details[open] .proto-b-box__show {
+  display: none;
+}
+
+.proto-b-box__details[open] .proto-b-box__hide {
+  display: inline;
+}
+
+.proto-b-box__details[open] .demo-details__chevron {
+  transform: rotate(180deg);
+}
+
+.proto-b-box__bags {
+  display: grid;
+  gap: var(--space-4);
+  margin-block-start: var(--space-4);
+}
+
+@media (min-width: 48rem) {
+  .proto-b-box__band {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  }
+
+  .proto-b-box__cell {
+    border-block-end: 0;
+    border-inline-end: var(--border-width-thin) solid var(--color-border-default);
+  }
+
+  .proto-b-box__open {
+    grid-column: auto;
+    padding-inline: var(--space-6);
+  }
+
+  /* Layouts beside components, then the single utilities chip in a narrow bag beside the tokens. */
+  .proto-b-box__bags {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .proto-b-box__bags > .demo-bag {
+    grid-column: span 3;
+  }
+
+  .proto-b-box__bags > .demo-bag:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .proto-b-box__bags > .demo-bag:nth-child(4) {
+    grid-column: span 4;
+  }
+}
+
+/* ---------- Steps ---------- */
+
+.proto-b .proto-b-step-verdict {
+  margin: var(--space-3) 0 0;
+}
+
+.proto-b-more {
+  padding-block: var(--space-8);
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-b-more__line {
+  max-inline-size: 70ch;
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  border: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-muted);
+}
+
+.proto-b-more__line a {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---------- Closing: hand the bench to the reader ---------- */
+
+.proto-b-end {
+  border-block-start: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.proto-b .proto-b-end__text {
+  margin-block-end: 0;
+}
+
+.proto-b .proto-b-end__cmd {
+  margin: 0;
+}
+
+.proto-b-end__hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
