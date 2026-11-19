@@ -2939,13 +2939,12 @@ html {
 
 /* ---------- Page turns ----------
    Moving between the booklet's three pages (Overview, Parts inventory, Read before you build) from the
-   header turns the page in place: demo.js fetches the next page and swaps it inside a same-document view
-   transition (Firefox 144+ and Chromium), with data-turn-dir="forward|back" and data-turn="<style>" on
-   <html> while it runs. Forward is towards the later page. The header and the review chooser keep their
-   place (their own view-transition-name) and the current-page underline glides to its new link. Part
-   sheets and other pages navigate normally; Chromium cross-fades those (the cross-document rule below).
-   REVIEW-TIME ONLY: four styles (flip, slide, push, wipe) to compare with ?turn=; keep the chosen one and
-   delete the others once it is picked. */
+   header turns the page in place, like a building-instruction manual: demo.js fetches the next page and
+   swaps it inside a same-document view transition (Firefox 144+, Chromium, Safari), with
+   data-turn-dir="forward|back" on <html> while it runs. Forward is towards the later page. The header
+   keeps its place (its own view-transition-name) and the current-page underline glides to its new link.
+   Part sheets and other pages navigate normally; Chromium cross-fades those (the cross-document rule
+   below). */
 @view-transition {
   navigation: auto;
 }
@@ -2957,14 +2956,7 @@ html {
 }
 
 :root {
-  /* Each style's length: flip 700ms, slide 750ms, push 550ms, wipe 500ms. */
-  --demo-turn-flip: calc(var(--duration-slow) * 2);
-  --demo-turn-slide: calc(var(--duration-slower) + var(--duration-base));
-  --demo-turn-push: calc(var(--duration-slower) + var(--duration-fast) / 3);
-  --demo-turn-wipe: var(--duration-slower);
-  /* A sheet laid on the pile settles like a drawer; the wipe's edge wants a strong in-out. */
-  --demo-ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
-  --demo-ease-wipe: cubic-bezier(0.77, 0, 0.175, 1);
+  --demo-turn-flip: calc(var(--duration-slow) * 2); /* 700ms */
 }
 
 @keyframes demo-flip-over {
@@ -2985,67 +2977,6 @@ html {
 
 @keyframes demo-flip-shade {
   to { filter: brightness(0.7); }
-}
-
-@keyframes demo-turn-shrink {
-  to { scale: 0.9; }
-}
-
-@keyframes demo-turn-grow {
-  from { scale: 0.9; }
-}
-
-/* One booklet page further along: the 90% page plus a stud gap. */
-@keyframes demo-turn-to-left {
-  to { translate: calc(-90% - var(--space-8)) 0; }
-}
-
-@keyframes demo-turn-to-right {
-  to { translate: calc(90% + var(--space-8)) 0; }
-}
-
-@keyframes demo-turn-from-right {
-  from { translate: calc(90% + var(--space-8)) 0; }
-}
-
-@keyframes demo-turn-from-left {
-  from { translate: calc(-90% - var(--space-8)) 0; }
-}
-
-@keyframes demo-push-in {
-  from { translate: 100% 0; }
-}
-
-@keyframes demo-push-out {
-  to { translate: 100% 0; }
-}
-
-@keyframes demo-push-sink {
-  to { scale: 0.94; filter: brightness(0.7); }
-}
-
-@keyframes demo-push-rise {
-  from { scale: 0.94; filter: brightness(0.7); }
-}
-
-@keyframes demo-wipe-new-forward {
-  from { clip-path: inset(0 0 0 100%); }
-  to { clip-path: inset(0); }
-}
-
-@keyframes demo-wipe-old-forward {
-  from { clip-path: inset(0 var(--border-width-thick) 0 0); }
-  to { clip-path: inset(0 calc(100% + var(--border-width-thick)) 0 0); filter: brightness(0.85); }
-}
-
-@keyframes demo-wipe-new-back {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0); }
-}
-
-@keyframes demo-wipe-old-back {
-  from { clip-path: inset(0 0 0 var(--border-width-thick)); }
-  to { clip-path: inset(0 0 0 calc(100% + var(--border-width-thick))); filter: brightness(0.85); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -3075,202 +3006,43 @@ html {
      and brightens. The visible half of the turn takes the first 72% (about 500ms); the hidden half
      finishes the arc. Back, the previous page swings back over from the left onto the current one, which
      falls into its shadow. */
-  html[data-turn="flip"]::view-transition-old(root),
-  html[data-turn="flip"]::view-transition-new(root) {
+  html[data-turn-dir]::view-transition-old(root),
+  html[data-turn-dir]::view-transition-new(root) {
     animation-duration: var(--demo-turn-flip);
     animation-timing-function: var(--ease-in-out);
     transform-origin: left center;
     backface-visibility: hidden;
   }
 
-  html[data-turn="flip"][data-turn-dir="forward"]::view-transition-old(root) {
+  html[data-turn-dir="forward"]::view-transition-old(root) {
     z-index: 1;
     box-shadow: 0 0 0 var(--border-width-thick) var(--color-border-keyline);
     animation-name: demo-flip-over;
   }
 
-  html[data-turn="flip"][data-turn-dir="forward"]::view-transition-new(root) {
+  html[data-turn-dir="forward"]::view-transition-new(root) {
     animation-name: demo-flip-unshade;
   }
 
-  html[data-turn="flip"][data-turn-dir="back"]::view-transition-new(root) {
+  html[data-turn-dir="back"]::view-transition-new(root) {
     z-index: 1;
     box-shadow: 0 0 0 var(--border-width-thick) var(--color-border-keyline);
     animation-name: demo-flip-back;
   }
 
-  html[data-turn="flip"][data-turn-dir="back"]::view-transition-old(root) {
+  html[data-turn-dir="back"]::view-transition-old(root) {
     animation-name: demo-flip-shade;
   }
 
-  html[data-turn="flip"]::view-transition-group(demo-page-mark) {
+  html[data-turn-dir]::view-transition-group(demo-page-mark) {
     animation-duration: var(--demo-turn-flip);
   }
 
-  /* Slide: forward, the old page zooms out into a booklet page (keyline, 8px corner, brick edge) and
-     slides off to the left while the next one, already peeking in at the right, slides in and zooms up;
-     back runs the other way. Zoom out (0 to 250ms), slide (150 to 650ms), zoom in (500 to 750ms). */
-  html[data-turn="slide"]::view-transition-old(root),
-  html[data-turn="slide"]::view-transition-new(root) {
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 0 0 var(--border-width-thick) var(--color-border-keyline), var(--shadow-elevated);
-    --demo-turn-slide-move: var(--duration-slower) var(--demo-ease-turn) var(--duration-fast) both;
-    --demo-turn-zoom-in: var(--duration-base) var(--ease-out-expo) var(--duration-slower) both;
-  }
-
-  html[data-turn="slide"][data-turn-dir="forward"]::view-transition-old(root) {
-    animation: demo-turn-shrink var(--duration-base) var(--ease-out) both, demo-turn-to-left var(--demo-turn-slide-move);
-  }
-
-  html[data-turn="slide"][data-turn-dir="forward"]::view-transition-new(root) {
-    animation: demo-turn-from-right var(--demo-turn-slide-move), demo-turn-grow var(--demo-turn-zoom-in);
-  }
-
-  html[data-turn="slide"][data-turn-dir="back"]::view-transition-old(root) {
-    animation: demo-turn-shrink var(--duration-base) var(--ease-out) both, demo-turn-to-right var(--demo-turn-slide-move);
-  }
-
-  html[data-turn="slide"][data-turn-dir="back"]::view-transition-new(root) {
-    animation: demo-turn-from-left var(--demo-turn-slide-move), demo-turn-grow var(--demo-turn-zoom-in);
-  }
-
-  html[data-turn="slide"]::view-transition-group(demo-page-mark) {
-    animation-duration: var(--demo-turn-slide);
-  }
-
-  /* Push, a new sheet laid on the pile. Forward, the next page slides in from the right over the
-     current one, its leading edge keylined with a lifted shadow, and settles like a drawer; the current
-     page sinks back (94%) and dims beneath it. Back, the top sheet slides off to the right and the page
-     under it rises. */
-  html[data-turn="push"]::view-transition-old(root),
-  html[data-turn="push"]::view-transition-new(root) {
-    animation-duration: var(--demo-turn-push);
-  }
-
-  html[data-turn="push"][data-turn-dir="forward"]::view-transition-old(root),
-  html[data-turn="push"][data-turn-dir="back"]::view-transition-new(root) {
-    box-shadow: 0 0 0 var(--border-width-thick) var(--color-border-keyline);
-  }
-
-  html[data-turn="push"][data-turn-dir="forward"]::view-transition-new(root),
-  html[data-turn="push"][data-turn-dir="back"]::view-transition-old(root) {
-    z-index: 1;
-    box-shadow:
-      calc(var(--border-width-thick) * -1) 0 0 var(--color-border-keyline),
-      calc(var(--space-3) * -1) 0 var(--space-6) calc(var(--space-1) * -1) var(--color-background-overlay);
-  }
-
-  html[data-turn="push"][data-turn-dir="forward"]::view-transition-new(root) {
-    animation-name: demo-push-in;
-    animation-timing-function: var(--demo-ease-sheet);
-  }
-
-  html[data-turn="push"][data-turn-dir="forward"]::view-transition-old(root) {
-    animation-name: demo-push-sink;
-    animation-timing-function: var(--demo-ease-turn);
-  }
-
-  html[data-turn="push"][data-turn-dir="back"]::view-transition-old(root) {
-    animation-name: demo-push-out;
-    animation-timing-function: var(--demo-ease-turn);
-  }
-
-  html[data-turn="push"][data-turn-dir="back"]::view-transition-new(root) {
-    animation-name: demo-push-rise;
-    animation-timing-function: var(--demo-ease-sheet);
-  }
-
-  html[data-turn="push"]::view-transition-group(demo-page-mark) {
-    animation-duration: var(--demo-turn-push);
-  }
-
-  /* Wipe, an ink wipe. The new page is uncovered by a clip that sweeps the way the pages travel (from
-     the right going forward, from the left going back), led by a 2px ink keyline: the old page is
-     clipped in step, 2px short of the new one, so the pair's ink background shows through as the line.
-     The old page stays put and dims a little as it goes. */
-  html[data-turn="wipe"]::view-transition-image-pair(root) {
-    background-color: var(--color-border-keyline);
-  }
-
-  html[data-turn="wipe"]::view-transition-old(root),
-  html[data-turn="wipe"]::view-transition-new(root) {
-    animation-duration: var(--demo-turn-wipe);
-    animation-timing-function: var(--demo-ease-wipe);
-  }
-
-  html[data-turn="wipe"]::view-transition-new(root) {
-    z-index: 1;
-  }
-
-  html[data-turn="wipe"][data-turn-dir="forward"]::view-transition-new(root) {
-    animation-name: demo-wipe-new-forward;
-  }
-
-  html[data-turn="wipe"][data-turn-dir="forward"]::view-transition-old(root) {
-    animation-name: demo-wipe-old-forward;
-  }
-
-  html[data-turn="wipe"][data-turn-dir="back"]::view-transition-new(root) {
-    animation-name: demo-wipe-new-back;
-  }
-
-  html[data-turn="wipe"][data-turn-dir="back"]::view-transition-old(root) {
-    animation-name: demo-wipe-old-back;
-  }
-
-  html[data-turn="wipe"]::view-transition-group(demo-page-mark) {
-    animation-duration: var(--demo-turn-wipe);
-  }
 }
 
-/* Reduced motion: every page change is the plain 150ms cross-fade; nothing turns, scales, slides,
-   wipes or glides. */
+/* Reduced motion: every page change is the plain 150ms cross-fade; nothing turns or glides. */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*) {
     animation-duration: 0s;
-  }
-}
-
-/* REVIEW-TIME ONLY: the "Page turn" chooser demo.js adds once ?turn= has been used this session. It
-   floats in the corner and keeps its place through a turn. Remove it with the unchosen styles. */
-.demo-turn-picker {
-  position: fixed;
-  inset-block-end: var(--space-4);
-  inset-inline-end: var(--space-4);
-  z-index: var(--z-index-sticky);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1) var(--space-2);
-  max-inline-size: calc(100vw - var(--space-8));
-  padding: var(--space-2) var(--space-3);
-  background-color: var(--color-background-raised);
-  border: var(--border-width-thick) solid var(--color-border-keyline);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-raised);
-  color: var(--color-text-default);
-  view-transition-name: demo-turn-picker;
-}
-
-.demo-turn-picker__label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* On phones the chooser keeps to one row: its name is still read out, just not shown. */
-@media (max-width: 29.99rem) {
-  .demo-turn-picker {
-    inset-inline: var(--space-4);
-    justify-content: center;
-    padding: var(--space-1) var(--space-2);
-  }
-
-  .demo-turn-picker__label {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 }

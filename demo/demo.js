@@ -398,36 +398,6 @@
   let current = order(location.href);
   if (current < 0 || !bar) return;
 
-  // REVIEW-TIME ONLY: four turn styles to compare. ?turn=flip|slide|push|wipe picks one and keeps it for the
-  // session; the "Page turn" chooser then appears in the corner. Remove both (and the unchosen styles in
-  // demo.css) once a style is picked.
-  const TURNS = ['flip', 'slide', 'push', 'wipe'];
-  const TURN_KEY = 'mcss-lite-demo-turn';
-  const asked = new URLSearchParams(location.search).get('turn');
-  let turnStyle = TURNS.includes(asked) ? asked : null;
-  try {
-    if (turnStyle) sessionStorage.setItem(TURN_KEY, turnStyle);
-    else turnStyle = TURNS.includes(sessionStorage.getItem(TURN_KEY)) ? sessionStorage.getItem(TURN_KEY) : null;
-  } catch {}
-  const reviewing = Boolean(turnStyle);
-  turnStyle ||= 'flip';
-  if (reviewing) {
-    const picker = document.createElement('div');
-    picker.className = 'demo-turn-picker';
-    picker.dataset.turnKeep = '';
-    picker.setAttribute('role', 'group');
-    picker.setAttribute('aria-labelledby', 'demo-turn-picker-label');
-    picker.innerHTML = `<span class="demo-turn-picker__label" id="demo-turn-picker-label">Page turn</span>${TURNS.map((t) => `<button type="button" class="c-button c-button--sm" data-turn-choice="${t}" aria-pressed="${t === turnStyle}">${t[0].toUpperCase()}${t.slice(1)}</button>`).join('')}`;
-    picker.addEventListener('click', (e) => {
-      const button = e.target.closest('[data-turn-choice]');
-      if (!button) return;
-      turnStyle = button.dataset.turnChoice;
-      try { sessionStorage.setItem(TURN_KEY, turnStyle); } catch {}
-      picker.querySelectorAll('[data-turn-choice]').forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
-    });
-    document.body.append(picker);
-  }
-
   // History: every entry carries a key and its last scroll position. The browser's own restoration is off,
   // because it would scroll the old page before the turn captures it; demo.js restores instead.
   const newKey = () => Math.random().toString(36).slice(2);
@@ -500,7 +470,7 @@
     if (nextExplode) nextExplode.checked = Boolean(exploded);
     for (let n = bar.nextSibling; n;) {
       const after = n.nextSibling;
-      if (!(n.nodeType === 1 && n.hasAttribute('data-turn-keep'))) n.remove();
+      n.remove();
       n = after;
     }
     const fresh = document.createDocumentFragment();
@@ -564,7 +534,6 @@
     }
     active?.skipTransition();
     root.dataset.turnDir = dir;
-    root.dataset.turn = turnStyle;
     const transition = document.startViewTransition(update);
     active = transition;
     transition.updateCallbackDone.catch(fail);
@@ -573,7 +542,6 @@
       if (active !== transition) return;
       active = null;
       delete root.dataset.turnDir;
-      delete root.dataset.turn;
     });
   };
 
