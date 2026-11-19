@@ -81,3 +81,19 @@ jobs:
             echo "- Commit: \`$SHA\`"
             echo "- CDN: https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${TAG}/dist/mcss-lite.min.css"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Tells the portfolio (gabrielpule.work/design-system) to sync this tag
+      # now rather than at its next daily run. PORTFOLIO_DISPATCH_TOKEN is a
+      # fine-grained token for gabrielcpule/New-new-new-portf with
+      # Contents: read & write. Its daily sync is the fallback, so a failure
+      # here doesn't fail the release.
+      - name: Notify portfolio
+        if: steps.version.outputs.exists == 'false'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.PORTFOLIO_DISPATCH_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          gh api repos/gabrielcpule/New-new-new-portf/dispatches \
+            -f event_type=mcss-lite-release \
+            -f "client_payload[tag]=$TAG"
