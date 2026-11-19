@@ -70,7 +70,7 @@ export function demoBar(pkg, rel, current) {
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="${rel}index.html">MCSS-Lite</a> <span class="demo-wordmark__version">${esc(pkg.version)}</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a></li>`).join('\n')}
+${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === current ? ' aria-current="page"' : ''}>${label}${href === current ? '<span class="demo-bar__mark" aria-hidden="true"></span>' : ''}</a></li>`).join('\n')}
         </ul>
       </nav>
       <div class="l-cluster" role="group" aria-label="Theme">
@@ -83,24 +83,31 @@ ${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === 
 }
 
 // Head assets shared by every page. The theme is set before first paint, so a saved dark theme never
-// flashes light; the library's @import files are preloaded so they don't wait for index.css.
+// flashes light; the library's @import files are preloaded so they don't wait for index.css. demo.js is
+// deferred but render-blocking, so its pagereveal listener (the page turn's direction) is in place before
+// the first frame.
 const LIB_FILES = ['tokens', 'global', 'layout', 'components', 'utilities'];
 export const demoHead = (rel) => `<script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="${rel}fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
 ${LIB_FILES.map((f) => `  <link rel="preload" href="${rel}../src/${f}.css" as="style">`).join('\n')}
   <link rel="stylesheet" href="${rel}../index.css">
-  <link rel="stylesheet" href="${rel}demo.css">`;
+  <link rel="stylesheet" href="${rel}demo.css">
+  <script src="${rel}demo.js" defer blocking="render"></script>`;
 
 // Files that read best on GitHub (rendered Markdown, a browsable folder), pinned to this release's tag.
 const repoUrl = (pkg, kind, path) => `https://github.com/gabrielcpule/mcss-lite/${kind}/v${pkg.version}/${path}`;
 
-// Bag counts shared by the booklet and the parts inventory: deprecated parts aren't parts to build with,
-// and the utilities block counts its classes.
+// One count per bag, shared by the overview's packing list and the parts inventory so the two can't
+// disagree: deprecated parts aren't parts to build with, and the utilities block counts its classes.
+export const partTally = (list) => {
+  if (list.length === 1 && list[0].layer === 'utility') return { count: list[0].classes.length, unit: 'classes', deprecated: 0 };
+  const count = list.filter((c) => c.status !== 'deprecated').length;
+  return { count, unit: count === 1 ? 'part' : 'parts', deprecated: list.length - count };
+};
+
 export const partCount = (list) => {
-  if (list.length === 1 && list[0].layer === 'utility') return `${list[0].classes.length} classes`;
-  const live = list.filter((c) => c.status !== 'deprecated').length;
-  const old = list.length - live;
-  return `${live} part${live === 1 ? '' : 's'}${old ? ` + ${old} deprecated` : ''}`;
+  const { count, unit, deprecated } = partTally(list);
+  return `${count} ${unit}${deprecated ? ` + ${deprecated} deprecated` : ''}`;
 };
 
 export const tokenNote = (tokenRows) => {
@@ -196,7 +203,7 @@ export function uncoveredBlocks(contracts, steps) {
 }
 
 // The picture on the box: a sign-up card built only from parts. It is validated at build time, so its
-// "0 issues" caption can't lie. An input can't carry a generated tag, so its tag is a hidden span.
+// "0 issues" caption can't lie.
 const BOX_ART = `<article class="c-card c-card--elevated demo-art__card">
   <header class="c-card__header">
     <div class="l-cluster">
@@ -209,7 +216,6 @@ const BOX_ART = `<article class="c-card c-card--elevated demo-art__card">
       <div class="c-form-field demo-art__field">
         <label class="c-form-field__label" for="box-email">Work email</label>
         <input class="c-input" id="box-email" type="email" autocomplete="email">
-        <span class="demo-tag demo-tag--part demo-art__input-tag" aria-hidden="true">c-input</span>
       </div>
       <div class="l-cluster">
         <button type="submit" class="c-button c-button--primary">Create account</button>
@@ -221,17 +227,30 @@ const BOX_ART = `<article class="c-card c-card--elevated demo-art__card">
 // A brick that misses its plate, for the small misfit note under the box.
 const MISFIT_NOTE_SVG = '<svg class="demo-misfit-note__brick" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 28h40"/><g transform="rotate(-14 24 16)"><rect x="10" y="10" width="28" height="12" rx="2" stroke-dasharray="4 3"/><path d="M15 10V7h5v3M28 10V7h5v3"/></g></g></svg>';
 
-const ARROW_SVG = '<svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// The drawn arrow from a step (or a part sheet's steps) to its build.
+export const ARROW_SVG = '<svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 // Utilities named in the packing list; the build fails if one of them stops existing.
 const UTILITY_EXAMPLES = ['u-sr-only', 'u-margin-0', 'u-truncate'];
 
-// Step layouts (demo/steps.json): "wide" (the baseplate) and "inset" put the stage under the step at full
-// width; "sheet" steps sit two side by side; any other step puts the stage beside its call-out.
+// Step layouts (demo/steps.json): "wide": true (the baseplate) and layout "inset" put the stage under the
+// step at full width; layout "sheet" steps sit two side by side; "split" (the default) puts the stage
+// beside its call-out. Anything else is a typo, and the build says so.
+const LAYOUTS = ['split', 'inset', 'sheet'];
 const stepLayout = (s) => (s.wide ? 'wide' : s.layout ?? 'split');
+export function checkStepLayouts(steps) {
+  steps.forEach((s, i) => {
+    const where = `demo/steps.json: step ${i + 1} ("${s.title}")`;
+    if (s.layout !== undefined && !LAYOUTS.includes(s.layout)) {
+      throw new Error(`${where} has layout "${s.layout}"; use one of ${LAYOUTS.join(', ')}, or "wide": true for the baseplate`);
+    }
+    if (s.wide && s.layout !== undefined) throw new Error(`${where} sets both "wide" and layout "${s.layout}"; pick one`);
+  });
+}
 
 export function buildDemo(root, pkg, contracts, tokenRows) {
   const { steps, author } = loadBooklet(root);
+  checkStepLayouts(steps);
   const byBlock = new Map(contracts.map((c) => [c.block, c]));
   const example = (file) => readFileSync(join(root, 'components', file), 'utf8').trim();
   const validate = createValidator(contracts, { icons: loadIcons(root).map((i) => i.name) });
@@ -244,9 +263,9 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const layouts = contracts.filter((c) => c.layer === 'layout');
   const allComponents = contracts.filter((c) => c.layer === 'component');
   const components = allComponents.filter((c) => c.status !== 'deprecated');
-  const deprecated = allComponents.length - components.length;
   const utilities = contracts.filter((c) => c.layer === 'utility');
-  const utilityClasses = utilities.flatMap((c) => c.classes ?? []);
+  // The packing list counts its bags exactly as the parts inventory does.
+  const bags = { layouts: partTally(layouts), components: partTally(allComponents), utilities: partTally(utilities) };
   const semantic = tokenRows.filter((t) => t.tier === 'semantic');
   const componentTokens = tokenRows.filter((t) => t.tier === 'component');
   const swatches = ['--color-action-primary', '--color-action-danger', '--color-focus-halo', '--color-background-callout', '--color-background-canvas', '--color-text-default'];
@@ -282,17 +301,26 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   // Exploded view: every layout and component carries its block and modifier classes in data-part, which
   // the page's CSS prints as a tag (generated content with empty alt text, so screen readers skip it).
   // In the step builds parts sit close together, so there a component's tag names its block only.
-  // A modal is fixed-position and inputs and icons can't hold generated content, so they get no tag.
-  const UNTAGGED = new Set(['c-modal', 'c-input', 'c-icon']);
-  const tagParts = (html, { short = false } = {}) => html.replace(/<[a-z][a-z0-9-]*\b[^>]*?\sclass="([^"]*)"/g, (open, cls) => {
-    const parts = cls.split(/\s+/).filter((name) => {
-      const info = inventory.get(name);
-      if (!info || UNTAGGED.has(info.block)) return false;
-      if (short && info.kind === 'modifier' && info.contract.layer === 'component') return false;
-      return info.kind === 'block' || info.kind === 'modifier';
-    });
-    return parts.length ? `${open} data-part="${parts.join(' ')}"` : open;
+  // Inputs and icons are replaced elements that can't hold generated content, so each is wrapped in a
+  // span of its own size that carries the tag instead. A modal is fixed-position, so it gets no tag.
+  const REPLACED = ['c-input', 'c-icon'];
+  const UNTAGGED = ['c-modal', ...REPLACED];
+  const partNames = (cls, short) => cls.split(/\s+/).filter((name) => {
+    const info = inventory.get(name);
+    if (!info) return false;
+    if (short && info.kind === 'modifier' && info.contract.layer === 'component') return false;
+    return info.kind === 'block' || info.kind === 'modifier';
   });
+  const tagParts = (html, { short = false } = {}) => html
+    .replace(/<input\b[^>]*>|<svg\b[^>]*>[\s\S]*?<\/svg>/g, (el) => {
+      const names = partNames(el.match(/^<[a-z]+\b[^>]*?\sclass="([^"]*)"/)?.[1] ?? '', short);
+      const block = names.map((n) => inventory.get(n).block).find((b) => REPLACED.includes(b));
+      return block ? `<span class="demo-replaced demo-replaced--${block.slice(2)}" data-part="${names.join(' ')}">${el}</span>` : el;
+    })
+    .replace(/<[a-z][a-z0-9-]*\b[^>]*?\sclass="([^"]*)"/g, (open, cls) => {
+      const parts = partNames(cls, short).filter((name) => !UNTAGGED.includes(inventory.get(name).block));
+      return parts.length ? `${open} data-part="${parts.join(' ')}"` : open;
+    });
 
   const callout = (block, html) => {
     const c = byBlock.get(block);
@@ -345,7 +373,7 @@ ${indent(stage, 2)}
     // A sheet is one column: the step, its parts, then the build.
     if (layout === 'sheet') {
       return `${open('demo-step demo-step--sheet l-stack')}
-${indent([intro, calloutHtml, figure].join('\n'), 2)}
+${indent([intro, calloutHtml, `${figure}${extra}`].join('\n'), 2)}
 </section>`;
     }
     const stepClass = ['demo-step', layout === 'split' ? 'demo-step--split' : 'demo-step--wide', layout === 'inset' && 'demo-step--inset'].filter(Boolean).join(' ');
@@ -449,9 +477,9 @@ ${indent(BOX_ART.replace('<article class="c-card', '<article inert class="c-card
           <div class="c-card__body">
             <ol class="demo-pack__list" role="list">
 ${indent([
-    packRow(1, 'Layouts', layouts.length, layouts.length === 1 ? 'part' : 'parts', chips(layouts)),
-    packRow(2, 'Components', components.length, components.length === 1 ? 'part' : 'parts', chips(components, deprecated ? `<li><span class="c-badge">Plus ${deprecated} deprecated</span></li>` : '')),
-    packRow(3, 'Utilities', utilityClasses.length, 'classes', `<p class="demo-pack__note">Single-purpose overrides such as ${UTILITY_EXAMPLES.slice(0, -1).map((u) => `<code>${u}</code>`).join(', ')} and <code>${UTILITY_EXAMPLES.at(-1)}</code>. <a href="${sheet(utilities[0])}">See all ${utilityClasses.length} utilities</a></p>`),
+    packRow(1, 'Layouts', bags.layouts.count, bags.layouts.unit, chips(layouts)),
+    packRow(2, 'Components', bags.components.count, bags.components.unit, chips(components, bags.components.deprecated ? `<li><span class="c-badge">Plus ${bags.components.deprecated} deprecated</span></li>` : '')),
+    packRow(3, 'Utilities', bags.utilities.count, bags.utilities.unit, `<p class="demo-pack__note">Single-purpose overrides such as ${UTILITY_EXAMPLES.slice(0, -1).map((u) => `<code>${u}</code>`).join(', ')} and <code>${UTILITY_EXAMPLES.at(-1)}</code>. <a href="${sheet(utilities[0])}">See all ${bags.utilities.count} utilities</a></p>`),
     packRow(4, 'Tokens', tokenTotal, 'to use', `<p class="demo-pack__note">${tokenNote(tokenRows)}</p>\n<ul class="demo-swatches" role="list">${swatches.map((v) => `<li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(${v})"></span><code>${v}</code></li>`).join('')}</ul>`),
   ].join('\n'), 14)}
             </ol>
@@ -622,7 +650,6 @@ ${indentHtml(tagParts(end), 4)}
   ${indent(dialog, 2).trim()}
 
   <p class="u-sr-only" role="status" data-copy-status></p>
-  <script src="demo.js" defer></script>
 </body>
 </html>
 `;

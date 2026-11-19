@@ -1,5 +1,5 @@
 {
-  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it. Step layout: wide (the baseplate) or layout \"inset\" put the stage under the step at full width; layout \"sheet\" steps come in pairs that sit side by side; any other step puts its stage beside the call-out.",
+  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it. Step layout: \"wide\": true (the baseplate) or layout \"inset\" put the stage under the step at full width; layout \"sheet\" steps come in pairs that sit side by side; layout \"split\" (the default when layout is left out) puts the stage beside the call-out. Any other layout value fails the build.",
   "author": {
     "name": "Gabriel Pule",
     "url": "https://www.gabrielpule.work",

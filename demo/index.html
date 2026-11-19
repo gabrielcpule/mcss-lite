@@ -15,6 +15,7 @@
   <link rel="preload" href="../src/utilities.css" as="style">
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="demo.css">
+  <script src="demo.js" defer blocking="render"></script>
 </head>
 <body class="demo demo-home">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
@@ -45,7 +46,7 @@
       <p class="demo-wordmark"><a class="demo-wordmark__link" href="index.html">MCSS-Lite</a> <span class="demo-wordmark__version">0.4.1</span></p>
       <nav class="demo-bar__nav" aria-label="Booklet">
         <ul class="l-cluster demo-bar__links" role="list">
-          <li><a href="index.html" aria-current="page">Overview</a></li>
+          <li><a href="index.html" aria-current="page">Overview<span class="demo-bar__mark" aria-hidden="true"></span></a></li>
           <li><a href="status.html">Parts inventory</a></li>
           <li><a href="content.html">Read before you build</a></li>
         </ul>
@@ -75,7 +76,7 @@
           <div class="l-cluster demo-agents" data-part="l-cluster">
             <a class="demo-agents__link" href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a>
             <details class="demo-details demo-agents__menu">
-              <summary><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg>For your agent</summary>
+              <summary><span class="demo-replaced demo-replaced--icon" data-part="c-icon c-icon--sm"><svg class="c-icon c-icon--sm demo-details__chevron" aria-hidden="true" focusable="false"><use href="#mcss-icon-chevron-down"></use></svg></span>For your agent</summary>
               <ul class="demo-agents__list" role="list">
                 <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token</span></li>
                 <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/llms.txt">llms.txt</a> <span>A short index that points to the full docs</span></li>
@@ -102,8 +103,7 @@
                 <form class="l-stack" data-part="l-stack">
                   <div class="c-form-field demo-art__field" data-part="c-form-field">
                     <label class="c-form-field__label" for="box-email">Work email</label>
-                    <input class="c-input" id="box-email" type="email" autocomplete="email">
-                    <span class="demo-tag demo-tag--part demo-art__input-tag" aria-hidden="true">c-input</span>
+                    <span class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" id="box-email" type="email" autocomplete="email"></span>
                   </div>
                   <div class="l-cluster" data-part="l-cluster">
                     <button type="submit" class="c-button c-button--primary" data-part="c-button c-button--primary">Create account</button>
@@ -423,19 +423,19 @@
                 <form class="l-stack" data-part="l-stack" novalidate>
                   <div class="c-form-field" data-part="c-form-field">
                     <label class="c-form-field__label" for="email">Work email</label>
-                    <input class="c-input" id="email" type="email" autocomplete="email" aria-describedby="email-help">
+                    <span class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" id="email" type="email" autocomplete="email" aria-describedby="email-help"></span>
                     <p class="c-form-field__help" id="email-help">We'll send the invite here.</p>
                   </div>
 
                   <div class="c-form-field" data-part="c-form-field">
                     <label class="c-form-field__label" for="password">Password</label>
-                    <input class="c-input" id="password" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error">
+                    <span class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" id="password" type="password" data-state="error" aria-invalid="true" aria-describedby="password-error"></span>
                     <p class="c-form-field__error" id="password-error">Use at least 12 characters.</p>
                   </div>
 
                   <div class="c-form-field" data-part="c-form-field">
                     <label class="c-form-field__label" for="org">Organization</label>
-                    <input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled>
+                    <span class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" id="org" type="text" value="Acme Inc." data-state="disabled" disabled></span>
                   </div>
 
                   <div class="l-cluster" data-part="l-cluster">
@@ -536,21 +536,21 @@
               <figure class="demo-stage demo-settle">
                 <div class="l-stack" data-part="l-stack">
                   <div class="c-alert c-alert--info" data-part="c-alert">
-                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span>
+                    <span class="c-alert__icon"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-info"></use></svg></span></span>
                     <div class="c-alert__body">
                       <p class="c-alert__title"><span class="u-sr-only">Information: </span>Maintenance on 3 October 2026</p>
                       <p>Sign-in is paused from 22:00 to 23:00 UTC.</p>
                     </div>
                   </div>
                   <div class="c-alert c-alert--success" data-part="c-alert">
-                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                    <span class="c-alert__icon"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span></span>
                     <div class="c-alert__body">
                       <p class="c-alert__title"><span class="u-sr-only">Success: </span>Invoice sent</p>
                       <p>Acme Inc. will get it by email in a few minutes.</p>
                     </div>
                   </div>
                   <div class="c-alert c-alert--warning" data-part="c-alert">
-                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span>
+                    <span class="c-alert__icon"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-warning"></use></svg></span></span>
                     <div class="c-alert__body">
                       <p class="c-alert__title"><span class="u-sr-only">Warning: </span>Your trial ends on 12 October 2026</p>
                       <p>Choose a plan to keep your 4 projects.</p>
@@ -560,12 +560,12 @@
                     </div>
                   </div>
                   <div class="c-alert c-alert--error" data-part="c-alert">
-                    <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+                    <span class="c-alert__icon"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span></span>
                     <div class="c-alert__body">
                       <p class="c-alert__title"><span class="u-sr-only">Error: </span>The changes weren't saved</p>
                       <p>The connection dropped. Check your network and save again.</p>
                     </div>
-                    <button type="button" class="c-alert__close" aria-label="Dismiss this error"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></button>
+                    <button type="button" class="c-alert__close" aria-label="Dismiss this error"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-close"></use></svg></span></button>
                   </div>
                 </div>
               </figure>
@@ -666,7 +666,7 @@
   &lt;button class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Submit&lt;/button&gt;
 &lt;/form&gt;</code></pre>
               <div class="c-alert c-alert--error" data-part="c-alert c-alert--error">
-                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+                <span class="c-alert__icon"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span></span>
                 <div class="c-alert__body">
                   <p class="c-alert__title"><span class="u-sr-only">Error: </span>validate: 1 error, 3 warnings</p>
                   <ol class="demo-check__issues demo-wrong__issues" role="list"><li class="demo-check__issue--error"><span class="demo-wrong__line">Line 1</span> <strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-form</span>&quot;. Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for=&quot;<span class="demo-code__token">its-id</span>&quot;&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder &quot;Work email&quot; disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li><li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 4</span> <strong>warning</strong> &quot;Submit&quot; says nothing out of context. Name the action and its object, e.g. &quot;Save changes&quot; or &quot;Download the invoice&quot;. <code>[content-vague]</code></li></ol>
@@ -679,7 +679,7 @@
                 <form class="l-stack" data-part="l-stack">
                   <div class="c-form-field" data-part="c-form-field">
                     <label class="c-form-field__label" for="signup-email">Work email</label>
-                    <input class="c-input" type="email" id="signup-email" aria-describedby="signup-email-help">
+                    <span class="demo-replaced demo-replaced--input" data-part="c-input"><input class="c-input" type="email" id="signup-email" aria-describedby="signup-email-help"></span>
                     <p class="c-form-field__help" id="signup-email-help">We never share your email.</p>
                   </div>
                   <div class="l-cluster" data-part="l-cluster">
@@ -698,7 +698,7 @@
   &lt;/div&gt;
 &lt;/form&gt;</code></pre>
               <div class="c-alert c-alert--success" data-part="c-alert c-alert--success">
-                <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+                <span class="c-alert__icon"><span class="demo-replaced demo-replaced--icon" data-part="c-icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span></span>
                 <div class="c-alert__body">
                   <p class="c-alert__title"><span class="u-sr-only">Success: </span>validate: 0 issues</p>
                   <p>A labelled field, help text in a token color and a button that names its action.</p>
@@ -782,6 +782,5 @@
   </dialog>
 
   <p class="u-sr-only" role="status" data-copy-status></p>
-  <script src="demo.js" defer></script>
 </body>
 </html>

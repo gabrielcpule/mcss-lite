@@ -10,6 +10,27 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* The sticky chrome. demo.js measures the header (and the overview's build bar) and overwrites these
+   fallbacks, so the bars below it, sticky intros and scroll padding follow its real height. On phones
+   the header's wordmark and theme rows tuck up under the top edge (--demo-bar-tuck) and only the page
+   links stay, so the header never takes more than a short row of the screen. */
+:root {
+  --demo-bar-height: 4.375rem;
+  --demo-bar-tuck: 0px;
+  --demo-bar-stuck: calc(var(--demo-bar-height) - var(--demo-bar-tuck));
+  --demo-buildbar-height: 5.5rem;
+  --demo-rail-height: 5.75rem;
+  /* The page turn's slide: a strong ease-in-out, so the page leaves and lands with intent. The kit's
+     --ease-in-out is the browser's gentle curve. */
+  --demo-ease-turn: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@media (max-width: 47.99rem) {
+  :root {
+    --demo-bar-height: 7rem;
+  }
+}
+
 .demo {
   background-color: var(--color-background-canvas);
   /* The stud grid every part aligns to. */
@@ -47,7 +68,8 @@
   position: absolute;
   inset-inline-start: var(--space-4);
   inset-block-start: -10rem;
-  z-index: var(--z-index-sticky);
+  /* Above the sticky header it skips. */
+  z-index: var(--z-index-popover);
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-background-raised);
   border: var(--border-width-thick) solid var(--color-border-keyline);
@@ -60,10 +82,15 @@
   inset-block-start: var(--space-2);
 }
 
-/* Top bar */
+/* Top bar: sticky on every page, above the bars that stick under it. Page turns leave it in place
+   (its own view-transition-name) while the page under it moves. */
 .demo-bar {
+  position: sticky;
+  inset-block-start: calc(var(--demo-bar-tuck) * -1);
+  z-index: calc(var(--z-index-sticky) + 1);
   background-color: var(--color-background-raised);
   border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
+  view-transition-name: demo-bar;
 }
 
 .demo-bar__inner {
@@ -124,29 +151,7 @@
   color: var(--color-text-subtle);
 }
 
-/* Ledes on the inventory and content pages (the overview has its own hero, further down). */
-.demo-hero__lede {
-  max-width: 58ch;
-  margin-block-end: var(--space-6);
-  font-size: var(--font-size-lg);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-muted);
-}
-
-.demo-install {
-  inline-size: 100%;
-  max-inline-size: none;
-}
-
-.demo-hero__title {
-  margin-block-end: var(--space-5);
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
-  font-weight: var(--font-weight-extrabold);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-}
-
+/* Ledes on the inventory and content pages (the overview's hero resets the margin, further down). */
 .demo-hero__lede {
   max-width: 58ch;
   margin-block-end: var(--space-6);
@@ -426,6 +431,12 @@
   margin-block-start: var(--space-4);
 }
 
+/* A settling stage scrolls sideways only: a part caught mid-settle (or its tag) is clipped at the
+   padding edge instead of flashing a vertical scrollbar. */
+.demo-settle {
+  overflow-y: hidden;
+}
+
 /* Contains the fixed-position modal preview inside the stage. */
 .demo-stage--contain {
   position: relative;
@@ -458,7 +469,8 @@
 /* Step rail: a sticky row of studs; on wide screens a column in the left gutter. */
 .demo-rail {
   position: sticky;
-  inset-block-start: 0;
+  /* Under the header, sharing its bottom keyline rather than doubling it. */
+  inset-block-start: calc(var(--demo-bar-stuck) - var(--border-width-thick));
   z-index: var(--z-index-sticky);
   padding-block: var(--space-2);
   background-color: var(--color-background-raised);
@@ -546,7 +558,8 @@
   .demo-rail {
     position: fixed;
     inset-inline-start: var(--space-4);
-    inset-block-start: 50%;
+    /* Centred in the screen below the sticky header. */
+    inset-block-start: calc(50% + var(--demo-bar-stuck) / 2);
     transform: translateY(-50%);
     padding: 0;
     background: none;
@@ -605,16 +618,6 @@
 .demo-misfit__wobble {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-}
-
-/* The wrong brick drops once and lands askew: one smooth, decelerating move. */
-@keyframes demo-misfit-drop {
-  from { transform: translateY(-12px) rotate(10deg); }
-  to { transform: none; }
-}
-
-.demo-step.is-seating .demo-misfit__wobble {
-  animation: demo-misfit-drop var(--duration-slower) var(--ease-out-expo) 200ms both;
 }
 
 .demo-misfit__good {
@@ -1307,11 +1310,19 @@
   .demo-inventory-table :is(th, td):nth-child(3) { inline-size: 10%; }
 }
 
-/* The page you're on, in the top bar. */
+/* The page you're on, in the top bar: an ink underline, drawn by a span so a page turn can glide it
+   to the next page's link. */
 .demo-bar__links a[aria-current="page"] {
+  position: relative;
   color: var(--color-text-default);
   text-decoration: none;
-  box-shadow: inset 0 calc(var(--border-width-thick) * -1) 0 var(--color-border-keyline);
+}
+
+.demo-bar__mark {
+  position: absolute;
+  inset: auto 0 0;
+  border-block-end: var(--border-width-thick) solid var(--color-border-keyline);
+  view-transition-name: demo-page-mark;
 }
 
 /* Copyable code on part sheets. */
@@ -1412,10 +1423,16 @@
   align-self: start;
 }
 
-/* The sticky rail never covers what receives focus or a jumped-to step (WCAG 2.4.11). */
+/* The sticky chrome never covers what receives focus or a jumped-to section (WCAG 2.4.11): every page
+   reserves the header, part sheets their section rail too while it sticks across the top, and the
+   overview its build bar from 48rem (further down). */
+html {
+  scroll-padding-block-start: calc(var(--demo-bar-stuck) + var(--space-4));
+}
+
 @media (max-width: 99.99rem) {
-  html {
-    scroll-padding-block-start: 7rem;
+  :root:has(.demo-rail) {
+    scroll-padding-block-start: calc(var(--demo-bar-stuck) + var(--demo-rail-height) + var(--space-4));
   }
 }
 
@@ -1607,6 +1624,40 @@
   box-shadow: var(--shadow-elevated);
 }
 
+/* Popover motion: it grows out of its summary (demo.js sets the origin) with a fade, and leaves faster
+   than it came. Opened from the keyboard (.is-instant) or with reduced motion, it just appears. */
+.demo-agents__list {
+  transform-origin: var(--demo-menu-origin, 0) 0;
+}
+
+@keyframes demo-pop-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+@keyframes demo-pop-out {
+  to {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .demo-agents__menu[open]:not(.is-instant) .demo-agents__list {
+    animation: demo-pop-in calc(var(--duration-fast) * 1.2) var(--ease-out-expo);
+  }
+
+  .demo-agents__menu.is-closing .demo-agents__list {
+    animation: demo-pop-out calc(var(--duration-fast) * 0.8) var(--ease-out) forwards;
+  }
+}
+
+.demo-agents__menu.is-instant .demo-details__chevron {
+  transition: none;
+}
+
 .demo-agents__list li {
   display: grid;
   padding-block: var(--space-1) var(--space-2);
@@ -1751,9 +1802,11 @@
 }
 
 /* ---------- The build bar: the step studs and the Exploded view switch, one sticky row ---------- */
+/* From 48rem it sticks right under the header, its top keyline tucked under the header's bottom one so
+   the two never double up. On phones only the header sticks and the bar scrolls with the page. */
 .demo-buildbar {
   position: sticky;
-  inset-block-start: 0;
+  inset-block-start: calc(var(--demo-bar-stuck) - var(--border-width-thick));
   z-index: var(--z-index-sticky);
   padding-block: var(--space-2);
   background-color: var(--color-background-raised);
@@ -1834,6 +1887,10 @@
 /* Phones: one short row, so the bar never covers more than it did as a plain step rail. The step name
    under the studs gives way to the switch, whose label folds onto two lines. */
 @media (max-width: 47.99rem) {
+  .demo-buildbar {
+    position: relative;
+  }
+
   .demo-buildbar__inner {
     gap: var(--space-3);
   }
@@ -1850,9 +1907,11 @@
   }
 }
 
-/* The bar is sticky at every width on this page, so jumps and focus always clear it. */
-:root:has(.demo-buildbar) {
-  scroll-padding-block-start: 7rem;
+/* From 48rem jumps and focus clear the header and the build bar under it. */
+@media (min-width: 48rem) {
+  :root:has(.demo-buildbar) {
+    scroll-padding-block-start: calc(var(--demo-bar-stuck) - var(--border-width-thick) + var(--demo-buildbar-height) + var(--space-4));
+  }
 }
 
 /* ---------- What's in the box: a packing list ---------- */
@@ -2104,8 +2163,9 @@
   }
 }
 
-/* Sheets sit side by side down to the grid's own breakpoint; below it, they also put the build first. */
-@media (max-width: 48rem) {
+/* Sheets sit side by side down to l-grid--2-col's own breakpoint (the same 768px query as
+   src/layout.css, so the two never disagree); below it, they also put the build first. */
+@media (max-width: 768px) {
   .demo-step--sheet > .demo-stage {
     order: 1;
   }
@@ -2230,25 +2290,56 @@
 /* ---------- Exploded view ----------
    demo.mjs writes each layout's and component's block and modifier classes into data-part. A tag prints
    that text as generated content with empty alt text (content: … / ""), so it never reaches the
-   accessibility tree, and it stays hidden until the Exploded view switch is on. The box art and step 1's
-   baseplate (.demo-exploded) are always pulled apart, by the very same rules, so turning the switch on
-   neither tags them twice nor changes their size. Selectors sit in :where() so these rules weigh no more
-   than one attribute selector and the file order decides. */
+   accessibility tree, and it stays hidden until the Exploded view switch is on. There is deliberately no
+   plain `content: attr(data-part)` fallback: a browser without alt text for generated content (before
+   Chrome 77, Firefox 128, Safari 17.4) would read every class name aloud, so there it shows the outlines
+   and no tags. Inputs and icons can't hold generated content, so demo.mjs wraps each in a .demo-replaced
+   span of the same size that carries its tag.
+
+   Turning the switch on pulls the page apart: every layout grows a dashed outline, a strip on top for
+   its tag and a side inset, so nested outlines never share a line and a child's tag never meets its
+   parent's; turning it off settles everything back. The growth is animated padding, a deliberate
+   choice (it reflows the page each frame, which a page this size takes in its stride), and demo.js
+   scrolls along with it so the part you were reading stays where it was. The tags themselves fade and
+   scale in. The box art and step 1's baseplate (.demo-exploded) are always pulled apart by the very
+   same rules, so the switch neither tags them twice nor resizes them. Selectors sit in :where() so
+   these rules weigh no more than one attribute selector and the file order decides. */
+:where(.demo-home) {
+  /* Nested outlines step inward by this much in the always-exploded builds. */
+  --demo-plate-inset: var(--space-2);
+  /* A tag is one line of extra-small mono. */
+  --demo-tag-size: calc(var(--font-size-xs) * 1.5);
+  /* Tags leave faster than they arrive (150ms in, 100ms out). */
+  --demo-tag-exit: calc(var(--duration-fast) * 2 / 3);
+}
+
 :where(.demo-home) [data-part] {
   position: relative;
 }
 
-/* A tag near the right edge of a phone must never widen the page; clip, unlike hidden, keeps the build
-   bar sticky. */
+/* An input or icon wrapper takes exactly its part's box, so wrapping changes nothing. */
+.demo-replaced--input {
+  display: block;
+}
+
+.demo-replaced--icon {
+  display: inline-flex;
+  flex: none;
+  vertical-align: -0.25em;
+}
+
+/* A tag near the right edge of a phone must never widen the page; clip, unlike hidden, keeps the bars
+   sticky. */
 .demo-home main {
   overflow-x: clip;
 }
 
-:where(.demo-home) [data-part]::before,
-.demo-tag {
+:where(.demo-home) [data-part]::before {
+  content: attr(data-part) / "";
   position: absolute;
   z-index: 2;
-  inset-block-start: calc(var(--space-3) * -1 - 2px);
+  /* On the part's top edge, at its start. */
+  inset-block-start: calc(var(--space-3) * -1 - var(--border-width-thick));
   inset-inline-start: var(--space-2);
   padding: 0 var(--space-1);
   border-radius: var(--border-radius-sm);
@@ -2262,43 +2353,67 @@
   text-align: start;
   white-space: nowrap;
   pointer-events: none;
-}
-
-:where(.demo-home) [data-part]::before {
-  content: attr(data-part);
-  content: attr(data-part) / "";
+  /* Hidden: faded out and a touch smaller, scaled from the corner nearest its part. */
   visibility: hidden;
   opacity: 0;
-  transform: translateY(calc(var(--space-2) * -1));
+  scale: 0.97;
+  transform-origin: 0 100%;
   transition:
-    opacity var(--duration-slow) var(--ease-out-expo),
-    transform var(--duration-slow) var(--ease-out-expo),
-    visibility 0s linear var(--duration-slow);
+    opacity var(--demo-tag-exit) var(--ease-out),
+    scale var(--demo-tag-exit) var(--ease-out),
+    visibility 0s linear var(--demo-tag-exit);
 }
 
-/* Components: an ink tag on the part's top edge. Layouts: a yellow tag on their dashed outline. */
-:where(.demo-home) [data-part^="c-"]::before,
-.demo-tag--part {
+:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part]::before {
+  visibility: visible;
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    scale var(--duration-fast) var(--ease-out),
+    visibility 0s;
+}
+
+/* A switch flipped from the keyboard shows the result at once (demo.js sets .demo-instant). The
+   padding keeps a 1ms transition so demo.js can still read the old layout and keep the reader in place. */
+.demo-instant [data-part]::before {
+  transition: none;
+}
+
+.demo-instant :is([data-part^="l-"], [data-part^="c-form-field"]) {
+  transition-duration: 1ms;
+}
+
+/* Components: an ink tag hanging from the part's top corner, so small parts in a row (badges, compact
+   buttons) keep their tags apart. Layouts: a yellow tag on their dashed outline. */
+:where(.demo-home) [data-part^="c-"]::before {
+  inset-inline-start: 0;
   background-color: var(--color-text-default);
   color: var(--color-text-inverse);
 }
 
-/* A component's tag hangs from its top corner, so small parts in a row (badges, compact buttons) keep
-   their tags apart. */
-:where(.demo-home) [data-part^="c-"]::before {
-  inset-inline-start: 0;
+/* An input's tag sits on its top edge at the end, clear of the label above it; an icon's hangs under
+   it, clear of the button, alert or tile that holds it. */
+:where(.demo-home) .demo-replaced--input::before {
+  inset-inline: auto var(--space-2);
+  transform-origin: 100% 100%;
 }
 
-:where(.demo-home) [data-part^="l-"] {
+:where(.demo-home) .demo-replaced--icon::before {
+  inset-block: calc(100% + var(--space-1)) auto;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  transform-origin: 50% 0;
+}
+
+:where(.demo-home) :is([data-part^="l-"], [data-part^="c-form-field"]) {
   outline: var(--border-width-thick) dashed transparent;
   outline-offset: 2px;
-  transition:
-    padding var(--duration-slow) var(--ease-out-expo),
-    outline-color var(--duration-fast) var(--ease-out);
+  transition: padding var(--duration-slow) var(--ease-out-expo);
 }
 
 /* The page frame: each section's tag sits in its own top padding, each container's above it at the end.
-   Neither draws an outline or makes room, since their edges are the page's. */
+   Neither draws an outline, since their edges are the page's. */
 :where(.demo-home main) > [data-part^="l-section"]::before {
   inset-block-start: var(--space-3);
   inset-inline-start: var(--space-4);
@@ -2307,27 +2422,24 @@
 :where(.demo-home main) > [data-part^="l-section"] > [data-part^="l-container"]::before {
   inset-block-start: calc(var(--space-8) * -1);
   inset-inline: auto var(--space-4);
+  transform-origin: 100% 100%;
 }
 
 /* The Copy button carries its tag under its end, clear of the command beside it. */
 :where(.demo-install) [data-part]::before {
-  inset-block: auto calc(var(--space-3) * -1 - 2px);
+  inset-block: auto calc(var(--demo-tag-size) / -2 - var(--border-width-thick));
   inset-inline: auto 0;
+  transform-origin: 100% 0;
 }
 
 /* Inside a build, nested containers keep their tag clear of the first child's. */
 :where(.demo-stage) [data-part^="l-container"]::before {
   inset-inline: auto var(--space-2);
+  transform-origin: 100% 100%;
 }
 
-:where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part]::before {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  transition-delay: 0s;
-}
-
-/* Layouts pull apart: a dashed outline, and a strip on top so a child's tag never meets its parent's. */
+/* Layouts pull apart: a dashed outline, and a strip on top so a child's tag never meets its parent's.
+   The page frame (sections and their containers) keeps its own edges. */
 :where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *)) {
   padding-block: var(--space-6) var(--space-2);
   outline-color: var(--color-border-strong);
@@ -2335,10 +2447,6 @@
 
 /* Nested outlines step inward on the sides too, so a child that fills its parent never draws on the
    parent's line; containers keep their own gutters. */
-:where(.demo-home) {
-  --demo-plate-inset: var(--space-2);
-}
-
 :where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="l-"]:where(:not(main > *, main > * > *, [data-part^="l-container"])) {
   padding-inline: var(--demo-plate-inset);
 }
@@ -2351,6 +2459,13 @@
   }
 }
 
+/* Compact toggles in a group (step 2's List and Grid) are narrower than their tags: every second one
+   hangs its tag under its bottom edge, so neighbouring tags never touch. */
+:where(.demo-home) [role="group"] > [data-part^="c-"]:nth-child(even)::before {
+  inset-block: auto calc(var(--space-3) * -1 - var(--border-width-thick));
+  transform-origin: 0 0;
+}
+
 /* A field's label sits on its top edge, so the field makes room for its tag. A fieldset's legend sits
    above any padding, so a group keeps the tag on its top edge instead. */
 :where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part^="c-form-field"]:not(fieldset) {
@@ -2361,20 +2476,18 @@
   inset-block-start: 0;
 }
 
-/* The box art: the card's tag on its bottom edge, so it never meets the tags inside the card. An input
-   can't carry generated content, so its tag is a hidden span on the input's top edge, at the end. */
+/* A group's tag goes to the end of its top edge, clear of the stack of choices that starts under its
+   legend. */
+:where(.demo-home) fieldset[data-part^="c-form-field"]::before {
+  inset-inline: auto 0;
+  transform-origin: 100% 100%;
+}
+
+/* The box art: the card's tag on its bottom edge, so it never meets the tags inside the card. */
 :where(.demo-art) .demo-art__card::before {
   inset-block: auto calc(var(--space-3) * -1);
   inset-inline: auto var(--space-3);
-}
-
-.demo-art__field {
-  position: relative;
-}
-
-.demo-art__input-tag {
-  inset-block: auto calc(2.75rem - var(--space-2));
-  inset-inline: auto var(--space-3);
+  transform-origin: 100% 0;
 }
 
 /* Step 1's baseplate on phones: the outer section outline would only add a fifth nested box. */
@@ -2397,7 +2510,7 @@
 @media (min-width: 48rem) {
   .demo-box__intro {
     position: sticky;
-    inset-block-start: calc(var(--space-24) + var(--space-2));
+    inset-block-start: calc(var(--demo-bar-stuck) + var(--demo-buildbar-height) + var(--space-6));
   }
 }
 
@@ -2447,7 +2560,8 @@
 
 /* The switch in step 6 flips once, after its parts have settled: the thumb slides, then its tick appears. */
 @keyframes demo-slide {
-  from { inset-inline-start: 0.125rem; }
+  /* From the off seat: the thumb travels the 3rem track less its 2px keylines, 0.125rem insets and 1rem width. */
+  from { translate: -1.5rem 0; }
 }
 
 @keyframes demo-appear {
@@ -2503,8 +2617,10 @@
      stage that hasn't reached the viewport shows its settled default, and the spread starts at entry 0%,
      while the stage is still below the fold. */
   @supports (animation-timeline: view()) {
+    /* The furthest part travels 1.5 units; with its 2px outline 2px out, that stays inside the stage's
+       padding, so the settle never spills past the keyline. */
     .demo-settle {
-      --demo-unit: var(--space-4);
+      --demo-unit: calc((var(--space-6) - var(--space-2)) / 1.5);
       view-timeline: --demo-settle block;
     }
 
@@ -2519,20 +2635,123 @@
     :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):nth-child(2):nth-last-child(2) { --demo-spread: 0; }
     :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):first-child { --demo-spread: -1.5; }
     :is(.demo-settle > :not(:only-child), .demo-settle > :only-child > *):last-child { --demo-spread: 1.5; }
-
-    @media (max-width: 40rem) {
-      .demo-settle {
-        --demo-unit: var(--space-3);
-      }
-    }
   }
 }
 
+/* Reduced motion: tags and the agent list still fade, gently; nothing moves, grows or slides. */
 @media (prefers-reduced-motion: reduce) {
-  :where(.demo-home) [data-part],
-  :where(.demo-home) [data-part]::before,
+  /* The page pulls apart at once. The 1ms is not motion: it only lets demo.js read where the reader
+     was before the padding lands, so its one correction keeps them in place. */
+  :where(.demo-home) :is([data-part^="l-"], [data-part^="c-form-field"]) {
+    transition: padding 1ms linear;
+  }
+
+  :where(.demo-home) [data-part]::before {
+    scale: 1;
+    transition:
+      opacity var(--demo-tag-exit) var(--ease-out),
+      visibility 0s linear var(--demo-tag-exit);
+  }
+
+  :where(.demo-exploded, .demo-home:has(#explode:checked)) [data-part]::before {
+    transition: opacity var(--duration-fast) var(--ease-out), visibility 0s;
+  }
+
   .demo-pack__parts a code,
   .demo-rail__stud {
-    transition: none;
+    transition-property: background-color, color;
+  }
+}
+
+/* ---------- Page turns ----------
+   Moving between the booklet's three pages (Overview, Parts inventory, Read before you build) turns the
+   page: forward, the old page zooms out into a booklet page (keyline, 8px corner, brick edge) and slides
+   off to the left while the next one, already peeking in at the right, slides in and zooms up to fill
+   the screen; back runs the other way. The header stays put and the current-page underline glides to
+   its new link. demo.js names the direction (pageswap and pagereveal); part sheets and any other page
+   just cross-fade. Browsers without cross-document view transitions navigate normally. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: var(--duration-fast);
+}
+
+@keyframes demo-turn-shrink {
+  to { scale: 0.9; }
+}
+
+@keyframes demo-turn-grow {
+  from { scale: 0.9; }
+}
+
+/* One booklet page further along: the 90% page plus a stud gap. */
+@keyframes demo-turn-to-left {
+  to { translate: calc(-90% - var(--space-8)) 0; }
+}
+
+@keyframes demo-turn-to-right {
+  to { translate: calc(90% + var(--space-8)) 0; }
+}
+
+@keyframes demo-turn-from-right {
+  from { translate: calc(90% + var(--space-8)) 0; }
+}
+
+@keyframes demo-turn-from-left {
+  from { translate: calc(-90% - var(--space-8)) 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The gap between pages is the booklet's canvas, studs and all. */
+  html:active-view-transition-type(forward, back)::view-transition {
+    background-color: var(--color-background-canvas);
+    background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-border-keyline) 14%, transparent) 1.5px,
+      transparent 1.75px
+    );
+    background-size: var(--space-4) var(--space-4);
+  }
+
+  html:active-view-transition-type(forward, back)::view-transition-old(root),
+  html:active-view-transition-type(forward, back)::view-transition-new(root) {
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 0 0 var(--border-width-thick) var(--color-border-keyline), var(--shadow-elevated);
+    mix-blend-mode: normal;
+    /* Zoom out (0 to 250ms), slide (150 to 400ms), zoom in (350 to 500ms): each overlaps the next. */
+    --demo-turn-slide: var(--duration-base) var(--demo-ease-turn) var(--duration-fast) both;
+    --demo-turn-zoom-in: var(--duration-fast) var(--ease-out-expo) calc(var(--duration-slower) - var(--duration-fast)) both;
+  }
+
+  html:active-view-transition-type(forward)::view-transition-old(root) {
+    animation: demo-turn-shrink var(--duration-base) var(--ease-out) both, demo-turn-to-left var(--demo-turn-slide);
+  }
+
+  html:active-view-transition-type(forward)::view-transition-new(root) {
+    animation: demo-turn-from-right var(--demo-turn-slide), demo-turn-grow var(--demo-turn-zoom-in);
+  }
+
+  html:active-view-transition-type(back)::view-transition-old(root) {
+    animation: demo-turn-shrink var(--duration-base) var(--ease-out) both, demo-turn-to-right var(--demo-turn-slide);
+  }
+
+  html:active-view-transition-type(back)::view-transition-new(root) {
+    animation: demo-turn-from-left var(--demo-turn-slide), demo-turn-grow var(--demo-turn-zoom-in);
+  }
+
+  html:active-view-transition-type(forward, back)::view-transition-group(demo-page-mark) {
+    animation-duration: var(--duration-slower);
+    animation-timing-function: var(--demo-ease-turn);
+  }
+}
+
+/* Reduced motion: every page change is the plain 150ms cross-fade; nothing scales, slides or glides. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation-duration: 0s;
   }
 }

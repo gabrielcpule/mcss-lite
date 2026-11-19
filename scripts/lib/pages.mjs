@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, tokenNote } from './demo.mjs';
+import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, tokenNote, ARROW_SVG } from './demo.mjs';
 
 // Markup and token tables shorter than this stay open: folding them costs more than it saves.
 const FOLD_MIN = 4;
@@ -119,7 +119,6 @@ ${main.replace(`${RAIL_SLOT}\n`, railHtml)}
   </footer>
 
   <p class="u-sr-only" role="status" data-copy-status></p>${extra ? `\n\n  ${indent(extra, 2).trim()}\n` : ''}
-  <script src="${rel}demo.js" defer></script>
 </body>
 </html>
 `;
@@ -293,7 +292,7 @@ ${rows.map((r) => `      <tr>${r.map((cell, j) => (j === 0 ? `<th scope="row">${
     const openReal = c.block === 'c-modal'
       ? '\n<div class="l-cluster demo-stage-actions">\n  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>\n</div>'
       : '';
-    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  <svg class="demo-arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 8 C 40 8, 70 30, 108 30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M100 22 L110 30 L100 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>${openReal}\n${code(example, { fold: true })}` : ''}`);
+    add('build', 'Build it', `<ol class="demo-build-steps">${steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>${example ? `\n<div class="demo-sheet__stage">\n  ${ARROW_SVG}\n${indent(stage(example, 'build', 'ex'), 2)}\n</div>${openReal}\n${code(example, { fold: true })}` : ''}`);
 
     // The icon sheet shows the whole set, each with the id to reference.
     if (c.block === 'c-icon') {
