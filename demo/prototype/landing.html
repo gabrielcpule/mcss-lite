@@ -20,6 +20,10 @@
   <link rel="stylesheet" href="variant-c.css">
   <link rel="stylesheet" href="variant-d.css">
   <link rel="stylesheet" href="variant-e.css">
+  <link rel="stylesheet" href="variant-f.css">
+  <link rel="stylesheet" href="variant-g.css">
+  <link rel="stylesheet" href="variant-h.css">
+  <link rel="stylesheet" href="variant-i.css">
 </head>
 <body class="demo">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute">
@@ -63,7 +67,7 @@
     </div>
   </header>
   <!-- PROTOTYPE (throwaway, branch prototype/landing-look): three landing-page variants on one route,
-       switchable with ?variant=A|B|C|D|E, the floating bar below, or the arrow keys. Not part of the build. -->
+       switchable with ?variant=A–I, the floating bar below, or the arrow keys. Not part of the build. -->
   <div id="main-slot"><p class="proto-loading">Loading variant…</p></div>
 
   <nav class="proto-switcher" aria-label="Prototype variants">
@@ -80,6 +84,10 @@
       { key: 'C', name: 'The booklet spread', file: 'variant-c.html' },
       { key: 'D', name: 'The sorting tray', file: 'variant-d.html' },
       { key: 'E', name: 'One build, page by page', file: 'variant-e.html' },
+      { key: 'F', name: 'Exploded view (design-taste-frontend)', file: 'variant-f.html' },
+      { key: 'G', name: 'Built from its own parts (design-superpowers:design)', file: 'variant-g.html' },
+      { key: 'H', name: 'Laid in courses (design-superpowers:creative)', file: 'variant-h.html' },
+      { key: 'I', name: 'Hands-on booklet (design-skills:interaction-design)', file: 'variant-i.html' },
     ];
     const params = new URLSearchParams(location.search);
     const idx = Math.max(0, VARIANTS.findIndex((v) => v.key === (params.get('variant') || 'A').toUpperCase()));

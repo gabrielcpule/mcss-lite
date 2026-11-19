@@ -1,0 +1,379 @@
+<main id="main" class="proto-f">
+  <!-- Variant F, "Exploded view": every build is drawn the way a booklet draws an assembly. The loose
+       parts sit in a 1:1 call-out with their class tags, a dashed line shows where they go, and the
+       seated result sits on the stage below or beside them. One screen per section. -->
+
+  <section class="proto-f-hero" aria-labelledby="proto-f-title">
+    <div class="l-container proto-f-hero__inner">
+      <div class="proto-f-hero__head">
+        <h1 class="proto-f-hero__title" id="proto-f-title"><span class="proto-f-line"><span>Build UI from</span></span> <span class="proto-f-line"><span>declared parts</span></span></h1>
+        <div class="proto-f-hero__side proto-f-enter">
+          <p class="proto-f-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+          <div class="demo-install proto-f-install">
+            <code class="demo-install__cmd" id="proto-f-install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr><span class="demo-code__token">mcss-lite</span>@v0.4.1/<wbr>dist/<wbr><span class="demo-code__token">mcss-lite.min.css</span>"&gt;</code>
+            <button type="button" class="c-button c-button--sm" data-copy="proto-f-install-cmd" data-copied="Stylesheet link copied.">Copy</button>
+          </div>
+          <p class="proto-f-hero__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
+          <p class="proto-f-hero__link"><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></p>
+          <p class="u-sr-only" role="status" data-copy-status></p>
+        </div>
+      </div>
+
+      <div class="proto-f-drawing" role="img" aria-label="Exploded view: a card, a badge, a button and two clusters, loose, then seated together as the Team plan card">
+        <div class="proto-f-loose" aria-hidden="true">
+          <p class="proto-f-loose__label">Loose parts, 1:1</p>
+          <ul class="proto-f-loose__list" role="list">
+            <li class="proto-f-loose__part proto-f-loose__part--card">
+              <div class="proto-f-sample" inert>
+                <div class="c-card c-card--bordered">
+                  <p class="c-card__title">Team plan</p>
+                  <p class="c-card__body">12 of 20 seats used.</p>
+                </div>
+              </div>
+              <code>c-card</code>
+            </li>
+            <li class="proto-f-loose__part">
+              <div class="proto-f-sample" inert><span class="c-badge c-badge--success">Active</span></div>
+              <code>c-badge</code>
+            </li>
+            <li class="proto-f-loose__part">
+              <div class="proto-f-sample" inert><button type="button" class="c-button c-button--sm" tabindex="-1">Manage seats</button></div>
+              <code>c-button</code>
+            </li>
+            <li class="proto-f-loose__part">
+              <div class="proto-f-sample"><span class="proto-f-outline"><span></span><span></span></span></div>
+              <span class="proto-f-tag"><code>l-cluster</code> <span class="demo-count">2×</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <svg class="proto-f-drawing__arrow" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M4 20 H 104" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M98 11 L110 20 L98 29" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+        <div class="demo-stage proto-f-drawing__stage" aria-hidden="true" inert>
+          <div class="c-card">
+            <div class="c-card__header">
+              <div class="l-cluster">
+                <p class="c-card__title">Team plan</p>
+                <span class="c-badge c-badge--success">Active</span>
+              </div>
+            </div>
+            <div class="c-card__body">
+              <p class="u-margin-0">12 of 20 seats used. Renews on 1 March.</p>
+            </div>
+            <div class="c-card__footer">
+              <div class="l-cluster">
+                <button type="button" class="c-button c-button--sm" tabindex="-1">Manage seats</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proto-f-box" id="proto-f-box" aria-labelledby="proto-f-box-title">
+    <div class="l-container">
+      <div class="proto-f-box__head">
+        <h2 class="proto-f-h2" id="proto-f-box-title">What's in the box</h2>
+        <p class="proto-f-box__intro">Set 0.4.1 comes in four bags. Each part links to its sheet: when to pick it, how to build it, and what the validator says when it's used wrong.</p>
+      </div>
+
+      <ol class="proto-f-ledger" role="list">
+        <li class="proto-f-ledger__row">
+          <p class="proto-f-ledger__count"><span class="proto-f-ledger__num">8</span></p>
+          <div class="proto-f-ledger__name">
+            <h3 class="proto-f-ledger__title">Layouts</h3>
+            <p class="proto-f-ledger__note">Own all the spacing. Bag 1.</p>
+          </div>
+          <ul class="proto-f-chips" role="list">
+            <li><a class="proto-f-chip" href="../components/center.html"><code>l-center</code></a></li>
+            <li><a class="proto-f-chip" href="../components/cluster.html"><code>l-cluster</code></a></li>
+            <li><a class="proto-f-chip" href="../components/container.html"><code>l-container</code></a></li>
+            <li><a class="proto-f-chip" href="../components/grid.html"><code>l-grid</code></a></li>
+            <li><a class="proto-f-chip" href="../components/section.html"><code>l-section</code></a></li>
+            <li><a class="proto-f-chip" href="../components/sidebar.html"><code>l-sidebar</code></a></li>
+            <li><a class="proto-f-chip" href="../components/stack.html"><code>l-stack</code></a></li>
+            <li><a class="proto-f-chip" href="../components/switcher.html"><code>l-switcher</code></a></li>
+          </ul>
+        </li>
+        <li class="proto-f-ledger__row">
+          <p class="proto-f-ledger__count"><span class="proto-f-ledger__num">11</span> <span class="proto-f-ledger__plus">+ 1 deprecated</span></p>
+          <div class="proto-f-ledger__name">
+            <h3 class="proto-f-ledger__title">Components</h3>
+            <p class="proto-f-ledger__note">Never set their own outer margin. Bag 2.</p>
+          </div>
+          <ul class="proto-f-chips" role="list">
+            <li><a class="proto-f-chip" href="../components/alert.html"><code>c-alert</code></a></li>
+            <li><a class="proto-f-chip" href="../components/badge.html"><code>c-badge</code></a></li>
+            <li><a class="proto-f-chip" href="../components/button.html"><code>c-button</code></a></li>
+            <li><a class="proto-f-chip" href="../components/card.html"><code>c-card</code></a></li>
+            <li><a class="proto-f-chip" href="../components/checkbox.html"><code>c-checkbox</code></a></li>
+            <li><a class="proto-f-chip" href="../components/form-field.html"><code>c-form-field</code></a></li>
+            <li><a class="proto-f-chip" href="../components/icon.html"><code>c-icon</code></a></li>
+            <li><a class="proto-f-chip" href="../components/input.html"><code>c-input</code></a></li>
+            <li><a class="proto-f-chip" href="../components/modal.html"><code>c-modal</code></a></li>
+            <li><a class="proto-f-chip" href="../components/radio.html"><code>c-radio</code></a></li>
+            <li><a class="proto-f-chip" href="../components/toggle.html"><code>c-toggle</code></a></li>
+          </ul>
+        </li>
+        <li class="proto-f-ledger__row">
+          <p class="proto-f-ledger__count"><span class="proto-f-ledger__num">15</span></p>
+          <div class="proto-f-ledger__name">
+            <h3 class="proto-f-ledger__title">Utilities</h3>
+            <p class="proto-f-ledger__note">The last resort, for the one override no part covers. Bag 3.</p>
+          </div>
+          <ul class="proto-f-chips" role="list">
+            <li><a class="proto-f-chip" href="../components/utilities.html"><code>u-*</code> <span class="proto-f-chip__more">alignment, visibility, spacing, weight, mono, truncate, sr-only</span></a></li>
+          </ul>
+        </li>
+        <li class="proto-f-ledger__row">
+          <p class="proto-f-ledger__count"><span class="proto-f-ledger__num">113</span></p>
+          <div class="proto-f-ledger__name">
+            <h3 class="proto-f-ledger__title">Tokens to use</h3>
+            <p class="proto-f-ledger__note">51 semantic and 62 component, built on 137 primitives you don't use directly. Bag 4.</p>
+          </div>
+          <ul class="demo-swatches proto-f-swatches" role="list">
+            <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-primary)"></span><code>--color-action-primary</code></li>
+            <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-danger)"></span><code>--color-action-danger</code></li>
+            <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-focus-halo)"></span><code>--color-focus-halo</code></li>
+            <li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-callout)"></span><code>--color-background-callout</code></li>
+          </ul>
+        </li>
+      </ol>
+
+      <p class="proto-f-box__foot"><a href="../status.html">Open the parts inventory</a></p>
+    </div>
+  </section>
+
+  <section class="proto-f-step" id="proto-f-step-2" aria-labelledby="proto-f-step-2-title">
+    <div class="l-container proto-f-step__grid">
+      <div class="proto-f-step__head">
+        <p class="demo-step__numeral" aria-hidden="true">2</p>
+        <h2 class="proto-f-h2" id="proto-f-step-2-title"><span class="u-sr-only">Step 2: </span>Seat the buttons in a cluster</h2>
+        <p class="proto-f-step__text">l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.</p>
+        <p class="proto-f-step__rest">Steps 3–4 and 6–8 follow the same rhythm: new parts above, the seated build below. <a href="../index.html#step-1">See all 8 steps in the booklet</a></p>
+      </div>
+
+      <div class="demo-callout proto-f-callout">
+          <p class="demo-callout__label">New parts, 1:1</p>
+          <ul class="proto-f-callout__parts" role="list">
+            <li class="proto-f-callout__part">
+              <span class="demo-part__head"><a class="demo-part__link" href="../components/cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code class="demo-part__name">l-cluster</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span>
+            </li>
+            <li class="proto-f-callout__part">
+              <span class="demo-part__head"><a class="demo-part__link" href="../components/button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code class="demo-part__name">c-button</code></a><span class="demo-count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times in this build</span></span></span>
+              <span class="demo-part__meta">
+                <span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--secondary</code> <code>--ghost</code> <code>--danger</code> <code>--sm</code> <code>--lg</code></span>
+                <span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state="disabled"</code> <code>data-state="loading"</code></span>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+
+      <div class="proto-f-step__build">
+        <svg class="proto-f-drop" viewBox="0 0 24 48" aria-hidden="true" focusable="false"><path d="M12 2 V 40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M4 33 L12 44 L20 33" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+        <figure class="demo-stage proto-f-stage">
+          <div class="l-cluster">
+            <button type="button" class="c-button c-button--ghost">Cancel</button>
+            <button type="button" class="c-button">Save draft</button>
+            <button type="button" class="c-button c-button--primary">Publish post</button>
+          </div>
+
+          <div class="l-cluster">
+            <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+            <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+            <button type="button" class="c-button c-button--lg">Create a project</button>
+          </div>
+
+          <div class="l-stack l-stack--sm">
+            <div class="l-cluster">
+              <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="proto-f-schedule-reason">Schedule post</button>
+              <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+            </div>
+            <p class="u-margin-0" id="proto-f-schedule-reason">Add a publish date to schedule the post.</p>
+          </div>
+
+          <div class="l-cluster" role="group" aria-label="View">
+            <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+            <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+            <button type="button" class="c-button c-button--danger">Delete project</button>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="proto-f-step" id="proto-f-step-5" aria-labelledby="proto-f-step-5-title">
+    <div class="l-container proto-f-step__grid">
+      <div class="proto-f-step__head">
+        <p class="demo-step__numeral" aria-hidden="true">5</p>
+        <h2 class="proto-f-h2" id="proto-f-step-5-title"><span class="u-sr-only">Step 5: </span>Build the form</h2>
+        <p class="proto-f-step__text">Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.</p>
+      </div>
+
+      <div class="demo-callout proto-f-callout">
+          <p class="demo-callout__label">New parts, 1:1</p>
+          <ul class="proto-f-callout__parts" role="list">
+            <li class="proto-f-callout__part">
+              <span class="demo-part__head"><a class="demo-part__link" href="../components/form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code class="demo-part__name">c-form-field</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span>
+              <span class="demo-part__meta">
+                <span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__label</code> <code>__help</code> <code>__error</code></span>
+                <span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state="error"</code></span>
+              </span>
+            </li>
+            <li class="proto-f-callout__part">
+              <span class="demo-part__head"><a class="demo-part__link" href="../components/input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code class="demo-part__name">c-input</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span>
+              <span class="demo-part__meta">
+                <span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state="error"</code> <code>data-state="success"</code> <code>data-state="disabled"</code></span>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+
+      <div class="proto-f-step__build">
+        <svg class="proto-f-drop" viewBox="0 0 24 48" aria-hidden="true" focusable="false"><path d="M12 2 V 40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5"/><path d="M4 33 L12 44 L20 33" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+        <!-- The dealt moment: the form's parts float apart, exploded, and seat one by one as the stage scrolls in. -->
+        <figure class="demo-stage proto-f-stage proto-f-seat">
+          <form class="l-stack" novalidate>
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="proto-f-email">Work email</label>
+              <input class="c-input" id="proto-f-email" type="email" autocomplete="email" aria-describedby="proto-f-email-help">
+              <p class="c-form-field__help" id="proto-f-email-help">We'll send the invite here.</p>
+            </div>
+
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="proto-f-password">Password</label>
+              <input class="c-input" id="proto-f-password" type="password" data-state="error" aria-invalid="true" aria-describedby="proto-f-password-error">
+              <p class="c-form-field__error" id="proto-f-password-error">Use at least 12 characters.</p>
+            </div>
+
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="proto-f-org">Organization</label>
+              <input class="c-input" id="proto-f-org" type="text" value="Acme Inc." data-state="disabled" disabled>
+            </div>
+
+            <div class="l-cluster">
+              <button type="submit" class="c-button c-button--primary">Create account</button>
+            </div>
+          </form>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="proto-f-misfit" id="proto-f-misfit" aria-labelledby="proto-f-misfit-title">
+    <div class="l-container proto-f-misfit__inner">
+      <div class="proto-f-misfit__head">
+        <div>
+          <p class="demo-step__numeral demo-step__numeral--wrong" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M12 12l24 24M36 12L12 36" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></p>
+          <h2 class="proto-f-h2" id="proto-f-misfit-title">This piece doesn't fit</h2>
+          <p class="proto-f-step__text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found 4 problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
+        </div>
+        <div class="proto-f-misfit__side">
+          <svg class="demo-misfit proto-f-misfit__drawing" viewBox="0 22 320 90" role="img" aria-labelledby="proto-f-misfit-svg-title" focusable="false">
+          <title id="proto-f-misfit-svg-title">A brick tilted off its baseplate next to a brick seated flush</title>
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+            <rect x="8" y="92" width="136" height="16" rx="3"/>
+            <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
+            <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
+              <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
+              <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
+            </g>
+            <rect x="176" y="92" width="136" height="16" rx="3"/>
+            <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
+            <g class="demo-misfit__good">
+              <rect x="186" y="56" width="112" height="30" rx="3"/>
+              <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
+            </g>
+          </g>
+        </svg>
+
+        </div>
+      </div>
+
+      <div class="demo-wrong__pair proto-f-misfit__pair">
+        <div class="demo-check proto-f-misfit__bad l-stack">
+          <p class="demo-check__label">What the agent wrote</p>
+          <pre class="demo-code"><code>&lt;form class="<span class="demo-code__token">c-form</span>"&gt;
+  &lt;input class="<span class="demo-code__token">c-input</span>" type="email" placeholder="Work email"&gt;
+  &lt;p style="color: #d93025"&gt;We never share your email.&lt;/p&gt;
+  &lt;button class="<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+          <p class="demo-check__label">validate: 1 error, 3 warnings</p>
+          <ol class="demo-check__issues demo-wrong__issues" role="list">
+            <li class="demo-check__issue--error"><span class="demo-wrong__line">Line 1</span> <strong>error</strong> Unknown class "<span class="demo-code__token">c-form</span>". Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li>
+            <li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for="<span class="demo-code__token">its-id</span>"&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder "Work email" disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li>
+            <li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li>
+            <li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 4</span> <strong>warning</strong> "Submit" says nothing out of context. Name the action and its object, e.g. "Save changes" or "Download the invoice". <code>[content-vague]</code></li>
+          </ol>
+        </div>
+
+        <div class="l-stack">
+        <div class="demo-wrong__fit l-stack">
+          <p class="demo-check__label">The piece that fits</p>
+          <figure class="demo-stage">
+            <form class="l-stack">
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="proto-f-signup-email">Work email</label>
+                <input class="c-input" type="email" id="proto-f-signup-email" aria-describedby="proto-f-signup-email-help">
+                <p class="c-form-field__help" id="proto-f-signup-email-help">We never share your email.</p>
+              </div>
+              <div class="l-cluster">
+                <button type="submit" class="c-button c-button--primary">Create account</button>
+              </div>
+            </form>
+          </figure>
+          <p class="demo-checks__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg><span><code>validate</code>: 0 issues</span></p>
+        </div>
+        <div class="demo-proof proto-f-guess">
+          <p class="demo-proof__guess"><span class="demo-proof__key">An agent guesses</span> <code>c-button--warning</code></p>
+          <p class="demo-proof__verdict"><svg class="demo-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span><strong>error</strong> Unknown class "<span class="demo-code__token">c-button--warning</span>". Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist.</span></p>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proto-f-end" id="proto-f-take-it" aria-labelledby="proto-f-end-title">
+    <div class="l-container demo-end__grid">
+      <div class="demo-end__plate l-stack">
+        <h2 class="proto-f-h2" id="proto-f-end-title">Take the parts with you</h2>
+        <p class="proto-f-step__text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+        <ul class="demo-end__links" role="list">
+          <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+          <li><a href="../../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+          <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+          <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+        </ul>
+        <p class="demo-end__proof">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
+        <p class="demo-end__author">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+      </div>
+      <div class="demo-end__fit l-stack">
+        <h3 class="proto-f-fit-title" id="proto-f-fit-title">Is this the right kit?</h3>
+        <div class="demo-pick">
+          <div class="demo-pick__col">
+            <p class="demo-check__label">Good fit</p>
+            <ul class="demo-pick__list">
+              <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+              <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+              <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+            </ul>
+          </div>
+          <div class="demo-pick__col demo-pick__col--other">
+            <p class="demo-check__label">Pick something else</p>
+            <ul class="demo-pick__list">
+              <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+              <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+              <li>Dense data products, or a brand that must not look like building bricks.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

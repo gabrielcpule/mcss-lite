@@ -1,0 +1,927 @@
+/* Variant I: "Hands-on booklet". The booklet's parts behave: a box that opens, steps you pick,
+   a form that checks itself, a slot that only seats real parts, and a kit self-check.
+   Native HTML and CSS only; every selector is scoped under .proto-i. Tokens only. */
+
+.proto-i {
+  --proto-i-settle: var(--duration-slow) var(--ease-out-expo);
+}
+
+.proto-i ::selection {
+  background-color: var(--color-action-primary);
+  color: var(--color-text-on-action);
+}
+
+.proto-i :is(input, textarea) {
+  caret-color: var(--color-action-primary);
+}
+
+.proto-i > section {
+  padding-block: var(--space-16);
+}
+
+.proto-i > section + section {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-i-h2 {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+}
+
+.proto-i-h3 {
+  margin: 0;
+  font-size: var(--font-size-xl);
+}
+
+.proto-i-text {
+  max-inline-size: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* ===== Hero: the claim, centered, then the set box ===== */
+.proto-i-hero {
+  padding-block: var(--space-12) var(--space-16);
+}
+
+.proto-i-hero__claim {
+  align-items: center;
+  max-inline-size: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* On phones a centered paragraph is hard to read: the claim aligns to the start. */
+@media (max-width: 40rem) {
+  .proto-i-hero__claim {
+    align-items: stretch;
+    text-align: start;
+  }
+
+  .proto-i .proto-i-hero__links {
+    justify-content: start;
+  }
+}
+
+.proto-i-hero__title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.proto-i-hero__lede {
+  max-inline-size: 58ch;
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
+.proto-i .proto-i-install {
+  max-inline-size: 100%;
+  margin: 0;
+  text-align: start;
+}
+
+.proto-i .proto-i-alt {
+  max-inline-size: 52ch;
+  margin: 0;
+}
+
+.proto-i-hero__links {
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-i-hero__links a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+}
+
+/* The set box. Closed, the lid still shows what's inside: set number and the four bag counts. */
+.proto-i-boxwrap {
+  max-inline-size: 60rem;
+  margin-inline: auto;
+  inline-size: 100%;
+}
+
+.proto-i-box {
+  position: relative;
+  margin-block-start: var(--space-3);
+  background-color: var(--color-background-subtle);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-i-box__lid {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "set open"
+    "name name";
+  align-items: center;
+  gap: var(--space-4) var(--space-5);
+  padding: var(--space-6);
+  background-color: var(--color-background-raised);
+  border-radius: calc(var(--border-radius-lg) - var(--border-width-thick));
+  list-style: none;
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.proto-i-box__lid::-webkit-details-marker {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .proto-i-box__lid {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "set name open";
+    gap: var(--space-8);
+    padding: var(--space-8);
+  }
+}
+
+/* A row of studs along the lid's top edge, sitting proud of the keyline. */
+.proto-i-box__studs {
+  position: absolute;
+  inset-block-start: calc(var(--space-3) * -1);
+  inset-inline: var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  block-size: var(--space-3);
+  pointer-events: none;
+}
+
+.proto-i-box__studs span {
+  flex: none;
+  inline-size: var(--space-8);
+  block-size: calc(var(--space-3) + var(--border-width-thick));
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-block-end: 0;
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+}
+
+.proto-i-box__studs span:nth-child(n + 7) {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .proto-i-box__studs span:nth-child(n + 7) {
+    display: block;
+  }
+}
+
+.proto-i-box__set {
+  grid-area: set;
+  display: grid;
+  justify-items: start;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-background-callout);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  line-height: 1;
+}
+
+.proto-i-box__set-key {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-i-box__set-num {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.proto-i-box__name {
+  grid-area: name;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.proto-i-box__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.proto-i-box__counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.proto-i-box__counts > span {
+  white-space: nowrap;
+}
+
+.proto-i-box__counts > span::before {
+  content: "";
+  display: inline-block;
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  margin-inline-end: var(--space-3);
+  border: var(--border-width-thick) solid var(--color-border-strong);
+  border-radius: var(--border-radius-full);
+  vertical-align: middle;
+}
+
+.proto-i-box__open {
+  grid-area: open;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-4) var(--space-3);
+  background-color: var(--color-background-interactive);
+  border: var(--border-width-thick) solid var(--color-border-interactive);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  font-weight: var(--font-weight-semibold);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.proto-i-box__chevron {
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.proto-i-box__open-word--open,
+.proto-i-box[open] .proto-i-box__open-word--closed {
+  display: none;
+}
+
+.proto-i-box[open] .proto-i-box__open-word--open {
+  display: inline;
+}
+
+.proto-i-box[open] .proto-i-box__chevron {
+  transform: rotate(180deg);
+}
+
+/* Hover picks the lid up a little; pressing seats it. */
+.proto-i-box__lid:hover .proto-i-box__open {
+  background-color: var(--color-background-interactive-hover);
+}
+
+.proto-i-box__lid:active .proto-i-box__open {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.proto-i-box__lid:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-focus-ring);
+  outline-offset: var(--border-width-thick);
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
+.proto-i-box[open] .proto-i-box__lid {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+  border-block-end: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-i-box__tray {
+  display: grid;
+  align-items: start;
+  gap: var(--space-4);
+  padding: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+  .proto-i-box__tray {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: var(--space-6) var(--space-8) var(--space-8);
+  }
+}
+
+.proto-i-box__tray .demo-bag {
+  background-color: var(--color-background-raised);
+}
+
+.proto-i-box__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.proto-i-box__pieces {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-default);
+}
+
+/* The count: a 1:1 call-out that pops over the page; Escape or a click outside closes it. */
+.proto-i-pop {
+  inline-size: min(26rem, calc(100vw - var(--space-8)));
+  padding: var(--space-5);
+  background-color: var(--color-background-callout);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-elevated);
+  color: var(--color-text-default);
+}
+
+.proto-i-box__foot .c-button {
+  anchor-name: --proto-i-count;
+}
+
+/* Where anchor positioning works, the count opens just above its button; elsewhere it centers. */
+@supports (position-area: block-start) {
+  .proto-i-pop {
+    position-anchor: --proto-i-count;
+    position-area: block-start span-inline-start;
+    position-try-fallbacks: flip-block;
+    margin: 0;
+    margin-block: var(--space-2);
+  }
+}
+
+.proto-i-pop::backdrop {
+  background-color: transparent;
+}
+
+.proto-i-pop__title {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-i-sum {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== The bench: pick a step, the stage below swaps ===== */
+.proto-i-picker {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.proto-i-picker__legend {
+  margin-block-end: var(--space-3);
+  padding: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-i-picker__row {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 40rem) {
+  .proto-i-picker__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+/* Each step is a brick you pick. Picked, it seats: drops 2px, loses its edge and fills with ink. */
+.proto-i-tile {
+  --radio-dot: var(--color-text-default);
+  padding-inline-start: var(--space-4);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.proto-i-tile:hover {
+  background-color: var(--color-background-interactive-hover);
+}
+
+.proto-i-tile__label {
+  gap: var(--space-4);
+  min-block-size: 5rem;
+  padding-block: var(--space-3);
+  padding-inline-end: var(--space-4);
+}
+
+.proto-i-tile__num {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.proto-i-tile__name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.proto-i-tile:has(.c-radio__input:checked) {
+  --radio-dot: var(--color-text-inverse);
+  --checkbox-background: var(--color-text-default);
+  --checkbox-border: var(--color-text-inverse);
+  background-color: var(--color-text-default);
+  color: var(--color-text-inverse);
+  box-shadow: none;
+  transform: translateY(2px);
+  animation: proto-i-settle var(--proto-i-settle);
+}
+
+.proto-i-tile:has(.c-radio__input:focus-visible) {
+  outline: var(--border-width-thick) solid var(--color-focus-ring);
+  outline-offset: var(--border-width-thick);
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
+.proto-i-tile:has(.c-radio__input:checked) .c-radio__input:focus-visible {
+  box-shadow: none;
+}
+
+.proto-i-rhythm {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+.proto-i-panel {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .proto-i-panel {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-16);
+  }
+
+  .proto-i .proto-i-arrow {
+    display: block;
+  }
+}
+
+/* Phones see each step's result before its parts list. */
+@media (max-width: 59.99rem) {
+  .proto-i-panel__build {
+    order: -1;
+  }
+}
+
+.proto-i-panel__build {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  min-inline-size: 0;
+}
+
+.proto-i-try {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+.proto-i-try .c-icon {
+  flex: none;
+  margin-block-start: 0.15em;
+}
+
+.proto-i-details {
+  justify-self: start;
+}
+
+.proto-i-details > summary {
+  list-style: none;
+}
+
+.proto-i-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.proto-i-details > summary:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-focus-ring);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
+/* Only one panel shows where :has() works; without it both panels stay on the page. */
+@supports selector(:has(*)) {
+  .proto-i-panel {
+    display: none;
+  }
+
+  .proto-i:has(#proto-i-step-2:checked) #proto-i-panel-2,
+  .proto-i:has(#proto-i-step-5:checked) #proto-i-panel-5 {
+    display: grid;
+  }
+
+  .proto-i:has(#proto-i-step-2:checked) #proto-i-panel-2 .demo-stage,
+  .proto-i:has(#proto-i-step-5:checked) #proto-i-panel-5 .demo-stage {
+    animation: proto-i-drop var(--duration-slower) var(--ease-out-expo);
+  }
+}
+
+/* Step 5: the form checks itself, at the right moment. :user-invalid only matches after the person
+   has left the field or tried to submit, and it clears as soon as the value is fixed. */
+.proto-i-field__error,
+.proto-i-ready,
+.proto-i-rule__ok,
+.proto-i-rule__bad {
+  display: none;
+}
+
+.proto-i-field__error,
+.proto-i-rule,
+.proto-i-ready {
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.proto-i-field__error .c-icon,
+.proto-i-rule .c-icon,
+.proto-i-ready .c-icon {
+  flex: none;
+  margin-block-start: 0.1em;
+}
+
+.proto-i-rule {
+  display: flex;
+}
+
+.proto-i-field .c-input:user-invalid {
+  border-color: var(--color-border-error);
+  border-block-end-width: var(--border-width-thicker);
+}
+
+.proto-i-field .c-input:user-invalid:focus-visible {
+  outline-color: var(--color-focus-ring-error);
+}
+
+.proto-i-field .c-input:user-valid {
+  border-color: var(--color-border-success);
+}
+
+.proto-i-field:has(.c-input:user-invalid) .proto-i-field__error {
+  display: flex;
+}
+
+.proto-i-field:has(.c-input:user-invalid) .proto-i-rule {
+  color: var(--color-text-error);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-i-field:has(.c-input:user-invalid) .proto-i-rule__bad,
+.proto-i-field:has(.c-input:valid) .proto-i-rule__ok {
+  display: block;
+}
+
+.proto-i-field:has(.c-input:valid) .proto-i-rule {
+  color: var(--color-text-success);
+}
+
+.proto-i-ready {
+  margin: 0;
+  color: var(--color-text-success);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+}
+
+.proto-i-form:valid .proto-i-ready {
+  display: flex;
+}
+
+/* ===== The wrong piece: a slot that only seats parts from the contract ===== */
+.proto-i-fit {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 52rem) {
+  .proto-i-fit {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-10);
+  }
+}
+
+.proto-i-fit__pick .c-radio__label code {
+  font-size: var(--font-size-sm);
+}
+
+.proto-i-plate {
+  display: grid;
+  gap: 0;
+  padding-block-end: var(--space-5);
+}
+
+.proto-i .proto-i-plate > * + * {
+  margin-block-start: 0;
+}
+
+.proto-i-slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-block-size: 8rem;
+  margin-inline: auto;
+  inline-size: min(100%, 20rem);
+  border: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  border-block-end: 0;
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+/* Every piece shares one cell; only the picked one shows. */
+.proto-i-slot > * {
+  grid-area: 1 / 1;
+}
+
+.proto-i-slot__empty {
+  max-inline-size: 18rem;
+  margin: 0;
+  padding: var(--space-4);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.proto-i-piece {
+  display: none;
+  align-self: end;
+  margin-block-end: var(--space-3);
+  pointer-events: none;
+}
+
+.proto-i-piece--warning {
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) dashed var(--color-border-error);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-error);
+  transform-origin: 20% 100%;
+}
+
+.proto-i-baseplate {
+  display: block;
+  block-size: var(--space-4);
+  background-color: var(--color-text-default);
+  border-radius: var(--border-radius-base);
+  /* Studs along the plate, drawn with the same dot rhythm as the stud grid. */
+  background-image: radial-gradient(
+    circle,
+    var(--color-background-default) 2.5px,
+    transparent 3px
+  );
+  background-size: var(--space-4) var(--space-4);
+}
+
+.proto-i-verdicts {
+  margin-block-start: var(--space-5);
+}
+
+.proto-i-verdict {
+  display: none;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.proto-i-verdict--ok {
+  color: var(--color-text-success);
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-i-verdict--error {
+  color: var(--color-text-error);
+}
+
+.proto-i-verdict__fix {
+  color: var(--color-text-default);
+}
+
+.proto-i-fix {
+  color: var(--color-text-link);
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.proto-i-fix:hover {
+  color: var(--color-text-link-hover);
+}
+
+/* The state machine: empty, seated (three real modifiers) or rejected (the guess). */
+.proto-i-fit:has(.c-radio__input:checked) .proto-i-slot__empty {
+  display: none;
+}
+
+.proto-i-fit:has(#proto-i-fit-primary:checked) :is(.proto-i-piece--primary, .proto-i-verdict--primary),
+.proto-i-fit:has(#proto-i-fit-ghost:checked) :is(.proto-i-piece--ghost, .proto-i-verdict--ghost),
+.proto-i-fit:has(#proto-i-fit-danger:checked) :is(.proto-i-piece--danger, .proto-i-verdict--danger),
+.proto-i-fit:has(#proto-i-fit-warning:checked) :is(.proto-i-piece--warning, .proto-i-verdict--error) {
+  display: flex;
+}
+
+.proto-i-fit:has(:is(#proto-i-fit-primary, #proto-i-fit-ghost, #proto-i-fit-danger):checked) .proto-i-slot {
+  border-color: var(--color-border-keyline);
+  border-style: solid;
+}
+
+.proto-i-fit:has(#proto-i-fit-primary:checked) .proto-i-piece--primary,
+.proto-i-fit:has(#proto-i-fit-ghost:checked) .proto-i-piece--ghost,
+.proto-i-fit:has(#proto-i-fit-danger:checked) .proto-i-piece--danger {
+  animation: proto-i-seat var(--duration-slower) var(--ease-out-expo);
+}
+
+.proto-i-fit:has(#proto-i-fit-warning:checked) .proto-i-slot {
+  border-color: var(--color-border-error);
+}
+
+/* Rejected: the guess rests tilted on the slot's edge, never flush. */
+.proto-i-fit:has(#proto-i-fit-warning:checked) .proto-i-piece--warning {
+  transform: translateY(calc(var(--space-2) * -1)) rotate(-9deg);
+  animation: proto-i-reject var(--duration-slower) var(--ease-out);
+}
+
+/* Arriving from "Try a piece that doesn't fit": the slot takes the yellow halo once. */
+.proto-i #wrong-piece:target .proto-i-slot {
+  animation: proto-i-halo 1.2s var(--ease-out) 2;
+}
+
+/* The agent's form beside the rebuild. */
+.proto-i-pair {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .proto-i-pair {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-8);
+  }
+}
+
+.proto-i-rebuilt .demo-checks__verdict {
+  margin: 0;
+  color: var(--color-text-success);
+}
+
+/* ===== Closing: take the parts, then check the kit ===== */
+.proto-i-end__grid {
+  display: grid;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .proto-i-end__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+}
+
+.proto-i-kit__list .c-checkbox__hint {
+  display: block;
+}
+
+.proto-i-kit__verdict,
+.proto-i-kit__empty {
+  display: none;
+}
+
+.proto-i-kit__empty {
+  margin: 0;
+  padding: var(--space-4);
+  border: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 45%, transparent);
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-subtle);
+}
+
+@supports selector(:has(*)) {
+  /* Each tick reveals its reason: why it fits, or what to use instead. */
+  .proto-i-kit__list .c-checkbox__hint {
+    display: none;
+  }
+
+  .proto-i-kit__list .c-checkbox:has(.c-checkbox__input:checked) .c-checkbox__hint {
+    display: block;
+    animation: proto-i-drop var(--duration-slow) var(--ease-out-expo);
+  }
+
+  .proto-i-kit__list .c-checkbox:has(.proto-i-other:checked) .c-checkbox__hint {
+    color: var(--color-text-default);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .proto-i-kit:not(:has(.c-checkbox__input:checked)) .proto-i-kit__empty {
+    display: block;
+  }
+
+  .proto-i-kit:has(.proto-i-good:checked):not(:has(.proto-i-other:checked)) .proto-i-kit__verdict--fit,
+  .proto-i-kit:has(.proto-i-good:checked):has(.proto-i-other:checked) .proto-i-kit__verdict--mixed,
+  .proto-i-kit:has(.proto-i-other:checked):not(:has(.proto-i-good:checked)) .proto-i-kit__verdict--other {
+    display: grid;
+    animation: proto-i-settle var(--proto-i-settle);
+  }
+}
+
+/* ===== Motion: short, settling, never needed to understand a state ===== */
+@keyframes proto-i-settle {
+  0% { transform: translateY(-4px); }
+  60% { transform: translateY(3px); }
+  100% { transform: translateY(2px); }
+}
+
+@keyframes proto-i-drop {
+  from { transform: translateY(calc(var(--space-2) * -1)); }
+}
+
+@keyframes proto-i-seat {
+  0% { transform: translateY(calc(var(--space-12) * -1)); }
+  70% { transform: translateY(3px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes proto-i-reject {
+  0% { transform: translateY(calc(var(--space-12) * -1)) rotate(0deg); }
+  45% { transform: translateY(0) rotate(0deg); }
+  65% { transform: translateY(calc(var(--space-3) * -1)) rotate(-12deg); }
+  100% { transform: translateY(calc(var(--space-2) * -1)) rotate(-9deg); }
+}
+
+@keyframes proto-i-halo {
+  0%, 100% { box-shadow: none; }
+  40% { box-shadow: 0 0 0 5px var(--color-focus-halo); }
+}
+
+/* Scroll-driven, as progressive enhancement: the closing plate drops onto its brick edge as it
+   comes into view. It is fully visible and in place without the animation. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .proto-i-end__plate {
+      animation: proto-i-plate-seat linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+}
+
+@keyframes proto-i-plate-seat {
+  from {
+    transform: translateY(calc(var(--space-4) * -1));
+    box-shadow: var(--shadow-raised);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-i *,
+  .proto-i *::before {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
+
+  /* Without motion the halo still marks the slot you jumped to. */
+  .proto-i #wrong-piece:target .proto-i-slot {
+    box-shadow: 0 0 0 5px var(--color-focus-halo);
+  }
+}

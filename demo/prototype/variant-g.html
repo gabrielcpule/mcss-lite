@@ -1,0 +1,342 @@
+<main id="main" class="proto-g">
+  <!-- Variant G: "Built from its own parts". The page is composed only from MCSS-Lite layouts and
+       components; the Exploded view switch (a real c-toggle) pulls every layout apart and names each part. -->
+
+  <section class="l-section proto-g-hero" aria-labelledby="g-title" data-part="l-section">
+    <div class="l-container" data-part="l-container">
+      <div class="l-center" data-part="l-center">
+        <div class="l-stack l-stack--lg proto-g-hero__stack" data-part="l-stack l-stack--lg">
+          <h1 class="proto-g-hero__title" id="g-title">Build UI from declared parts</h1>
+          <p class="proto-g-hero__lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+          <div class="l-stack l-stack--sm proto-g-hero__install" data-part="l-stack l-stack--sm">
+            <div class="demo-install">
+              <code class="demo-install__cmd" id="g-install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr><span class="demo-code__token">mcss-lite</span>@v0.4.1/<wbr>dist/<wbr><span class="demo-code__token">mcss-lite.min.css</span>"&gt;</code>
+              <button type="button" class="c-button c-button--sm" data-copy="g-install-cmd" data-copied="Stylesheet link copied.">Copy</button>
+            </div>
+            <p class="proto-g-hero__alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
+          </div>
+          <ul class="l-cluster proto-g-hero__links" role="list" data-part="l-cluster">
+            <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></li>
+            <li><a href="#g-misfit">See the piece that doesn't fit</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="proto-g-inspect">
+    <div class="l-container">
+      <div class="proto-g-inspect__plate">
+        <div class="c-toggle" data-part="c-toggle">
+          <input class="c-toggle__input" type="checkbox" role="switch" id="g-explode" aria-describedby="g-explode-hint">
+          <label class="c-toggle__label" for="g-explode">Exploded view</label>
+          <p class="c-toggle__hint" id="g-explode-hint">Pull this page apart to see the layouts and parts it's built from.</p>
+        </div>
+        <ul class="proto-g-legend" role="list">
+          <li><span class="proto-g-legend__key proto-g-legend__key--layout" aria-hidden="true">l-</span> Layout</li>
+          <li><span class="proto-g-legend__key proto-g-legend__key--part" aria-hidden="true">c-</span> Component</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section class="l-section proto-g-box" aria-labelledby="g-box-title" data-part="l-section">
+    <div class="l-container" data-part="l-container">
+      <div class="l-sidebar" data-part="l-sidebar">
+        <div class="l-sidebar__sidebar">
+          <div class="l-stack proto-g-box__intro" data-part="l-stack">
+            <h2 class="proto-g-heading" id="g-box-title">What's in the box</h2>
+            <p class="proto-g-text">One stylesheet, packed in four bags. Every name links to its part sheet: when to use it, how to build it and what the validator says when it's wrong.</p>
+            <p class="proto-g-box__set"><span class="proto-g-box__set-key">Set</span> <span class="proto-g-box__set-num">0.4.1</span></p>
+          </div>
+        </div>
+        <div class="l-sidebar__content">
+          <article class="c-card proto-g-packing" aria-label="Packing list" data-part="c-card">
+            <div class="c-card__body">
+              <ol class="proto-g-packing__list" role="list">
+                <li class="proto-g-row">
+                  <h3 class="proto-g-row__head"><span class="proto-g-row__bag" aria-hidden="true">1</span><span class="proto-g-row__name">Layouts</span><span class="proto-g-row__leader" aria-hidden="true"></span><span class="proto-g-row__count">8</span><span class="proto-g-row__unit">parts</span></h3>
+                  <ul class="l-cluster proto-g-row__parts" role="list">
+                    <li><a href="../components/center.html"><code>l-center</code></a></li>
+                    <li><a href="../components/cluster.html"><code>l-cluster</code></a></li>
+                    <li><a href="../components/container.html"><code>l-container</code></a></li>
+                    <li><a href="../components/grid.html"><code>l-grid</code></a></li>
+                    <li><a href="../components/section.html"><code>l-section</code></a></li>
+                    <li><a href="../components/sidebar.html"><code>l-sidebar</code></a></li>
+                    <li><a href="../components/stack.html"><code>l-stack</code></a></li>
+                    <li><a href="../components/switcher.html"><code>l-switcher</code></a></li>
+                  </ul>
+                </li>
+                <li class="proto-g-row">
+                  <h3 class="proto-g-row__head"><span class="proto-g-row__bag" aria-hidden="true">2</span><span class="proto-g-row__name">Components</span><span class="proto-g-row__leader" aria-hidden="true"></span><span class="proto-g-row__count">11</span><span class="proto-g-row__unit">parts</span></h3>
+                  <ul class="l-cluster proto-g-row__parts" role="list">
+                    <li><a href="../components/alert.html"><code>c-alert</code></a></li>
+                    <li><a href="../components/badge.html"><code>c-badge</code></a></li>
+                    <li><a href="../components/button.html"><code>c-button</code></a></li>
+                    <li><a href="../components/card.html"><code>c-card</code></a></li>
+                    <li><a href="../components/checkbox.html"><code>c-checkbox</code></a></li>
+                    <li><a href="../components/form-field.html"><code>c-form-field</code></a></li>
+                    <li><a href="../components/icon.html"><code>c-icon</code></a></li>
+                    <li><a href="../components/input.html"><code>c-input</code></a></li>
+                    <li><a href="../components/modal.html"><code>c-modal</code></a></li>
+                    <li><a href="../components/radio.html"><code>c-radio</code></a></li>
+                    <li><a href="../components/toggle.html"><code>c-toggle</code></a></li>
+                    <li><span class="c-badge">Plus 1 deprecated</span></li>
+                  </ul>
+                </li>
+                <li class="proto-g-row">
+                  <h3 class="proto-g-row__head"><span class="proto-g-row__bag" aria-hidden="true">3</span><span class="proto-g-row__name">Utilities</span><span class="proto-g-row__leader" aria-hidden="true"></span><span class="proto-g-row__count">15</span><span class="proto-g-row__unit">classes</span></h3>
+                  <p class="proto-g-row__note">Single-purpose overrides such as <code>u-sr-only</code>, <code>u-margin-0</code> and <code>u-truncate</code>. <a href="../components/utilities.html">See all 15 utilities</a></p>
+                </li>
+                <li class="proto-g-row">
+                  <h3 class="proto-g-row__head"><span class="proto-g-row__bag" aria-hidden="true">4</span><span class="proto-g-row__name">Tokens</span><span class="proto-g-row__leader" aria-hidden="true"></span><span class="proto-g-row__count">113</span><span class="proto-g-row__unit">to use</span></h3>
+                  <p class="proto-g-row__note">51 semantic and 62 component tokens, built on 137 primitives you don't use directly.</p>
+                  <ul class="demo-swatches" role="list"><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-primary)"></span><code>--color-action-primary</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-danger)"></span><code>--color-action-danger</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-focus-halo)"></span><code>--color-focus-halo</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-callout)"></span><code>--color-background-callout</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-canvas)"></span><code>--color-background-canvas</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-text-default)"></span><code>--color-text-default</code></li></ul>
+                </li>
+              </ol>
+            </div>
+            <footer class="c-card__footer">
+              <p class="u-margin-0"><a href="../status.html">Parts inventory</a> lists every part with its status and the version it arrived in.</p>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="l-section proto-g-steps" aria-labelledby="g-steps-title" data-part="l-section">
+    <div class="l-container" data-part="l-container">
+      <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+        <div class="l-stack l-stack--sm proto-g-steps__intro" data-part="l-stack l-stack--sm">
+          <h2 class="proto-g-heading" id="g-steps-title">Two steps from the build</h2>
+          <p class="proto-g-text">The booklet builds a small app in 8 steps, one new part at a time. Each step lists the parts it adds, then shows them seated.</p>
+        </div>
+
+        <div class="l-grid l-grid--2-col proto-g-steps__grid" data-part="l-grid l-grid--2-col">
+          <article class="l-stack proto-g-sheet" aria-labelledby="g-step-2-title" data-part="l-stack">
+            <header class="proto-g-sheet__head">
+              <p class="demo-step__numeral proto-g-sheet__num" aria-hidden="true">2</p>
+              <div>
+                <h3 class="proto-g-sheet__title" id="g-step-2-title"><span class="u-sr-only">Step 2: </span>Seat the buttons in a cluster</h3>
+                <p class="proto-g-sheet__text">l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.</p>
+              </div>
+            </header>
+            <div class="demo-callout">
+              <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+              <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code class="demo-part__name">l-cluster</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code class="demo-part__name">c-button</code></a><span class="demo-count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--secondary</code> <code>--ghost</code> <code>--danger</code> <code>--sm</code> <code>--lg</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;disabled&quot;</code> <code>data-state=&quot;loading&quot;</code></span></span></li></ul>
+              <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+            </div>
+            <figure class="demo-stage proto-g-stage">
+              <div class="l-cluster" data-part="l-cluster">
+                <button type="button" class="c-button c-button--ghost">Cancel</button>
+                <button type="button" class="c-button">Save draft</button>
+                <button type="button" class="c-button c-button--primary">Publish post</button>
+              </div>
+
+              <div class="l-cluster" data-part="l-cluster">
+                <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+                <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+                <button type="button" class="c-button c-button--lg">Create a project</button>
+              </div>
+
+              <div class="l-stack l-stack--sm" data-part="l-stack l-stack--sm">
+                <div class="l-cluster">
+                  <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="g-schedule-reason">Schedule post</button>
+                  <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+                </div>
+                <p class="u-margin-0" id="g-schedule-reason">Add a publish date to schedule the post.</p>
+              </div>
+
+              <div class="l-cluster" role="group" aria-label="View" data-part="l-cluster">
+                <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+                <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+              </div>
+
+              <button type="button" class="c-button c-button--danger">Delete project</button>
+            </figure>
+          </article>
+
+          <article class="l-stack proto-g-sheet" aria-labelledby="g-step-5-title" data-part="l-stack">
+            <header class="proto-g-sheet__head">
+              <p class="demo-step__numeral proto-g-sheet__num" aria-hidden="true">5</p>
+              <div>
+                <h3 class="proto-g-sheet__title" id="g-step-5-title"><span class="u-sr-only">Step 5: </span>Build the form</h3>
+                <p class="proto-g-sheet__text">Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.</p>
+              </div>
+            </header>
+            <div class="demo-callout">
+              <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+              <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code class="demo-part__name">c-form-field</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__label</code> <code>__help</code> <code>__error</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code class="demo-part__name">c-input</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code> <code>data-state=&quot;success&quot;</code> <code>data-state=&quot;disabled&quot;</code></span></span></li></ul>
+              <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+            </div>
+            <figure class="demo-stage proto-g-stage">
+              <form class="l-stack" novalidate data-part="l-stack">
+                <div class="c-form-field" data-part="c-form-field">
+                  <label class="c-form-field__label" for="g-email">Work email</label>
+                  <input class="c-input" id="g-email" type="email" autocomplete="email" aria-describedby="g-email-help">
+                  <p class="c-form-field__help" id="g-email-help">We'll send the invite here.</p>
+                </div>
+
+                <div class="c-form-field" data-part="c-form-field">
+                  <label class="c-form-field__label" for="g-password">Password</label>
+                  <input class="c-input" id="g-password" type="password" data-state="error" aria-invalid="true" aria-describedby="g-password-error">
+                  <p class="c-form-field__error" id="g-password-error">Use at least 12 characters.</p>
+                </div>
+
+                <div class="c-form-field" data-part="c-form-field">
+                  <label class="c-form-field__label" for="g-org">Organization</label>
+                  <input class="c-input" id="g-org" type="text" value="Acme Inc." data-state="disabled" disabled>
+                </div>
+
+                <div class="l-cluster" data-part="l-cluster">
+                  <button type="submit" class="c-button c-button--primary">Create account</button>
+                </div>
+              </form>
+            </figure>
+          </article>
+        </div>
+
+        <p class="proto-g-steps__more">Steps 3–4 and 6–8 follow the same rhythm: the parts first, then the build that seats them. <a href="../index.html#step-1">Read all 8 steps</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="l-section proto-g-misfit" id="g-misfit" aria-labelledby="g-misfit-title" data-part="l-section">
+    <div class="l-container" data-part="l-container">
+      <div class="l-stack l-stack--lg" data-part="l-stack l-stack--lg">
+        <div class="l-sidebar proto-g-misfit__head" data-part="l-sidebar">
+          <div class="l-sidebar__content">
+            <div class="l-stack l-stack--sm">
+              <h2 class="proto-g-heading" id="g-misfit-title">This piece doesn't fit</h2>
+              <p class="proto-g-text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found 4 problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
+            </div>
+          </div>
+          <div class="l-sidebar__sidebar proto-g-misfit__art">
+            <svg class="demo-misfit" viewBox="0 22 320 90" role="img" aria-labelledby="g-misfit-art-title" focusable="false">
+              <title id="g-misfit-art-title">A brick tilted off its baseplate next to a brick seated flush</title>
+              <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+                <rect x="8" y="92" width="136" height="16" rx="3"/>
+                <path d="M24 92v-6h12v6M52 92v-6h12v6M80 92v-6h12v6M108 92v-6h12v6"/>
+                <g class="demo-misfit__bad" transform="rotate(-13 76 58)">
+                  <g class="demo-misfit__wobble">
+                    <rect x="34" y="44" width="84" height="30" rx="3" stroke-dasharray="7 5"/>
+                    <path d="M44 44v-7h12v7M68 44v-7h12v7M92 44v-7h12v7"/>
+                  </g>
+                </g>
+                <rect x="176" y="92" width="136" height="16" rx="3"/>
+                <path d="M192 92v-6h12v6M220 92v-6h12v6M248 92v-6h12v6M276 92v-6h12v6"/>
+                <g class="demo-misfit__good">
+                  <rect x="186" y="56" width="112" height="30" rx="3"/>
+                  <path d="M196 56v-7h12v7M224 56v-7h12v7M252 56v-7h12v7M280 56v-7h12v7"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="l-grid l-grid--2-col" data-part="l-grid l-grid--2-col">
+          <div class="l-stack" data-part="l-stack">
+            <h3 class="proto-g-label">What the agent wrote</h3>
+            <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">c-form</span>&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; placeholder=&quot;Work email&quot;&gt;
+  &lt;p style=&quot;color: #d93025&quot;&gt;We never share your email.&lt;/p&gt;
+  &lt;button class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            <div class="c-alert c-alert--error" data-part="c-alert c-alert--error">
+              <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg></span>
+              <div class="c-alert__body">
+                <h4 class="c-alert__title"><span class="u-sr-only">Error: </span>validate: 1 error, 3 warnings</h4>
+                <ol class="demo-check__issues proto-g-issues" role="list">
+                  <li class="demo-check__issue--error"><span class="demo-wrong__line">Line 1</span> <strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-form</span>&quot;. Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li>
+                  <li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for=&quot;<span class="demo-code__token">its-id</span>&quot;&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder &quot;Work email&quot; disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li>
+                  <li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li>
+                  <li class="demo-check__issue--warning"><span class="demo-wrong__line">Line 4</span> <strong>warning</strong> &quot;Submit&quot; says nothing out of context. Name the action and its object, e.g. &quot;Save changes&quot; or &quot;Download the invoice&quot;. <code>[content-vague]</code></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="l-stack" data-part="l-stack">
+            <h3 class="proto-g-label">The piece that fits</h3>
+            <figure class="demo-stage proto-g-stage">
+              <form class="l-stack" data-part="l-stack">
+                <div class="c-form-field" data-part="c-form-field">
+                  <label class="c-form-field__label" for="g-signup-email">Work email</label>
+                  <input class="c-input" type="email" id="g-signup-email" aria-describedby="g-signup-email-help">
+                  <p class="c-form-field__help" id="g-signup-email-help">We never share your email.</p>
+                </div>
+                <div class="l-cluster" data-part="l-cluster">
+                  <button type="submit" class="c-button c-button--primary">Create account</button>
+                </div>
+              </form>
+            </figure>
+            <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">l-stack</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
+    &lt;label class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot; for=&quot;<span class="demo-code__token">signup-email</span>&quot;&gt;Work email&lt;/label&gt;
+    &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; id=&quot;<span class="demo-code__token">signup-email</span>&quot; <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">signup-email-help</span>&quot;&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-form-field__help</span>&quot; id=&quot;<span class="demo-code__token">signup-email-help</span>&quot;&gt;We never share your email.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Create account&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+            <div class="c-alert c-alert--success" data-part="c-alert c-alert--success">
+              <span class="c-alert__icon"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-success"></use></svg></span>
+              <div class="c-alert__body">
+                <h4 class="c-alert__title"><span class="u-sr-only">Success: </span>validate: 0 issues</h4>
+                <p>A labelled field, help text in a token color and a button that names its action.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="l-section proto-g-end" aria-labelledby="g-end-title" data-part="l-section">
+    <div class="l-container" data-part="l-container">
+      <div class="l-grid l-grid--2-col proto-g-end__grid" data-part="l-grid l-grid--2-col">
+        <article class="c-card c-card--elevated proto-g-end__plate" aria-labelledby="g-end-title" data-part="c-card c-card--elevated">
+          <div class="c-card__header">
+            <h2 class="c-card__title proto-g-end__title" id="g-end-title">Take the parts with you</h2>
+          </div>
+          <div class="c-card__body l-stack">
+            <p class="u-margin-0">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+            <ul class="proto-g-links" role="list">
+              <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+              <li><a href="../../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+              <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+              <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+            </ul>
+            <p class="proto-g-end__proof u-margin-0">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
+          </div>
+          <footer class="c-card__footer">
+            <p class="u-margin-0">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+          </footer>
+        </article>
+
+        <div class="l-stack proto-g-end__fit" data-part="l-stack">
+          <h2 class="proto-g-heading" id="g-fit-title">Is this the right kit?</h2>
+          <div class="demo-pick">
+            <div class="demo-pick__col">
+              <h3 class="proto-g-label">Good fit</h3>
+              <ul class="demo-pick__list">
+                <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+                <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+                <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+              </ul>
+            </div>
+            <div class="demo-pick__col demo-pick__col--other">
+              <h3 class="proto-g-label">Pick something else</h3>
+              <ul class="demo-pick__list">
+                <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+                <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+                <li>Dense data products, or a brand that must not look like building bricks.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,303 @@
+<main id="main" class="proto-h">
+
+  <!-- HERO: the claim is laid as a wall of word-bricks; the one undeclared piece lies rejected beside it. -->
+  <section class="proto-h-hero" aria-labelledby="h-title">
+    <div class="l-container proto-h-hero__grid">
+      <h1 class="proto-h-wall" id="h-title">
+        <span class="proto-h-course"><span class="proto-h-brick">Build</span> <span class="proto-h-brick">UI</span> <span class="proto-h-brick">from</span></span>
+        <span class="proto-h-course proto-h-course--offset"><span class="proto-h-brick">declared</span> <span class="proto-h-brick">parts</span></span>
+      </h1>
+
+      <p class="proto-h-lede">MCSS-Lite is a pure-CSS design system where every class, state and token is written down in a contract. People and AI agents read the same contract, and <code>mcss-lite validate</code> rejects any part that isn't in it.</p>
+
+      <div class="proto-h-reject">
+        <p class="proto-h-reject__piece" aria-hidden="true"><span class="proto-h-brick proto-h-brick--code proto-h-brick--misfit">c-button--warning</span></p>
+        <div class="l-stack l-stack--sm">
+          <p class="proto-h-reject__key">An agent guesses <code>c-button--warning</code></p>
+          <p class="proto-h-reject__verdict"><svg class="c-icon c-icon--sm" aria-hidden="true" focusable="false"><use href="#mcss-icon-error"></use></svg><span><strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-button--warning</span>&quot;. Valid modifiers of <span class="demo-code__token">c-button:</span> <span class="demo-code__token">--primary</span>, <span class="demo-code__token">--secondary</span>, <span class="demo-code__token">--ghost</span>, <span class="demo-code__token">--danger</span>, <span class="demo-code__token">--sm</span>, <span class="demo-code__token">--lg.</span> Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist.</span></p>
+          <p class="proto-h-reject__link"><a href="#h-wrong">See the piece that doesn't fit</a></p>
+        </div>
+      </div>
+
+      <div class="proto-h-plate">
+        <code class="proto-h-plate__cmd" id="h-install-cmd">&lt;link rel="stylesheet" href="https:/<wbr>/<wbr>cdn.jsdelivr.net/<wbr>gh/<wbr>gabrielcpule/<wbr>mcss-lite@v0.4.1/<wbr>dist/<wbr>mcss-lite.min.css"&gt;</code>
+        <button type="button" class="c-button c-button--sm" data-copy="h-install-cmd" data-copied="Stylesheet link copied.">Copy</button>
+      </div>
+
+      <div class="proto-h-hero__after">
+        <p class="proto-h-alt">Or install it from GitHub: <code>npm install github:gabrielcpule/mcss-lite#v0.4.1</code>. MCSS-Lite is not on the npm registry.</p>
+        <p class="proto-h-agents"><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md: the rules for agents</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S IN THE BOX: every bag is a brick with one stud per part, so the counts can be counted. -->
+  <section class="proto-h-box" aria-labelledby="h-box-title">
+    <div class="l-container">
+      <div class="proto-h-box__wall">
+        <div class="proto-h-box__intro">
+          <h2 class="proto-h-heading" id="h-box-title">What's in the box</h2>
+          <p class="proto-h-text">Each bag is one brick, with one stud on top for each part inside, so you can count them.</p>
+        </div>
+
+        <section class="proto-h-bag proto-h-bag--layouts" aria-labelledby="h-bag-layouts">
+          <span class="proto-h-studs" aria-hidden="true"><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span></span>
+          <h3 class="proto-h-bag__head" id="h-bag-layouts"><span class="proto-h-bag__count">8</span> Layouts</h3>
+          <ul class="proto-h-parts" role="list">
+            <li><a href="../components/center.html"><code>l-center</code></a></li>
+            <li><a href="../components/cluster.html"><code>l-cluster</code></a></li>
+            <li><a href="../components/container.html"><code>l-container</code></a></li>
+            <li><a href="../components/grid.html"><code>l-grid</code></a></li>
+            <li><a href="../components/section.html"><code>l-section</code></a></li>
+            <li><a href="../components/sidebar.html"><code>l-sidebar</code></a></li>
+            <li><a href="../components/stack.html"><code>l-stack</code></a></li>
+            <li><a href="../components/switcher.html"><code>l-switcher</code></a></li>
+          </ul>
+        </section>
+
+        <section class="proto-h-bag proto-h-bag--components" aria-labelledby="h-bag-components">
+          <span class="proto-h-studs" aria-hidden="true"><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud proto-h-stud--old"></span></span>
+          <h3 class="proto-h-bag__head" id="h-bag-components"><span class="proto-h-bag__count">11</span> Components <span class="proto-h-bag__extra">+ 1 deprecated</span></h3>
+          <ul class="proto-h-parts" role="list">
+            <li><a href="../components/alert.html"><code>c-alert</code></a></li>
+            <li><a href="../components/badge.html"><code>c-badge</code></a></li>
+            <li><a href="../components/button.html"><code>c-button</code></a></li>
+            <li><a href="../components/card.html"><code>c-card</code></a></li>
+            <li><a href="../components/checkbox.html"><code>c-checkbox</code></a></li>
+            <li><a href="../components/form-field.html"><code>c-form-field</code></a></li>
+            <li><a href="../components/icon.html"><code>c-icon</code></a></li>
+            <li><a href="../components/input.html"><code>c-input</code></a></li>
+            <li><a href="../components/modal.html"><code>c-modal</code></a></li>
+            <li><a href="../components/radio.html"><code>c-radio</code></a></li>
+            <li><a href="../components/toggle.html"><code>c-toggle</code></a></li>
+            <li class="proto-h-parts__old"><a href="../components/label.html"><code>c-label</code> <span>deprecated</span></a></li>
+          </ul>
+        </section>
+
+        <section class="proto-h-bag proto-h-bag--utilities" aria-labelledby="h-bag-utilities">
+          <span class="proto-h-studs" aria-hidden="true"><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span><span class="proto-h-stud"></span></span>
+          <h3 class="proto-h-bag__head" id="h-bag-utilities"><span class="proto-h-bag__count">15</span> Utilities</h3>
+          <ul class="proto-h-names" role="list">
+            <li><code>u-text-center</code></li><li><code>u-text-left</code></li><li><code>u-text-right</code></li><li><code>u-hidden</code></li><li><code>u-visible</code></li><li><code>u-invisible</code></li><li><code>u-margin-0</code></li><li><code>u-padding-0</code></li><li><code>u-font-normal</code></li><li><code>u-font-medium</code></li><li><code>u-font-semibold</code></li><li><code>u-font-bold</code></li><li><code>u-font-mono</code></li><li><code>u-truncate</code></li><li><code>u-sr-only</code></li>
+          </ul>
+          <p class="proto-h-bag__more"><a href="../components/utilities.html">The utilities part sheet</a></p>
+        </section>
+
+        <section class="proto-h-bag proto-h-bag--tokens" aria-labelledby="h-bag-tokens">
+          <h3 class="proto-h-bag__head" id="h-bag-tokens"><span class="proto-h-bag__count">113</span> Tokens to use</h3>
+          <span class="proto-h-platestuds" aria-hidden="true"><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span><span class="proto-h-dot proto-h-dot--open"></span></span>
+          <ul class="proto-h-legend" role="list">
+            <li><span class="proto-h-dot" aria-hidden="true"></span> 51 semantic</li>
+            <li><span class="proto-h-dot proto-h-dot--open" aria-hidden="true"></span> 62 component</li>
+          </ul>
+          <p class="proto-h-bag__note">Built on 137 primitives you don't use directly.</p>
+          <ul class="demo-swatches" role="list"><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-primary)"></span><code>--color-action-primary</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-action-danger)"></span><code>--color-action-danger</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-focus-halo)"></span><code>--color-focus-halo</code></li><li class="demo-swatch"><span class="demo-swatch__chip" style="background-color: var(--color-background-callout)"></span><code>--color-background-callout</code></li></ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: the call-out brick rests on the studs of the build it lists. -->
+  <section class="proto-h-step" id="h-step-2" aria-labelledby="h-step-2-title">
+    <div class="l-container proto-h-step__grid">
+      <div class="proto-h-step__head">
+        <p class="proto-h-num" aria-hidden="true">2</p>
+        <h2 class="proto-h-heading" id="h-step-2-title"><span class="u-sr-only">Step 2: </span>Seat the buttons in a cluster</h2>
+        <p class="proto-h-text">l-cluster lines parts up in a row that wraps. Primary goes last; destructive actions get the danger brick.</p>
+      </div>
+      <div class="proto-h-step__build">
+        <div class="demo-callout proto-h-callout">
+          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/cluster.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="4" rx="1"/><rect x="10" y="7" width="5" height="4" rx="1"/><rect x="17" y="7" width="4" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/></svg><code class="demo-part__name">l-cluster</code></a><span class="demo-count"><span aria-hidden="true">4×</span><span class="u-sr-only">, used 4 times in this build</span></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/button.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M5 19h14"/><path d="M8 11h8"/></svg><code class="demo-part__name">c-button</code></a><span class="demo-count"><span aria-hidden="true">11×</span><span class="u-sr-only">, used 11 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Modifiers</span> <code>--primary</code> <code>--secondary</code> <code>--ghost</code> <code>--danger</code> <code>--sm</code> <code>--lg</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;disabled&quot;</code> <code>data-state=&quot;loading&quot;</code></span></span></li></ul>
+          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>u-margin-0</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+        </div>
+        <span class="proto-h-studrow" aria-hidden="true"></span>
+        <figure class="demo-stage proto-h-stage">
+          <div class="l-cluster">
+            <button type="button" class="c-button c-button--ghost">Cancel</button>
+            <button type="button" class="c-button">Save draft</button>
+            <button type="button" class="c-button c-button--primary">Publish post</button>
+          </div>
+
+          <div class="l-cluster">
+            <button type="button" class="c-button c-button--secondary c-button--sm">Export CSV</button>
+            <button type="button" class="c-button c-button--secondary">Duplicate post</button>
+            <button type="button" class="c-button c-button--lg">Create a project</button>
+          </div>
+
+          <div class="l-stack l-stack--sm">
+            <div class="l-cluster">
+              <button type="button" class="c-button" data-state="disabled" aria-disabled="true" aria-describedby="h-schedule-reason">Schedule post</button>
+              <button type="button" class="c-button" data-state="loading" aria-busy="true" aria-disabled="true">Saving…</button>
+            </div>
+            <p class="u-margin-0" id="h-schedule-reason">Add a publish date to schedule the post.</p>
+          </div>
+
+          <div class="l-cluster" role="group" aria-label="View">
+            <button type="button" class="c-button c-button--sm" aria-pressed="true">List</button>
+            <button type="button" class="c-button c-button--sm" aria-pressed="false">Grid</button>
+          </div>
+
+          <button type="button" class="c-button c-button--danger">Delete project</button>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: the next course is laid half a brick over, so the steps bond like a wall. -->
+  <section class="proto-h-step proto-h-step--bond" id="h-step-5" aria-labelledby="h-step-5-title">
+    <div class="l-container proto-h-step__grid">
+      <div class="proto-h-step__head">
+        <p class="proto-h-num" aria-hidden="true">5</p>
+        <h2 class="proto-h-heading" id="h-step-5-title"><span class="u-sr-only">Step 5: </span>Build the form</h2>
+        <p class="proto-h-text">Each field wraps its label, control, help and error. States live in data-state, paired with ARIA.</p>
+      </div>
+      <div class="proto-h-step__build">
+        <div class="demo-callout proto-h-callout">
+          <p class="demo-callout__label">New parts <span class="demo-callout__hint">(× is how many times a part is used in this build)</span></p>
+          <ul class="demo-parts" role="list"><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/form-field.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><rect x="3" y="8" width="18" height="7" rx="1"/><path d="M4 19h10"/></svg><code class="demo-part__name">c-form-field</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">Elements</span> <code>__label</code> <code>__help</code> <code>__error</code></span><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code></span></span></li><li class="demo-part"><span class="demo-part__head"><a class="demo-part__link" href="../components/input.html"><svg class="demo-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 10v4"/></svg><code class="demo-part__name">c-input</code></a><span class="demo-count"><span aria-hidden="true">3×</span><span class="u-sr-only">, used 3 times in this build</span></span></span><span class="demo-part__meta"><span class="demo-part__row"><span class="demo-part__key">States</span> <code>data-state=&quot;error&quot;</code> <code>data-state=&quot;success&quot;</code> <code>data-state=&quot;disabled&quot;</code></span></span></li></ul>
+          <p class="demo-callout__also"><span class="demo-part__key">Also in this build</span> <span class="demo-also"><code>l-stack</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>l-cluster</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span> <span class="demo-also"><code>c-button</code><span class="demo-count"><span aria-hidden="true">1×</span><span class="u-sr-only">, used 1 time in this build</span></span></span></p>
+        </div>
+        <span class="proto-h-studrow" aria-hidden="true"></span>
+        <figure class="demo-stage proto-h-stage">
+          <form class="l-stack" novalidate>
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="h-email">Work email</label>
+              <input class="c-input" id="h-email" type="email" autocomplete="email" aria-describedby="h-email-help">
+              <p class="c-form-field__help" id="h-email-help">We'll send the invite here.</p>
+            </div>
+
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="h-password">Password</label>
+              <input class="c-input" id="h-password" type="password" data-state="error" aria-invalid="true" aria-describedby="h-password-error">
+              <p class="c-form-field__error" id="h-password-error">Use at least 12 characters.</p>
+            </div>
+
+            <div class="c-form-field">
+              <label class="c-form-field__label" for="h-org">Organization</label>
+              <input class="c-input" id="h-org" type="text" value="Acme Inc." data-state="disabled" disabled>
+            </div>
+
+            <div class="l-cluster">
+              <button type="submit" class="c-button c-button--primary">Create account</button>
+            </div>
+          </form>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- The courses not laid on this page. -->
+  <section class="proto-h-rest" aria-labelledby="h-rest-title">
+    <div class="l-container proto-h-rest__inner">
+      <h2 class="proto-h-rest__title" id="h-rest-title">Steps 3–4 and 6–8 follow the same rhythm</h2>
+      <ol class="proto-h-rest__list" role="list">
+        <li><a href="../index.html#step-3"><span class="proto-h-rest__num" aria-hidden="true">3</span><span class="u-sr-only">Step 3: </span>Snap on the badges</a></li>
+        <li><a href="../index.html#step-4"><span class="proto-h-rest__num" aria-hidden="true">4</span><span class="u-sr-only">Step 4: </span>Place cards on the grid</a></li>
+        <li><a href="../index.html#step-6"><span class="proto-h-rest__num" aria-hidden="true">6</span><span class="u-sr-only">Step 6: </span>Fit the checks and switches</a></li>
+        <li><a href="../index.html#step-7"><span class="proto-h-rest__num" aria-hidden="true">7</span><span class="u-sr-only">Step 7: </span>Raise the signals</a></li>
+        <li><a href="../index.html#step-8"><span class="proto-h-rest__num" aria-hidden="true">8</span><span class="u-sr-only">Step 8: </span>Fit the dialog</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- THE MISFIT: the wall has a gap; the agent's c-form hangs askew above it. -->
+  <section class="proto-h-wrong" id="h-wrong" aria-labelledby="h-wrong-title">
+    <div class="l-container l-stack l-stack--lg">
+      <div class="proto-h-wrong__head">
+        <h2 class="proto-h-heading proto-h-wrong__title" id="h-wrong-title">This piece doesn't fit</h2>
+        <p class="proto-h-text">An agent wrote this sign-up form from memory. <code>npx mcss-lite validate</code> found 4 problems, and the rebuilt form passes with 0 issues. Both results come from the real validator, run when this page was built.</p>
+      </div>
+
+      <div class="proto-h-gap" role="img" aria-label="A course of seated bricks with one empty socket. A dashed brick named c-form hangs tilted above the socket, because no contract defines it.">
+        <div class="proto-h-gap__course">
+          <span class="proto-h-brick proto-h-brick--code">l-stack</span>
+          <span class="proto-h-brick proto-h-brick--code proto-h-gap__extra">c-form-field</span>
+          <span class="proto-h-gap__socket"><span class="proto-h-brick proto-h-brick--code proto-h-brick--misfit">c-form</span></span>
+          <span class="proto-h-brick proto-h-brick--code">c-input</span>
+          <span class="proto-h-brick proto-h-brick--code proto-h-gap__extra">c-button</span>
+        </div>
+      </div>
+
+      <div class="proto-h-wrong__pair">
+        <div class="demo-check l-stack">
+          <p class="demo-check__label">What the agent wrote</p>
+          <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">c-form</span>&quot;&gt;
+  &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; placeholder=&quot;Work email&quot;&gt;
+  &lt;p style=&quot;color: #d93025&quot;&gt;We never share your email.&lt;/p&gt;
+  &lt;button class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+          <p class="demo-check__label">validate: 1 error, 3 warnings</p>
+          <ol class="demo-check__issues proto-h-issues" role="list"><li class="demo-check__issue--error"><span class="proto-h-line">Line 1</span> <strong>error</strong> Unknown class &quot;<span class="demo-code__token">c-form</span>&quot;. Only classes from the <span class="demo-code__token">MCSS-Lite</span> contracts exist. <code>[unknown-class]</code></li><li class="demo-check__issue--warning"><span class="proto-h-line">Line 2</span> <strong>warning</strong> This &lt;input&gt; has no label. Add &lt;label for=&quot;<span class="demo-code__token">its-id</span>&quot;&gt; (<span class="demo-code__token">c-form-field__label</span>). The placeholder &quot;Work email&quot; disappears as soon as someone types, so it can't be the label. <code>[label-missing]</code></li><li class="demo-check__issue--warning"><span class="proto-h-line">Line 3</span> <strong>warning</strong> Inline style uses a raw color. Use a token, e.g. var(<span class="demo-code__token">--color-text-default</span>). <code>[raw-color]</code></li><li class="demo-check__issue--warning"><span class="proto-h-line">Line 4</span> <strong>warning</strong> &quot;Submit&quot; says nothing out of context. Name the action and its object, e.g. &quot;Save changes&quot; or &quot;Download the invoice&quot;. <code>[content-vague]</code></li></ol>
+        </div>
+        <div class="proto-h-fit l-stack">
+          <p class="demo-check__label">The piece that fits</p>
+          <figure class="demo-stage">
+            <form class="l-stack">
+              <div class="c-form-field">
+                <label class="c-form-field__label" for="h-signup-email">Work email</label>
+                <input class="c-input" type="email" id="h-signup-email" aria-describedby="h-signup-email-help">
+                <p class="c-form-field__help" id="h-signup-email-help">We never share your email.</p>
+              </div>
+              <div class="l-cluster">
+                <button type="submit" class="c-button c-button--primary">Create account</button>
+              </div>
+            </form>
+          </figure>
+          <pre class="demo-code"><code>&lt;form class=&quot;<span class="demo-code__token">l-stack</span>&quot;&gt;
+  &lt;div class=&quot;<span class="demo-code__token">c-form-field</span>&quot;&gt;
+    &lt;label class=&quot;<span class="demo-code__token">c-form-field__label</span>&quot; for=&quot;<span class="demo-code__token">signup-email</span>&quot;&gt;Work email&lt;/label&gt;
+    &lt;input class=&quot;<span class="demo-code__token">c-input</span>&quot; type=&quot;email&quot; id=&quot;<span class="demo-code__token">signup-email</span>&quot; <span class="demo-code__token">aria-describedby</span>=&quot;<span class="demo-code__token">signup-email-help</span>&quot;&gt;
+    &lt;p class=&quot;<span class="demo-code__token">c-form-field__help</span>&quot; id=&quot;<span class="demo-code__token">signup-email-help</span>&quot;&gt;We never share your email.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;<span class="demo-code__token">l-cluster</span>&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;<span class="demo-code__token">c-button</span> <span class="demo-code__token">c-button--primary</span>&quot;&gt;Create account&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          <p class="proto-h-pass"><svg class="c-icon" aria-hidden="true" focusable="false"><use href="#mcss-icon-check"></use></svg><span><code>validate</code>: 0 issues</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPSTONE: the last course, two bricks. -->
+  <section class="proto-h-end" aria-labelledby="h-end-title">
+    <div class="l-container proto-h-end__grid">
+      <div class="proto-h-end__plate l-stack">
+        <h2 class="proto-h-heading" id="h-end-title">Take the parts with you</h2>
+        <p class="proto-h-text">Point your agent at <code>AGENTS.md</code> before it writes markup, and run <code>npx mcss-lite validate</code> after every edit.</p>
+        <ul class="proto-h-links" role="list">
+          <li><a href="https://github.com/gabrielcpule/mcss-lite/blob/v0.4.1/AGENTS.md">AGENTS.md</a> <span>The rules, every block and every token, for coding agents</span></li>
+          <li><a href="../../dist/mcss-lite.manifest.json">Manifest</a> <span>Every part and token as JSON, for tools</span></li>
+          <li><a href="https://github.com/gabrielcpule/mcss-lite/tree/v0.4.1/dist/figma">Figma variables</a> <span>Import files for the Primitives, Semantic and Component collections</span></li>
+          <li><a href="https://github.com/gabrielcpule/mcss-lite">Source on GitHub</a> <span>Contracts, validator, tests and releases</span></li>
+        </ul>
+        <p class="proto-h-proofline">Every build is checked: text and controls meet WCAG AA contrast in light and dark, every token name from 0.1.0 still exists, and every example on these pages passes the validator.</p>
+        <p class="proto-h-author">Designed and built by <a href="https://www.gabrielpule.work">Gabriel Pule</a>.</p>
+      </div>
+      <div class="proto-h-end__fit l-stack">
+        <h2 class="proto-h-heading proto-h-heading--sm" id="h-fit-title">Is this the right kit?</h2>
+        <div class="demo-pick">
+          <div class="demo-pick__col">
+            <p class="demo-check__label">Good fit</p>
+            <ul class="demo-pick__list">
+              <li>UI written by coding agents: the contracts tell them what exists, and <code>mcss-lite validate</code> checks what they wrote.</li>
+              <li>Server-rendered apps (Rails, Django, Laravel, htmx, Astro): plain classes work in any template, with no runtime JavaScript.</li>
+              <li>Forms, settings and CRUD screens, internal tools and prototypes.</li>
+            </ul>
+          </div>
+          <div class="demo-pick__col demo-pick__col--other">
+            <p class="demo-check__label">Pick something else</p>
+            <ul class="demo-pick__list">
+              <li>Complex widgets such as comboboxes, date pickers and data grids: GitLab Pajamas, Primer or shadcn/ui ship them.</li>
+              <li>A React component API with typed props: shadcn/ui or Primer React.</li>
+              <li>Dense data products, or a brand that must not look like building bricks.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="u-sr-only" role="status" data-copy-status></p>
+</main>

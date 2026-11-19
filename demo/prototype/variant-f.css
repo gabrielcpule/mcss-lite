@@ -1,0 +1,644 @@
+/* Variant F, "Exploded view" (prototype, throwaway). Every selector is scoped under .proto-f.
+   Tokens only. One section per screen: the hero fills what the top bar leaves, every other section
+   is at least one screen tall and top-aligned. */
+
+/* ---------- Shared ---------- */
+
+.proto-f :where(h1, h2, h3, p) {
+  margin: 0;
+}
+
+.proto-f-h2 {
+  margin-block-end: var(--space-3);
+  font-size: clamp(var(--font-size-2xl), 3.2vw, var(--font-size-4xl));
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.proto-f :where(.proto-f-box, .proto-f-step, .proto-f-misfit, .proto-f-end) {
+  min-block-size: 100svh;
+  padding-block: var(--space-12);
+}
+
+.proto-f ::selection {
+  background-color: var(--color-background-callout);
+  color: var(--color-text-default);
+}
+
+.proto-f a {
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- Hero: the claim, then the exploded drawing across the page ---------- */
+
+.proto-f-hero {
+  display: flex;
+  /* The top bar is 70px tall at desktop widths: 4rem + 0.25rem + 0.125rem. */
+  min-block-size: calc(100svh - var(--space-16) - var(--space-1) - var(--space-1) / 2);
+  padding-block: var(--space-8) var(--space-6);
+}
+
+.proto-f-hero__inner {
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-10);
+  inline-size: 100%;
+}
+
+.proto-f-hero__head {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.proto-f-hero__title {
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* Each line rises out of its own mask on load. */
+.proto-f-line {
+  display: block;
+  overflow: clip;
+  padding-block: 0.14em 0.12em;
+  margin-block: -0.14em -0.12em;
+}
+
+.proto-f-line > span {
+  display: inline-block;
+}
+
+.proto-f-hero__side {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+.proto-f-hero__lede {
+  max-inline-size: 58ch;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
+}
+
+.proto-f .proto-f-install {
+  inline-size: 100%;
+  margin: 0;
+}
+
+.proto-f-hero__alt {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.proto-f-hero__alt code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.proto-f-hero__link a,
+.proto-f-box__foot a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* The drawing: loose parts in a 1:1 call-out, a dashed assembly arrow, the seated card. */
+.proto-f-drawing {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+  justify-items: stretch;
+}
+
+.proto-f-loose {
+  padding: var(--space-5);
+  background-color: var(--color-background-callout);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-f-loose__label {
+  margin-block-end: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.proto-f-loose__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-f-loose__part {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.proto-f-loose__part--card .c-card {
+  --card-padding: var(--space-4);
+}
+
+.proto-f-loose .c-button {
+  white-space: nowrap;
+}
+
+.proto-f-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.proto-f-sample {
+  display: flex;
+  align-items: center;
+}
+
+/* A layout has no look of its own: drawn as a dashed outline holding two bricks. */
+.proto-f-outline {
+  display: inline-flex;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: var(--border-width-thick) dashed color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+  border-radius: var(--border-radius-base);
+}
+
+.proto-f-outline > span {
+  inline-size: var(--space-8);
+  block-size: var(--space-5);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+}
+
+.proto-f-drawing__arrow {
+  justify-self: center;
+  inline-size: var(--space-16);
+  block-size: auto;
+  color: var(--color-text-default);
+  transform: rotate(90deg);
+}
+
+.proto-f .proto-f-drawing__stage {
+  padding: var(--space-6);
+  overflow: visible;
+}
+
+/* ---------- What's in the box: the parts list at the back of the booklet ---------- */
+
+.proto-f-box {
+  padding-block: var(--space-10);
+  background-color: var(--color-background-default);
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.proto-f-box__head {
+  margin-block-end: var(--space-8);
+}
+
+.proto-f-box__intro {
+  max-inline-size: 64ch;
+  color: var(--color-text-muted);
+}
+
+.proto-f-ledger {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.proto-f-ledger__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3) var(--space-5);
+  align-items: baseline;
+  padding-block: var(--space-3);
+}
+
+.proto-f-ledger__row + .proto-f-ledger__row {
+  border-block-start: var(--border-width-thin) solid var(--color-border-default);
+}
+
+.proto-f-ledger__count {
+  min-inline-size: 4ch;
+}
+
+.proto-f-ledger__num {
+  font-family: var(--font-family-display);
+  font-size: clamp(var(--font-size-4xl), 5vw, var(--font-size-5xl));
+  font-weight: var(--font-weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.proto-f-ledger__plus {
+  display: block;
+  white-space: nowrap;
+  margin-block-start: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-subtle);
+}
+
+.proto-f-ledger__title {
+  font-size: var(--font-size-xl);
+}
+
+.proto-f-ledger__note {
+  margin-block-start: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.proto-f-chips,
+.proto-f .proto-f-swatches {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-f .proto-f-swatches {
+  gap: var(--space-3) var(--space-5);
+}
+
+/* Each chip is a part you can pick up: keylined, on its brick edge, and it seats when pressed. */
+.proto-f-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-2);
+  background-color: var(--color-background-raised);
+  border: var(--border-width-thick) solid var(--color-border-keyline);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-text-default);
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.proto-f .proto-f-chip code {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-f-chip__more {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.proto-f-chip:hover {
+  background-color: var(--color-background-interactive-hover);
+  border-color: var(--color-action-primary);
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-2px);
+}
+
+.proto-f-chip:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.proto-f-box__foot {
+  margin-block-start: var(--space-4);
+}
+
+/* ---------- Steps: the head beside the build; parts above, the seated build below ---------- */
+
+.proto-f-step {
+  padding-block: var(--space-10);
+}
+
+.proto-f .proto-f-callout {
+  padding: var(--space-4);
+}
+
+.proto-f-step__grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.proto-f-step__text {
+  max-inline-size: 48ch;
+  color: var(--color-text-muted);
+}
+
+.proto-f-step__rest {
+  max-inline-size: 48ch;
+  margin-block-start: var(--space-5);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-strong);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.proto-f-step__rest a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.proto-f-step__build {
+  display: grid;
+  min-inline-size: 0;
+}
+
+/* The form keeps a field's reading width on the full-width stage. */
+.proto-f-seat form {
+  max-inline-size: 36rem;
+}
+
+.proto-f-callout__parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), auto));
+  justify-content: start;
+  gap: var(--space-3) var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proto-f-callout__part {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.proto-f-drop {
+  inline-size: var(--space-6);
+  block-size: var(--space-10);
+  margin: var(--space-1) 0 var(--space-1) var(--space-8);
+  color: var(--color-text-default);
+}
+
+.proto-f .proto-f-stage {
+  padding: var(--space-5) var(--space-6);
+}
+
+/* ---------- The misfit ---------- */
+
+.proto-f-misfit {
+  padding-block: var(--space-10) var(--space-8);
+  background-color: var(--color-background-raised);
+  border-block: var(--border-width-thick) solid var(--color-border-keyline);
+}
+
+.proto-f-misfit__inner {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.proto-f-misfit__head {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.proto-f-misfit__head > *,
+.proto-f-misfit__pair > * {
+  min-inline-size: 0;
+}
+
+.proto-f .proto-f-misfit__drawing {
+  max-inline-size: 20rem;
+}
+
+.proto-f .proto-f-guess {
+  margin: 0;
+  max-inline-size: none;
+}
+
+.proto-f .proto-f-misfit__bad {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.proto-f-misfit__pair :is(.demo-code, .demo-check__issues) {
+  font-size: var(--font-size-sm);
+}
+
+.proto-f-misfit__side {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* ---------- Close ---------- */
+
+.proto-f-end .demo-end__plate {
+  padding: var(--space-8) var(--space-6);
+}
+
+/* ---------- Wider screens ---------- */
+
+@media (min-width: 48rem) {
+  .proto-f-ledger__row {
+    grid-template-columns: 7rem 13rem minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .proto-f-chips,
+  .proto-f .proto-f-swatches {
+    grid-column: auto;
+    align-self: center;
+  }
+}
+
+@media (min-width: 60rem) {
+  .proto-f-drawing__arrow {
+    inline-size: 100%;
+    transform: none;
+  }
+
+  /* One 12-column grid and one split line for the whole page: text on columns 1 to 7, the
+     second column from column 8, the same gutter everywhere. */
+  .proto-f-hero__head,
+  .proto-f-drawing,
+  .proto-f-step__grid,
+  .proto-f-step__build,
+  .proto-f-misfit__head,
+  .proto-f .proto-f-misfit__pair,
+  .proto-f-end .demo-end__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+
+  .proto-f :is(.proto-f-hero__head, .proto-f-step__grid, .proto-f-misfit__head, .proto-f-misfit__pair, .demo-end__grid) > :first-child {
+    grid-column: 1 / span 7;
+  }
+
+  .proto-f :is(.proto-f-hero__head, .proto-f-step__grid, .proto-f-misfit__head, .proto-f-misfit__pair, .demo-end__grid) > :nth-child(2) {
+    grid-column: 8 / -1;
+  }
+
+  .proto-f-step__grid {
+    row-gap: 0;
+  }
+
+  .proto-f .proto-f-step__build,
+  .proto-f-step__build > .proto-f-stage {
+    grid-column: 1 / -1;
+  }
+
+  .proto-f-step__build > .proto-f-drop {
+    grid-column: 8 / -1;
+  }
+
+  .proto-f-drawing > .proto-f-loose { grid-column: 1 / span 7; }
+  .proto-f-drawing > .proto-f-drawing__arrow { grid-column: 8; }
+  .proto-f-drawing > .proto-f-drawing__stage { grid-column: 9 / -1; }
+
+  .proto-f-misfit__side {
+    justify-content: flex-end;
+  }
+}
+
+/* ---------- Motion: the hero's entrance, and one dealt moment ---------- */
+
+@keyframes proto-f-rise {
+  from { transform: translateY(105%); }
+}
+
+@keyframes proto-f-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-3));
+  }
+}
+
+@keyframes proto-f-settle {
+  from { transform: scale(0.98); }
+}
+
+/* Exploded to seated: each part floats above its slot behind a dashed outline, drops 2px past it
+   onto its brick edge, and settles. The text is readable at every frame. */
+@keyframes proto-f-seat {
+  0% {
+    transform: translateY(calc(var(--proto-f-lift, 1) * var(--proto-f-lift-unit, var(--space-4)) * -1));
+    outline-color: color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+  }
+  80% {
+    transform: translateY(2px);
+    outline-color: color-mix(in srgb, var(--color-border-keyline) 55%, transparent);
+  }
+  100% {
+    transform: none;
+    outline-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .proto-f-line > span {
+    animation: proto-f-rise 700ms var(--ease-out-expo) both;
+  }
+
+  .proto-f-line + .proto-f-line > span {
+    animation-delay: 80ms;
+  }
+
+  .proto-f-enter > * {
+    animation: proto-f-up 520ms var(--ease-out-expo) both;
+    animation-delay: 420ms;
+  }
+
+  .proto-f-enter > :nth-child(2) { animation-delay: 480ms; }
+  .proto-f-enter > :nth-child(3) { animation-delay: 540ms; }
+  .proto-f-enter > :nth-child(4) { animation-delay: 600ms; }
+
+  .proto-f-drawing {
+    animation: proto-f-settle 900ms var(--ease-out-expo) 120ms both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .proto-f .proto-f-seat {
+      overflow: visible;
+      view-timeline: --proto-f-seat block;
+    }
+
+    .proto-f-seat form > * {
+      position: relative;
+      background-color: var(--color-background-default);
+      outline: var(--border-width-thick) dashed transparent;
+      outline-offset: var(--space-1);
+      border-radius: var(--border-radius-base);
+      animation: proto-f-seat linear both;
+      animation-timeline: --proto-f-seat;
+      animation-range: entry 10% entry 100%;
+    }
+
+    .proto-f-seat form > :nth-child(1) { --proto-f-lift: 4; }
+    .proto-f-seat form > :nth-child(2) { --proto-f-lift: 3; }
+    .proto-f-seat form > :nth-child(3) { --proto-f-lift: 2; }
+    .proto-f-seat form > :nth-child(4) { --proto-f-lift: 1; }
+
+    @media (max-width: 59.99rem) {
+      .proto-f-seat { --proto-f-lift-unit: var(--space-3); }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-f-chip {
+    transition-property: background-color, border-color;
+  }
+
+  .proto-f-chip:hover,
+  .proto-f-chip:active {
+    transform: none;
+  }
+}
+
+/* The misfit cross is one size down from a step numeral, so the heading and evidence fit one screen. */
+.proto-f-misfit .demo-step__numeral {
+  margin-block-end: var(--space-1);
+  font-size: clamp(2.5rem, 5vw, 3.25rem);
+}
+
+/* Between 60rem and 80rem the claim's side column is narrow: the lede steps down a size. */
+@media (min-width: 60rem) and (max-width: 79.99rem) {
+  .proto-f-hero__lede {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+  }
+}
+
+.proto-f-step .demo-step__numeral {
+  font-size: clamp(4rem, 9vw, 5rem);
+}
+
+.proto-f-fit-title {
+  font-size: var(--font-size-xl);
+}
+
+/* The fit column is five columns wide: its two lists stack. */
+.proto-f-end .demo-pick {
+  grid-template-columns: minmax(0, 1fr);
+}
