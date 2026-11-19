@@ -84,25 +84,35 @@ ${PAGES.map(([href, label]) => `          <li><a href="${rel}${href}"${href === 
 
 // Head assets shared by every page. The theme is set before first paint, so a saved dark theme never
 // flashes light; the library's @import files are preloaded so they don't wait for index.css. demo.js is
-// deferred but render-blocking, so the sticky chrome is measured before the first frame.
+// deferred and never blocks rendering: demo.css's fallbacks for the sticky chrome's heights hold until it
+// measures them, and they only steer sticky offsets and scroll padding, so nothing moves on load.
 const LIB_FILES = ['tokens', 'global', 'layout', 'components', 'utilities'];
 export const demoHead = (rel) => `<script>(() => { try { const t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('mcss-lite-demo-theme'); if (['light', 'dark', 'auto'].includes(t)) document.documentElement.dataset.theme = t; } catch {} })();</script>
   <link rel="preload" href="${rel}fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
 ${LIB_FILES.map((f) => `  <link rel="preload" href="${rel}../src/${f}.css" as="style">`).join('\n')}
   <link rel="stylesheet" href="${rel}../index.css">
   <link rel="stylesheet" href="${rel}demo.css">
-  <script src="${rel}demo.js" defer blocking="render"></script>`;
+  <script src="${rel}demo.js" defer></script>`;
 
 // Files that read best on GitHub (rendered Markdown, a browsable folder), pinned to this release's tag.
 const repoUrl = (pkg, kind, path) => `https://github.com/gabrielcpule/mcss-lite/${kind}/v${pkg.version}/${path}`;
 
 // One count per bag, shared by the overview's packing list and the parts inventory so the two can't
 // disagree: deprecated parts aren't parts to build with, and the utilities block counts its classes.
+// byStatus counts the list's contracts per status (stable + beta = count).
 export const partTally = (list) => {
-  if (list.length === 1 && list[0].layer === 'utility') return { count: list[0].classes.length, unit: 'classes', deprecated: 0 };
-  const count = list.filter((c) => c.status !== 'deprecated').length;
-  return { count, unit: count === 1 ? 'part' : 'parts', deprecated: list.length - count };
+  if (list.length === 1 && list[0].layer === 'utility') return { count: list[0].classes.length, unit: 'classes', deprecated: 0, byStatus: {} };
+  const byStatus = {};
+  for (const c of list) byStatus[c.status ?? 'stable'] = (byStatus[c.status ?? 'stable'] ?? 0) + 1;
+  const deprecated = byStatus.deprecated ?? 0;
+  const count = list.length - deprecated;
+  return { count, unit: count === 1 ? 'part' : 'parts', deprecated, byStatus };
 };
+
+// The kit's parts: every layout and component. The utilities block is a bag of classes, not a part, so it
+// is never counted here. Both box lids (the overview's part count, the inventory's counts per status) read
+// this one tally.
+export const kitTally = (contracts) => partTally(contracts.filter((c) => c.layer === 'layout' || c.layer === 'component'));
 
 export const partCount = (list) => {
   const { count, unit, deprecated } = partTally(list);
@@ -342,7 +352,7 @@ export function buildDemo(root, pkg, contracts, tokenRows) {
   const inventory = classInventory(contracts);
   for (const u of UTILITY_EXAMPLES) if (!inventory.has(u)) throw new Error(`demo packing list names unknown utility ${u}`);
   // The piece count on the box lid: every layout and every live component; tokens are the ones you use.
-  const partTotal = layouts.length + components.length;
+  const partTotal = kitTally(contracts).count;
   const tokenTotal = semantic.length + componentTokens.length;
 
   const sheet = (c) => `components/${c.file.replace(/\.json$/, '.html')}`;
@@ -418,13 +428,15 @@ ${indent(stage, 2)}
       ? `\n<div class="l-cluster demo-stage-actions">\n  <button type="button" class="c-button c-button--secondary" data-open-dialog="demo-dialog">Open as a real dialog</button>\n</div>`
       : '';
     // The baseplate is built plainly; its own switch, on the stage's top edge, pulls just this build apart
-    // with the Exploded view's motion (CSS reads the switch, so it works without JS too).
+    // with the Exploded view's motion (CSS reads the switch, so it works without JS too). Its id comes from
+    // the step's, so every wide step gets its own switch; demo.js wires each one by data-plate-explode.
+    const plateId = `step-${n}-explode`;
     const plateSwitch = s.wide
       ? `<div class="demo-plate-switch">
   <div class="c-toggle">
-    <input class="c-toggle__input" type="checkbox" role="switch" id="plate-explode" aria-describedby="plate-explode-hint">
-    <label class="c-toggle__label" for="plate-explode">Exploded view of this build</label>
-    <p class="c-toggle__hint u-sr-only" id="plate-explode-hint">Outlines each layout in this build and tags every part. The Exploded view switch in the build bar does the same for the whole page.</p>
+    <input class="c-toggle__input" type="checkbox" role="switch" id="${plateId}" aria-describedby="${plateId}-hint" data-plate-explode>
+    <label class="c-toggle__label" for="${plateId}">Exploded view of this build</label>
+    <p class="c-toggle__hint u-sr-only" id="${plateId}-hint">Outlines each layout in this build and tags every part. The Exploded view switch in the build bar does the same for the whole page.</p>
   </div>
 </div>\n`
       : '';

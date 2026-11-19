@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createValidator } from './validate.mjs';
 import { stateLabel, classInventory } from './contracts.mjs';
 import { loadIcons, inlineSprite, ICON_PREFIX } from './icons.mjs';
-import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, tokenNote, ARROW_SVG, partTagger, staggerArt, stickyBar, lid } from './demo.mjs';
+import { glyph, esc, indent, demoBar, demoHead, codeTokens, realDialog, partCount, kitTally, tokenNote, ARROW_SVG, partTagger, staggerArt, stickyBar, lid } from './demo.mjs';
 
 // Markup and token tables shorter than this stay open: folding them costs more than it saves.
 const FOLD_MIN = 4;
@@ -462,7 +462,10 @@ ${statuses.map((st) => {
   }).join('\n')}
 </ul>`;
     if (validate(legend).length) throw new Error('inventory head: the sticker specimen must validate cleanly');
-    const counts = statuses.map((st) => [contracts.filter((c) => c.status === st).length, STATUS_TEXT[st].toLowerCase()]);
+    // The lid counts parts (layouts and components) per status, from the same tally as the overview's lid,
+    // so stable + beta is the overview's part count; the utilities keep their own count of classes.
+    const { byStatus } = kitTally(contracts);
+    const counts = Object.keys(LEGEND).filter((st) => byStatus[st]).map((st) => [byStatus[st], STATUS_TEXT[st].toLowerCase()]);
     const head = boxHead({
       id: 'inventory-title',
       lines: ['Parts', 'inventory'],

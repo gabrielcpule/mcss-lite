@@ -1,5 +1,5 @@
 // Demo behaviour: theme switch, copy button, native dialog, sticky chrome, step rail, agent menu, step-in
-// motion, Exploded view and page turns. No dependencies. Loaded deferred and render-blocking.
+// motion, Exploded view and page turns. No dependencies. Loaded deferred.
 //
 // The three booklet pages (Overview, Parts inventory, Read before you build) turn in place: a click on a
 // header link fetches the next page, swaps everything under the header inside a same-document view
@@ -27,7 +27,9 @@
   let pressing = false;
   document.addEventListener('keydown', () => { viaKeys = true; }, true);
   document.addEventListener('pointerdown', () => { viaKeys = false; pressing = true; }, true);
-  document.addEventListener('pointerup', () => { pressing = false; }, true);
+  // A press can end without a pointerup: a touch that turns into a scroll, or a drag, cancels it instead.
+  ['pointerup', 'pointercancel', 'dragend'].forEach((type) => document.addEventListener(type, () => { pressing = false; }, true));
+  addEventListener('blur', () => { pressing = false; });
   ['wheel', 'touchstart'].forEach((type) => document.addEventListener(type, () => { viaKeys = false; }, { capture: true, passive: true }));
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
   const frames = (fn) => requestAnimationFrame(() => requestAnimationFrame(fn));
@@ -94,8 +96,9 @@
   }
 
   // Everything below is wired to one page's content. It returns a teardown that removes every listener
-  // (one AbortController), disconnects every observer and cancels pending frames.
-  const initPage = (scope) => {
+  // (one AbortController), disconnects every observer and cancels pending frames. pin names the step the
+  // page has just landed on (a load, or Back/Forward, to a #fragment that scrolled to it), if any.
+  const initPage = (scope, { pin = null } = {}) => {
     const abort = new AbortController();
     const { signal } = abort;
     const on = (target, type, fn, options = {}) => target.addEventListener(type, fn, { ...options, signal });
@@ -218,8 +221,9 @@
         const tops = row.map((c) => c.getBoundingClientRect().top);
         return row.length > 1 && tops.every((t) => Math.abs(t - tops[0]) < 2) ? row : null;
       };
-      // A jump to a stud keeps that step current until the reader scrolls on.
-      let pinned = location.hash ? { id: location.hash.slice(1), y: null } : null;
+      // A jump to a stud keeps that step current until the reader scrolls on. So does landing on a
+      // #fragment; a restored scroll position is not a jump, so it pins nothing.
+      let pinned = pin ? { id: pin, y: null } : null;
       studs.forEach((a, id) => on(a, 'click', () => { pinned = { id, y: null }; }));
       const pick = () => {
         if (pinned && studs.has(pinned.id)) {
@@ -293,17 +297,17 @@
     // along, frame by frame, so the part being read stays put. Flipped from the keyboard, the change lands
     // at once.
     const explode = scope.querySelector('#explode');
-    const plate = scope.querySelector('#plate-explode');
-    // Step 1 is pulled apart when the page's switch is on or its own is. Its switch shows on (and rests)
-    // while the page's is on, and returns to its own setting when the page's goes off.
-    let plateOwn = Boolean(plate?.checked);
-    const syncPlate = () => {
-      if (!plate) return;
+    // A wide step (step 1) is pulled apart when the page's switch is on or its own is. Each one's switch
+    // shows on (and rests) while the page's is on, and returns to its own setting when the page's goes off.
+    const plates = [...$$('[data-plate-explode]')].map((input) => ({ input, own: input.checked }));
+    const syncPlates = () => {
       const all = Boolean(explode?.checked);
-      plate.checked = all || plateOwn;
-      plate.disabled = all;
+      plates.forEach((p) => {
+        p.input.checked = all || p.own;
+        p.input.disabled = all;
+      });
     };
-    syncPlate();
+    syncPlates();
     const chrome = '.demo-bar, .demo-buildbar';
     // The element under the middle of the screen (or just beside it, if the middle is a big box or a
     // gap), never the sticky bars. A point that lands in a layout's padding or gap hits the layout itself,
@@ -335,7 +339,9 @@
         document.body.classList.add('demo-instant');
         frames(() => document.body.classList.remove('demo-instant'));
       }
+      // A follow still running from the last flip stops here, and hands scroll anchoring back first.
       cancelAnimationFrame(follow);
+      root.style.overflowAnchor = '';
       const anchor = scrollY > 0 && anchorAt();
       if (!anchor) return; // at the very top the page grows downwards and the reader stays at the top
       const top = anchor.getBoundingClientRect().top;
@@ -350,8 +356,8 @@
       };
       follow = requestAnimationFrame(step);
     };
-    if (explode) on(explode, 'change', () => { pullApart(); syncPlate(); });
-    if (plate) on(plate, 'change', () => { plateOwn = plate.checked; pullApart(); });
+    if (explode) on(explode, 'change', () => { pullApart(); syncPlates(); });
+    plates.forEach((p) => on(p.input, 'change', () => { p.own = p.input.checked; pullApart(); }));
 
     // Step-in motion: the arrow draws and the misfit drops once a step is in view (the parts themselves
     // settle with a CSS scroll timeline). Content is visible without it, and the CSS moves nothing unless
@@ -383,7 +389,11 @@
     };
   };
 
-  let teardown = initPage(document.body);
+  // A reload or Back/Forward restores the reader's scroll position (the browser does, or demo.js below on
+  // the booklet pages), so only a fresh load to a #fragment has landed on it.
+  const navType = performance.getEntriesByType?.('navigation')[0]?.type;
+  const restoring = navType === 'reload' || navType === 'back_forward';
+  let teardown = initPage(document.body, { pin: !restoring && location.hash ? location.hash.slice(1) : null });
 
   // ---------- Page turns ----------
   // Only the three booklet pages turn, and only from the header's links. Part sheets and every other link
@@ -403,7 +413,8 @@
   const newKey = () => Math.random().toString(36).slice(2);
   const scrolls = new Map();
   let entryKey = history.state?.key || newKey();
-  // Between Back/Forward and the swap, the entry has moved but the old page is still showing: no stamps.
+  // Between Back/Forward and the swap that answers it (or the next turn's swap, or a cancel), the entry has
+  // moved but the old page is still showing: no stamps.
   let turning = false;
   const stamp = () => {
     if (turning) return;
@@ -413,8 +424,7 @@
   stamp();
   try { history.scrollRestoration = 'manual'; } catch {}
   // A reload, or Back to this document after it left memory, lands where the reader was.
-  const navType = performance.getEntriesByType?.('navigation')[0]?.type;
-  if (typeof restoreTo === 'number' && (navType === 'reload' || navType === 'back_forward')) {
+  if (typeof restoreTo === 'number' && restoring) {
     requestAnimationFrame(() => scrollTo({ top: restoreTo, left: 0, behavior: 'instant' }));
   }
   let stampTimer = 0;
@@ -491,26 +501,43 @@
     h1.focus({ preventScroll: true });
   };
 
+  // One turn is live at a time. seq numbers every navigation intent; a turn whose number is no longer the
+  // latest stops wherever it is (before the swap, or inside a view transition that has not swapped yet).
+  // pending is the turn still on its way, until its swap: new intents are measured against its target,
+  // because the page showing (current) is about to change.
   let seq = 0;
   let active = null;
-  // Turn to url. push: a new history entry (a click); otherwise Back/Forward already moved the entry.
-  const turnTo = async (url, { push, key, scroll = 0 }) => {
-    const id = ++seq;
+  let pending = null;
+  const heading = () => (pending ? pending.to : current);
+  // A new intent supersedes the turn in flight and cuts short any turn still animating.
+  const cancelTurn = () => {
+    seq += 1;
+    pending = null;
+    active?.skipTransition();
+  };
+  // Turn to url. push: a new history entry (a click); otherwise Back/Forward already moved the entry, and
+  // scroll is where the reader left it (none: land on the #fragment, or at the top).
+  const turnTo = async (url, { push, key, scroll }) => {
+    cancelTurn();
+    const id = seq;
+    const to = order(url);
+    pending = { id, to };
+    const live = () => id === seq;
     const bail = () => (push ? location.assign(url.href) : location.reload());
     let doc;
     try {
       doc = new DOMParser().parseFromString(await fetchPage(url), 'text/html');
       if (!doc.querySelector('.demo-bar') || !doc.querySelector('main')) throw new Error('Not a booklet page');
     } catch {
-      bail();
+      if (live()) bail(); // a turn that was superseded has nothing left to fall back to
       return;
     }
-    if (id !== seq) return; // a later turn took over
-    const to = order(url);
+    if (!live()) return; // a later intent took over
     const dir = to > current ? 'forward' : 'back';
     if (push) stamp();
     let pushed = false;
     const update = () => {
+      if (!live()) return; // superseded while the transition captured the old page: swap nothing
       teardown();
       teardown = () => {};
       swap(doc);
@@ -520,11 +547,17 @@
         pushed = true;
       } else {
         entryKey = key;
-        turning = false;
       }
+      // The entry and the page showing agree again, whichever turn moved the entry.
+      pending = null;
+      turning = false;
       current = to;
-      scrollTo({ top: scroll, left: 0, behavior: 'instant' });
-      teardown = initPage(document.body);
+      let pin = null;
+      const landing = !push && typeof scroll !== 'number' && url.hash && document.getElementById(url.hash.slice(1));
+      if (typeof scroll === 'number') scrollTo({ top: scroll, left: 0, behavior: 'instant' });
+      else if (landing) { landing.scrollIntoView({ behavior: 'instant' }); pin = landing.id; }
+      else scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      teardown = initPage(document.body, { pin });
       focusHeading();
     };
     const fail = () => (pushed ? location.reload() : bail());
@@ -545,13 +578,25 @@
     });
   };
 
-  // A plain left click on a header link to another booklet page turns in place; anything else (a new
-  // tab, a modifier key, the page you're on) is left to the browser.
+  // A plain left click on a header link to a booklet page turns in place; anything else (a new tab, a
+  // modifier key) is left to the browser. A click on the page a turn is already heading to does nothing;
+  // a click on the page still showing, while a turn is on its way, cancels that turn.
   document.addEventListener('click', (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const url = turnLink(e.target);
-    if (!url || order(url) === current) return;
+    if (!url) return;
     e.preventDefault();
+    const to = order(url);
+    if (to === heading()) return;
+    if (to === current) {
+      cancelTurn();
+      // Back/Forward had already moved the entry away from this page: give the page an entry again.
+      if (turning) {
+        try { history.pushState({ key: entryKey, scroll: scrollY }, '', url.href); } catch {}
+        turning = false;
+      }
+      return;
+    }
     turnTo(url, { push: true });
   });
 
@@ -563,6 +608,9 @@
     const scroll = scrolls.get(key) ?? e.state?.scroll;
     if (to < 0) { location.reload(); return; }
     if (to === current) {
+      // Back to the page still showing: a turn on its way to another page is called off.
+      if (pending) cancelTurn();
+      turning = false;
       // A fragment link adds an entry without state (the browser scrolls); traversals carry a position.
       entryKey = key || newKey();
       if (typeof scroll === 'number') scrollTo({ top: scroll, left: 0, behavior: 'instant' });
@@ -570,6 +618,6 @@
     }
     turning = true;
     clearTimeout(stampTimer);
-    turnTo(new URL(location.href), { push: false, key: key || newKey(), scroll: typeof scroll === 'number' ? scroll : 0 });
+    turnTo(new URL(location.href), { push: false, key: key || newKey(), scroll: typeof scroll === 'number' ? scroll : undefined });
   });
 })();
