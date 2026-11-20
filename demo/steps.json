@@ -1,5 +1,5 @@
 {
-  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it.",
+  "$comment": "Order of the build shown in demo/index.html. Every stable block in components/*.json must be introduced by exactly one step (npm run check enforces it). author.caseStudy: set it to the case study URL once it is published; the closing block links to it. Step layout: \"wide\": true (the baseplate) or layout \"inset\" put the stage under the step at full width; layout \"sheet\" steps come in pairs that sit side by side; layout \"split\" (the default when layout is left out) puts the stage beside the call-out. Any other layout value fails the build.",
   "author": {
     "name": "Gabriel Pule",
     "url": "https://www.gabrielpule.work",
@@ -8,7 +8,7 @@
   "steps": [
     {
       "title": "Lay the baseplate",
-      "text": "Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Each dashed outline below is one layout.",
+      "text": "Every class says what it is: l- for layouts, c- for components, u- for utilities. Layouts own all spacing and components never set their own outer margin, so any part fits anywhere. Switch the build below to its exploded view to see each layout as a dashed outline.",
       "blocks": [
         "l-section",
         "l-container",
@@ -27,7 +27,8 @@
         "l-cluster",
         "c-button"
       ],
-      "example": "button.html"
+      "example": "button.html",
+      "layout": "sheet"
     },
     {
       "title": "Snap on the badges",
@@ -35,7 +36,8 @@
       "blocks": [
         "c-badge"
       ],
-      "example": "badge.html"
+      "example": "badge.html",
+      "layout": "sheet"
     },
     {
       "title": "Place cards on the grid",

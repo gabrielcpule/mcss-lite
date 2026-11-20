@@ -106,3 +106,26 @@ test('each snippet on a page has its own radio and checkbox group names', () => 
 test('namespaceIds suffixes group names as well as ids', () => {
   assert.equal(namespaceIds('<input type="radio" name="size" id="s">', 'hd'), '<input type="radio" name="size-hd" id="s-hd">');
 });
+
+// Regression: the inventory lid counted the utilities block as a stable part and the deprecated part with
+// the live ones, so its statuses added up to more than the overview's part count.
+test('the overview and inventory lids count the same parts', () => {
+  const lidCounts = (html) => Object.fromEntries([...html.match(/<p class="demo-lid__count">(.*?)<\/p>/)[1]
+    .matchAll(/<span class="demo-lid__num">(\d+)<\/span> ([a-z]+)/g)].map(([, n, unit]) => [unit, Number(n)]));
+  const overview = lidCounts(files.get('demo/index.html'));
+  const inventory = lidCounts(files.get('demo/status.html'));
+  const parts = contracts.filter((c) => c.layer === 'layout' || c.layer === 'component');
+  const deprecated = parts.filter((c) => c.status === 'deprecated').length;
+  assert.equal(overview.parts, parts.length - deprecated);
+  assert.equal((inventory.stable ?? 0) + (inventory.beta ?? 0), overview.parts);
+  assert.equal(inventory.deprecated ?? 0, deprecated);
+});
+
+test('every wide step has its own Exploded view switch', () => {
+  const html = files.get('demo/index.html');
+  const switches = [...html.matchAll(/<input\b[^>]*\bdata-plate-explode\b[^>]*>/g)].map((m) => m[0].match(/\bid="([^"]+)"/)[1]);
+  const steps = JSON.parse(readFileSync(join(root, 'demo/steps.json'), 'utf8'));
+  const wide = (steps.steps ?? steps).filter((s) => s.wide).length;
+  assert.equal(switches.length, wide);
+  assert.equal(new Set(switches).size, switches.length);
+});
