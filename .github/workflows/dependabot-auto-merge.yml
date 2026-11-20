@@ -1,0 +1,73 @@
+name: Dependabot auto-merge
+
+# Merges Dependabot patch/minor PRs once they pass the same gate as CI
+# ("Contracts, tokens and package"). Majors and anything unclassified are
+# left for a manual review.
+#
+# main has no ruleset, so GitHub's own auto-merge would merge before CI
+# finished. Instead this job runs the checks itself and merges directly if
+# they pass. Dependabot only updates GitHub Actions here (there are no npm
+# dependencies), and merging those doesn't change package.json, so it never
+# cuts a release.
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    name: Check and merge
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - id: meta
+        uses: dependabot/fetch-metadata@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: gate
+        name: Patch or minor?
+        env:
+          TYPE: ${{ steps.meta.outputs.update-type }}
+          DEPS: ${{ steps.meta.outputs.dependency-names }}
+        run: |
+          case "$TYPE" in
+            version-update:semver-patch|version-update:semver-minor)
+              echo "ok=true" >> "$GITHUB_OUTPUT" ;;
+            *)
+              echo "ok=false" >> "$GITHUB_OUTPUT"
+              echo "::notice::${TYPE:-unclassified} update ($DEPS); leaving it for a manual review." ;;
+          esac
+
+      # Checks out the PR merged into main, so this tests what main will be.
+      - if: steps.gate.outputs.ok == 'true'
+        uses: actions/checkout@v7
+      - if: steps.gate.outputs.ok == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Tests, contracts, validation and package
+        if: steps.gate.outputs.ok == 'true'
+        run: |
+          npm test
+          npm run check
+          node bin/mcss-lite.mjs validate components demo
+          npm run check:package
+
+      - name: Merge
+        if: steps.gate.outputs.ok == 'true'
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # --match-head-commit: don't merge if Dependabot pushed again meanwhile
+        # (that push starts its own run).
+        run: gh pr merge --squash --match-head-commit "$HEAD_SHA" "$PR_URL"
