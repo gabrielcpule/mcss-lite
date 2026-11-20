@@ -398,12 +398,18 @@
   // ---------- Page turns ----------
   // Only the three booklet pages turn, and only from the header's links. Part sheets and every other link
   // navigate as before (Chromium cross-fades those with its cross-document view transition).
-  const PAGES = ['index.html', 'status.html', 'content.html'];
+  // A page is matched with or without .html: the repo links status.html, the portfolio serves clean URLs
+  // (/design-system, /design-system/status) with no trailing slash on the folder.
+  const PAGES = ['index', 'status', 'content'];
   const base = new URL('.', document.currentScript?.src || location.href);
   const order = (url) => {
     const u = url && new URL(url, location.href);
-    if (!u || u.origin !== base.origin || !u.pathname.startsWith(base.pathname)) return -1;
-    return PAGES.indexOf(u.pathname.slice(base.pathname.length) || 'index.html');
+    if (!u || u.origin !== base.origin) return -1;
+    const path = u.pathname;
+    if (path === base.pathname || `${path}/` === base.pathname) return 0;
+    if (!path.startsWith(base.pathname)) return -1;
+    const name = path.slice(base.pathname.length).replace(/\/$/, '').replace(/\.html$/, '');
+    return PAGES.indexOf(name || 'index');
   };
   let current = order(location.href);
   if (current < 0 || !bar) return;
