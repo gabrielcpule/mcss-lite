@@ -1,6 +1,8 @@
 version: 2
 updates:
-  # Keeps actions/checkout and actions/setup-node current.
+  # Keeps actions/checkout and actions/setup-node current. There are no npm
+  # dependencies, so this is the only ecosystem. Patch/minor updates merge
+  # themselves via .github/workflows/dependabot-auto-merge.yml.
   - package-ecosystem: github-actions
     directory: /
     schedule:
